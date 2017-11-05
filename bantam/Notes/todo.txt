@@ -9,22 +9,15 @@
 NEW ITEMS
 
 * payload generation
+
 * snippet storage
 
-* Highlight ping square red when client ping failed
-
-* Send back os version on ping
-* make pings required before communication?
-
 * send dyamic payload win/linux based on stored OS variable
-
-* selected listview index just needs to lock onto the shell location
-
-* make function to get local ip from like icanhazip.com ?
 
 * start shell code with shell start shell end tags with html comment
 
 * enum for the imagelist icons
+
 * enum for the returned data !
 
 * global cfg for stuff to change the signatures, request vars, encrpytion, match encryption options etc, ultimate dynamics nigga

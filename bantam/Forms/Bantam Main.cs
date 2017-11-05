@@ -45,9 +45,7 @@ namespace bantam_php
                 Thread t = new Thread(getInitDataThread);
                 t.Start(host);
             }
-            //richTextBox1.Text = executePHP("https://innerheaven.timse.net/shell.php", System.Web.HttpUtility.UrlEncode("phpinfo();"));
         }
-
 
         //These are called/invoked when a thread needs to modify a UI element that exists in the main thread.
         #region THREAD_SAFE_GUI_CALLBACKS
