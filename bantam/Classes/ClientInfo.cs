@@ -40,6 +40,7 @@ namespace bantam_php
             Group = data[(int)PHP_Helper.INIT_DATA_VARS.GROUP];
             PHP_Version = data[(int)PHP_Helper.INIT_DATA_VARS.PHP_VERSION];
             Windows = (data[(int)PHP_Helper.INIT_DATA_VARS.OS] == "win") ? true : false;
+            Down = false;
         }
 
         /// <summary>
@@ -51,6 +52,7 @@ namespace bantam_php
         {
             Ping = ping;
             Windows = windows;
+            Down = false;
             Files = new TreeView();
         }
 
@@ -133,5 +135,10 @@ namespace bantam_php
         /// 
         /// </summary>
         public Stopwatch PingStopwatch { get; set; }
+
+        /// <summary>
+        /// If true the client target/host is DOWN
+        /// </summary>
+        public bool Down { get; set; } = false;
     }
 }

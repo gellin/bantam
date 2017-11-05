@@ -47,6 +47,18 @@ namespace bantam_php
             }
         }
 
+        public bool validTarget()
+        {
+            if (string.IsNullOrEmpty(target) == false)
+            {
+                if (Clients[target].Down == false)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         //These are called/invoked when a thread needs to modify a UI element that exists in the main thread.
         #region THREAD_SAFE_GUI_CALLBACKS
 
@@ -88,6 +100,8 @@ namespace bantam_php
                 listViewClients.Items.Add(new ListViewItem(new string[] { host, pingMS }));
                 int lastIndex = listViewClients.Items.Count - 1;
                 listViewClients.Items[lastIndex].BackColor = System.Drawing.Color.Red;
+
+                Clients[host].Down = true;
             }
             else
             {
@@ -381,7 +395,6 @@ namespace bantam_php
                                     {
                                         //TODO update their client cache here user changed clients
                                     }
-
                                 }
                                 else
                                 {
@@ -419,6 +432,11 @@ namespace bantam_php
         /// <param name="title"></param>
         public void startRichTextBoxThread(string code, string title)
         {
+            if (validTarget() == false)
+            {
+                return;
+            }
+
             Thread t = new Thread(this.richTextboxDialogThread);
             t.Start(new string[] { target, code, title });
         }
@@ -476,6 +494,10 @@ namespace bantam_php
 
                         //add clients info to our local data handler
                         Clients[(string)host].update(pingWatch.ElapsedMilliseconds, data);
+                    }
+                    else
+                    {
+                        addClientMethod((string)host, "-");
                     }
                 }
                 else
@@ -544,7 +566,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void pingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -575,7 +597,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void unameaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -596,7 +618,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void phpinfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -644,6 +666,23 @@ namespace bantam_php
 
                 target = lvi.SubItems[0].Text;
 
+                //TODO: investigate - new possible issue
+                if (validTarget() == false)
+                {
+                    //clear the ui of invalid data
+                    lblDynCWD.Text = "";
+                    lblDynFreeSpace.Text = "";
+                    lblDynHDDSpace.Text = "";
+                    lblDynServerIP.Text = "";
+                    lblDynUname.Text = "";
+                    lblDynUser.Text = "";
+                    lblDynWebServer.Text = "";
+                    lblDynGroup.Text = "";
+                    lblDynPHP.Text = "";
+                    txtBoxFileBrowserPath.Text = "";
+                    return;
+                }
+
                 lblDynCWD.Text = Clients[target].CWD;
                 lblDynFreeSpace.Text = !string.IsNullOrEmpty(Clients[target].FreeHDDSpace) ? GUI_Helper.FormatBytes(Convert.ToDouble(Clients[target].FreeHDDSpace)) : "0";
                 lblDynHDDSpace.Text = !string.IsNullOrEmpty(Clients[target].TotalHDDSpace) ? GUI_Helper.FormatBytes(Convert.ToDouble(Clients[target].TotalHDDSpace)) : "0";
@@ -678,7 +717,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -715,7 +754,7 @@ namespace bantam_php
         /// </summary>
         private void start_FileBrowser()
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -765,7 +804,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void fileBrowserTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -810,7 +849,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void btnFileBrowserRefresh_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -858,7 +897,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void renameFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -885,7 +924,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -910,10 +949,11 @@ namespace bantam_php
         /// <param name="e"></param>
         private void copyFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
+
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
             string newFileName = GUI_Helper.Prompt.RenameFileDialog(fileName, "Copying File");
@@ -936,7 +976,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private void btnFilesBrowserGo_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(txtBoxFileBrowserPath.Text))
+            if (validTarget() == false)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtBoxFileBrowserPath.Text))
             {
                 return;
             }
@@ -962,7 +1007,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -986,7 +1031,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsNetuserMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1009,7 +1054,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1032,7 +1077,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1055,7 +1100,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1073,7 +1118,7 @@ namespace bantam_php
 
         private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1096,7 +1141,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1122,7 +1167,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsHostsMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1145,7 +1190,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1168,7 +1213,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linusVersionMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1191,7 +1236,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxHostsMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1214,7 +1259,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1237,7 +1282,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void shadowToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
@@ -1260,7 +1305,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void passwdToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(target))
+            if (validTarget() == false)
             {
                 return;
             }
