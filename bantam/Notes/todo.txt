@@ -1,7 +1,5 @@
 ﻿BUGS
 
-* If the client is down it shouldn't send any requests in the file browser view
-
 * Pinging a client that is down should reload the client data
 
 * when you use the text box to change the file directory, you can no longer double click on any items/folders etc and get the 
