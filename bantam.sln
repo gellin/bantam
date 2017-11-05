@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bantam", "bantam\bantam.csproj", "{0C15F855-5B53-4F41-BACD-15C09BE7B60B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6FFDE1ED-23CB-45ED-B793-E7C71BEF9E69}"
+	ProjectSection(SolutionItems) = preProject
+		php payloads.txt = php payloads.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C15F855-5B53-4F41-BACD-15C09BE7B60B}.Debug|x86.ActiveCfg = Debug|x86
+		{0C15F855-5B53-4F41-BACD-15C09BE7B60B}.Debug|x86.Build.0 = Debug|x86
+		{0C15F855-5B53-4F41-BACD-15C09BE7B60B}.Release|x86.ActiveCfg = Release|x86
+		{0C15F855-5B53-4F41-BACD-15C09BE7B60B}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C000F71-83F2-4751-A06B-263472FEBF32}
+	EndGlobalSection
+EndGlobal

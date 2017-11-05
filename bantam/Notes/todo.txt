@@ -1,0 +1,44 @@
+﻿BUGS
+
+* If the client is down it shouldn't send any requests in the file browser view
+
+* Pinging a client that is down should reload the client data
+
+* when you use the text box to change the file directory, you can no longer double click on any items/folders etc and get the 
+
+NEW ITEMS
+
+* payload generation
+* snippet storage
+
+* Highlight ping square red when client ping failed
+
+* Send back os version on ping
+* make pings required before communication?
+
+* send dyamic payload win/linux based on stored OS variable
+
+* selected listview index just needs to lock onto the shell location
+
+* make function to get local ip from like icanhazip.com ?
+
+* start shell code with shell start shell end tags with html comment
+
+* enum for the imagelist icons
+* enum for the returned data !
+
+* global cfg for stuff to change the signatures, request vars, encrpytion, match encryption options etc, ultimate dynamics nigga
+
+* make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
+
+* uploader, finish editor, auto deploy upload features such as ysm 
+
+* response encryption in the payload options?
+
+* set some data into the tag of the file for get file infos extended (size etc)
+
+* if click CWD (link) on info page make it pull that up in the filebrowser
+
+* change read file to download file, make edit file with cancel button
+
+* make file browser load stuff when click tab
