@@ -15,7 +15,20 @@ namespace bantam_php
 {
     public partial class BantamMain : Form
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string CONFIG_FILE = "bantam.xml";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string target;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<string, ClientInfo> Clients = new Dictionary<string, ClientInfo>();
 
         /// <summary>
@@ -26,27 +39,41 @@ namespace bantam_php
         {
             InitializeComponent();
 
-            XmlDocument xmlDoc = new XmlDocument();
-            // Todo: Check if bantam.xml actually exist before trying to load
-            xmlDoc.Load("bantam.xml");
-
-            XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
-
-            //loop through every server
-            foreach (XmlNode itemNode in itemNodes)
+            //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
+            if (File.Exists(CONFIG_FILE))
             {
-                //Hot select target onload up
-                string host = itemNode.Attributes["host"].Value;
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(CONFIG_FILE);
 
-                //add the host to our client class containing infos
-                Clients.Add(host, new ClientInfo());
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
-                //execute ping on current host iteration
-                Thread t = new Thread(getInitDataThread);
-                t.Start(host);
+                if (itemNodes.Count > 0)
+                {
+                    //loop through every server
+                    foreach (XmlNode itemNode in itemNodes)
+                    {
+                        //Hot select target onload up
+                        string host = itemNode.Attributes["host"].Value;
+
+                        //add the host to our client class containing infos
+                        Clients.Add(host, new ClientInfo());
+
+                        //execute ping on current host iteration
+                        Thread t = new Thread(getInitDataThread);
+                        t.Start(host);
+                    }
+                }
+            } 
+            else
+            {
+                MessageBox.Show("Config file (" + CONFIG_FILE + ") is missing.", "Oh... Shied..");
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool validTarget()
         {
             if (string.IsNullOrEmpty(target) == false)
@@ -1116,6 +1143,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
@@ -1364,6 +1396,7 @@ namespace bantam_php
             }
             catch (Exception ex)
             {
+                
                 //if this borkes, you can probably mark client as red/strikethrough text (possibly remove)
                 //MessageBox.Show(url + " is down.");
             }
@@ -1393,6 +1426,12 @@ namespace bantam_php
         private void BantamMain_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void generatePayloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PayloadGenerator payloadgenerator = new PayloadGenerator();
+            payloadgenerator.Show();
         }
     }
 }

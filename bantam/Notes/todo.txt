@@ -2,7 +2,7 @@
 
 * Pinging a client that is down should reload the client data
 
-* when you use the text box to change the file directory, you can no longer double click on any items/folders etc and get the 
+* when you use the text box to change the file directory, you can no longer double click on any items/folders etc, (it doesn't get the correct path from the treeview nodes)
 
 NEW ITEMS
 
@@ -18,7 +18,7 @@ NEW ITEMS
 
 * enum for the returned data !
 
-* global cfg for stuff to change the signatures, request vars, encrpytion, match encryption options etc, ultimate dynamics nigga
+* global cfg for stuff to change the signatures, request vars, encrpytion, match encryption options etc
 
 * make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
@@ -31,5 +31,3 @@ NEW ITEMS
 * if click CWD (link) on info page make it pull that up in the filebrowser
 
 * change read file to download file, make edit file with cancel button
-
-* make file browser load stuff when click tab

