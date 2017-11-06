@@ -749,28 +749,25 @@ namespace bantam_php
                 return;
             }
 
-            //copy a backup of the current file tree view into clients
-            //if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0)
-           // {
-                //if (Clients[target].Files.Nodes != treeViewFileBrowser.Nodes)
-                //{
-                   // treeViewFileBrowser.Nodes.Clear();
-               // }
-           // }
-
             if (tabControl1.SelectedTab == tabPageFiles)
             {
-                //Set the saved treeview from client data
-                if (treeViewFileBrowser.Nodes.Count > 0
-                || (Clients[target].Files.Nodes != null && Clients[target].Files.Nodes.Count > 0))
+                //if the gui's treeview is empty and the cached treeview data is not empty
+                if (treeViewFileBrowser.Nodes.Count == 0 
+                && Clients[target].Files.Nodes != null
+                && Clients[target].Files.Nodes.Count > 0)
                 {
+                    //populate the treeview from cache
                     GUI_Helper.CopyNodes(Clients[target].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
                 }
                 else
                 {
-                    start_FileBrowser();
+                    //if the gui treeview is empty, start the filebrowser and display it
+                    if (treeViewFileBrowser.Nodes.Count == 0)
+                    {
+                        start_FileBrowser();
+                    }
                 }
             }
         }
