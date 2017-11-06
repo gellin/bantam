@@ -260,12 +260,22 @@ namespace bantam_php
                                     {
                                         TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                     else
                                     {
                                         //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
                                         TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                 }
                                 else
@@ -275,12 +285,22 @@ namespace bantam_php
                                     {
                                         TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                     else
                                     {
                                         //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
                                         TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 6);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                 }
                             }
@@ -347,12 +367,22 @@ namespace bantam_php
                                         {
                                             TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
                                         }
                                         else
                                         {
                                             //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
                                             TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
                                         }
                                     }
                                     else
@@ -362,12 +392,22 @@ namespace bantam_php
                                         {
                                             TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
                                         } 
                                         else
                                         {
                                             //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
                                             TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 6);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
                                         }
                                     }
                                 }
@@ -417,6 +457,11 @@ namespace bantam_php
                                     {
                                         TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                     else
                                     {
@@ -428,7 +473,11 @@ namespace bantam_php
                                     //if the user switched targets we do not update the live filebrowser because it is for a different target
                                     if (hostTarget == target)
                                     {
-                                        tn.Nodes.Add("", columns[0], 6);
+                                        TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
+                                        if (string.IsNullOrEmpty(columns[2]) == false)
+                                        {
+                                            lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                        }
                                     }
                                     else
                                     {

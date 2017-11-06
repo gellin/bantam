@@ -204,7 +204,7 @@ namespace bantam_php
 				            'name' => $item->getBasename(),
 				            'path' => $item->getPath() . '/' . $item->getBasename(),
                             'perms' => PermsColor($item->getPathname()),
-				            'size' => '',
+				            'size' => $item->getSize(),
 			            );
 
 			            if ($item->isFile()) {

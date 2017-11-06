@@ -727,6 +727,7 @@
             this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 6);
             this.treeViewFileBrowser.Name = "treeViewFileBrowser";
             this.treeViewFileBrowser.SelectedImageIndex = 0;
+            this.treeViewFileBrowser.ShowNodeToolTips = true;
             this.treeViewFileBrowser.Size = new System.Drawing.Size(464, 348);
             this.treeViewFileBrowser.TabIndex = 0;
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
