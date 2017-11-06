@@ -457,13 +457,13 @@
             // hTTPFloodToolStripMenuItem
             // 
             this.hTTPFloodToolStripMenuItem.Name = "hTTPFloodToolStripMenuItem";
-            this.hTTPFloodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hTTPFloodToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.hTTPFloodToolStripMenuItem.Text = "HTTP Flood";
             // 
             // sYNFloodToolStripMenuItem
             // 
             this.sYNFloodToolStripMenuItem.Name = "sYNFloodToolStripMenuItem";
-            this.sYNFloodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.sYNFloodToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.sYNFloodToolStripMenuItem.Text = "SYN Flood";
             // 
             // tabControl1
@@ -710,7 +710,7 @@
             this.btnFileBrowserRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileBrowserRefresh.Location = new System.Drawing.Point(400, 360);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(78, 20);
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(70, 20);
             this.btnFileBrowserRefresh.TabIndex = 1;
             this.btnFileBrowserRefresh.Text = "Refresh";
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
@@ -727,7 +727,7 @@
             this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 6);
             this.treeViewFileBrowser.Name = "treeViewFileBrowser";
             this.treeViewFileBrowser.SelectedImageIndex = 0;
-            this.treeViewFileBrowser.Size = new System.Drawing.Size(472, 348);
+            this.treeViewFileBrowser.Size = new System.Drawing.Size(464, 348);
             this.treeViewFileBrowser.TabIndex = 0;
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
