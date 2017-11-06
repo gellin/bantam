@@ -1477,10 +1477,10 @@ namespace bantam_php
 
         }
 
-        private void generatePayloadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PayloadGenerator payloadgenerator = new PayloadGenerator();
-            payloadgenerator.Show();
+            BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
+            backdoorGenerator.Show();
         }
     }
 }

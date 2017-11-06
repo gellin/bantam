@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace bantam_php
 {
-    public partial class PayloadGenerator : Form
+    public partial class BackdoorGenerator : Form
     {
-        public PayloadGenerator()
+        public BackdoorGenerator()
         {
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
