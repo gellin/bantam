@@ -4,35 +4,28 @@
 
 * when you use the text box to change the file directory, you can no longer double click on any items/folders etc, (it doesn't get the correct path from the treeview nodes)
 
+* New bugs in backdoor generator
+
 NEW ITEMS
 
-* payload generation
+* ? - payload generation - started
 
-* snippet storage
+* ? - start shell code with shell start shell end tags with html comment - "maybe don't need? or make it a backdoor generation/cfg feature"
 
-* send dyamic payload win/linux based on stored OS variable
+* ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 
-* start shell code with shell start shell end tags with html comment
+* ? - response encryption in the payload options?
 
-* enum for the imagelist icons
+* 10 - SQL Browser
 
-* enum for the returned data !
+* 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
-* global cfg for stuff to change the signatures, request vars, encrpytion, match encryption options etc
+* 4 - snippet storage "upload script, ysm, other tidbits"
 
-* make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
+* 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
-* uploader, finish editor, auto deploy upload features such as ysm 
+* 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hosts" file, and etc that share names)
 
-* response encryption in the payload options?
+* 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 
-* set some data into the tag of the file for get file infos extended (size etc)
-
-* if click CWD (link) on info page make it pull that up in the filebrowser
-
-* change read file to download file, make edit file with cancel button
-
-
-
-@error_reporting(0);
-@ini_set('log_errors', 0);
+* 1 - if click CWD (link) on info page make it pull that up in the filebrowser

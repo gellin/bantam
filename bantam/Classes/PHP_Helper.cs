@@ -50,6 +50,7 @@ namespace bantam_php
             return Regex.Replace(clean, @"\s+", " ");
         }
 
+
         /// <summary>
         /// 
         /// </summary>

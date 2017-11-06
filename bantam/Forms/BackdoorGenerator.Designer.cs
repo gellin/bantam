@@ -32,6 +32,9 @@
             this.chkbxUseCookie = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.lblMethod = new System.Windows.Forms.Label();
+            this.lblRequestVarName = new System.Windows.Forms.Label();
+            this.txtBoxVarName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // chkbxDisableLogging
@@ -43,6 +46,7 @@
             this.chkbxDisableLogging.TabIndex = 0;
             this.chkbxDisableLogging.Text = "Disable Error Logging";
             this.chkbxDisableLogging.UseVisualStyleBackColor = true;
+            this.chkbxDisableLogging.CheckStateChanged += new System.EventHandler(this.chkbxDisableLogging_CheckStateChanged);
             // 
             // chkbxUseCookie
             // 
@@ -53,6 +57,7 @@
             this.chkbxUseCookie.TabIndex = 1;
             this.chkbxUseCookie.Text = "Cookie Request Data";
             this.chkbxUseCookie.UseVisualStyleBackColor = true;
+            this.chkbxUseCookie.CheckStateChanged += new System.EventHandler(this.chkbxUseCookie_CheckStateChanged);
             // 
             // richTextBox1
             // 
@@ -70,17 +75,49 @@
             "assert",
             "create_function",
             "native anonymous",
-            "tmp include"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 276);
+            "tmp include",
+            "preg_replace"});
+            this.comboBox1.Location = new System.Drawing.Point(80, 272);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(142, 21);
+            this.comboBox1.Size = new System.Drawing.Size(123, 21);
             this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // lblMethod
+            // 
+            this.lblMethod.AutoSize = true;
+            this.lblMethod.Location = new System.Drawing.Point(9, 276);
+            this.lblMethod.Name = "lblMethod";
+            this.lblMethod.Size = new System.Drawing.Size(46, 13);
+            this.lblMethod.TabIndex = 4;
+            this.lblMethod.Text = "Method:";
+            // 
+            // lblRequestVarName
+            // 
+            this.lblRequestVarName.AutoSize = true;
+            this.lblRequestVarName.Location = new System.Drawing.Point(9, 306);
+            this.lblRequestVarName.Name = "lblRequestVarName";
+            this.lblRequestVarName.Size = new System.Drawing.Size(57, 13);
+            this.lblRequestVarName.TabIndex = 5;
+            this.lblRequestVarName.Text = "Var Name:";
+            // 
+            // txtBoxVarName
+            // 
+            this.txtBoxVarName.Location = new System.Drawing.Point(80, 303);
+            this.txtBoxVarName.Name = "txtBoxVarName";
+            this.txtBoxVarName.Size = new System.Drawing.Size(123, 20);
+            this.txtBoxVarName.TabIndex = 6;
+            this.txtBoxVarName.Text = "command";
+            this.txtBoxVarName.TextChanged += new System.EventHandler(this.txtBoxVarName_TextChanged);
             // 
             // BackdoorGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 365);
+            this.Controls.Add(this.txtBoxVarName);
+            this.Controls.Add(this.lblRequestVarName);
+            this.Controls.Add(this.lblMethod);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.chkbxUseCookie);
@@ -98,5 +135,8 @@
         private System.Windows.Forms.CheckBox chkbxUseCookie;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label lblMethod;
+        private System.Windows.Forms.Label lblRequestVarName;
+        private System.Windows.Forms.TextBox txtBoxVarName;
     }
 }

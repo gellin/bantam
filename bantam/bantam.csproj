@@ -65,11 +65,11 @@
   <ItemGroup>
     <Compile Include="Classes\ClientInfo.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
-    <Compile Include="Forms\PayloadGenerator.cs">
+    <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\PayloadGenerator.Designer.cs">
-      <DependentUpon>PayloadGenerator.cs</DependentUpon>
+    <Compile Include="Forms\BackdoorGenerator.Designer.cs">
+      <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\PHP_Helper.cs" />
     <Compile Include="Forms\BrowserView.cs">
@@ -87,8 +87,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\PayloadGenerator.resx">
-      <DependentUpon>PayloadGenerator.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BackdoorGenerator.resx">
+      <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
