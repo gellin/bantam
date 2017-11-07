@@ -244,13 +244,13 @@ namespace bantam_php
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
-                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
 
                     if (rows.Length > 0 && rows != null)
                     {
                         foreach (string row in rows)
                         {
-                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
 
                             if (columns != null && columns.Length - 2 > 0)
                             {
@@ -351,13 +351,13 @@ namespace bantam_php
 
                     if (result != null && result.Length > 0)
                     {
-                        string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                        string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
 
                         if (rows.Length > 0 && rows != null)
                         {
                             foreach (string row in rows)
                             {
-                                string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                                string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
 
                                 if (columns != null && columns.Length - 2 > 0)
                                 {
@@ -441,13 +441,13 @@ namespace bantam_php
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
-                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
 
                     if (rows.Length > 0 && rows != null)
                     {
                         foreach (string row in rows)
                         {
-                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.RemoveEmptyEntries);
+                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
 
                             if (columns != null && columns.Length - 2 > 0)
                             {
@@ -488,7 +488,7 @@ namespace bantam_php
                             }
                             else
                             {
-                                MessageBox.Show(columns[0]);
+                                //MessageBox.Show(columns[0]);
                             }
                         }
                         tn.Expand();

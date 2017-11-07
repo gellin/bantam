@@ -204,23 +204,25 @@ namespace bantam_php
 			            $tmp = array(
 				            'name' => $item->getBasename(),
 				            'path' => $item->getPath() . '/' . $item->getBasename(),
-                            'perms' => PermsColor($item->getPathname()),
-				            'size' => $item->getSize(),
+                            'perms' => PermsColor($item->getPathname())
 			            );
 
 			            if ($item->isFile()) {
 				            $files[] = array_merge($tmp, array(
-					            'type' => 'file'
+					            'type' => 'file',
+                                'size' => $item->getSize()
 				            ));
 			            }
 			            elseif ($item->isLink()) {
 				            $dirs[] = array_merge($tmp, array(
 					            'type' => 'link',
+                                'size' => ''
 				            ));
 			            }
 			            elseif ($item->isDir()) {
 				            $dirs[] = array_merge($tmp, array(
-					            'type' => 'dir'
+					            'type' => 'dir',
+                                'size' => ''
 				            ));
 			            }
 		            }" + sortCode + @"

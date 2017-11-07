@@ -26,9 +26,8 @@ namespace bantam_php
             Ping = ping;
             Files = new TreeView();
 
-            //TODO
-
-            CWD = data?[(int)PHP_Helper.INIT_DATA_VARS.CWD];
+ 
+            CWD = data[(int)PHP_Helper.INIT_DATA_VARS.CWD];
             FreeHDDSpace = data?[(int)PHP_Helper.INIT_DATA_VARS.FREE_SPACE];
             TotalHDDSpace = data[(int)PHP_Helper.INIT_DATA_VARS.TOTAL_SPACE];
             UnameRelease = data[(int)PHP_Helper.INIT_DATA_VARS.RELEASE];
@@ -42,7 +41,6 @@ namespace bantam_php
             PHP_Version = data[(int)PHP_Helper.INIT_DATA_VARS.PHP_VERSION];
             Windows = (data[(int)PHP_Helper.INIT_DATA_VARS.OS] == "win") ? true : false;
             Down = false;
-
         }
 
         /// <summary>
