@@ -70,6 +70,19 @@ namespace bantam_php
         /// <param name="callbackArgs"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+        public static DynamicThreadArgs GetThreadArgs(string targetHost, string code)
+        {
+            return new DynamicThreadArgs(targetHost, code);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="targetHost"></param>
+        /// <param name="code"></param>
+        /// <param name="callbackArgs"></param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public static DynamicThreadArgs GetThreadArgs(string targetHost, string code, object[] callbackArgs, Action<object> callback)
         {
             return new DynamicThreadArgs(targetHost, code, callback, callbackArgs);

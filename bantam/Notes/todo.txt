@@ -24,8 +24,6 @@ NEW ITEMS
 
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
-* 5 - Create the "eval" feature that is already in the GUI, Prompt a dialog with a Richtext editor for you to type in custom php code to be eval'd
-
 * 4 - snippet storage "upload script, ysm, other tidbits"
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?

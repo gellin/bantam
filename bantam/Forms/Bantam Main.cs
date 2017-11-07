@@ -643,6 +643,37 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void evalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false)
+            {
+                return;
+            }
+
+            bool showResponse = false;
+            string code = GUI_Helper.Prompt.RichTextBoxEvalEditor("PHP Eval Editor - " + target, "", ref showResponse);
+
+            if (string.IsNullOrEmpty(code) == false)
+            {
+                if(showResponse)
+                {
+                    //execute the code and show it in a richtextbox
+                    startRichTextBoxThread(code, "PHP Eval Result - " + target);
+                }
+                else
+                {
+                    //execute the code and do not show the result
+                    Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
+                    t.Start((object)DynamicThreadArgs.GetThreadArgs(target, code));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
@@ -682,7 +713,10 @@ namespace bantam_php
             }
 
             //setup main thread
-            DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, PHP_Helper.getBasicCurl("http://redtube.com/"), guiCallbackBrowserViewMethod, new object[] { target });
+            DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, 
+                                                                 PHP_Helper.getBasicCurl("http://redtube.com/"), 
+                                                                 guiCallbackBrowserViewMethod, 
+                                                                 new object[] { target });
 
             //start main thread
             Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
