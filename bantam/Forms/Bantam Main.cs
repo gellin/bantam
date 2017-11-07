@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq;
 
 namespace bantam_php
 {
@@ -563,7 +564,9 @@ namespace bantam_php
                     string[] data = { null };
                     data = result.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
 
-                    if (data != null && data.Length > 0)
+                    var initDataReturnedVarCount = Enum.GetValues(typeof(PHP_Helper.INIT_DATA_VARS)).Cast<PHP_Helper.INIT_DATA_VARS>().Max();
+
+                    if (data != null && data.Length == (int)initDataReturnedVarCount + 1)
                     {
                         //invokes a thread safe call from the GUI thread so we can safely update the GUI's listview
                         addClientMethod((string)host, pingWatch.ElapsedMilliseconds.ToString());
