@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ClientInfo.cs" />
+    <Compile Include="Classes\DynamicPrompts.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
     <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>

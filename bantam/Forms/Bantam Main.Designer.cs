@@ -139,7 +139,7 @@
             this.listViewClients.Location = new System.Drawing.Point(3, 3);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(213, 431);
+            this.listViewClients.Size = new System.Drawing.Size(213, 430);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -160,7 +160,7 @@
             this.fileBrowserToolStripMenuItem,
             this.softwareToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(153, 136);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(138, 114);
             // 
             // phpToolStripMenuItem
             // 
@@ -477,7 +477,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 431);
+            this.tabControl1.Size = new System.Drawing.Size(484, 434);
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -504,7 +504,7 @@
             this.tabPageInfo.Location = new System.Drawing.Point(4, 22);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 405);
+            this.tabPageInfo.Size = new System.Drawing.Size(476, 408);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;

@@ -103,7 +103,7 @@ namespace bantam_php
                 this.Invoke(new guiHelperRichTextboxPromptDelegate(guiHelperRichTextBoxPromptMethod), new Object[] { title, text });
                 return;
             }
-            GUI_Helper.Prompt.RichTextBoxDialog(title, text);
+            DynamicPrompts.RichTextBoxDialog(title, text);
         }
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace bantam_php
 
                 if (string.IsNullOrEmpty(resultTxt) == false)
                 {
-                    GUI_Helper.Prompt.RichTextBoxDialog((string)requestData[2], resultTxt);
+                    DynamicPrompts.RichTextBoxDialog((string)requestData[2], resultTxt);
                 }
                 else
                 {
@@ -651,7 +651,7 @@ namespace bantam_php
             }
 
             bool showResponse = false;
-            string code = GUI_Helper.Prompt.RichTextBoxEvalEditor("PHP Eval Editor - " + target, "", ref showResponse);
+            string code = DynamicPrompts.RichTextBoxEvalEditor("PHP Eval Editor - " + target, "", ref showResponse);
 
             if (string.IsNullOrEmpty(code) == false)
             {
@@ -1017,7 +1017,7 @@ namespace bantam_php
 
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
-            string newFileName = GUI_Helper.Prompt.RenameFileDialog(fileName, "Renaming File");
+            string newFileName = DynamicPrompts.RenameFileDialog(fileName, "Renaming File");
 
             if (newFileName != "")
             {
@@ -1069,7 +1069,7 @@ namespace bantam_php
 
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
-            string newFileName = GUI_Helper.Prompt.RenameFileDialog(fileName, "Copying File");
+            string newFileName = DynamicPrompts.RenameFileDialog(fileName, "Copying File");
 
             if (newFileName != "")
             {

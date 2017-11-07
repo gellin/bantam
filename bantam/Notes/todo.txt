@@ -6,13 +6,9 @@
 
 * New bugs in backdoor generator
 
-* I seemed to have broken the windows file browser? on my c drive?
-
 * size bug on larger files via tooltip
 
 NEW ITEMS
-
-* ? - payload generation - started
 
 * ? - start shell code with shell start shell end tags with html comment - "maybe don't need? or make it a backdoor generation/cfg feature"
 
@@ -22,7 +18,13 @@ NEW ITEMS
 
 * 10 - SQL Browser
 
+* 8 - payload generation - started
+
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
+
+* 6 - Send Via cookie, when xml config says options something something == cookie, and make new feature to edit active host and send via cookie, and show current method on info page?, store current method in client data
+
+* 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 
 * 4 - snippet storage "upload script, ysm, other tidbits"
 
