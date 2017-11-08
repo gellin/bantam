@@ -70,7 +70,7 @@ namespace bantam_php
                         }
 
                         //if the request method is specified in the XML and set to cookie
-                        if (string.IsNullOrEmpty(requestMethod) 
+                        if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie")
                         {
                             Clients[host].SendDataViaCookie = true;
@@ -1486,6 +1486,7 @@ namespace bantam_php
                 //send the commands via [GET] & [COOKIE]
                 if (Clients[url].SendDataViaCookie)
                 {
+                    request.Method = "GET";
                     request.CookieContainer = new CookieContainer();
                     request.CookieContainer.SetCookies(new Uri(url), postData);
                 }
