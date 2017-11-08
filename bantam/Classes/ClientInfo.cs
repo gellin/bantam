@@ -26,7 +26,6 @@ namespace bantam_php
             Ping = ping;
             Files = new TreeView();
 
- 
             CWD = data[(int)PHP_Helper.INIT_DATA_VARS.CWD];
             FreeHDDSpace = data?[(int)PHP_Helper.INIT_DATA_VARS.FREE_SPACE];
             TotalHDDSpace = data[(int)PHP_Helper.INIT_DATA_VARS.TOTAL_SPACE];
@@ -40,7 +39,6 @@ namespace bantam_php
             Group = data[(int)PHP_Helper.INIT_DATA_VARS.GROUP];
             PHP_Version = data[(int)PHP_Helper.INIT_DATA_VARS.PHP_VERSION];
             Windows = (data[(int)PHP_Helper.INIT_DATA_VARS.OS] == "win") ? true : false;
-            Down = false;
         }
 
         /// <summary>
@@ -52,7 +50,7 @@ namespace bantam_php
         {
             Ping = ping;
             Windows = windows;
-            Down = false;
+
             Files = new TreeView();
         }
 
@@ -140,5 +138,15 @@ namespace bantam_php
         /// If true the client target/host is DOWN
         /// </summary>
         public bool Down { get; set; } = false;
+
+        /// <summary>
+        /// If TRUE request's to this target/client will be sent via [GET] using a [COOKIE] to communicate data, if FALSE it will use a [POST] request
+        /// </summary>
+        public bool SendDataViaCookie { get; set; } = false;
+
+        /// <summary>
+        /// Name of the cookie or post argument used to send data to target/hosts
+        /// </summary>
+        public string RequestArgName { get; set; } = "command";
     }
 }

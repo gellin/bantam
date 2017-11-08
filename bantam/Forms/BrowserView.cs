@@ -11,7 +11,7 @@ namespace bantam_php
 {
     public partial class BrowserView : Form
     {
-        public BrowserView(string data, int width, int height, string fakeUrl = "")
+        public BrowserView(string data, int width, int height)
         {
             InitializeComponent();
             this.Height = height;
