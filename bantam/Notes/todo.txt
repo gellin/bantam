@@ -28,6 +28,10 @@ NEW ITEMS
 
 * 4 - snippet storage "upload script, ysm, other tidbits"
 
+* 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
+
+* 4 - make a "super fug sigs" function that scrambles function names like "include", "eval", "get_stream_contents" into random static arrays
+
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
 * 3 - HTTP Stress Test new Feature
@@ -35,6 +39,10 @@ NEW ITEMS
 * 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hosts" file, and etc that share names)
 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
+
+* 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
+
+* 2 - CWD/Filebrowser textbox not updating properly
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 

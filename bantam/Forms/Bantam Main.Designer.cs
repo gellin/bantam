@@ -139,7 +139,7 @@
             this.listViewClients.Location = new System.Drawing.Point(3, 3);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(213, 430);
+            this.listViewClients.Size = new System.Drawing.Size(213, 420);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -477,7 +477,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 434);
+            this.tabControl1.Size = new System.Drawing.Size(484, 420);
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -504,7 +504,7 @@
             this.tabPageInfo.Location = new System.Drawing.Point(4, 22);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 408);
+            this.tabPageInfo.Size = new System.Drawing.Size(476, 394);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -615,7 +615,7 @@
             // 
             this.lblStaticServerIP.AutoSize = true;
             this.lblStaticServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticServerIP.Location = new System.Drawing.Point(228, 51);
+            this.lblStaticServerIP.Location = new System.Drawing.Point(227, 51);
             this.lblStaticServerIP.Name = "lblStaticServerIP";
             this.lblStaticServerIP.Size = new System.Drawing.Size(64, 13);
             this.lblStaticServerIP.TabIndex = 6;
@@ -635,7 +635,7 @@
             // 
             this.lblStaticFreeHDD.AutoSize = true;
             this.lblStaticFreeHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticFreeHDD.Location = new System.Drawing.Point(228, 92);
+            this.lblStaticFreeHDD.Location = new System.Drawing.Point(227, 91);
             this.lblStaticFreeHDD.Name = "lblStaticFreeHDD";
             this.lblStaticFreeHDD.Size = new System.Drawing.Size(76, 13);
             this.lblStaticFreeHDD.TabIndex = 4;
@@ -680,7 +680,7 @@
             this.tabPageFiles.Location = new System.Drawing.Point(4, 22);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFiles.Size = new System.Drawing.Size(476, 405);
+            this.tabPageFiles.Size = new System.Drawing.Size(476, 399);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -813,7 +813,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(713, 437);
+            this.splitContainer1.Size = new System.Drawing.Size(713, 428);
             this.splitContainer1.SplitterDistance = 219;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -829,8 +829,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(753, 515);
             this.Name = "BantamMain";
-            this.Text = "Web Shell Manager";
-            this.Load += new System.EventHandler(this.BantamMain_Load);
+            this.Text = "Bantam Web Shell Manager";
             this.listviewClientsContextMenu.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
