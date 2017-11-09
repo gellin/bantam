@@ -160,6 +160,7 @@ namespace bantam_php
                 Text = "Show Response",
                 Left = 25,
                 Top = 455,
+                Checked = true,
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
 

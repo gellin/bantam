@@ -1470,7 +1470,7 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="postData"></param>
         /// <returns></returns>
-        public string makeRequest(string url, string postData, int timeout = 6_000, bool disableSSLCheck = true)
+        public string makeRequest(string url, string postData, int timeout = 60_000, bool disableSSLCheck = true)
         {
             try
             {

