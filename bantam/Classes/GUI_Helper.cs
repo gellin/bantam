@@ -12,12 +12,15 @@ namespace bantam_php
         /// <returns></returns>
         public static string FormatBytes(double bytes)
         {
-            string[] suffix = { "B", "KB", "MB", "GB", "TB" };
             int i = 0;
+            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
 
-            for (; i < suffix.Length && bytes >= 1024; i++, bytes /= 1024) { }
+            for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024)
+            {
+                
+            }
 
-            return String.Format("{0:0.##} {1}", bytes, suffix[i]);
+            return String.Format("{0:0.##} {1}", bytes, suffixes[i]);
         }
 
         /// <summary>
@@ -44,10 +47,9 @@ namespace bantam_php
         /// <param name="dest"></param>
         public static void CopyNodes(TreeView source, TreeView dest)
         {
-            TreeNode newTn;
             foreach (TreeNode tn in source.Nodes)
             {
-                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
                 {
                     ForeColor = tn.ForeColor
                 };
@@ -63,10 +65,9 @@ namespace bantam_php
         /// <param name="willCopied"></param>
         public static void CopyChilds(TreeNode parent, TreeNode willCopied)
         {
-            TreeNode newTn;
             foreach (TreeNode tn in willCopied.Nodes)
             {
-                newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
                 {
                     ForeColor = tn.ForeColor
                 };

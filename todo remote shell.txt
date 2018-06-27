@@ -1,0 +1,9 @@
+* have an initial startup routine that grabbed a bunch of basic info that may be needed and not changed, and store it in C#
+* ping back functionality
+* code execution
+* anonymous php code streaming / execution (encrypted) [POST vars]
+* library of standard functionality to stream from server
+* [stealth browsing] GET asdasdasd.com | curl asdasdasd.com -> server .  Render -> webview
+** dynamically get list of disabled functions to know what code is safe to stream
+** look into holding connection open
+*** look into client caching seen files etc

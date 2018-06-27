@@ -63,16 +63,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ClientInfo.cs" />
-    <Compile Include="Classes\DynamicPrompts.cs" />
+    <Compile Include="Classes\HostInfo.cs" />
+    <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
+    <Compile Include="Forms\AddHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddHost.Designer.cs">
+      <DependentUpon>AddHost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\BackdoorGenerator.Designer.cs">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\PHP_Helper.cs" />
+    <Compile Include="Classes\PHP.cs" />
     <Compile Include="Forms\BrowserView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\AddHost.resx">
+      <DependentUpon>AddHost.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BackdoorGenerator.resx">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +115,7 @@
     </Compile>
     <EmbeddedResource Include="Forms\Bantam Main.resx">
       <DependentUpon>Bantam Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

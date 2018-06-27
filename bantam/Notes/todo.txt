@@ -26,6 +26,8 @@ NEW ITEMS
 
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 
+* 4 - Make a way to spawn a listener type shell, and multiple ways to do  a back connect shell ?
+
 * 4 - New feature to right click client and edit their send options, arg_name and send_method, way to resave XML as well
 
 * 4 - snippet storage "upload script, ysm, other tidbits"
@@ -38,7 +40,7 @@ NEW ITEMS
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
-* 4 - Implement UDP flooder
+* 4 - Implement UDP flooder - private version lol
 
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 
@@ -46,7 +48,7 @@ NEW ITEMS
 
 * 3 - HTTP Stress Test new Feature
 
-* 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hosts" file, and etc that share names)
+* 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hostTargets" file, and etc that share names)
 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 
@@ -59,6 +61,8 @@ NEW ITEMS
 * 1 - if click CWD (link) on info page make it pull that up in the filebrowser
 
 * 1 - make timeout 6 seconds on ping
+
+xml file open/load, save, save as
 
 *** Possibly new backdoors type examples 
 

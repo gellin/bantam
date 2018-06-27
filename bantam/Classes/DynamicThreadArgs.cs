@@ -14,7 +14,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public string target { get; set; }
+        public string host { get; set; }
 
         /// <summary>
         /// 
@@ -39,53 +39,25 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Target"></param>
+        /// <param name="Host"></param>
         /// <param name="Code"></param>
         /// <param name="Callback"></param>
         /// <param name="CallbackArgs"></param>
-        public DynamicThreadArgs(string Target, string Code, Action<object> Callback, object[] CallbackArgs)
+        public DynamicThreadArgs(string Host, string Code, Action<object> Callback = null, object[] CallbackArgs = null)
         {
-            target = Target;
+            host = Host;
             code = Code;
             callback = Callback;
-            callbackArgs = CallbackArgs;
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Target"></param>
-        /// <param name="Code"></param>
-        public DynamicThreadArgs(string Target, string Code)
-        {
-            target = Target;
-            code = Code;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="targetHost"></param>
-        /// <param name="code"></param>
-        /// <param name="callbackArgs"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public static DynamicThreadArgs GetThreadArgs(string targetHost, string code)
-        {
-            return new DynamicThreadArgs(targetHost, code);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="targetHost"></param>
-        /// <param name="code"></param>
-        /// <param name="callbackArgs"></param>
-        /// <param name="callback"></param>
-        /// <returns></returns>
-        public static DynamicThreadArgs GetThreadArgs(string targetHost, string code, object[] callbackArgs, Action<object> callback)
-        {
-            return new DynamicThreadArgs(targetHost, code, callback, callbackArgs);
+            //if we have ben supplied a callback without callback args, we default the callback args to include the "target"/"host" for gui manipulation/etc
+            if (Callback != null && CallbackArgs == null)
+            {
+                callbackArgs = new object[] { Host };
+            }
+            else
+            {
+                callbackArgs = CallbackArgs;
+            }
         }
     }
 }

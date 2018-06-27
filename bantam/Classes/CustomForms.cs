@@ -6,7 +6,7 @@ namespace bantam_php
     /// <summary>
     /// 
     /// </summary>
-    public static class DynamicPrompts
+    public static class CustomForms
     {
         /// <summary>
         /// 
@@ -109,8 +109,9 @@ namespace bantam_php
         }
 
         /// <summary>
-        /// 
+        /// Returns a string of PHP code
         /// </summary>
+        /// 
         /// <param name="windowTitle"></param>
         /// <param name="text"></param>
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
