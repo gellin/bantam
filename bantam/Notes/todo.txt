@@ -48,6 +48,10 @@ NEW ITEMS
 
 * 3 - HTTP Stress Test new Feature
 
+* 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
+
+* 3 - Advanced options useragent editor (global)
+
 * 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hostTargets" file, and etc that share names)
 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
