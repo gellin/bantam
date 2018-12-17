@@ -40,42 +40,48 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(22, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 13);
+            this.label1.Size = new System.Drawing.Size(35, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "host";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(214, 59);
+            this.label2.Location = new System.Drawing.Point(285, 73);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(55, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Method";
             // 
             // txtBoxhostTarget
             // 
-            this.txtBoxhostTarget.Location = new System.Drawing.Point(15, 31);
+            this.txtBoxhostTarget.Location = new System.Drawing.Point(25, 38);
+            this.txtBoxhostTarget.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxhostTarget.Name = "txtBoxhostTarget";
-            this.txtBoxhostTarget.Size = new System.Drawing.Size(386, 20);
+            this.txtBoxhostTarget.Size = new System.Drawing.Size(508, 22);
             this.txtBoxhostTarget.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 59);
+            this.label3.Location = new System.Drawing.Point(21, 73);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.Size = new System.Drawing.Size(71, 17);
             this.label3.TabIndex = 3;
             this.label3.Text = "Arg Name";
             // 
             // txtBoxArgName
             // 
-            this.txtBoxArgName.Location = new System.Drawing.Point(19, 75);
+            this.txtBoxArgName.Location = new System.Drawing.Point(25, 92);
+            this.txtBoxArgName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxArgName.Name = "txtBoxArgName";
-            this.txtBoxArgName.Size = new System.Drawing.Size(167, 20);
+            this.txtBoxArgName.Size = new System.Drawing.Size(221, 22);
             this.txtBoxArgName.TabIndex = 4;
             this.txtBoxArgName.Text = "command";
             // 
@@ -86,16 +92,18 @@
             "cookie",
             "post",
             "request"});
-            this.comboBoxMethod.Location = new System.Drawing.Point(217, 75);
+            this.comboBoxMethod.Location = new System.Drawing.Point(289, 92);
+            this.comboBoxMethod.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxMethod.Name = "comboBoxMethod";
-            this.comboBoxMethod.Size = new System.Drawing.Size(184, 21);
+            this.comboBoxMethod.Size = new System.Drawing.Size(244, 24);
             this.comboBoxMethod.TabIndex = 5;
             // 
             // btnAddClient
             // 
-            this.btnAddClient.Location = new System.Drawing.Point(15, 114);
+            this.btnAddClient.Location = new System.Drawing.Point(20, 140);
+            this.btnAddClient.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddClient.Name = "btnAddClient";
-            this.btnAddClient.Size = new System.Drawing.Size(386, 37);
+            this.btnAddClient.Size = new System.Drawing.Size(515, 46);
             this.btnAddClient.TabIndex = 6;
             this.btnAddClient.Text = "Add Client";
             this.btnAddClient.UseVisualStyleBackColor = true;
@@ -103,9 +111,9 @@
             // 
             // AddHost
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 163);
+            this.ClientSize = new System.Drawing.Size(551, 201);
             this.Controls.Add(this.btnAddClient);
             this.Controls.Add(this.comboBoxMethod);
             this.Controls.Add(this.txtBoxArgName);
@@ -113,6 +121,7 @@
             this.Controls.Add(this.txtBoxhostTarget);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AddHost";
             this.Text = "Add Host";
             this.ResumeLayout(false);

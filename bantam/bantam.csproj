@@ -66,6 +66,7 @@
     <Compile Include="Classes\HostInfo.cs" />
     <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
+    <Compile Include="Classes\WebUtils.cs" />
     <Compile Include="Forms\AddHost.cs">
       <SubType>Form</SubType>
     </Compile>
