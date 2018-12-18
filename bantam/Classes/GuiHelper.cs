@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace bantam_php
 {
-    class GUI_Helper
+    class GuiHelper
     {
         /// <summary>
         /// 

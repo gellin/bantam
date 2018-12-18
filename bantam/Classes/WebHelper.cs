@@ -6,7 +6,7 @@ using System.IO;
 
 namespace bantam_php
 {
-    class WebUtils
+    class WebHelper
     {
         //TODO socks5 doesnt work
         /// <summary>
@@ -83,7 +83,7 @@ namespace bantam_php
             }
 
             //remove extra spaces, line breakes, tabs, whitespace, urlendcode then base64 encode
-            string minifiedCode = PHP.minifyCode(code);
+            string minifiedCode = PhpHelper.minifyCode(code);
             string encodedCode = HttpUtility.UrlEncode(minifiedCode);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
             string b64 = System.Convert.ToBase64String(plainTextBytes);

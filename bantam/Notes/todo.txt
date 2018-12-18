@@ -4,8 +4,6 @@
 
 * when you use the text box to change the file directory, you can no longer double click on any items/folders etc, (it doesn't get the correct path from the treeview nodes)
 
-* New bugs in backdoor generator
-
 * size bug on larger files via tooltip
 
 NEW ITEMS
@@ -18,8 +16,6 @@ NEW ITEMS
 
 * 10 - SQL Browser
 
-* 8 - payload generation - started
-
 * 7 - reverse tcp connection feature with all the backconnects xD - https://github.com/epinna/weevely3/blob/master/modules/backdoor/reversetcp.py
 
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
@@ -30,8 +26,6 @@ NEW ITEMS
 
 * 4 - New feature to right click client and edit their send options, arg_name and send_method, way to resave XML as well
 
-* 4 - snippet storage "upload script, ysm, other tidbits"
-
 * 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
 
 * 4 - make a "super fug sigs" function that scrambles function names like "include", "eval", "get_stream_contents" into random static arrays
@@ -40,25 +34,17 @@ NEW ITEMS
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
-* 4 - Implement UDP flooder - private version lol
-
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
-
-* 3 - HTTP Stress Test new Feature
 
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 
 * 3 - Advanced options useragent editor (global)
 
-* 2 - send dyamic payload win/linux based on stored OS variable (already started, finish and combine "ver"/"version", "hostTargets" file, and etc that share names)
-
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 
 * 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
-
-* 2 - CWD/Filebrowser textbox not updating properly
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 

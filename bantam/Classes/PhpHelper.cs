@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace bantam_php
 {
-    class PHP
+    class PhpHelper
     {
         /// <summary>
         /// 

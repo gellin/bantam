@@ -66,7 +66,7 @@
     <Compile Include="Classes\HostInfo.cs" />
     <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
-    <Compile Include="Classes\WebUtils.cs" />
+    <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Forms\AddHost.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,14 +79,14 @@
     <Compile Include="Forms\BackdoorGenerator.Designer.cs">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\PHP.cs" />
+    <Compile Include="Classes\PhpHelper.cs" />
     <Compile Include="Forms\BrowserView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\BrowserView.Designer.cs">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\GUI_Helper.cs" />
+    <Compile Include="Classes\GuiHelper.cs" />
     <Compile Include="Forms\Bantam Main.cs">
       <SubType>Form</SubType>
     </Compile>

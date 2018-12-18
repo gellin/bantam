@@ -27,19 +27,19 @@ namespace bantam_php
             Ping = ping;
             Files = new TreeView();
 
-            CWD = data[(int)PHP.INIT_DATA_VARS.CWD];
-            FreeHDDSpace = data[(int)PHP.INIT_DATA_VARS.FREE_SPACE];
-            TotalHDDSpace = data[(int)PHP.INIT_DATA_VARS.TOTAL_SPACE];
-            UnameRelease = data[(int)PHP.INIT_DATA_VARS.RELEASE];
-            UnameKernel = data[(int)PHP.INIT_DATA_VARS.KERNEL];
-            IP = data[(int)PHP.INIT_DATA_VARS.SERVER_IP];
-            ServerSoftware = data[(int)PHP.INIT_DATA_VARS.SERVER_SOFTWARE];
-            User = data[(int)PHP.INIT_DATA_VARS.USER];
-            UID = data[(int)PHP.INIT_DATA_VARS.UID];
-            GID = data[(int)PHP.INIT_DATA_VARS.GID];
-            Group = data[(int)PHP.INIT_DATA_VARS.GROUP];
-            PHP_Version = data[(int)PHP.INIT_DATA_VARS.PHP_VERSION];
-            isWindows = (data[(int)PHP.INIT_DATA_VARS.OS] == "win") ? true : false;
+            CWD = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
+            FreeHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.FREE_SPACE];
+            TotalHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.TOTAL_SPACE];
+            UnameRelease = data[(int)PhpHelper.INIT_DATA_VARS.RELEASE];
+            UnameKernel = data[(int)PhpHelper.INIT_DATA_VARS.KERNEL];
+            IP = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_IP];
+            ServerSoftware = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_SOFTWARE];
+            User = data[(int)PhpHelper.INIT_DATA_VARS.USER];
+            UID = data[(int)PhpHelper.INIT_DATA_VARS.UID];
+            GID = data[(int)PhpHelper.INIT_DATA_VARS.GID];
+            Group = data[(int)PhpHelper.INIT_DATA_VARS.GROUP];
+            PHP_Version = data[(int)PhpHelper.INIT_DATA_VARS.PHP_VERSION];
+            isWindows = (data[(int)PhpHelper.INIT_DATA_VARS.OS] == "win") ? true : false;
         }
 
         /// <summary>
@@ -51,11 +51,6 @@ namespace bantam_php
         /// 
         /// </summary>
         public bool isWindows;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool isLinux;
 
         /// <summary>
         /// 
