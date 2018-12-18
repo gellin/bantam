@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ColumnHeader hostTargetColHeader;
+            System.Windows.Forms.ColumnHeader shellColHeader;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BantamMain));
             this.listViewClients = new System.Windows.Forms.ListView();
             this.pingColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -107,7 +107,8 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            hostTargetColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -123,10 +124,10 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // hostTargetColHeader
+            // shellColHeader
             // 
-            hostTargetColHeader.Text = "Host";
-            hostTargetColHeader.Width = 148;
+            shellColHeader.Text = "Shell";
+            shellColHeader.Width = 148;
             // 
             // listViewClients
             // 
@@ -135,7 +136,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewClients.BackColor = System.Drawing.SystemColors.Window;
             this.listViewClients.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            hostTargetColHeader,
+            shellColHeader,
             this.pingColHeader});
             this.listViewClients.ContextMenuStrip = this.listviewClientsContextMenu;
             this.listViewClients.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -404,23 +405,25 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addToolStripMenuItem,
             this.pingClientsToolStripMenuItem,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.saveClientsToolStripMenuItem});
+            this.fileToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.addToolStripMenuItem.Text = "Add Client";
+            this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // pingClientsToolStripMenuItem
             // 
             this.pingClientsToolStripMenuItem.Name = "pingClientsToolStripMenuItem";
             this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.pingClientsToolStripMenuItem.Text = "Ping All Clients";
+            this.pingClientsToolStripMenuItem.Text = "Refresh Shells";
             this.pingClientsToolStripMenuItem.Click += new System.EventHandler(this.pingClientsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
@@ -433,8 +436,9 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backdoorGeneratorToolStripMenuItem,
             this.getMyIPToolStripMenuItem1});
+            this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // backdoorGeneratorToolStripMenuItem
@@ -483,10 +487,10 @@
             this.tabPageInfo.Controls.Add(this.lblStaticFreeHDD);
             this.tabPageInfo.Controls.Add(this.lblStaticHDD);
             this.tabPageInfo.Controls.Add(this.panel1);
-            this.tabPageInfo.Location = new System.Drawing.Point(4, 27);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 30);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 389);
+            this.tabPageInfo.Size = new System.Drawing.Size(476, 386);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -586,7 +590,7 @@
             // 
             this.splitter1.Location = new System.Drawing.Point(3, 3);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 383);
+            this.splitter1.Size = new System.Drawing.Size(3, 380);
             this.splitter1.TabIndex = 18;
             this.splitter1.TabStop = false;
             // 
@@ -843,6 +847,12 @@
             this.splitContainer1.SplitterDistance = 217;
             this.splitContainer1.TabIndex = 3;
             // 
+            // saveClientsToolStripMenuItem
+            // 
+            this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Text = "Save Shells";
+            // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -855,6 +865,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(752, 512);
             this.Name = "BantamMain";
+            this.ShowIcon = false;
             this.Text = "Bantam Web Shell Manager";
             this.listviewClientsContextMenu.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
@@ -958,6 +969,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backdoorGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getMyIPToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveClientsToolStripMenuItem;
     }
 }
 

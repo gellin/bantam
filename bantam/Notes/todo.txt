@@ -32,9 +32,15 @@ NEW ITEMS
 
 * 4 - password feature?
 
+* 4 - Edit file feature?
+
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
+
+* 3 - match addhost UI to backdoor generator
+
+* 3 - after you go back x directories in filebrowser, cache still shows correct listing, but textbox shows wrong CWD
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
