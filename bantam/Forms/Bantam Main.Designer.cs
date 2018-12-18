@@ -67,6 +67,7 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pingClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backdoorGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMyIPToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,7 +108,6 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -141,10 +141,11 @@
             this.listViewClients.ContextMenuStrip = this.listviewClientsContextMenu;
             this.listViewClients.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewClients.FullRowSelect = true;
-            this.listViewClients.Location = new System.Drawing.Point(3, 3);
+            this.listViewClients.Location = new System.Drawing.Point(3, 4);
+            this.listViewClients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(210, 420);
+            this.listViewClients.Size = new System.Drawing.Size(210, 452);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -431,6 +432,12 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
+            // saveClientsToolStripMenuItem
+            // 
+            this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Text = "Save Shells";
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -444,14 +451,14 @@
             // backdoorGeneratorToolStripMenuItem
             // 
             this.backdoorGeneratorToolStripMenuItem.Name = "backdoorGeneratorToolStripMenuItem";
-            this.backdoorGeneratorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backdoorGeneratorToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.backdoorGeneratorToolStripMenuItem.Text = "Backdoor Generator";
             this.backdoorGeneratorToolStripMenuItem.Click += new System.EventHandler(this.backdoorGeneratorToolStripMenuItem_Click);
             // 
             // getMyIPToolStripMenuItem1
             // 
             this.getMyIPToolStripMenuItem1.Name = "getMyIPToolStripMenuItem1";
-            this.getMyIPToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.getMyIPToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.getMyIPToolStripMenuItem1.Text = "Get My IP";
             this.getMyIPToolStripMenuItem1.Click += new System.EventHandler(this.getMyIPToolStripMenuItem1_Click);
             // 
@@ -463,10 +470,11 @@
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageFiles);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Location = new System.Drawing.Point(3, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 420);
+            this.tabControl1.Size = new System.Drawing.Size(484, 452);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -488,9 +496,10 @@
             this.tabPageInfo.Controls.Add(this.lblStaticHDD);
             this.tabPageInfo.Controls.Add(this.panel1);
             this.tabPageInfo.Location = new System.Drawing.Point(4, 30);
+            this.tabPageInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageInfo.Name = "tabPageInfo";
-            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 386);
+            this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageInfo.Size = new System.Drawing.Size(476, 418);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -504,16 +513,17 @@
             this.panel3.Controls.Add(this.lblDynPHP);
             this.panel3.Controls.Add(this.lblStaticServerIP);
             this.panel3.Controls.Add(this.lblDynServerIP);
-            this.panel3.Location = new System.Drawing.Point(12, 39);
+            this.panel3.Location = new System.Drawing.Point(12, 42);
+            this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(458, 38);
+            this.panel3.Size = new System.Drawing.Size(458, 40);
             this.panel3.TabIndex = 26;
             // 
             // lblStaticPHP
             // 
             this.lblStaticPHP.AutoSize = true;
             this.lblStaticPHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticPHP.Location = new System.Drawing.Point(23, 12);
+            this.lblStaticPHP.Location = new System.Drawing.Point(23, 13);
             this.lblStaticPHP.Name = "lblStaticPHP";
             this.lblStaticPHP.Size = new System.Drawing.Size(36, 13);
             this.lblStaticPHP.TabIndex = 2;
@@ -523,7 +533,7 @@
             // 
             this.lblDynPHP.AutoSize = true;
             this.lblDynPHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynPHP.Location = new System.Drawing.Point(82, 12);
+            this.lblDynPHP.Location = new System.Drawing.Point(82, 13);
             this.lblDynPHP.Name = "lblDynPHP";
             this.lblDynPHP.Size = new System.Drawing.Size(0, 15);
             this.lblDynPHP.TabIndex = 10;
@@ -532,7 +542,7 @@
             // 
             this.lblStaticServerIP.AutoSize = true;
             this.lblStaticServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticServerIP.Location = new System.Drawing.Point(229, 12);
+            this.lblStaticServerIP.Location = new System.Drawing.Point(229, 13);
             this.lblStaticServerIP.Name = "lblStaticServerIP";
             this.lblStaticServerIP.Size = new System.Drawing.Size(64, 13);
             this.lblStaticServerIP.TabIndex = 6;
@@ -542,7 +552,7 @@
             // 
             this.lblDynServerIP.AutoSize = true;
             this.lblDynServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynServerIP.Location = new System.Drawing.Point(311, 12);
+            this.lblDynServerIP.Location = new System.Drawing.Point(311, 13);
             this.lblDynServerIP.Name = "lblDynServerIP";
             this.lblDynServerIP.Size = new System.Drawing.Size(0, 15);
             this.lblDynServerIP.TabIndex = 14;
@@ -553,16 +563,17 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.lblStaticUname);
             this.panel2.Controls.Add(this.lblDynUname);
-            this.panel2.Location = new System.Drawing.Point(12, 201);
+            this.panel2.Location = new System.Drawing.Point(12, 216);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(458, 38);
+            this.panel2.Size = new System.Drawing.Size(458, 40);
             this.panel2.TabIndex = 26;
             // 
             // lblStaticUname
             // 
             this.lblStaticUname.AutoSize = true;
             this.lblStaticUname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticUname.Location = new System.Drawing.Point(17, 12);
+            this.lblStaticUname.Location = new System.Drawing.Point(17, 13);
             this.lblStaticUname.Name = "lblStaticUname";
             this.lblStaticUname.Size = new System.Drawing.Size(50, 13);
             this.lblStaticUname.TabIndex = 0;
@@ -581,16 +592,17 @@
             // 
             this.lblDynHDDSpace.AutoSize = true;
             this.lblDynHDDSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynHDDSpace.Location = new System.Drawing.Point(96, 91);
+            this.lblDynHDDSpace.Location = new System.Drawing.Point(96, 98);
             this.lblDynHDDSpace.Name = "lblDynHDDSpace";
             this.lblDynHDDSpace.Size = new System.Drawing.Size(0, 15);
             this.lblDynHDDSpace.TabIndex = 11;
             // 
             // splitter1
             // 
-            this.splitter1.Location = new System.Drawing.Point(3, 3);
+            this.splitter1.Location = new System.Drawing.Point(3, 4);
+            this.splitter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 380);
+            this.splitter1.Size = new System.Drawing.Size(3, 410);
             this.splitter1.TabIndex = 18;
             this.splitter1.TabStop = false;
             // 
@@ -598,7 +610,7 @@
             // 
             this.lblStaticUser.AutoSize = true;
             this.lblStaticUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticUser.Location = new System.Drawing.Point(35, 13);
+            this.lblStaticUser.Location = new System.Drawing.Point(35, 14);
             this.lblStaticUser.Name = "lblStaticUser";
             this.lblStaticUser.Size = new System.Drawing.Size(37, 13);
             this.lblStaticUser.TabIndex = 1;
@@ -608,7 +620,7 @@
             // 
             this.lblDynGroup.AutoSize = true;
             this.lblDynGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynGroup.Location = new System.Drawing.Point(324, 13);
+            this.lblDynGroup.Location = new System.Drawing.Point(324, 14);
             this.lblDynGroup.Name = "lblDynGroup";
             this.lblDynGroup.Size = new System.Drawing.Size(0, 15);
             this.lblDynGroup.TabIndex = 17;
@@ -617,7 +629,7 @@
             // 
             this.lblStaticGroup.AutoSize = true;
             this.lblStaticGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticGroup.Location = new System.Drawing.Point(245, 13);
+            this.lblStaticGroup.Location = new System.Drawing.Point(245, 14);
             this.lblStaticGroup.Name = "lblStaticGroup";
             this.lblStaticGroup.Size = new System.Drawing.Size(45, 13);
             this.lblStaticGroup.TabIndex = 16;
@@ -627,7 +639,7 @@
             // 
             this.lblDynWebServer.AutoSize = true;
             this.lblDynWebServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynWebServer.Location = new System.Drawing.Point(96, 171);
+            this.lblDynWebServer.Location = new System.Drawing.Point(96, 184);
             this.lblDynWebServer.Name = "lblDynWebServer";
             this.lblDynWebServer.Size = new System.Drawing.Size(0, 15);
             this.lblDynWebServer.TabIndex = 15;
@@ -636,7 +648,7 @@
             // 
             this.lblDynFreeSpace.AutoSize = true;
             this.lblDynFreeSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynFreeSpace.Location = new System.Drawing.Point(324, 91);
+            this.lblDynFreeSpace.Location = new System.Drawing.Point(324, 98);
             this.lblDynFreeSpace.Name = "lblDynFreeSpace";
             this.lblDynFreeSpace.Size = new System.Drawing.Size(0, 15);
             this.lblDynFreeSpace.TabIndex = 12;
@@ -645,7 +657,7 @@
             // 
             this.lblDynUser.AutoSize = true;
             this.lblDynUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynUser.Location = new System.Drawing.Point(95, 13);
+            this.lblDynUser.Location = new System.Drawing.Point(95, 14);
             this.lblDynUser.Name = "lblDynUser";
             this.lblDynUser.Size = new System.Drawing.Size(0, 15);
             this.lblDynUser.TabIndex = 9;
@@ -654,7 +666,7 @@
             // 
             this.lblStaticWebServer.AutoSize = true;
             this.lblStaticWebServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticWebServer.Location = new System.Drawing.Point(17, 171);
+            this.lblStaticWebServer.Location = new System.Drawing.Point(17, 184);
             this.lblStaticWebServer.Name = "lblStaticWebServer";
             this.lblStaticWebServer.Size = new System.Drawing.Size(78, 13);
             this.lblStaticWebServer.TabIndex = 7;
@@ -664,7 +676,7 @@
             // 
             this.lblStaticFreeHDD.AutoSize = true;
             this.lblStaticFreeHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticFreeHDD.Location = new System.Drawing.Point(242, 91);
+            this.lblStaticFreeHDD.Location = new System.Drawing.Point(242, 98);
             this.lblStaticFreeHDD.Name = "lblStaticFreeHDD";
             this.lblStaticFreeHDD.Size = new System.Drawing.Size(76, 13);
             this.lblStaticFreeHDD.TabIndex = 4;
@@ -674,7 +686,7 @@
             // 
             this.lblStaticHDD.AutoSize = true;
             this.lblStaticHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticHDD.Location = new System.Drawing.Point(17, 91);
+            this.lblStaticHDD.Location = new System.Drawing.Point(17, 98);
             this.lblStaticHDD.Name = "lblStaticHDD";
             this.lblStaticHDD.Size = new System.Drawing.Size(78, 13);
             this.lblStaticHDD.TabIndex = 3;
@@ -686,9 +698,10 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblStaticCWD);
             this.panel1.Controls.Add(this.lblDynCWD);
-            this.panel1.Location = new System.Drawing.Point(12, 120);
+            this.panel1.Location = new System.Drawing.Point(12, 130);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(458, 38);
+            this.panel1.Size = new System.Drawing.Size(458, 40);
             this.panel1.TabIndex = 25;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -696,7 +709,7 @@
             // 
             this.lblStaticCWD.AutoSize = true;
             this.lblStaticCWD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticCWD.Location = new System.Drawing.Point(21, 12);
+            this.lblStaticCWD.Location = new System.Drawing.Point(21, 13);
             this.lblStaticCWD.Name = "lblStaticCWD";
             this.lblStaticCWD.Size = new System.Drawing.Size(40, 13);
             this.lblStaticCWD.TabIndex = 5;
@@ -717,9 +730,10 @@
             this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
             this.tabPageFiles.Location = new System.Drawing.Point(4, 30);
+            this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
-            this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFiles.Size = new System.Drawing.Size(476, 386);
+            this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPageFiles.Size = new System.Drawing.Size(476, 418);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -730,8 +744,9 @@
             this.btnFileBrowserRefresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFileBrowserRefresh.Location = new System.Drawing.Point(398, 6);
+            this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(72, 27);
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(72, 29);
             this.btnFileBrowserRefresh.TabIndex = 1;
             this.btnFileBrowserRefresh.Text = "Home";
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
@@ -741,7 +756,8 @@
             // 
             this.txtBoxFileBrowserPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(7, 9);
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(7, 10);
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
             this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(385, 21);
             this.txtBoxFileBrowserPath.TabIndex = 3;
@@ -753,11 +769,12 @@
             this.treeViewFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewFileBrowser.ImageIndex = 0;
             this.treeViewFileBrowser.ImageList = this.imageListFileBrowser;
-            this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 42);
+            this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 46);
+            this.treeViewFileBrowser.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeViewFileBrowser.Name = "treeViewFileBrowser";
             this.treeViewFileBrowser.SelectedImageIndex = 0;
             this.treeViewFileBrowser.ShowNodeToolTips = true;
-            this.treeViewFileBrowser.Size = new System.Drawing.Size(464, 342);
+            this.treeViewFileBrowser.Size = new System.Drawing.Size(464, 368);
             this.treeViewFileBrowser.TabIndex = 0;
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
@@ -833,7 +850,8 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 27);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 29);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -843,27 +861,23 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(713, 428);
+            this.splitContainer1.Size = new System.Drawing.Size(713, 461);
             this.splitContainer1.SplitterDistance = 217;
             this.splitContainer1.TabIndex = 3;
             // 
-            // saveClientsToolStripMenuItem
-            // 
-            this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveClientsToolStripMenuItem.Text = "Save Shells";
-            // 
             // BantamMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 476);
+            this.ClientSize = new System.Drawing.Size(737, 513);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainMenuStrip);
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.mainMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(752, 512);
+            this.MinimumSize = new System.Drawing.Size(752, 548);
             this.Name = "BantamMain";
             this.ShowIcon = false;
             this.Text = "Bantam Web Shell Manager";

@@ -18,6 +18,8 @@ NEW ITEMS
 
 * 7 - reverse tcp connection feature with all the backconnects xD - https://github.com/epinna/weevely3/blob/master/modules/backdoor/reversetcp.py
 
+* 7 - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
+
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?

@@ -10,12 +10,18 @@ namespace bantam_php
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// 
+        static public BantamMain g_BantamMain = null;
+
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BantamMain());
+
+            g_BantamMain = new BantamMain();
+
+            Application.Run(g_BantamMain);
         }
     }
 }

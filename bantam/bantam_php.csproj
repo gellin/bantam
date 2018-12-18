@@ -67,11 +67,11 @@
     <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\DynamicThreadArgs.cs" />
     <Compile Include="Classes\WebHelper.cs" />
-    <Compile Include="Forms\AddHost.cs">
+    <Compile Include="Forms\AddShell.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddHost.Designer.cs">
-      <DependentUpon>AddHost.cs</DependentUpon>
+    <Compile Include="Forms\AddShell.Designer.cs">
+      <DependentUpon>AddShell.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>
@@ -95,8 +95,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\AddHost.resx">
-      <DependentUpon>AddHost.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\AddShell.resx">
+      <DependentUpon>AddShell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BackdoorGenerator.resx">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>

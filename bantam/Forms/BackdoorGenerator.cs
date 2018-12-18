@@ -184,5 +184,10 @@ namespace bantam_php
                 File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);
             }
         }
+
+        private void BackdoorGenerator_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.g_BantamMain.backdoorGenerator = null;
+        }
     }
 }

