@@ -1,6 +1,8 @@
-﻿using System;
+﻿using bantam.Properties;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -92,6 +94,38 @@ namespace bantam_php
             }
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+        private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
+        {
+            filebrowserGoBack();
+        }
+        
+        protected override void OnLoad(EventArgs e)
+        {
+            var btnBack = new Button();
+            btnBack.Size = new Size(25, txtBoxFileBrowserPath.ClientSize.Height + 2);
+            btnBack.Location = new Point(1, -1);
+            btnBack.Cursor = Cursors.Default;
+            btnBack.Image = global::bantam.Properties.Resources.undo;
+            btnBack.MouseClick += btnFileBrowserBack_MouseClick;
+
+            //var btnGo = new Button();
+            //btnGo.Size = new Size(25, txtBoxFileBrowserPath.ClientSize.Height + 2);
+            //btnGo.Location = new Point(txtBoxFileBrowserPath.ClientSize.Width - btn.Width, -1);
+            //btnGo.Cursor = Cursors.Default;
+            //btnGo.Image = global::bantam.Properties.Resources.play_2;
+
+            txtBoxFileBrowserPath.Controls.Add(btnBack);
+            //txtBoxFileBrowserPath.Controls.Add(btnGo);
+
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(txtBoxFileBrowserPath.Handle, 0xd3, (IntPtr)1, (IntPtr)(btnBack.Width));
+            //SendMessage(txtBoxFileBrowserPath.Handle, 0xd3, (IntPtr)2, (IntPtr)(btn.Width << 16));
+
+            base.OnLoad(e);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -105,7 +139,8 @@ namespace bantam_php
 
             if (string.IsNullOrEmpty(hostTarget) == false)
             {
-                if (Hosts[hostTarget].Down == false)
+                if (Hosts.ContainsKey(hostTarget) 
+                && Hosts[hostTarget].Down == false)
                 {
                     return true;
                 }
@@ -326,7 +361,8 @@ namespace bantam_php
             {
                 object[] objects = (object[])arg;
                 string hostTarget = (string)objects[0];
-                string result = (string)objects[1];
+                string fileLocation = (string)objects[1];
+                string result = (string)objects[2];
 
                 if (string.IsNullOrEmpty(hostTarget) == false)
                 {
@@ -339,6 +375,9 @@ namespace bantam_php
                         treeViewFileBrowser.Nodes.Clear();
                         treeViewFileBrowser.Refresh();
                     }
+
+                    //patch
+                    txtBoxFileBrowserPath.Text = fileLocation;
 
                     //set path
                     string path = txtBoxFileBrowserPath?.Text;
@@ -768,7 +807,6 @@ namespace bantam_php
 
                 g_SelectedTarget = lvi.SubItems[0].Text;
 
-                //TODO: investigate - new possible issue
                 if (validTarget() == false)
                 {
                     //clear the ui of invalid data
@@ -783,30 +821,32 @@ namespace bantam_php
                     lblDynPHP.Text = "";
                     txtBoxFileBrowserPath.Text = "";
                     return;
+                } else {
+                    lblDynCWD.Text = Hosts[g_SelectedTarget].CWD;
+                    lblDynFreeSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedTarget].FreeHDDSpace) ? "0"
+                                         : GUI_Helper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedTarget].FreeHDDSpace));
+
+                    lblDynHDDSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedTarget].TotalHDDSpace) ? "0"
+                                        : GUI_Helper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedTarget].TotalHDDSpace));
+
+                    lblDynServerIP.Text = Hosts[g_SelectedTarget].IP;
+                    lblDynUname.Text = Hosts[g_SelectedTarget].UnameRelease + " " + Hosts[g_SelectedTarget].UnameKernel;
+                    lblDynUser.Text = Hosts[g_SelectedTarget].UID + " ( " + Hosts[g_SelectedTarget].User + " )";
+                    lblDynWebServer.Text = Hosts[g_SelectedTarget].ServerSoftware;
+                    lblDynGroup.Text = Hosts[g_SelectedTarget].GID + " ( " + Hosts[g_SelectedTarget].Group + " )";
+                    lblDynPHP.Text = Hosts[g_SelectedTarget].PHP_Version;
                 }
-
-                lblDynCWD.Text = Hosts[g_SelectedTarget].CWD;
-                lblDynFreeSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedTarget].FreeHDDSpace) ? "0" 
-                                     : GUI_Helper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedTarget].FreeHDDSpace));
-
-                lblDynHDDSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedTarget].TotalHDDSpace) ? "0" 
-                                    : GUI_Helper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedTarget].TotalHDDSpace));
-
-                lblDynServerIP.Text = Hosts[g_SelectedTarget].IP;
-                lblDynUname.Text = Hosts[g_SelectedTarget].UnameRelease + " " + Hosts[g_SelectedTarget].UnameKernel;
-                lblDynUser.Text = Hosts[g_SelectedTarget].UID + " ( " + Hosts[g_SelectedTarget].User + " )";
-                lblDynWebServer.Text = Hosts[g_SelectedTarget].ServerSoftware;
-                lblDynGroup.Text = Hosts[g_SelectedTarget].GID + " ( " + Hosts[g_SelectedTarget].Group + " )";
-                lblDynPHP.Text = Hosts[g_SelectedTarget].PHP_Version;
 
                 if (tabControl1.SelectedTab == tabPageFiles)
                 {
                     if (Hosts[g_SelectedTarget].Files.Nodes != null
-                    && Hosts[g_SelectedTarget].Files.Nodes.Count > 0)
+                     && Hosts[g_SelectedTarget].Files.Nodes.Count > 0)
                     {
                         GUI_Helper.CopyNodes(Hosts[g_SelectedTarget].Files, treeViewFileBrowser);
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
+
+                        txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].CWD;
                     } else {
                         start_FileBrowser();
                     }
@@ -837,6 +877,8 @@ namespace bantam_php
                     GUI_Helper.CopyNodes(Hosts[g_SelectedTarget].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
+
+                    txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].CWD;
                 } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0)
@@ -887,6 +929,17 @@ namespace bantam_php
             start_FileBrowser();
         }
 
+        private void filebrowserGoBack()
+        {
+            String fileBrowserPath = txtBoxFileBrowserPath.Text;
+            String[] paths = fileBrowserPath.Split('/');
+            String lastPathRemoved = String.Join("/", paths, 0, paths.Count() - 1);
+
+            string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(lastPathRemoved, Hosts[g_SelectedTarget].PHP_Version);
+            object[] callbackParams = { g_SelectedTarget, lastPathRemoved };
+
+            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -905,16 +958,24 @@ namespace bantam_php
             {
                 //replace backslash from the treenode path to a proper forward slash
                 string path = tn.FullPath.Replace('\\', '/');
-                //Get Directory Contents PHP code
-                string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(path, Hosts[g_SelectedTarget].PHP_Version);
 
-                //attempts to execute the directoryContents PHP code on the "target"
+                if (path.Contains(".."))
+                {
+                    filebrowserGoBack();
+                } else {
+                    string fullPath = txtBoxFileBrowserPath.Text + "/" + path;
 
-                //setup GUI callback to call after request
-                //setup main thread
-                object[] callbackParams = { g_SelectedTarget, tn };
-                
-                startPhpExecutionThread(directoryContentsPHPCode, fileBrowserMouseClickMethod, callbackParams);
+                    //Get Directory Contents PHP code
+                    string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(fullPath, Hosts[g_SelectedTarget].PHP_Version);
+
+                    //attempts to execute the directoryContents PHP code on the "target"
+
+                    //setup GUI callback to call after request
+                    //setup main thread
+                    object[] callbackParams = { g_SelectedTarget, tn };
+
+                    startPhpExecutionThread(directoryContentsPHPCode, fileBrowserMouseClickMethod, callbackParams);
+                }
             }
         }
 
@@ -967,6 +1028,12 @@ namespace bantam_php
             }
         }
 
+        private string fileBrowserGetFileName()
+        {
+            string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
+            return txtBoxFileBrowserPath.Text.TrimEnd('/', '\\') + "/" + fileName;
+        }
+
         /// <summary>
         //
         /// </summary>
@@ -974,10 +1041,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            string path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-            string phpCode = "@readfile('" + path + "');";
+            string name = fileBrowserGetFileName();
+            string phpCode = "@readfile('" + name + "');";
 
-            executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + path);
+            executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + name);
         }
 
         /// <summary>
@@ -992,14 +1059,13 @@ namespace bantam_php
                 return;
             }
 
-            string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-            string path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
+            string fileName = fileBrowserGetFileName();
             string newFileName = CustomForms.RenameFileDialog(fileName, "Renaming File");
 
             if (newFileName != "")
             {
                 //todo abstract
-                string newFile = path + '/' + newFileName;
+                string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
                 startPhpExecutionThread(phpCode);
@@ -1018,7 +1084,7 @@ namespace bantam_php
                 return;
             }
 
-            string path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
+            string path = fileBrowserGetFileName();
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete \r\n(" + path + ")", "HOLD ON THERE COWBOY", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes)
@@ -1042,23 +1108,13 @@ namespace bantam_php
                 return;
             }
 
-            string path;
-            string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-
-            if (treeViewFileBrowser.SelectedNode.Parent != null)
-            {
-                path = treeViewFileBrowser.SelectedNode.Parent.FullPath.Replace('\\', '/');
-            } else {
-                path = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
-            }
-
+            string fileName = fileBrowserGetFileName();
             string newFileName = CustomForms.RenameFileDialog(fileName, "Copying File");
 
             if (newFileName != "")
             {
-                string newFile = path + '/' + newFileName;
-                string code = "@copy('" + fileName + "', '" + newFile + "');";
-
+                string newFile = newFileName;
+                string code = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFile + "');";
                 startPhpExecutionThread(code);
             }
         }
@@ -1083,7 +1139,8 @@ namespace bantam_php
             string directoryContentsPHPCode = PHP.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[g_SelectedTarget].PHP_Version);
 
             //todo fix the need of selected target being passed??...
-            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod);
+            object[] callbackParams = { g_SelectedTarget, txtBoxFileBrowserPath.Text }; //todo this was added temp as a fix for crappy rigging of dynamic thread args class. needs rework to not force result to be last, so we know the known locations and thus furthering its dynamicness
+            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
         }
 
         #endregion
@@ -1125,8 +1182,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.executeSystemCode(PHP.windowsOS_NetUser);
                 executePHPCodeDisplayInRichTextBox(phpCode, "User Account");
-            } else {
-                MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
 
@@ -1146,8 +1201,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.executeSystemCode(PHP.windowsOS_NetAccounts);
                 executePHPCodeDisplayInRichTextBox(phpCode, "User Accounts");
-            } else {
-                MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
 
@@ -1167,8 +1220,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.executeSystemCode(PHP.windowsOS_Ipconfig);
                 executePHPCodeDisplayInRichTextBox(phpCode, "ipconfig");
-            } else {
-                MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
 
@@ -1188,8 +1239,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.executeSystemCode(PHP.windowsOS_Ver);
                 executePHPCodeDisplayInRichTextBox(phpCode, "ver");
-            } else {
-                MessageBox.Show("This client is linux!", "DERP!!");
             }
         }
 
@@ -1248,8 +1297,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.windowsFS_hostTargets);
                 executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
-            } else {
-                MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
 
@@ -1269,8 +1316,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_NetworkInterfaces);
                 executePHPCodeDisplayInRichTextBox(phpCode, "interfaces");
-            } else {
-                MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
 
@@ -1290,8 +1335,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_ProcVersion);
                 executePHPCodeDisplayInRichTextBox(phpCode, "version");
-            } else {
-                MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
 
@@ -1311,8 +1354,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_hostTargetsFile);
                 executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
-            } else {
-                MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
 
@@ -1332,8 +1373,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_IssueFile);
                 executePHPCodeDisplayInRichTextBox(phpCode, "issue.net");
-            } else {
-                MessageBox.Show("This client is windows!", "DERP!!");
             }
         }
 
@@ -1353,8 +1392,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_ShadowFile);
                 executePHPCodeDisplayInRichTextBox(phpCode, "shadow");
-            } else {
-                MessageBox.Show("This Target does not have a shadow file (derp)", "You TARD");
             }
         }
 
@@ -1374,8 +1411,6 @@ namespace bantam_php
             {
                 string phpCode = PHP.readFileProcedure(PHP.linuxFS_PasswdFile);
                 executePHPCodeDisplayInRichTextBox(phpCode, "passwd");
-            } else {
-                MessageBox.Show("This Target does not have a passwd file (derp)");
             }
         }
 
@@ -1396,6 +1431,74 @@ namespace bantam_php
         {
             AddHost addClientForm = new AddHost();
             addClientForm.Show();
+        }
+
+        private void apacheToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nginxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sambaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mysqlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linuxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listviewClientsContextMenu_Paint(object sender, PaintEventArgs e)
+        {
+            if (validTarget())
+            {
+                phpToolStripMenuItem.Visible = true;
+                systemToolstripMenuItem.Visible = true;
+                softwareToolStripMenuItem.Visible = true;
+
+                if (Hosts[g_SelectedTarget].isWindows)
+                {
+                    linuxToolStripMenuItem.Visible = false;
+                    windowsToolStripMenuItem.Visible = true;
+                } else {
+                    linuxToolStripMenuItem.Visible = true;
+                    windowsToolStripMenuItem.Visible = false;
+                }
+            } else {
+                phpToolStripMenuItem.Visible = false;
+                systemToolstripMenuItem.Visible = false;
+                softwareToolStripMenuItem.Visible = false;
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
+            {
+                //index 0 is always valid unless multiselect is enabled
+                listViewClients.SelectedItems[0].Remove();
+                Hosts.Remove(g_SelectedTarget);
+            }
+        }
+
+        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -66,6 +66,8 @@ NEW ITEMS
 
 * 1 - make timeout 6 seconds on ping
 
+* 1 - allowable charector check on var name of backdoor generator 
+
 xml file open/load, save, save as
 
 *** Possibly new backdoors type examples 

@@ -130,9 +130,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\floopy.png" />
-    <Content Include="resources\folder.png" />
+    <None Include="Art\download.png" />
+    <None Include="Art\arrow-back.png" />
+    <None Include="Art\play_2.png" />
+    <None Include="Art\undo.png" />
     <Content Include="Notes\todo.txt" />
+    <None Include="resources\download.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
