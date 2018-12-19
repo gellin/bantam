@@ -24,7 +24,7 @@ NEW ITEMS
 
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 
-* 4 - Make a way to spawn a listener type shell, and multiple ways to do  a back connect shell ?
+* 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
 
 * 4 - New feature to right click client and edit their send options, arg_name and send_method, way to resave XML as well
 
@@ -38,11 +38,9 @@ NEW ITEMS
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
+* 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
+
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-
-* 3 - match addhost UI to backdoor generator
-
-* 3 - after you go back x directories in filebrowser, cache still shows correct listing, but textbox shows wrong CWD
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
@@ -54,11 +52,11 @@ NEW ITEMS
 
 * 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
 
+* 2 - add X or bad image infront of RED items in the shells listview
+
 * 1 - on color reset of client/shells red color gets reset from the loop, store original colors.
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
-
-* 1 - if click CWD (link) on info page make it pull that up in the filebrowser
 
 * 1 - make timeout 6 seconds on ping
 

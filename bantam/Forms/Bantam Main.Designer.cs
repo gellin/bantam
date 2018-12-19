@@ -82,7 +82,6 @@
             this.lblStaticUname = new System.Windows.Forms.Label();
             this.lblDynUname = new System.Windows.Forms.Label();
             this.lblDynHDDSpace = new System.Windows.Forms.Label();
-            this.splitter1 = new System.Windows.Forms.Splitter();
             this.lblStaticUser = new System.Windows.Forms.Label();
             this.lblDynGroup = new System.Windows.Forms.Label();
             this.lblStaticGroup = new System.Windows.Forms.Label();
@@ -139,7 +138,7 @@
             shellColHeader,
             this.pingColHeader});
             this.listViewClients.ContextMenuStrip = this.listviewClientsContextMenu;
-            this.listViewClients.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewClients.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewClients.FullRowSelect = true;
             this.listViewClients.Location = new System.Drawing.Point(3, 4);
             this.listViewClients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -416,27 +415,28 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // pingClientsToolStripMenuItem
             // 
             this.pingClientsToolStripMenuItem.Name = "pingClientsToolStripMenuItem";
-            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pingClientsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.pingClientsToolStripMenuItem.Text = "Refresh Shells";
             this.pingClientsToolStripMenuItem.Click += new System.EventHandler(this.pingClientsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
             // 
             // saveClientsToolStripMenuItem
             // 
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
             this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveClientsToolStripMenuItem.Text = "Save Shells";
+            this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -469,7 +469,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageFiles);
-            this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(3, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
@@ -484,7 +484,6 @@
             this.tabPageInfo.Controls.Add(this.panel3);
             this.tabPageInfo.Controls.Add(this.panel2);
             this.tabPageInfo.Controls.Add(this.lblDynHDDSpace);
-            this.tabPageInfo.Controls.Add(this.splitter1);
             this.tabPageInfo.Controls.Add(this.lblStaticUser);
             this.tabPageInfo.Controls.Add(this.lblDynGroup);
             this.tabPageInfo.Controls.Add(this.lblStaticGroup);
@@ -495,11 +494,11 @@
             this.tabPageInfo.Controls.Add(this.lblStaticFreeHDD);
             this.tabPageInfo.Controls.Add(this.lblStaticHDD);
             this.tabPageInfo.Controls.Add(this.panel1);
-            this.tabPageInfo.Location = new System.Drawing.Point(4, 30);
+            this.tabPageInfo.Location = new System.Drawing.Point(4, 28);
             this.tabPageInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 418);
+            this.tabPageInfo.Size = new System.Drawing.Size(476, 420);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -596,15 +595,6 @@
             this.lblDynHDDSpace.Name = "lblDynHDDSpace";
             this.lblDynHDDSpace.Size = new System.Drawing.Size(0, 15);
             this.lblDynHDDSpace.TabIndex = 11;
-            // 
-            // splitter1
-            // 
-            this.splitter1.Location = new System.Drawing.Point(3, 4);
-            this.splitter1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 410);
-            this.splitter1.TabIndex = 18;
-            this.splitter1.TabStop = false;
             // 
             // lblStaticUser
             // 
@@ -729,11 +719,11 @@
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
             this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
-            this.tabPageFiles.Location = new System.Drawing.Point(4, 30);
+            this.tabPageFiles.Location = new System.Drawing.Point(4, 28);
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageFiles.Size = new System.Drawing.Size(476, 418);
+            this.tabPageFiles.Size = new System.Drawing.Size(476, 420);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -743,10 +733,10 @@
             // 
             this.btnFileBrowserRefresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(398, 6);
+            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(398, 7);
             this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(72, 29);
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(72, 27);
             this.btnFileBrowserRefresh.TabIndex = 1;
             this.btnFileBrowserRefresh.Text = "Home";
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
@@ -963,7 +953,6 @@
         private System.Windows.Forms.ToolStripMenuItem whoamiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pingToolStripMenuItem1;
-        private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Label lblStaticUser;
         private System.Windows.Forms.Label lblDynWebServer;
         private System.Windows.Forms.Label lblDynCWD;

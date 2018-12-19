@@ -31,7 +31,6 @@ namespace bantam_php
                     request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
                 }
 
-                //send the commands via [GET] & [COOKIE]
                 if (sendDataViaCookie)
                 {
                     request.Method = "GET";

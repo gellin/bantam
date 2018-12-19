@@ -48,6 +48,47 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            XmlNode rootNode = xmlDoc.CreateElement("servers");
+            xmlDoc.AppendChild(rootNode);
+
+            foreach (KeyValuePair<String, HostInfo> host in Hosts)
+            {
+                HostInfo hostInfo = (HostInfo)host.Value;
+
+                if (hostInfo.Down)
+                {
+                    continue;
+                }
+
+                XmlNode serverNode = xmlDoc.CreateElement("server");
+
+                XmlAttribute hostAttribute = xmlDoc.CreateAttribute("host");
+                hostAttribute.Value = host.Key;
+                serverNode.Attributes.Append(hostAttribute);
+
+                XmlAttribute requestArgAttribute = xmlDoc.CreateAttribute("request_arg");
+                requestArgAttribute.Value = hostInfo.RequestArgName;
+                serverNode.Attributes.Append(requestArgAttribute);
+
+                XmlAttribute requestMethod = xmlDoc.CreateAttribute("request_method");
+                requestMethod.Value = (hostInfo.SendDataViaCookie ? "cookie" : "post" ); //todo post is not the most proper thing it could differ
+                serverNode.Attributes.Append(requestMethod);
+
+                rootNode.AppendChild(serverNode);
+            }
+
+            xmlDoc.Save(CONFIG_FILE);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void loadhostTargetsFromXML(string xmlFile = CONFIG_FILE)
         {
             //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
@@ -813,13 +854,19 @@ namespace bantam_php
 
                 foreach (ListViewItem lvClients in listViewClients.Items)
                 {
-                    //dis is a bug what if they were red...
-                    lvClients.BackColor = System.Drawing.SystemColors.Window;
-                    lvClients.ForeColor = System.Drawing.SystemColors.WindowText;
+                    //todo store color and revert to original color, for now skip if red
+                    if (lvClients.BackColor != System.Drawing.Color.Red)
+                    {
+                        lvClients.BackColor = System.Drawing.SystemColors.Window;
+                        lvClients.ForeColor = System.Drawing.SystemColors.WindowText;
+                    }
                 }
 
-                lvi.BackColor = System.Drawing.SystemColors.Highlight;
-                lvi.ForeColor = System.Drawing.SystemColors.HighlightText;
+                if (lvi.BackColor != System.Drawing.Color.Red)
+                {
+                    lvi.BackColor = System.Drawing.SystemColors.Highlight;
+                    lvi.ForeColor = System.Drawing.SystemColors.HighlightText;
+                }
 
                 if (validTarget() == false)
                 {
@@ -1543,7 +1590,7 @@ namespace bantam_php
 
             if (string.IsNullOrEmpty(remoteIP) == false)
             {
-                MessageBox.Show(remoteIP, "Your IP is : ");
+                MessageBox.Show(remoteIP, "Your IPV4 Address Is");
                 Clipboard.SetText(remoteIP);
             }
         }
