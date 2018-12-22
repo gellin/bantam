@@ -96,7 +96,7 @@
             this.lblDynCWD = new System.Windows.Forms.Label();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
-            this.txtBoxFileBrowserPath = new System.Windows.Forms.TextBox();
+            this.txtBoxFileBrowserPath = new CustomForms.TextBoxButton();
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
             this.contextMenuStripFileBrowser = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.readFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -923,7 +923,7 @@
         private System.Windows.Forms.ToolStripMenuItem renameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFileToolStripMenuItem;
-        private System.Windows.Forms.TextBox txtBoxFileBrowserPath;
+        private CustomForms.TextBoxButton txtBoxFileBrowserPath;
         private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsNetuserMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsNetaccountsMenuItem;

@@ -20,6 +20,11 @@ namespace bantam_php
             comboBoxVarType.SelectedIndex = 0;
         }
 
+        public AddHost(string shellUrl)
+        {
+
+        }
+
         private void btnAddShell_Click(object sender, EventArgs e)
         {
             //todo, ugly static var thread safe?
@@ -51,6 +56,11 @@ namespace bantam_php
         private void AddHost_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.g_BantamMain.addClientForm = null;
+        }
+
+        private void btnTestShell_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

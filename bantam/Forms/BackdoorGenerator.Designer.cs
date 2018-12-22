@@ -47,7 +47,7 @@
             // 
             this.chkbxDisableLogging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxDisableLogging.AutoSize = true;
-            this.chkbxDisableLogging.Location = new System.Drawing.Point(471, 466);
+            this.chkbxDisableLogging.Location = new System.Drawing.Point(454, 466);
             this.chkbxDisableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxDisableLogging.Name = "chkbxDisableLogging";
             this.chkbxDisableLogging.Size = new System.Drawing.Size(140, 20);
@@ -79,7 +79,7 @@
             "native anonymous",
             "tmp include",
             "preg_replace"});
-            this.comboBoxMethod.Location = new System.Drawing.Point(84, 461);
+            this.comboBoxMethod.Location = new System.Drawing.Point(86, 462);
             this.comboBoxMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.Size = new System.Drawing.Size(143, 24);
@@ -111,7 +111,7 @@
             // txtBoxVarName
             // 
             this.txtBoxVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBoxVarName.Location = new System.Drawing.Point(84, 532);
+            this.txtBoxVarName.Location = new System.Drawing.Point(86, 531);
             this.txtBoxVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxVarName.Name = "txtBoxVarName";
             this.txtBoxVarName.Size = new System.Drawing.Size(143, 23);
@@ -123,7 +123,7 @@
             // 
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(471, 501);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(454, 503);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(92, 20);
@@ -151,7 +151,7 @@
             "cookie",
             "post",
             "request"});
-            this.comboBoxVarType.Location = new System.Drawing.Point(84, 498);
+            this.comboBoxVarType.Location = new System.Drawing.Point(86, 499);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxVarType.Name = "comboBoxVarType";
             this.comboBoxVarType.Size = new System.Drawing.Size(143, 24);
@@ -182,7 +182,7 @@
             // saveAsToolStripMenuItem1
             // 
             this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(114, 22);
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
             this.saveAsToolStripMenuItem1.Text = "Save As";
             this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
             // 

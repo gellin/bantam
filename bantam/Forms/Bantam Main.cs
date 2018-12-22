@@ -42,6 +42,10 @@ namespace bantam_php
         public BantamMain()
         {
             InitializeComponent();
+
+            //has to be initialized with parameters manually because, constructor with params breaks design mode...
+            txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
+
             loadhostTargetsFromXML();
         }
 
@@ -150,34 +154,6 @@ namespace bantam_php
             filebrowserGoBack();
         }
         
-        protected override void OnLoad(EventArgs e)
-        {
-            var btnBack = new Button();
-            btnBack.Size = new Size(25, txtBoxFileBrowserPath.ClientSize.Height + 2);
-            btnBack.Location = new Point(1, -1);
-            btnBack.Cursor = Cursors.Default;
-            btnBack.Image = global::bantam.Properties.Resources.undo;
-            btnBack.MouseClick += btnFileBrowserBack_MouseClick;
-            btnBack.TabStop = false;
-            btnBack.FlatStyle = FlatStyle.Flat;
-            btnBack.FlatAppearance.BorderSize = 0;
-            btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-
-            //var btnGo = new Button();
-            //btnGo.Size = new Size(25, txtBoxFileBrowserPath.ClientSize.Height + 2);
-            //btnGo.Location = new Point(txtBoxFileBrowserPath.ClientSize.Width - btn.Width, -1);
-            //btnGo.Cursor = Cursors.Default;
-            //btnGo.Image = global::bantam.Properties.Resources.play_2;
-
-            txtBoxFileBrowserPath.Controls.Add(btnBack);
-            //txtBoxFileBrowserPath.Controls.Add(btnGo);
-
-            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(txtBoxFileBrowserPath.Handle, 0xd3, (IntPtr)1, (IntPtr)(btnBack.Width));
-            //SendMessage(txtBoxFileBrowserPath.Handle, 0xd3, (IntPtr)2, (IntPtr)(btn.Width << 16));
-
-            base.OnLoad(e);
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -1153,9 +1129,9 @@ namespace bantam_php
             if (dialogResult == DialogResult.Yes)
             {
                 //todo abstract
-                string code = "@unlink('" + path + "');";
+                string phpCode = "@unlink('" + path + "');";
 
-                startPhpExecutionThread(code);
+                startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1176,9 +1152,8 @@ namespace bantam_php
 
             if (newFileName != "")
             {
-                string newFile = newFileName;
-                string code = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFile + "');";
-                startPhpExecutionThread(code);
+                string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
+                startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1236,16 +1211,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsNetuserMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetUser);
-                executePHPCodeDisplayInRichTextBox(phpCode, "User Account");
-            }
+            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetUser);
+            executePHPCodeDisplayInRichTextBox(phpCode, "User Account");
         }
 
         /// <summary>
@@ -1255,16 +1222,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetAccounts);
-                executePHPCodeDisplayInRichTextBox(phpCode, "User Accounts");
-            }
+            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetAccounts);
+            executePHPCodeDisplayInRichTextBox(phpCode, "User Accounts");
         }
 
         /// <summary>
@@ -1274,16 +1233,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ipconfig);
-                executePHPCodeDisplayInRichTextBox(phpCode, "ipconfig");
-            }
+            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ipconfig);
+            executePHPCodeDisplayInRichTextBox(phpCode, "ipconfig");
         }
 
         /// <summary>
@@ -1293,16 +1244,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ver);
-                executePHPCodeDisplayInRichTextBox(phpCode, "ver");
-            }
+            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ver);
+            executePHPCodeDisplayInRichTextBox(phpCode, "ver");
         }
 
         /// <summary>
@@ -1312,10 +1255,6 @@ namespace bantam_php
         /// <param name="e"></param>
         private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
             string phpCode = PhpHelper.executeSystemCode(PhpHelper.posixOS_Whoami);
             executePHPCodeDisplayInRichTextBox(phpCode, "whoami");
         }
@@ -1327,16 +1266,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.executeSystemCode(PhpHelper.linuxOS_Ifconfig);
-                executePHPCodeDisplayInRichTextBox(phpCode, "ifconfig");
-            }
+            string phpCode = PhpHelper.executeSystemCode(PhpHelper.linuxOS_Ifconfig);
+            executePHPCodeDisplayInRichTextBox(phpCode, "ifconfig");
         }
 
         #endregion
@@ -1349,16 +1280,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void windowsTargetsMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.windowsFS_hostTargets);
-                executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.windowsFS_hostTargets);
+            executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
         }
 
         /// <summary>
@@ -1368,16 +1291,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_NetworkInterfaces);
-                executePHPCodeDisplayInRichTextBox(phpCode, "interfaces");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_NetworkInterfaces);
+            executePHPCodeDisplayInRichTextBox(phpCode, "interfaces");
         }
 
         /// <summary>
@@ -1387,16 +1302,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linusVersionMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ProcVersion);
-                executePHPCodeDisplayInRichTextBox(phpCode, "version");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ProcVersion);
+            executePHPCodeDisplayInRichTextBox(phpCode, "version");
         }
 
         /// <summary>
@@ -1406,16 +1313,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxhostsMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_hostTargetsFile);
-                executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_hostTargetsFile);
+            executePHPCodeDisplayInRichTextBox(phpCode, "hosts");
         }
 
         /// <summary>
@@ -1425,16 +1324,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_IssueFile);
-                executePHPCodeDisplayInRichTextBox(phpCode, "issue.net");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_IssueFile);
+            executePHPCodeDisplayInRichTextBox(phpCode, "issue.net");
         }
 
         /// <summary>
@@ -1444,16 +1335,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void shadowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ShadowFile);
-                executePHPCodeDisplayInRichTextBox(phpCode, "shadow");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ShadowFile);
+            executePHPCodeDisplayInRichTextBox(phpCode, "shadow");
         }
 
         /// <summary>
@@ -1463,16 +1346,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void passwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (!Hosts[g_SelectedTarget].isWindows)
-            {
-                string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_PasswdFile);
-                executePHPCodeDisplayInRichTextBox(phpCode, "passwd");
-            }
+            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_PasswdFile);
+            executePHPCodeDisplayInRichTextBox(phpCode, "passwd");
         }
 
         #endregion
@@ -1543,7 +1418,6 @@ namespace bantam_php
         {
             if (string.IsNullOrEmpty(g_SelectedTarget) == false)
             {
-                //index 0 is always valid unless multiselect is enabled
                 listViewClients.SelectedItems[0].Remove();
                 Hosts.Remove(g_SelectedTarget);
             }
@@ -1551,7 +1425,25 @@ namespace bantam_php
 
         private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(g_SelectedTarget)
+             || Hosts.ContainsKey(g_SelectedTarget) == false)
+            {
+                return;
+            }
 
+            string shellURL       = g_SelectedTarget;
+            string requestArgName = Hosts[shellURL].RequestArgName;
+            bool   sendViaCookie  = Hosts[shellURL].SendDataViaCookie;
+
+            listViewClients.FindItemWithText(shellURL).Remove();
+            Hosts.Remove(shellURL);
+
+            Hosts.Add(shellURL, new HostInfo());
+            Hosts[shellURL].RequestArgName = requestArgName;
+            Hosts[shellURL].SendDataViaCookie = sendViaCookie;
+
+            Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
+            t.Start();
         }
 
         private void editFileToolStripMenuItem_Click(object sender, EventArgs e)

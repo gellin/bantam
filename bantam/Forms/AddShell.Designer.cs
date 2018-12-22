@@ -36,6 +36,7 @@
             this.comboBoxVarType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnTestShell = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +63,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(19, 138);
+            this.label3.Location = new System.Drawing.Point(260, 99);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 16);
@@ -72,7 +73,7 @@
             // txtBoxArgName
             // 
             this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxArgName.Location = new System.Drawing.Point(104, 134);
+            this.txtBoxArgName.Location = new System.Drawing.Point(340, 96);
             this.txtBoxArgName.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxArgName.Name = "txtBoxArgName";
             this.txtBoxArgName.Size = new System.Drawing.Size(143, 23);
@@ -82,10 +83,10 @@
             // btnAddShell
             // 
             this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddShell.Location = new System.Drawing.Point(268, 95);
+            this.btnAddShell.Location = new System.Drawing.Point(356, 137);
             this.btnAddShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btnAddShell.Name = "btnAddShell";
-            this.btnAddShell.Size = new System.Drawing.Size(215, 62);
+            this.btnAddShell.Size = new System.Drawing.Size(127, 37);
             this.btnAddShell.TabIndex = 6;
             this.btnAddShell.Text = "Add Shell";
             this.btnAddShell.UseVisualStyleBackColor = true;
@@ -99,7 +100,7 @@
             "cookie",
             "post",
             "request"});
-            this.comboBoxVarType.Location = new System.Drawing.Point(104, 95);
+            this.comboBoxVarType.Location = new System.Drawing.Point(92, 95);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.comboBoxVarType.Name = "comboBoxVarType";
             this.comboBoxVarType.Size = new System.Drawing.Size(143, 24);
@@ -125,11 +126,22 @@
             this.label5.Size = new System.Drawing.Size(462, 2);
             this.label5.TabIndex = 9;
             // 
+            // btnTestShell
+            // 
+            this.btnTestShell.Location = new System.Drawing.Point(221, 137);
+            this.btnTestShell.Name = "btnTestShell";
+            this.btnTestShell.Size = new System.Drawing.Size(127, 37);
+            this.btnTestShell.TabIndex = 10;
+            this.btnTestShell.Text = "Test Shell";
+            this.btnTestShell.UseVisualStyleBackColor = true;
+            this.btnTestShell.Click += new System.EventHandler(this.btnTestShell_Click);
+            // 
             // AddHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 176);
+            this.ClientSize = new System.Drawing.Size(498, 181);
+            this.Controls.Add(this.btnTestShell);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxVarType);
@@ -162,5 +174,6 @@
         private System.Windows.Forms.ComboBox comboBoxVarType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnTestShell;
     }
 }
