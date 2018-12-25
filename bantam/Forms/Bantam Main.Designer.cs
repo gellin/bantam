@@ -295,7 +295,6 @@
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
-            this.tabPageInfo.Click += new System.EventHandler(this.tabPageInfo_Click);
             // 
             // panel3
             // 
@@ -492,7 +491,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(483, 40);
             this.panel1.TabIndex = 25;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // lblStaticCWD
             // 
@@ -608,7 +606,6 @@
             this.editFileToolStripMenuItem.Name = "editFileToolStripMenuItem";
             this.editFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.editFileToolStripMenuItem.Text = "Edit File";
-            this.editFileToolStripMenuItem.Click += new System.EventHandler(this.editFileToolStripMenuItem_Click);
             // 
             // renameFileToolStripMenuItem
             // 
@@ -770,7 +767,6 @@
             this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
             this.linuxToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxToolStripMenuItem.Text = "Linux";
-            this.linuxToolStripMenuItem.Click += new System.EventHandler(this.linuxToolStripMenuItem_Click);
             // 
             // linuxIfconfigMenuItem
             // 
@@ -860,28 +856,24 @@
             this.apacheToolStripMenuItem.Name = "apacheToolStripMenuItem";
             this.apacheToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.apacheToolStripMenuItem.Text = "apache";
-            this.apacheToolStripMenuItem.Click += new System.EventHandler(this.apacheToolStripMenuItem_Click);
             // 
             // nginxToolStripMenuItem
             // 
             this.nginxToolStripMenuItem.Name = "nginxToolStripMenuItem";
             this.nginxToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.nginxToolStripMenuItem.Text = "nginx";
-            this.nginxToolStripMenuItem.Click += new System.EventHandler(this.nginxToolStripMenuItem_Click);
             // 
             // sambaToolStripMenuItem
             // 
             this.sambaToolStripMenuItem.Name = "sambaToolStripMenuItem";
             this.sambaToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.sambaToolStripMenuItem.Text = "samba";
-            this.sambaToolStripMenuItem.Click += new System.EventHandler(this.sambaToolStripMenuItem_Click);
             // 
             // mysqlToolStripMenuItem
             // 
             this.mysqlToolStripMenuItem.Name = "mysqlToolStripMenuItem";
             this.mysqlToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.mysqlToolStripMenuItem.Text = "mysql";
-            this.mysqlToolStripMenuItem.Click += new System.EventHandler(this.mysqlToolStripMenuItem_Click);
             // 
             // pingToolStripMenuItem1
             // 

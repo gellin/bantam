@@ -47,28 +47,16 @@ namespace bantam_php
             txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
         }
 
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BantamMain_Load(object sender, EventArgs e)
         {
-            XmlHelper.saveShells();
+            XmlHelper.loadShells();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-
-
-        private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
-        {
-            filebrowserGoBack();
-        }
-        
         /// <summary>
         /// 
         /// </summary>
@@ -847,10 +835,168 @@ namespace bantam_php
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            XmlHelper.saveShells();
+        }
+
+        private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //keep alive checks with this?
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (addClientForm == null)
+            {
+                addClientForm = new AddHost();
+            }
+            addClientForm.Show();
+        }
+
+        private void listviewClientsContextMenu_Paint(object sender, PaintEventArgs e)
+        {
+            if (validTarget())
+            {
+                phpToolStripMenuItem.Visible = true;
+                systemToolstripMenuItem.Visible = true;
+                softwareToolStripMenuItem.Visible = true;
+
+                if (Hosts[g_SelectedTarget].isWindows)
+                {
+                    linuxToolStripMenuItem.Visible = false;
+                    windowsToolStripMenuItem.Visible = true;
+                }
+                else
+                {
+                    linuxToolStripMenuItem.Visible = true;
+                    windowsToolStripMenuItem.Visible = false;
+                }
+            }
+            else
+            {
+                phpToolStripMenuItem.Visible = false;
+                systemToolstripMenuItem.Visible = false;
+                softwareToolStripMenuItem.Visible = false;
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
+            {
+                listViewClients.SelectedItems[0].Remove();
+                Hosts.Remove(g_SelectedTarget);
+            }
+        }
+
+        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //Done this way because it possibly may be "down" and need retesting
+            if (string.IsNullOrEmpty(g_SelectedTarget)
+             || Hosts.ContainsKey(g_SelectedTarget) == false)
+            {
+                return;
+            }
+
+            string shellURL = g_SelectedTarget;
+            string requestArgName = Hosts[shellURL].RequestArgName;
+            bool sendViaCookie = Hosts[shellURL].SendDataViaCookie;
+
+            listViewClients.FindItemWithText(shellURL).Remove();
+            Hosts.Remove(shellURL);
+
+            Hosts.Add(shellURL, new HostInfo());
+            Hosts[shellURL].RequestArgName = requestArgName;
+            Hosts[shellURL].SendDataViaCookie = sendViaCookie;
+
+            Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
+            t.Start();
+        }
+
+        private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (backdoorGenerator == null)
+            {
+                backdoorGenerator = new BackdoorGenerator();
+            }
+            backdoorGenerator.Show();
+        }
+
+        private void getMyIPToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //todo use php >.>
+            string remoteIP = WebHelper.makeRequest("http://ipv4.icanhazip.com/", "");
+
+            if (string.IsNullOrEmpty(remoteIP) == false)
+            {
+                MessageBox.Show(remoteIP, "Your IPV4 Address Is");
+                Clipboard.SetText(remoteIP);
+            }
+        }
+
+        private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveShellsXMLDialog = new SaveFileDialog();
+
+            saveShellsXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
+            saveShellsXMLDialog.FilterIndex = 2;
+            saveShellsXMLDialog.RestoreDirectory = true;
+
+            if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK)
+            {
+                XmlHelper.saveShells(saveShellsXMLDialog.FileName);
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openShellXMLDialog = new OpenFileDialog();
+            openShellXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
+            openShellXMLDialog.FilterIndex = 2;
+            openShellXMLDialog.RestoreDirectory = true;
+
+            if (openShellXMLDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (ListViewItem lvClients in listViewClients.Items)
+                {
+                    Hosts.Remove(lvClients.Text);
+                    lvClients.Remove();
+                }
+                XmlHelper.loadShells(openShellXMLDialog.FileName);
+            }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
+            {
+                string shellUrl = g_SelectedTarget;
+                string varName = Hosts[g_SelectedTarget].RequestArgName;
+                string varType = (Hosts[g_SelectedTarget].SendDataViaCookie ? "cookie" : "post");
+
+                editHostForm = new AddHost(shellUrl, varName, varType);
+                editHostForm.Show();
+            }
+        }
+
         #endregion
 
         #region FILE_BROWSER_EVENTS
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
+        {
+            filebrowserGoBack();
+        }
 
         private void btnFileBrowserGo_Click(object sender, EventArgs e)
         {
@@ -1275,190 +1421,5 @@ namespace bantam_php
 
         #endregion
 
-        private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //keep alive checks with this?
-        }
-
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (addClientForm == null)
-            {
-                addClientForm = new AddHost();
-            }
-            addClientForm.Show();
-        }
-
-        private void apacheToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nginxToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sambaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mysqlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void linuxToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listviewClientsContextMenu_Paint(object sender, PaintEventArgs e)
-        {
-            if (validTarget())
-            {
-                phpToolStripMenuItem.Visible = true;
-                systemToolstripMenuItem.Visible = true;
-                softwareToolStripMenuItem.Visible = true;
-
-                if (Hosts[g_SelectedTarget].isWindows)
-                {
-                    linuxToolStripMenuItem.Visible = false;
-                    windowsToolStripMenuItem.Visible = true;
-                } else {
-                    linuxToolStripMenuItem.Visible = true;
-                    windowsToolStripMenuItem.Visible = false;
-                }
-            } else {
-                phpToolStripMenuItem.Visible = false;
-                systemToolstripMenuItem.Visible = false;
-                softwareToolStripMenuItem.Visible = false;
-            }
-        }
-
-        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
-            {
-                listViewClients.SelectedItems[0].Remove();
-                Hosts.Remove(g_SelectedTarget);
-            }
-        }
-
-        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            //Done this way because it possibly may be "down" and need retesting
-            if (string.IsNullOrEmpty(g_SelectedTarget)
-             || Hosts.ContainsKey(g_SelectedTarget) == false)
-            {
-                return;
-            }
-
-            string shellURL       = g_SelectedTarget;
-            string requestArgName = Hosts[shellURL].RequestArgName;
-            bool   sendViaCookie  = Hosts[shellURL].SendDataViaCookie;
-
-            listViewClients.FindItemWithText(shellURL).Remove();
-            Hosts.Remove(shellURL);
-
-            Hosts.Add(shellURL, new HostInfo());
-            Hosts[shellURL].RequestArgName = requestArgName;
-            Hosts[shellURL].SendDataViaCookie = sendViaCookie;
-
-            Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
-            t.Start();
-        }
-
-        private void editFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabPageInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (backdoorGenerator == null)
-            {
-                backdoorGenerator = new BackdoorGenerator();
-            }
-            backdoorGenerator.Show();
-        }
-
-        private void getMyIPToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            //todo use php >.>
-            string remoteIP = WebHelper.makeRequest("http://ipv4.icanhazip.com/", "");
-
-            if (string.IsNullOrEmpty(remoteIP) == false)
-            {
-                MessageBox.Show(remoteIP, "Your IPV4 Address Is");
-                Clipboard.SetText(remoteIP);
-            }
-        }
-
-        private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveShellsXMLDialog = new SaveFileDialog();
-
-            saveShellsXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
-            saveShellsXMLDialog.FilterIndex = 2;
-            saveShellsXMLDialog.RestoreDirectory = true;
-
-            if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK)
-            {
-                XmlHelper.saveShells(saveShellsXMLDialog.FileName);
-            }
-        }
-
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openShellXMLDialog = new OpenFileDialog();
-            openShellXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
-            openShellXMLDialog.FilterIndex = 2;
-            openShellXMLDialog.RestoreDirectory = true;
-
-            if (openShellXMLDialog.ShowDialog() == DialogResult.OK)
-            {
-                foreach (ListViewItem lvClients in listViewClients.Items)
-                {
-                    Hosts.Remove(lvClients.Text);
-                    lvClients.Remove();
-                }
-                XmlHelper.loadShells(openShellXMLDialog.FileName);
-            }
-        }
-
-        private void BantamMain_Load(object sender, EventArgs e)
-        {
-            XmlHelper.loadShells();
-        }
-
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
-            {
-                string shellUrl = g_SelectedTarget;
-                string varName = Hosts[g_SelectedTarget].RequestArgName;
-                string varType = (Hosts[g_SelectedTarget].SendDataViaCookie ? "cookie" : "post");
-
-                editHostForm = new AddHost(shellUrl, varName, varType);
-                editHostForm.Show();
-            }
-        }
     }
 }
