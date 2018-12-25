@@ -93,6 +93,16 @@ namespace bantam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap enter_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("enter_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap eval_16x16 {
             get {
                 object obj = ResourceManager.GetObject("eval_16x16", resourceCulture);
@@ -116,6 +126,16 @@ namespace bantam.Properties {
         internal static System.Drawing.Bitmap gibson_16x16 {
             get {
                 object obj = ResourceManager.GetObject("gibson_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap home_png {
+            get {
+                object obj = ResourceManager.GetObject("home_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -123,7 +123,7 @@
             // 
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(454, 503);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(454, 497);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(92, 20);

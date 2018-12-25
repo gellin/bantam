@@ -15,7 +15,7 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="postData"></param>
         /// <returns></returns>
-        public static string makeRequest(string url, string postData, bool sendDataViaCookie = false, int timeout = 60_000, bool disableSSLCheck = true)
+        public static string makeRequest(string url, string postData, bool sendDataViaCookie = false, int timeout = 6_000, bool disableSSLCheck = true)
         {
             try
             {
@@ -74,14 +74,17 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static string executePHP(string url, string code, string requestArgsName, bool sendDataViaCookie)
+        public static string executePHP(string url, string code)
         {
             if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(code))
             {
                 return "";
             }
 
-            //remove extra spaces, line breakes, tabs, whitespace, urlendcode then base64 encode
+            string requestArgsName = BantamMain.Hosts[url].RequestArgName;
+            bool sendDataViaCookie = BantamMain.Hosts[url].SendDataViaCookie;
+
+            //remove extra spaces, line breakes, tabs, whitespace
             string minifiedCode = PhpHelper.minifyCode(code);
             string encodedCode = HttpUtility.UrlEncode(minifiedCode);
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);

@@ -19,7 +19,6 @@ namespace bantam_php
         public Dictionary<string, int> requestTypes = new Dictionary<string, int>() {
             {"cookie", 0},
             {"post", 1},
-            {"request", 2}
         };
 
         /// <summary>
@@ -134,7 +133,7 @@ namespace bantam_php
                 Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
                 t.Start();
 
-                Program.g_BantamMain.editHostForm.Hide();
+                Program.g_BantamMain.updateHostForm.Hide();
             }
         }
     }

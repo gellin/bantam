@@ -136,19 +136,19 @@
     <None Include="Art\play_2.png" />
     <None Include="Art\undo.png" />
     <None Include="Art\social-windows-outline.png" />
-    <None Include="Art\php%281%29.png" />
     <None Include="Art\edit_16x16.png" />
     <None Include="Art\trash_16x16.png" />
     <None Include="Art\linux_16x16.png" />
     <None Include="Art\gear_16x16.png" />
     <None Include="Art\connection_16x16.png" />
     <None Include="Art\information_16x16.png" />
-    <None Include="Art\iconfinder_php-2048-black_167633.png" />
     <None Include="Art\php_16x16.png" />
     <None Include="Art\php2_16x16.png" />
     <None Include="Art\gibson_16x16.png" />
     <None Include="Art\eval_16x16.png" />
     <None Include="Art\injection_16x16.png" />
+    <None Include="Art\home.png.png" />
+    <None Include="Art\enter_16x16.png" />
     <Content Include="Notes\todo.txt" />
     <None Include="resources\download.bmp" />
   </ItemGroup>

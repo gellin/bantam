@@ -20,6 +20,8 @@ NEW ITEMS
 
 * 6 - debug mode!! to show network packets and data that is being send and recieved!
 
+* 6 - mass eval, and a way to track results in a clean UI
+
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 
 * 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
@@ -33,8 +35,6 @@ NEW ITEMS
 ** 4 - Edit file feature?
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
-
-* 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
 
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 
@@ -54,10 +54,9 @@ NEW ITEMS
 * 2 - file browser back button doesn't go further back than /usr
 
 * 2 - add validity/testing checking to edit / add shell
+* 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
-
-* 1 - make timeout 6 seconds on ping
 
 * 1 - allowable charector check on var name of backdoor generator 
 

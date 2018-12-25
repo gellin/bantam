@@ -99,8 +99,7 @@
             this.comboBoxVarType.FormattingEnabled = true;
             this.comboBoxVarType.Items.AddRange(new object[] {
             "cookie",
-            "post",
-            "request"});
+            "post"});
             this.comboBoxVarType.Location = new System.Drawing.Point(92, 95);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.comboBoxVarType.Name = "comboBoxVarType";
