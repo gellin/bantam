@@ -123,6 +123,29 @@
   <metadata name="listviewClientsContextMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>152, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="phpinfoToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAEpSURBVDhPjdI9LwRRFMbxy0qw8dbJhrUK8QkUQiVWY7Fb
+        bIRCp9EgEjrxEUSBiEQhEVkRL6Hgc/kA/J8zjJnrzo4n+SXn3N25M3PnuECGsI8H3KGFe9ygjg5kZgmv
+        mEenFhLpxzYeMaIFP+s4R5d12RnHO1KbTEKP6991Gh+Ysu432uQJ8etcoxyVqZRwgWHr0tnDiooB3Krw
+        MgsdnuhJ/AzCrpvDjopA1vCJpnV/owN1q9AfQ8nbQE/nathUEUjeBpoVO7wzFYG026AAfQnLC3qiMs4Y
+        TqANjjGKZDR0u1Hp3DIOozKOLtCdfyQHpxtv6LPuO5pCzXpeNKlXqFqXiH44xRGKWghkAvp0Desysohn
+        aAK3sIED6JNdooJ/RWO8AN1tBr3w4twXdQwtEoVbNTkAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="softwareToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAASlJREFUOE+N0j0vBFEUxvHLSrDx1smGtQrxCRRCJVZjsVtshEKn0SASOvERRIGI
+        RCERWREvoeBz+QD8nzOMmevOjif5Jefc3bkzc+e4QIawjwfcoYV73KCODmRmCa+YR6cWEunHNh4xogU/
+        6zhHl3XZGcc7UptMQo/r33UaH5iy7jfa5Anx61yjHJWplHCBYevS2cOKigHcqvAyCx2e6En8DMKum8OO
+        ikDW8ImmdX+jA3Wr0B9DydtAT+dq2FQRSN4GmhU7vDMVgbTboAB9CcsLeqIyzhhOoA2OMYpkNHS7Uenc
+        Mg6jMo4u0J1/JAenG2/os+47mkLNel40qVeoWpeIfjjFEYpaCGQC+nQN6zKyiGdoArewgQPok12ign9F
+        Y7wA3W0GvfDi3Bd1DC0ShVs1OQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -137,7 +160,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAC0
-        DgAAAk1TRnQBSQFMAgEBBwEAAZABAQGQAQEBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        DgAAAk1TRnQBSQFMAgEBBwEAASgBAgEoAQIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAASADAAEBAQABCAYAAQgYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA

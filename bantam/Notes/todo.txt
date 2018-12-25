@@ -51,6 +51,10 @@ NEW ITEMS
 
 * 2 - add X or bad image infront of RED items in the shells listview
 
+* 2 - file browser back button doesn't go further back than /usr
+
+* 2 - add validity/testing checking to edit / add shell
+
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
 * 1 - make timeout 6 seconds on ping

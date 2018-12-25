@@ -27,7 +27,8 @@ namespace bantam_php
             Ping = ping;
             Files = new TreeView();
 
-            CWD = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
+            PWD = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
+            CWD = PWD;
             FreeHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.FREE_SPACE];
             TotalHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.TOTAL_SPACE];
             UnameRelease = data[(int)PhpHelper.INIT_DATA_VARS.RELEASE];
@@ -56,6 +57,11 @@ namespace bantam_php
         /// 
         /// </summary>
         public string CWD;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string PWD;
 
         /// <summary>
         /// 

