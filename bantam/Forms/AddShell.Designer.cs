@@ -32,11 +32,11 @@
             this.txtBoxShellUrl = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBoxArgName = new System.Windows.Forms.TextBox();
-            this.btnAddShell = new System.Windows.Forms.Button();
+            this.btnUpdateShell = new System.Windows.Forms.Button();
             this.comboBoxVarType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnTestShell = new System.Windows.Forms.Button();
+            this.btnAddShell = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -80,17 +80,18 @@
             this.txtBoxArgName.TabIndex = 4;
             this.txtBoxArgName.Text = "command";
             // 
-            // btnAddShell
+            // btnUpdateShell
             // 
-            this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddShell.Location = new System.Drawing.Point(356, 137);
-            this.btnAddShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.btnAddShell.Name = "btnAddShell";
-            this.btnAddShell.Size = new System.Drawing.Size(127, 37);
-            this.btnAddShell.TabIndex = 6;
-            this.btnAddShell.Text = "Add Shell";
-            this.btnAddShell.UseVisualStyleBackColor = true;
-            this.btnAddShell.Click += new System.EventHandler(this.btnAddShell_Click);
+            this.btnUpdateShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateShell.Location = new System.Drawing.Point(356, 137);
+            this.btnUpdateShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.btnUpdateShell.Name = "btnUpdateShell";
+            this.btnUpdateShell.Size = new System.Drawing.Size(127, 37);
+            this.btnUpdateShell.TabIndex = 6;
+            this.btnUpdateShell.Text = "Update Shell";
+            this.btnUpdateShell.UseVisualStyleBackColor = true;
+            this.btnUpdateShell.Visible = false;
+            this.btnUpdateShell.Click += new System.EventHandler(this.btnUpdateShell_Click);
             // 
             // comboBoxVarType
             // 
@@ -126,26 +127,26 @@
             this.label5.Size = new System.Drawing.Size(462, 2);
             this.label5.TabIndex = 9;
             // 
-            // btnTestShell
+            // btnAddShell
             // 
-            this.btnTestShell.Location = new System.Drawing.Point(221, 137);
-            this.btnTestShell.Name = "btnTestShell";
-            this.btnTestShell.Size = new System.Drawing.Size(127, 37);
-            this.btnTestShell.TabIndex = 10;
-            this.btnTestShell.Text = "Test Shell";
-            this.btnTestShell.UseVisualStyleBackColor = true;
-            this.btnTestShell.Click += new System.EventHandler(this.btnTestShell_Click);
+            this.btnAddShell.Location = new System.Drawing.Point(356, 137);
+            this.btnAddShell.Name = "btnAddShell";
+            this.btnAddShell.Size = new System.Drawing.Size(127, 37);
+            this.btnAddShell.TabIndex = 10;
+            this.btnAddShell.Text = "Add Shell";
+            this.btnAddShell.UseVisualStyleBackColor = true;
+            this.btnAddShell.Click += new System.EventHandler(this.btnAddShell_Click);
             // 
             // AddHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(498, 181);
-            this.Controls.Add(this.btnTestShell);
+            this.Controls.Add(this.btnAddShell);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxVarType);
-            this.Controls.Add(this.btnAddShell);
+            this.Controls.Add(this.btnUpdateShell);
             this.Controls.Add(this.txtBoxArgName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtBoxShellUrl);
@@ -170,10 +171,10 @@
         private System.Windows.Forms.TextBox txtBoxShellUrl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBoxArgName;
-        private System.Windows.Forms.Button btnAddShell;
+        private System.Windows.Forms.Button btnUpdateShell;
         private System.Windows.Forms.ComboBox comboBoxVarType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button btnTestShell;
+        private System.Windows.Forms.Button btnAddShell;
     }
 }

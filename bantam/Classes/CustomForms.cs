@@ -15,8 +15,7 @@ namespace bantam_php
         /// </summary>
         public class TextBoxButton : TextBox
         {
-
-            public Button btnBack;
+            Button btnBack = new Button();
 
             public TextBoxButton()
             {
@@ -25,25 +24,16 @@ namespace bantam_php
             }
 
             /// <summary>
-            /// Fixes designer issues
+            /// 
             /// </summary>
-            private void InitializeComponent()
-            {
-             
-            }
-
-                /// <summary>
-                /// 
-                /// </summary>
-                /// <param name="mouseClickFunction"></param>
-                /// <param name="textboxHeight"></param>
+            /// <param name="mouseClickFunction"></param>
+            /// <param name="textboxHeight"></param>
             public void Initialize(MouseEventHandler mouseClickFunction, int textboxHeight)
             {
-                btnBack = new Button { };
                 btnBack.Size = new Size(25, textboxHeight + 2);
                 btnBack.Location = new Point(1, -1);
                 btnBack.Image = global::bantam.Properties.Resources.undo;
-                btnBack.ImageAlign = ContentAlignment.MiddleLeft;
+               // btnBack.ImageAlign = ContentAlignment.MiddleLeft;
                 btnBack.MouseClick += mouseClickFunction;
                 btnBack.TabStop = false;
                 btnBack.FlatStyle = FlatStyle.Flat;
@@ -64,7 +54,8 @@ namespace bantam_php
                 switch (msg.Msg)
                 {
                     case 0x30:
-                        SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16));
+                        SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
+                        //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16));
                         break;
                     default:
                         break;
@@ -228,7 +219,7 @@ namespace bantam_php
                 Text = "Show Response",
                 Left = 25,
                 Top = 455,
-                Checked = true,
+                Checked = showResponse,
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
 
@@ -237,7 +228,7 @@ namespace bantam_php
 
             //C# doesn't allow lambda functions to play with out/ref vars.... :(
             //set the tmp var equal to that of the checkbox status to return through the out parameter
-            bool chkboxResult = false;
+            bool chkboxResult = showResponse;
             chkbxShowResponse.CheckedChanged += (sender, e) => { chkboxResult = chkbxShowResponse.Checked; };
 
             richTextBox.WordWrap = false;

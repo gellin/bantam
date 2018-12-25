@@ -152,9 +152,9 @@ namespace bantam_php
         }
 
         /// <summary>
-        /// 
+        /// Code for windows Get HDD list, written with "@" as a verbatim literal to avoid escaping of \\'
         /// </summary>
-        public static string getHardDriveLetters = "foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
+        public static string getHardDriveLetters = @"foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
 
         /// <summary>
         /// 

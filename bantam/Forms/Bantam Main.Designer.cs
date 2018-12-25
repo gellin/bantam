@@ -96,7 +96,7 @@
             this.lblDynCWD = new System.Windows.Forms.Label();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
-            this.txtBoxFileBrowserPath = new CustomForms.TextBoxButton();
+            this.txtBoxFileBrowserPath = new bantam_php.CustomForms.TextBoxButton();
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
             this.contextMenuStripFileBrowser = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.readFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,6 +107,8 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnFileBrowserGo = new System.Windows.Forms.Button();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -126,7 +128,7 @@
             // shellColHeader
             // 
             shellColHeader.Text = "Shell";
-            shellColHeader.Width = 148;
+            shellColHeader.Width = 203;
             // 
             // listViewClients
             // 
@@ -144,7 +146,7 @@
             this.listViewClients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(210, 452);
+            this.listViewClients.Size = new System.Drawing.Size(276, 474);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -163,9 +165,10 @@
             this.systemToolstripMenuItem,
             this.softwareToolStripMenuItem,
             this.pingToolStripMenuItem1,
+            this.editToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(187, 114);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(187, 136);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -180,14 +183,14 @@
             // phpinfoToolStripMenuItem
             // 
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
             // evalToolStripMenuItem
             // 
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -378,7 +381,7 @@
             // 
             this.pingToolStripMenuItem1.Name = "pingToolStripMenuItem1";
             this.pingToolStripMenuItem1.Size = new System.Drawing.Size(186, 22);
-            this.pingToolStripMenuItem1.Text = "Ping";
+            this.pingToolStripMenuItem1.Text = "Test Connection";
             this.pingToolStripMenuItem1.Click += new System.EventHandler(this.pingToolStripMenuItem1_Click);
             // 
             // removeToolStripMenuItem
@@ -396,7 +399,7 @@
             this.toolsToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(737, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(816, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -434,7 +437,7 @@
             // saveClientsToolStripMenuItem
             // 
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
             this.saveClientsToolStripMenuItem.Text = "Save Shells";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
@@ -470,11 +473,11 @@
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageFiles);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(3, 4);
+            this.tabControl1.Location = new System.Drawing.Point(-2, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 452);
+            this.tabControl1.Size = new System.Drawing.Size(503, 474);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -498,7 +501,7 @@
             this.tabPageInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageInfo.Size = new System.Drawing.Size(476, 420);
+            this.tabPageInfo.Size = new System.Drawing.Size(495, 442);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -512,10 +515,10 @@
             this.panel3.Controls.Add(this.lblDynPHP);
             this.panel3.Controls.Add(this.lblStaticServerIP);
             this.panel3.Controls.Add(this.lblDynServerIP);
-            this.panel3.Location = new System.Drawing.Point(12, 42);
+            this.panel3.Location = new System.Drawing.Point(6, 42);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(458, 40);
+            this.panel3.Size = new System.Drawing.Size(483, 40);
             this.panel3.TabIndex = 26;
             // 
             // lblStaticPHP
@@ -541,7 +544,7 @@
             // 
             this.lblStaticServerIP.AutoSize = true;
             this.lblStaticServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticServerIP.Location = new System.Drawing.Point(229, 13);
+            this.lblStaticServerIP.Location = new System.Drawing.Point(241, 13);
             this.lblStaticServerIP.Name = "lblStaticServerIP";
             this.lblStaticServerIP.Size = new System.Drawing.Size(64, 13);
             this.lblStaticServerIP.TabIndex = 6;
@@ -562,10 +565,10 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.lblStaticUname);
             this.panel2.Controls.Add(this.lblDynUname);
-            this.panel2.Location = new System.Drawing.Point(12, 216);
+            this.panel2.Location = new System.Drawing.Point(6, 216);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(458, 40);
+            this.panel2.Size = new System.Drawing.Size(483, 40);
             this.panel2.TabIndex = 26;
             // 
             // lblStaticUname
@@ -600,7 +603,7 @@
             // 
             this.lblStaticUser.AutoSize = true;
             this.lblStaticUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticUser.Location = new System.Drawing.Point(35, 14);
+            this.lblStaticUser.Location = new System.Drawing.Point(28, 16);
             this.lblStaticUser.Name = "lblStaticUser";
             this.lblStaticUser.Size = new System.Drawing.Size(37, 13);
             this.lblStaticUser.TabIndex = 1;
@@ -656,7 +659,7 @@
             // 
             this.lblStaticWebServer.AutoSize = true;
             this.lblStaticWebServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticWebServer.Location = new System.Drawing.Point(17, 184);
+            this.lblStaticWebServer.Location = new System.Drawing.Point(11, 184);
             this.lblStaticWebServer.Name = "lblStaticWebServer";
             this.lblStaticWebServer.Size = new System.Drawing.Size(78, 13);
             this.lblStaticWebServer.TabIndex = 7;
@@ -666,7 +669,7 @@
             // 
             this.lblStaticFreeHDD.AutoSize = true;
             this.lblStaticFreeHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticFreeHDD.Location = new System.Drawing.Point(242, 98);
+            this.lblStaticFreeHDD.Location = new System.Drawing.Point(248, 98);
             this.lblStaticFreeHDD.Name = "lblStaticFreeHDD";
             this.lblStaticFreeHDD.Size = new System.Drawing.Size(76, 13);
             this.lblStaticFreeHDD.TabIndex = 4;
@@ -676,7 +679,7 @@
             // 
             this.lblStaticHDD.AutoSize = true;
             this.lblStaticHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStaticHDD.Location = new System.Drawing.Point(17, 98);
+            this.lblStaticHDD.Location = new System.Drawing.Point(12, 98);
             this.lblStaticHDD.Name = "lblStaticHDD";
             this.lblStaticHDD.Size = new System.Drawing.Size(78, 13);
             this.lblStaticHDD.TabIndex = 3;
@@ -688,10 +691,10 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblStaticCWD);
             this.panel1.Controls.Add(this.lblDynCWD);
-            this.panel1.Location = new System.Drawing.Point(12, 130);
+            this.panel1.Location = new System.Drawing.Point(6, 130);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(458, 40);
+            this.panel1.Size = new System.Drawing.Size(483, 40);
             this.panel1.TabIndex = 25;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -716,6 +719,7 @@
             // 
             // tabPageFiles
             // 
+            this.tabPageFiles.Controls.Add(this.btnFileBrowserGo);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
             this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
@@ -723,7 +727,7 @@
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageFiles.Size = new System.Drawing.Size(476, 420);
+            this.tabPageFiles.Size = new System.Drawing.Size(495, 442);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -733,10 +737,10 @@
             // 
             this.btnFileBrowserRefresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(398, 7);
+            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(455, 8);
             this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(72, 27);
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(28, 27);
             this.btnFileBrowserRefresh.TabIndex = 1;
             this.btnFileBrowserRefresh.Text = "Home";
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
@@ -746,10 +750,10 @@
             // 
             this.txtBoxFileBrowserPath.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(7, 10);
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 10);
             this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(385, 21);
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(403, 21);
             this.txtBoxFileBrowserPath.TabIndex = 3;
             // 
             // treeViewFileBrowser
@@ -759,12 +763,12 @@
             this.treeViewFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewFileBrowser.ImageIndex = 0;
             this.treeViewFileBrowser.ImageList = this.imageListFileBrowser;
-            this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 46);
+            this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 43);
             this.treeViewFileBrowser.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeViewFileBrowser.Name = "treeViewFileBrowser";
             this.treeViewFileBrowser.SelectedImageIndex = 0;
             this.treeViewFileBrowser.ShowNodeToolTips = true;
-            this.treeViewFileBrowser.Size = new System.Drawing.Size(464, 368);
+            this.treeViewFileBrowser.Size = new System.Drawing.Size(483, 382);
             this.treeViewFileBrowser.TabIndex = 0;
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
@@ -851,15 +855,32 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(713, 461);
-            this.splitContainer1.SplitterDistance = 217;
+            this.splitContainer1.Size = new System.Drawing.Size(792, 483);
+            this.splitContainer1.SplitterDistance = 282;
             this.splitContainer1.TabIndex = 3;
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // btnFileBrowserGo
+            // 
+            this.btnFileBrowserGo.Location = new System.Drawing.Point(415, 8);
+            this.btnFileBrowserGo.Name = "btnFileBrowserGo";
+            this.btnFileBrowserGo.Size = new System.Drawing.Size(34, 27);
+            this.btnFileBrowserGo.TabIndex = 4;
+            this.btnFileBrowserGo.Text = "Go";
+            this.btnFileBrowserGo.UseVisualStyleBackColor = true;
+            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click);
             // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 513);
+            this.ClientSize = new System.Drawing.Size(816, 535);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -973,6 +994,8 @@
         private System.Windows.Forms.ToolStripMenuItem backdoorGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getMyIPToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem saveClientsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.Button btnFileBrowserGo;
     }
 }
 

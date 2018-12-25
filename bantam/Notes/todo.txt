@@ -1,9 +1,5 @@
 ﻿BUGS
 
-* Pinging a client that is down should reload the client data
-
-* when you use the text box to change the file directory, you can no longer double click on any items/folders etc, (it doesn't get the correct path from the treeview nodes)
-
 * size bug on larger files via tooltip
 
 NEW ITEMS
@@ -22,11 +18,11 @@ NEW ITEMS
 
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
+* 6 - debug mode!! to show network packets and data that is being send and recieved!
+
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 
 * 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
-
-* 4 - New feature to right click client and edit their send options, arg_name and send_method, way to resave XML as well
 
 * 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
 
@@ -34,7 +30,7 @@ NEW ITEMS
 
 * 4 - password feature?
 
-* 4 - Edit file feature?
+** 4 - Edit file feature?
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
@@ -45,16 +41,15 @@ NEW ITEMS
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
-
 * 3 - Advanced options useragent editor (global)
+
+* 3 - Make sub forms load where cursor is or relavent location
 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 
 * 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
 
 * 2 - add X or bad image infront of RED items in the shells listview
-
-* 1 - on color reset of client/shells red color gets reset from the loop, store original colors.
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
