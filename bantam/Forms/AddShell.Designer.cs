@@ -83,10 +83,10 @@
             // btnUpdateShell
             // 
             this.btnUpdateShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateShell.Location = new System.Drawing.Point(356, 133);
+            this.btnUpdateShell.Location = new System.Drawing.Point(356, 135);
             this.btnUpdateShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btnUpdateShell.Name = "btnUpdateShell";
-            this.btnUpdateShell.Size = new System.Drawing.Size(127, 37);
+            this.btnUpdateShell.Size = new System.Drawing.Size(127, 32);
             this.btnUpdateShell.TabIndex = 6;
             this.btnUpdateShell.Text = "Update Shell";
             this.btnUpdateShell.UseVisualStyleBackColor = true;
@@ -128,7 +128,7 @@
             // 
             // btnAddShell
             // 
-            this.btnAddShell.Location = new System.Drawing.Point(356, 133);
+            this.btnAddShell.Location = new System.Drawing.Point(356, 135);
             this.btnAddShell.Name = "btnAddShell";
             this.btnAddShell.Size = new System.Drawing.Size(127, 32);
             this.btnAddShell.TabIndex = 10;

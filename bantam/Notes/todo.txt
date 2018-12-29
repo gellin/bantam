@@ -52,6 +52,8 @@ NEW ITEMS
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
+* 1 - filebrowser bug when click back from windows
+
 * 1 - allowable charector check on var name of backdoor generator 
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

@@ -12,18 +12,17 @@ namespace bantam_php
     class WebHelper
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string g_GlobalDefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
+
         private static readonly HttpClient client = new HttpClient(new HttpClientHandler() { UseCookies = false });
 
-        public static async Task<string> Request2(string url, string code)
+        public static async Task<string> WebRequest(string url, string code)
         {
             string requestArgsName = BantamMain.Hosts[url].RequestArgName;
-
-            //var values = new Dictionary<string, string>
-            //{
-            //   { requestArgsName, code }
-            //};
-
-            //var content = new FormUrlEncodedContent(values);
+            bool sendViaCookie = BantamMain.Hosts[url].SendDataViaCookie;
 
             //var response = await client.PostAsync(url, content);
             //var responseString = await response.Content.ReadAsStringAsync();
@@ -31,7 +30,16 @@ namespace bantam_php
 
             try
             {
-                HttpMethod method = HttpMethod.Get /*Put, Post, Delete, etc.*/;
+                HttpMethod method;
+                if (sendViaCookie)
+                {
+                    method = HttpMethod.Get;
+                }
+                else
+                {
+                    method = HttpMethod.Post;
+                }
+
                 var request = new HttpRequestMessage(method, url);
 
                 var httpClient = new HttpClient();
@@ -43,10 +51,22 @@ namespace bantam_php
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
                     string b64 = System.Convert.ToBase64String(plainTextBytes);
 
-                    request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
-                }
+                    var values = new Dictionary<string, string>
+                    {
+                       { requestArgsName, b64 }
+                    };
 
-                //request.Content = content;
+                    var content = new FormUrlEncodedContent(values);
+
+
+                    if (sendViaCookie)
+                    {
+                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
+                    } else
+                    {
+                        request.Content = content;
+                    }
+                }
 
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
