@@ -17,8 +17,8 @@ namespace bantam_php
         /// 
         /// </summary>
         public Dictionary<string, int> requestTypes = new Dictionary<string, int>() {
-            {"cookie", 0},
-            {"post", 1},
+            { "cookie", 0 },
+            { "post", 1 },
         };
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace bantam_php
         /// <param name="shellUrl"></param>
         /// <param name="varName"></param>
         /// <param name="varType"></param>
-        public AddHost(string shellUrl = "", string varName = "", string varType = "")        
+        public AddHost(string shellUrl = "", string varName = "", string varType = "")
         {
             InitializeComponent();
 
@@ -46,11 +46,9 @@ namespace bantam_php
             txtBoxShellUrl.Text = shellUrl;
             txtBoxArgName.Text = varName;
 
-            if(requestTypes.ContainsKey(varType))
-            {
+            if (requestTypes.ContainsKey(varType)) {
                 comboBoxVarType.SelectedIndex = requestTypes[varType];
             } else {
-                //todo: possible alert to user about default behaviour
                 comboBoxVarType.SelectedIndex = 0;
             }
 
@@ -65,25 +63,21 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void btnAddShell_Click(object sender, EventArgs e)
         {
-            //todo, ugly static var thread safe?
             string shellURL = txtBoxShellUrl.Text;
 
-            if (string.IsNullOrEmpty(shellURL))
-            {
+            if (string.IsNullOrEmpty(shellURL)) {
                 return;
             }
 
-            if (BantamMain.Hosts.ContainsKey(shellURL))
-            {
+            if (BantamMain.Hosts.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
                 BantamMain.Hosts.Remove(shellURL);
             }
 
-            BantamMain.Hosts.Add(shellURL, new HostInfo());
+            BantamMain.Hosts.Add(shellURL, new ShellInfo());
             BantamMain.Hosts[shellURL].RequestArgName = txtBoxArgName.Text;
 
-            if(comboBoxVarType.Text == "cookie")
-            {
+            if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Hosts[shellURL].SendDataViaCookie = true;
             }
 
@@ -110,21 +104,18 @@ namespace bantam_php
         {
             string shellURL = txtBoxShellUrl.Text;
 
-            if (string.IsNullOrEmpty(shellURL))
-            {
+            if (string.IsNullOrEmpty(shellURL)) {
                 return;
             }
 
-            if (BantamMain.Hosts.ContainsKey(shellURL))
-            {
+            if (BantamMain.Hosts.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
                 BantamMain.Hosts.Remove(shellURL);
 
-                BantamMain.Hosts.Add(shellURL, new HostInfo());
+                BantamMain.Hosts.Add(shellURL, new ShellInfo());
                 BantamMain.Hosts[shellURL].RequestArgName = txtBoxArgName.Text;
 
-                if (comboBoxVarType.Text == "cookie")
-                {
+                if (comboBoxVarType.Text == "cookie") {
                     BantamMain.Hosts[shellURL].SendDataViaCookie = true;
                 }
 

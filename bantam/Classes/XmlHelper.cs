@@ -16,18 +16,15 @@ namespace bantam_php
         {
 
             //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
-            if (File.Exists(configFile))
-            {
+            if (File.Exists(configFile)) {
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(configFile);
 
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
-                if (itemNodes.Count > 0)
-                {
+                if (itemNodes.Count > 0) {
                     //loop through every server
-                    foreach (XmlNode itemNode in itemNodes)
-                    {
+                    foreach (XmlNode itemNode in itemNodes) {
                         //TODO abstract this into process function(s)
                         //Hot select target onload up
                         string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : "";
@@ -35,24 +32,21 @@ namespace bantam_php
                         string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
 
                         //invalid hostTarget/target name
-                        if (string.IsNullOrEmpty(hostTarget))
-                        {
+                        if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
                         }
                         //add the hostTarget to our client class containing infos
-                        BantamMain.Hosts.Add(hostTarget, new HostInfo());
+                        BantamMain.Hosts.Add(hostTarget, new ShellInfo());
 
                         //if the request arg is specified in the XML and not set to command
                         if (string.IsNullOrEmpty(requestArg) == false
-                        && requestArg != "command")
-                        {
+                        && requestArg != "command") {
                             BantamMain.Hosts[hostTarget].RequestArgName = requestArg;
                         }
 
                         //if the request method is specified in the XML and set to cookie
                         if (string.IsNullOrEmpty(requestMethod) == false
-                         && requestMethod == "cookie")
-                        {
+                         && requestMethod == "cookie") {
                             BantamMain.Hosts[hostTarget].SendDataViaCookie = true;
                         }
 
@@ -60,9 +54,7 @@ namespace bantam_php
                         Program.g_BantamMain.getInitDataThread(hostTarget);
                     }
                 }
-            }
-            else
-            {
+            } else {
                 MessageBox.Show("Config file (" + configFile + ") is missing.", "Oh... Shied..");
             }
         }
@@ -74,12 +66,10 @@ namespace bantam_php
             XmlNode rootNode = xmlDoc.CreateElement("servers");
             xmlDoc.AppendChild(rootNode);
 
-            foreach (KeyValuePair<String, HostInfo> host in BantamMain.Hosts)
-            {
-                HostInfo hostInfo = (HostInfo)host.Value;
+            foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Hosts) {
+                ShellInfo hostInfo = (ShellInfo)host.Value;
 
-                if (hostInfo.Down)
-                {
+                if (hostInfo.Down) {
                     continue;
                 }
 

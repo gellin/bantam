@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\HostInfo.cs" />
+    <Compile Include="Classes\ShellInfo.cs" />
     <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />

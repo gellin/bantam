@@ -27,10 +27,8 @@ namespace bantam_php
         /// <returns></returns>
         public static ListViewItem GetFirstSelectedListview(ListView lv)
         {
-            if (lv.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem lvi in lv.SelectedItems)
-                {
+            if (lv.SelectedItems.Count > 0) {
+                foreach (ListViewItem lvi in lv.SelectedItems) {
                     return lvi;
                 }
             }
@@ -44,10 +42,8 @@ namespace bantam_php
         /// <param name="dest"></param>
         public static void CopyNodes(TreeView source, TreeView dest)
         {
-            foreach (TreeNode tn in source.Nodes)
-            {
-                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
-                {
+            foreach (TreeNode tn in source.Nodes) {
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
                     ForeColor = tn.ForeColor
                 };
                 CopyChilds(newTn, tn);
@@ -62,10 +58,8 @@ namespace bantam_php
         /// <param name="willCopied"></param>
         public static void CopyChilds(TreeNode parent, TreeNode willCopied)
         {
-            foreach (TreeNode tn in willCopied.Nodes)
-            {
-                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
-                {
+            foreach (TreeNode tn in willCopied.Nodes) {
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
                     ForeColor = tn.ForeColor
                 };
                 CopyChilds(newTn, tn);

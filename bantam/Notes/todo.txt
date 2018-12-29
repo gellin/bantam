@@ -36,6 +36,8 @@ NEW ITEMS
 
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 
+* 3 - CMD option to disable message boxes
+
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 * 3 - Advanced options useragent editor (global)
 
@@ -55,5 +57,7 @@ NEW ITEMS
 * 1 - filebrowser bug when click back from windows
 
 * 1 - allowable charector check on var name of backdoor generator 
+
+* 1 - fake request as b64 image
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

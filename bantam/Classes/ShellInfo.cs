@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace bantam_php
 {
-    public class HostInfo
+    public class ShellInfo
     {
         /// <summary>
         /// 
         /// </summary>
-        public HostInfo()
+        public ShellInfo()
         {
 
         }

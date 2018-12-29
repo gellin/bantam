@@ -20,7 +20,7 @@ namespace bantam_php
             public TextBoxButton()
             {
                 //InitializeComponent();
-                
+
             }
 
             /// <summary>
@@ -33,7 +33,7 @@ namespace bantam_php
                 btnBack.Size = new Size(25, textboxHeight + 2);
                 btnBack.Location = new Point(1, -1);
                 btnBack.Image = global::bantam.Properties.Resources.undo;
-               // btnBack.ImageAlign = ContentAlignment.MiddleLeft;
+                // btnBack.ImageAlign = ContentAlignment.MiddleLeft;
                 btnBack.MouseClick += mouseClickFunction;
                 btnBack.TabStop = false;
                 btnBack.FlatStyle = FlatStyle.Flat;
@@ -42,7 +42,7 @@ namespace bantam_php
 
                 this.Controls.Add(btnBack);
             }
-            
+
             /// <summary>
             /// 
             /// </summary>
@@ -51,8 +51,7 @@ namespace bantam_php
             {
                 base.WndProc(ref msg);
 
-                switch (msg.Msg)
-                {
+                switch (msg.Msg) {
                     case 0x30:
                         SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
                         //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16));
@@ -75,8 +74,7 @@ namespace bantam_php
         public static string RenameFileDialog(string oldFileName, string windowTitle)
         {
             //oldFileName = "Current File Name: " + oldFileName;
-            Form prompt = new Form()
-            {
+            Form prompt = new Form() {
                 Width = 500,
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
@@ -85,23 +83,20 @@ namespace bantam_php
                 MinimumSize = new System.Drawing.Size(500, 150)
             };
 
-            Label textLabel = new Label()
-            {
+            Label textLabel = new Label() {
                 Left = 50,
                 Top = 20,
                 Text = oldFileName,
                 Width = 400
             };
 
-            TextBox textBox = new TextBox()
-            {
+            TextBox textBox = new TextBox() {
                 Left = 50,
                 Top = 50,
                 Width = 400
             };
 
-            Button cancel = new Button()
-            {
+            Button cancel = new Button() {
                 Text = "Cancel",
                 Left = 300,
                 Width = 100,
@@ -109,8 +104,7 @@ namespace bantam_php
                 DialogResult = DialogResult.Cancel
             };
 
-            Button confirmation = new Button()
-            {
+            Button confirmation = new Button() {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
@@ -138,8 +132,7 @@ namespace bantam_php
         public static void RichTextBoxDialog(string windowTitle, string text)
         {
             //oldFileName = "Current File Name: " + oldFileName;
-            Form prompt = new Form()
-            {
+            Form prompt = new Form() {
                 Width = 500,
                 Height = 500,
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,
@@ -148,8 +141,7 @@ namespace bantam_php
                 MinimumSize = new System.Drawing.Size(180, 300)
             };
 
-            RichTextBox richTextBox = new RichTextBox()
-            {
+            RichTextBox richTextBox = new RichTextBox() {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -175,8 +167,7 @@ namespace bantam_php
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
         {
             //oldFileName = "Current File Name: " + oldFileName;
-            Form prompt = new Form()
-            {
+            Form prompt = new Form() {
                 Width = 500,
                 Height = 520,
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,
@@ -185,8 +176,7 @@ namespace bantam_php
                 MinimumSize = new System.Drawing.Size(300, 300)
             };
 
-            RichTextBox richTextBox = new RichTextBox()
-            {
+            RichTextBox richTextBox = new RichTextBox() {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -194,8 +184,7 @@ namespace bantam_php
                 Text = text
             };
 
-            Button cancel = new Button()
-            {
+            Button cancel = new Button() {
                 Text = "Cancel",
                 Left = 330,
                 Width = 50,
@@ -204,8 +193,7 @@ namespace bantam_php
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            Button confirmation = new Button()
-            {
+            Button confirmation = new Button() {
                 Text = "Ok",
                 Left = 380,
                 Width = 100,
@@ -214,8 +202,7 @@ namespace bantam_php
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            CheckBox chkbxShowResponse = new CheckBox()
-            {
+            CheckBox chkbxShowResponse = new CheckBox() {
                 Text = "Show Response",
                 Left = 25,
                 Top = 455,
