@@ -524,18 +524,6 @@ namespace bantam_php
             backdoorGenerator.Show();
         }
 
-        private void getMyIPToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            //todo use php >.>
-            string remoteIP = WebHelper.makeRequest("http://ipv4.icanhazip.com/", "");
-
-            if (string.IsNullOrEmpty(remoteIP) == false)
-            {
-                MessageBox.Show(remoteIP, "Your IPV4 Address Is");
-                Clipboard.SetText(remoteIP);
-            }
-        }
-
         private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveShellsXMLDialog = new SaveFileDialog();
