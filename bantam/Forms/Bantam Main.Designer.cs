@@ -73,6 +73,7 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backdoorGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.getMyIPToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.userAgentSwitcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -103,7 +104,6 @@
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
             this.contextMenuStripFileBrowser = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.readFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -181,6 +181,17 @@
             this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
             this.phpToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
             this.phpToolStripMenuItem.Text = "PHP";
+            // 
+            // txtBoxFileBrowserPath
+            // 
+            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 11);
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(410, 21);
+            this.txtBoxFileBrowserPath.TabIndex = 3;
             // 
             // phpinfoToolStripMenuItem
             // 
@@ -433,33 +444,33 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveClientsToolStripMenuItem
             // 
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
             // 
@@ -467,7 +478,8 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backdoorGeneratorToolStripMenuItem,
-            this.getMyIPToolStripMenuItem1});
+            this.getMyIPToolStripMenuItem1,
+            this.userAgentSwitcherToolStripMenuItem});
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
@@ -486,6 +498,13 @@
             this.getMyIPToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
             this.getMyIPToolStripMenuItem1.Text = "Get My IP";
             this.getMyIPToolStripMenuItem1.Click += new System.EventHandler(this.getMyIPToolStripMenuItem1_Click);
+            // 
+            // userAgentSwitcherToolStripMenuItem
+            // 
+            this.userAgentSwitcherToolStripMenuItem.Name = "userAgentSwitcherToolStripMenuItem";
+            this.userAgentSwitcherToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.userAgentSwitcherToolStripMenuItem.Text = "User Agent Switcher";
+            this.userAgentSwitcherToolStripMenuItem.Click += new System.EventHandler(this.userAgentSwitcherToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -515,6 +534,7 @@
             this.tabPageInfo.Controls.Add(this.lblDynWebServer);
             this.tabPageInfo.Controls.Add(this.lblDynFreeSpace);
             this.tabPageInfo.Controls.Add(this.lblDynUser);
+            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageInfo.Controls.Add(this.lblStaticWebServer);
             this.tabPageInfo.Controls.Add(this.lblStaticFreeHDD);
             this.tabPageInfo.Controls.Add(this.lblStaticHDD);
@@ -747,7 +767,6 @@
             // 
             this.tabPageFiles.Controls.Add(this.btnFileBrowserGo);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
-            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
             this.tabPageFiles.Location = new System.Drawing.Point(4, 28);
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -783,17 +802,6 @@
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
             this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
             // 
-            // txtBoxFileBrowserPath
-            // 
-            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 11);
-            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(410, 21);
-            this.txtBoxFileBrowserPath.TabIndex = 3;
-            // 
             // treeViewFileBrowser
             // 
             this.treeViewFileBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -819,12 +827,11 @@
             this.contextMenuStripFileBrowser.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripFileBrowser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.readFileToolStripMenuItem,
-            this.editFileToolStripMenuItem,
             this.renameFileToolStripMenuItem,
             this.deleteFileToolStripMenuItem,
             this.copyFileToolStripMenuItem});
             this.contextMenuStripFileBrowser.Name = "contextMenuStripFileBrowser";
-            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(139, 114);
+            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(139, 92);
             // 
             // readFileToolStripMenuItem
             // 
@@ -832,12 +839,6 @@
             this.readFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.readFileToolStripMenuItem.Text = "Read File";
             this.readFileToolStripMenuItem.Click += new System.EventHandler(this.readFileToolStripMenuItem_Click_1);
-            // 
-            // editFileToolStripMenuItem
-            // 
-            this.editFileToolStripMenuItem.Name = "editFileToolStripMenuItem";
-            this.editFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.editFileToolStripMenuItem.Text = "Edit File";
             // 
             // renameFileToolStripMenuItem
             // 
@@ -928,7 +929,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPageFiles.ResumeLayout(false);
-            this.tabPageFiles.PerformLayout();
             this.contextMenuStripFileBrowser.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -962,7 +962,6 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFileBrowser;
         private System.Windows.Forms.ToolStripMenuItem readFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFileToolStripMenuItem;
@@ -1020,6 +1019,7 @@
         private System.Windows.Forms.Button btnFileBrowserGo;
         private System.Windows.Forms.ToolStripMenuItem saveShellsAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem userAgentSwitcherToolStripMenuItem;
     }
 }
 

@@ -12,13 +12,14 @@ namespace bantam_php
 {
     class XmlHelper
     {
-        public static void loadShells(string xmlFile = BantamMain.CONFIG_FILE)
+        public static void loadShells(string configFile)
         {
+
             //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
-            if (File.Exists(xmlFile))
+            if (File.Exists(configFile))
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(xmlFile);
+                xmlDoc.Load(configFile);
 
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
@@ -56,18 +57,17 @@ namespace bantam_php
                         }
 
                         //execute ping on current hostTarget iteration
-                        Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(hostTarget));
-                        t.Start();
+                        Program.g_BantamMain.getInitDataThread(hostTarget);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Config file (" + BantamMain.CONFIG_FILE + ") is missing.", "Oh... Shied..");
+                MessageBox.Show("Config file (" + configFile + ") is missing.", "Oh... Shied..");
             }
         }
 
-        public static void saveShells(string configFile = BantamMain.CONFIG_FILE)
+        public static void saveShells(string configFile)
         {
             XmlDocument xmlDoc = new XmlDocument();
 

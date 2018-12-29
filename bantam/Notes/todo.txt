@@ -18,8 +18,6 @@ NEW ITEMS
 
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
 
-* 6 - debug mode!! to show network packets and data that is being send and recieved!
-
 * 6 - mass eval, and a way to track results in a clean UI
 
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
@@ -31,8 +29,6 @@ NEW ITEMS
 * 4 - make a "super fug sigs" function that scrambles function names like "include", "eval", "get_stream_contents" into random static arrays
 
 * 4 - password feature?
-
-** 4 - Edit file feature?
 
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 
@@ -51,22 +47,11 @@ NEW ITEMS
 
 * 2 - add X or bad image infront of RED items in the shells listview
 
-* 2 - file browser back button doesn't go further back than /usr
-
 * 2 - add validity/testing checking to edit / add shell
 * 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
 
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 
 * 1 - allowable charector check on var name of backdoor generator 
-
-xml file open/load, save, save as
-
-*** Possibly new backdoors type examples 
-
-filter_var($_REQUEST['test'], FILTER_CALLBACK, array("options" => strrev("tressa")));
-
-@extract ($_REQUEST); ...
-  
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

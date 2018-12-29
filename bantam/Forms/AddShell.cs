@@ -63,7 +63,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnAddShell_Click(object sender, EventArgs e)
+        private async void btnAddShell_Click(object sender, EventArgs e)
         {
             //todo, ugly static var thread safe?
             string shellURL = txtBoxShellUrl.Text;
@@ -87,9 +87,7 @@ namespace bantam_php
                 BantamMain.Hosts[shellURL].SendDataViaCookie = true;
             }
 
-            Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
-            t.Start();
-
+            Program.g_BantamMain.getInitDataThread(shellURL);
             Program.g_BantamMain.addClientForm.Hide();
         }
 
@@ -108,7 +106,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpdateShell_Click(object sender, EventArgs e)
+        private async void btnUpdateShell_Click(object sender, EventArgs e)
         {
             string shellURL = txtBoxShellUrl.Text;
 
@@ -130,9 +128,7 @@ namespace bantam_php
                     BantamMain.Hosts[shellURL].SendDataViaCookie = true;
                 }
 
-                Thread t = new Thread(() => Program.g_BantamMain.getInitDataThread(shellURL));
-                t.Start();
-
+                Program.g_BantamMain.getInitDataThread(shellURL);
                 Program.g_BantamMain.updateHostForm.Hide();
             }
         }

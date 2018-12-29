@@ -18,6 +18,12 @@ namespace bantam_php
             this.Width = width;
 
             webBrowser1.DocumentText = data;
+            webBrowser1.ScriptErrorsSuppressed = true;
+        }
+
+        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            MessageBox.Show(e.ToString());
         }
     }
 }

