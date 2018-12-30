@@ -108,7 +108,7 @@ namespace bantam_php
             string result = await Task.Run(() => WebHelper.WebRequest(g_SelectedShellUrl, phpCode));
 
             if (string.IsNullOrEmpty(result) == false) {
-                CustomForms.RichTextBoxDialog(title, result);
+                GuiHelper.RichTextBoxDialog(title, result);
             } else {
                 MessageBox.Show("No Data Returned", "Welp...");
             }
@@ -157,7 +157,7 @@ namespace bantam_php
         private async void userAgentSwitcherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string userAgent = "User Agent: " + WebHelper.g_GlobalDefaultUserAgent;
-            string newUserAgent = CustomForms.UserAgentSwitcher(userAgent, "Change User Agent");
+            string newUserAgent = GuiHelper.UserAgentSwitcher(userAgent, "Change User Agent");
 
             if (newUserAgent != "") {
                 WebHelper.g_GlobalDefaultUserAgent = newUserAgent;
@@ -176,7 +176,7 @@ namespace bantam_php
             }
 
             bool checkBoxChecked = true;
-            string code = CustomForms.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedShellUrl, "", ref checkBoxChecked);
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedShellUrl, "", ref checkBoxChecked);
 
             if (string.IsNullOrEmpty(code) == false) {
                 if (checkBoxChecked) {
@@ -261,7 +261,7 @@ namespace bantam_php
                         Hosts[g_SelectedShellUrl].Files.Nodes.Clear();
                     }
                     //store current treeview into client and clear
-                    GuiHelper.CopyNodes(treeViewFileBrowser, Hosts[g_SelectedShellUrl].Files);
+                    GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Hosts[g_SelectedShellUrl].Files);
                     treeViewFileBrowser.Nodes.Clear();
                 }
 
@@ -319,7 +319,7 @@ namespace bantam_php
                 if (tabControl1.SelectedTab == tabPageFiles) {
                     if (Hosts[g_SelectedShellUrl].Files.Nodes != null
                      && Hosts[g_SelectedShellUrl].Files.Nodes.Count > 0) {
-                        GuiHelper.CopyNodes(Hosts[g_SelectedShellUrl].Files, treeViewFileBrowser);
+                        GuiHelper.CopyNodesFromTreeView(Hosts[g_SelectedShellUrl].Files, treeViewFileBrowser);
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
 
@@ -349,7 +349,7 @@ namespace bantam_php
                 && Hosts[shellUrl].Files.Nodes != null
                 && Hosts[shellUrl].Files.Nodes.Count > 0) {
                     //populate the treeview from cache
-                    GuiHelper.CopyNodes(Hosts[shellUrl].Files, treeViewFileBrowser);
+                    GuiHelper.CopyNodesFromTreeView(Hosts[shellUrl].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
 
@@ -846,7 +846,7 @@ namespace bantam_php
 
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileName();
-            string newFileName = CustomForms.RenameFileDialog(fileName, "Renaming File");
+            string newFileName = GuiHelper.RenameFileDialog(fileName, "Renaming File");
 
             if (newFileName != "") {
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
@@ -891,7 +891,7 @@ namespace bantam_php
 
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileName();
-            string newFileName = CustomForms.RenameFileDialog(fileName, "Copying File");
+            string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
 
             if (newFileName != "") {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";

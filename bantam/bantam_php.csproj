@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ShellInfo.cs" />
-    <Compile Include="Classes\CustomForms.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
     <Compile Include="Forms\AddShell.cs">

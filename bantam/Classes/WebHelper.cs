@@ -43,21 +43,6 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <returns></returns>
-        public static TKey randomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
-        {
-            Random rand = new Random();
-            List<TKey> keyList = new List<TKey>(dict.Keys);
-
-            return keyList[rand.Next(keyList.Count)];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// 
         public static HttpClient client = new HttpClient(new HttpClientHandler() {
             UseCookies = false,
@@ -70,6 +55,7 @@ namespace bantam_php
         {
             client.CancelPendingRequests();
             client.Dispose();
+
             client = new HttpClient(new HttpClientHandler() {
                 UseCookies = false,
             });
@@ -90,7 +76,6 @@ namespace bantam_php
                 UseCookies = false,
                 Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false)
             });
-            //client.Timeout;
         }
 
         /// <summary>
@@ -122,16 +107,34 @@ namespace bantam_php
             try {
                 HttpMethod method = HttpMethod.Get;
                 var request = new HttpRequestMessage(method, url);
-                //request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
-                //request.SetTimeout(); = TimeSpan.FromSeconds(6);
+                var response = await client.SendAsync(request);
+                var responseString = await response.Content.ReadAsStringAsync();
 
-                using (var cts = new CancellationTokenSource(new TimeSpan(0, 0, 5))) {
-                    var response = await client.SendAsync(request);
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    return responseString;
-                }
+                return responseString;
             } catch (System.Net.Http.HttpRequestException) {
             
+            }
+            return "";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> postRequest(string url, Dictionary<string, string> values)
+        {
+            try {
+                HttpMethod method = HttpMethod.Post;
+                var request = new HttpRequestMessage(method, url);
+                var response = await client.SendAsync(request);
+                var responseString = await response.Content.ReadAsStringAsync();
+                var content = new FormUrlEncodedContent(values);
+                request.Content = content;
+
+                return responseString;
+            } catch (System.Net.Http.HttpRequestException) {
+
             }
             return "";
         }
@@ -177,9 +180,9 @@ namespace bantam_php
 
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
+
                 return responseString;
-            } catch (System.Net.Http.HttpRequestException
-            ) {
+            } catch (System.Net.Http.HttpRequestException) {
 
             }
             return "";

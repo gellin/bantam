@@ -100,7 +100,7 @@
             this.lblStaticCWD = new System.Windows.Forms.Label();
             this.lblDynCWD = new System.Windows.Forms.Label();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
-            this.txtBoxFileBrowserPath = new bantam_php.CustomForms.TextBoxButton();
+            this.txtBoxFileBrowserPath = new bantam_php.GuiHelper.TextBoxButton();
             this.btnFileBrowserGo = new System.Windows.Forms.Button();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
@@ -984,7 +984,7 @@
         private System.Windows.Forms.ToolStripMenuItem renameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFileToolStripMenuItem;
-        private CustomForms.TextBoxButton txtBoxFileBrowserPath;
+        private GuiHelper.TextBoxButton txtBoxFileBrowserPath;
         private System.Windows.Forms.ToolStripMenuItem windowsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsNetuserMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsNetaccountsMenuItem;

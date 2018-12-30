@@ -13,7 +13,7 @@ namespace bantam_php
 {
     public partial class ProxyOptions : Form
     {
-        public static ProxyOptions instance;
+        public static ProxyOptions instance = null;
 
         public enum PROXY_TYPE
         {
@@ -79,7 +79,9 @@ namespace bantam_php
                     try {
                         var cancellationToken = new CancellationTokenSource();
                         var task = WebHelper.getRequest("http://ipv4.icanhazip.com/");
-                        if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
+
+                        //Todo tie this timeout in as a configureable option
+                        if (await Task.WhenAny(task, Task.Delay(3000)) == task) {
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();

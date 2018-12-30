@@ -13,6 +13,8 @@ namespace bantam_php
 {
     public partial class AddHost : Form
     {
+        public static AddHost instance = null;
+
         /// <summary>
         /// 
         /// </summary>
@@ -29,6 +31,15 @@ namespace bantam_php
             InitializeComponent();
 
             comboBoxVarType.SelectedIndex = 0;
+        }
+
+
+        public static AddHost getInstance()
+        {
+            if (instance == null) {
+                instance = new AddHost();
+            }
+            return instance;
         }
 
         /// <summary>
