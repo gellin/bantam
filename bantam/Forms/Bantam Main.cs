@@ -36,8 +36,8 @@ namespace bantam_php
         public BackdoorGenerator backdoorGenerator;
 
         /// <summary>
-        /// Main Form Constructor, performs the initialization routine, and requests some basic information about every server provided
-        /// through the XML, then puts them into the gui
+        ///
+        ///
         /// </summary>
         public BantamMain()
         {
@@ -917,9 +917,7 @@ namespace bantam_php
             string phpCode = PhpHelper.executeSystemCode(PhpHelper.getTaskListFunction(isWin));
             executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.getTaskListFunction(isWin));
         }
-
-        //Triggered via MENU_ITEM_CLICK
-
+       
         /// <summary>
         /// 
         /// </summary>

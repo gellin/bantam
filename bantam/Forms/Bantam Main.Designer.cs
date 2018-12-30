@@ -109,6 +109,8 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.massExecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.evalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -185,7 +187,7 @@
             // 
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -193,7 +195,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -220,41 +222,41 @@
             this.windowsVerToolStripMenuItem});
             this.windowsToolStripMenuItem.Image = global::bantam.Properties.Resources.social_windows_outline;
             this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.windowsToolStripMenuItem.Text = "Windows";
             // 
             // windowsNetuserMenuItem
             // 
             this.windowsNetuserMenuItem.Name = "windowsNetuserMenuItem";
-            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowsNetuserMenuItem.Text = "net user";
             this.windowsNetuserMenuItem.Click += new System.EventHandler(this.windowsNetuserMenuItem_Click);
             // 
             // windowsNetaccountsMenuItem
             // 
             this.windowsNetaccountsMenuItem.Name = "windowsNetaccountsMenuItem";
-            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowsNetaccountsMenuItem.Text = "net accounts";
             this.windowsNetaccountsMenuItem.Click += new System.EventHandler(this.windowsNetaccountsMenuItem_Click);
             // 
             // windowsIpconfigMenuItem
             // 
             this.windowsIpconfigMenuItem.Name = "windowsIpconfigMenuItem";
-            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowsIpconfigMenuItem.Text = "ipconfig";
             this.windowsIpconfigMenuItem.Click += new System.EventHandler(this.windowsIpconfigMenuItem_Click);
             // 
             // windowshostTargetsMenuItem
             // 
             this.windowshostTargetsMenuItem.Name = "windowshostTargetsMenuItem";
-            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowshostTargetsMenuItem.Text = "hostTargets";
             this.windowshostTargetsMenuItem.Click += new System.EventHandler(this.windowsTargetsMenuItem_Click);
             // 
             // windowsVerToolStripMenuItem
             // 
             this.windowsVerToolStripMenuItem.Name = "windowsVerToolStripMenuItem";
-            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.windowsVerToolStripMenuItem.Text = "ver";
             this.windowsVerToolStripMenuItem.Click += new System.EventHandler(this.windowsVerToolStripMenuItem_Click);
             // 
@@ -270,55 +272,55 @@
             this.shadowToolStripMenuItem});
             this.linuxToolStripMenuItem.Image = global::bantam.Properties.Resources.linux_16x16;
             this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
-            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.linuxToolStripMenuItem.Text = "Linux";
             // 
             // linuxIfconfigMenuItem
             // 
             this.linuxIfconfigMenuItem.Name = "linuxIfconfigMenuItem";
-            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(180, 22);
             this.linuxIfconfigMenuItem.Text = "ifconfig";
             this.linuxIfconfigMenuItem.Click += new System.EventHandler(this.linuxIfconfigMenuItem_Click);
             // 
             // linuxInterfacesMenuItem
             // 
             this.linuxInterfacesMenuItem.Name = "linuxInterfacesMenuItem";
-            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(180, 22);
             this.linuxInterfacesMenuItem.Text = "interfaces";
             this.linuxInterfacesMenuItem.Click += new System.EventHandler(this.linuxInterfacesMenuItem_Click);
             // 
             // linusVersionMenuItem
             // 
             this.linusVersionMenuItem.Name = "linusVersionMenuItem";
-            this.linusVersionMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linusVersionMenuItem.Size = new System.Drawing.Size(180, 22);
             this.linusVersionMenuItem.Text = "version";
             this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
             // 
             // linuxhostTargetsMenuItem
             // 
             this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
-            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(180, 22);
             this.linuxhostTargetsMenuItem.Text = "hosts";
             this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
             // 
             // linuxIssuenetMenuItem
             // 
             this.linuxIssuenetMenuItem.Name = "linuxIssuenetMenuItem";
-            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(180, 22);
             this.linuxIssuenetMenuItem.Text = "issue.net";
             this.linuxIssuenetMenuItem.Click += new System.EventHandler(this.linuxIssuenetMenuItem_Click);
             // 
             // passwdToolStripMenuItem
             // 
             this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
-            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.passwdToolStripMenuItem.Text = "passwd";
             this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
             // 
             // shadowToolStripMenuItem
             // 
             this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
-            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.shadowToolStripMenuItem.Text = "shadow";
             this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
             // 
@@ -326,21 +328,21 @@
             // 
             this.psAuxToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
             this.psAuxToolStripMenuItem.Name = "psAuxToolStripMenuItem";
-            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.psAuxToolStripMenuItem.Text = "process list";
             this.psAuxToolStripMenuItem.Click += new System.EventHandler(this.psAuxToolStripMenuItem_Click);
             // 
             // pingToolStripMenuItem
             // 
             this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
-            this.pingToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.pingToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.pingToolStripMenuItem.Text = "ping";
             this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
             // 
             // whoamiToolStripMenuItem
             // 
             this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
-            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.whoamiToolStripMenuItem.Text = "whoami";
             this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
             // 
@@ -409,7 +411,8 @@
             this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.toolsToolStripMenuItem});
+            this.toolsToolStripMenuItem,
+            this.massExecuteToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(816, 24);
@@ -432,33 +435,33 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveClientsToolStripMenuItem
             // 
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
             // 
@@ -890,6 +893,21 @@
             this.splitContainer1.SplitterDistance = 282;
             this.splitContainer1.TabIndex = 3;
             // 
+            // massExecuteToolStripMenuItem
+            // 
+            this.massExecuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.evalToolStripMenuItem1});
+            this.massExecuteToolStripMenuItem.Name = "massExecuteToolStripMenuItem";
+            this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.massExecuteToolStripMenuItem.Text = "Mass Execute";
+            // 
+            // evalToolStripMenuItem1
+            // 
+            this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
+            this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem1.Text = "Eval";
+            // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -906,7 +924,6 @@
             this.Name = "BantamMain";
             this.ShowIcon = false;
             this.Text = "Bantam Web Shell Manager";
-            this.Load += new System.EventHandler(this.BantamMain_Load);
             this.listviewClientsContextMenu.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -1011,6 +1028,8 @@
         private System.Windows.Forms.ToolStripMenuItem saveShellsAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userAgentSwitcherToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem massExecuteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem evalToolStripMenuItem1;
     }
 }
 

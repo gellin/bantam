@@ -41,6 +41,8 @@ NEW ITEMS
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 * 3 - Advanced options useragent editor (global)
 
+* 3 - bantam self / shell code editor, editing the bantam stored online
+
 * 3 - Make sub forms load where cursor is or relavent location
 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
@@ -58,6 +60,8 @@ NEW ITEMS
 
 * 1 - allowable charector check on var name of backdoor generator 
 
-* 1 - fake request as b64 image
+* 1 - fake response as b64 image
+
+* 1 - encryption - should have option to send as stager or already be uploaded
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

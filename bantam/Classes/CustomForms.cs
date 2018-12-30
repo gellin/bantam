@@ -71,6 +71,73 @@ namespace bantam_php
         /// <param name="oldFileName"></param>
         /// <param name="windowTitle"></param>
         /// <returns></returns>
+        public static string UserAgentSwitcher(string oldFileName, string windowTitle)
+        {
+            //oldFileName = "Current File Name: " + oldFileName;
+            Form prompt = new Form() {
+                Width = 500,
+                Height = 150,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = windowTitle,
+                StartPosition = FormStartPosition.CenterScreen,
+                MinimumSize = new System.Drawing.Size(500, 150)
+            };
+
+            Label textLabel = new Label() {
+                Left = 50,
+                Top = 20,
+                Text = oldFileName,
+                Width = 400
+            };
+
+            TextBox textBox = new TextBox() {
+                Left = 50,
+                Top = 50,
+                Width = 400
+            };
+
+            Button cancel = new Button() {
+                Text = "Cancel",
+                Left = 200,
+                Width = 100,
+                Top = 70,
+                DialogResult = DialogResult.Cancel
+            };
+
+            Button randomize = new Button() {
+                Text = "Cancel",
+                Left = 300,
+                Width = 100,
+                Top = 70,
+            };
+
+            Button confirmation = new Button() {
+                Text = "Ok",
+                Left = 400,
+                Width = 50,
+                Top = 70,
+                DialogResult = DialogResult.OK
+            };
+
+            //randomize.Click += (sender, e) => { string useragent = WebHelper.randomDicionaryValue(WebHelper.commonUseragents); };
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            cancel.Click += (sender, e) => { prompt.Close(); };
+
+            prompt.Controls.Add(textBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(cancel);
+            prompt.AcceptButton = confirmation;
+
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="oldFileName"></param>
+        /// <param name="windowTitle"></param>
+        /// <returns></returns>
         public static string RenameFileDialog(string oldFileName, string windowTitle)
         {
             //oldFileName = "Current File Name: " + oldFileName;
