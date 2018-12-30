@@ -35,8 +35,13 @@ namespace bantam_php
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
                         }
-                        //add the hostTarget to our client class containing infos
-                        BantamMain.Hosts.Add(hostTarget, new ShellInfo());
+
+                        if (!BantamMain.Hosts.ContainsKey(hostTarget)) { 
+                            //add the hostTarget to our client class containing infos
+                            BantamMain.Hosts.Add(hostTarget, new ShellInfo());
+                        } else {
+                            continue;
+                        }
 
                         //if the request arg is specified in the XML and not set to command
                         if (string.IsNullOrEmpty(requestArg) == false
@@ -51,7 +56,11 @@ namespace bantam_php
                         }
 
                         //execute ping on current hostTarget iteration
-                        Program.g_BantamMain.getInitDataThread(hostTarget);
+
+                        try {
+                            Program.g_BantamMain.getInitDataThread(hostTarget);
+                        } catch(Exception e) { MessageBox.Show(e.ToString()); }
+                            
                     }
                 }
             } else {

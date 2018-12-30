@@ -17,7 +17,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public const string CONFIG_FILE = "bantam.xml";
+        public static string g_OpenFileName;
 
         /// <summary>
         /// 
@@ -157,7 +157,7 @@ namespace bantam_php
         private async void userAgentSwitcherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string userAgent = "User Agent: " + WebHelper.g_GlobalDefaultUserAgent;
-            string newUserAgent = CustomForms.RenameFileDialog(userAgent, "Change User Agent");
+            string newUserAgent = CustomForms.UserAgentSwitcher(userAgent, "Change User Agent");
 
             if (newUserAgent != "") {
                 WebHelper.g_GlobalDefaultUserAgent = newUserAgent;
@@ -370,7 +370,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XmlHelper.saveShells(CONFIG_FILE);
+            XmlHelper.saveShells(g_OpenFileName);
         }
 
         private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -471,6 +471,8 @@ namespace bantam_php
                     lvClients.Remove();
                 }
                 XmlHelper.loadShells(openShellXMLDialog.FileName);
+                g_OpenFileName = openShellXMLDialog.FileName;
+                saveClientsToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -1051,6 +1053,12 @@ namespace bantam_php
         {
             string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ShadowFile);
             executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_ShadowFile);
+        }
+
+        private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProxyOptions proxyOptions = ProxyOptions.getInstance();
+            proxyOptions.ShowDialog();
         }
 
         /// <summary>

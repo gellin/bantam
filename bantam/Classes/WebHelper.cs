@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Linq;
 using System.Windows.Forms;
+using SocksSharp;
+using SocksSharp.Proxy;
+using System.Threading;
 
 namespace bantam_php
 {
     class WebHelper
     {
-
         /// <summary>
         /// 
         /// </summary>
@@ -52,26 +54,86 @@ namespace bantam_php
 
             return keyList[rand.Next(keyList.Count)];
         }
+
         /// <summary>
         /// 
         /// </summary>
         /// 
-        public static HttpClient client = new HttpClient(new HttpClientHandler { UseCookies = false });
+        public static HttpClient client = new HttpClient(new HttpClientHandler() {
+            UseCookies = false,
+        });
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void ResetHttpClient()
+        {
+            client.CancelPendingRequests();
+            client.Dispose();
+            client = new HttpClient(new HttpClientHandler() {
+                UseCookies = false,
+            });
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="proxyUrl"></param>
         /// <param name="proxyPort"></param>
-        private static void AddProxy(string proxyUrl, string proxyPort)
+        public static void AddHttpProxy(string proxyUrl, string proxyPort)
         {
             client.CancelPendingRequests();
             client.Dispose();
+
             client = new HttpClient(new HttpClientHandler() {
                 UseProxy = true,
                 UseCookies = false,
-                Proxy = new WebProxy("http://localhost:31337", false)
+                Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false)
             });
+            //client.Timeout;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="proxyUrl"></param>
+        /// <param name="proxyPort"></param>
+        public static void AddSocksProxy(string proxyUrl, int proxyPort)
+        {
+            client.CancelPendingRequests();
+            client.Dispose();
+
+            var settings = new ProxySettings() {
+                Host = proxyUrl,
+                Port = proxyPort
+            };
+
+            var proxyClientHandler = new ProxyClientHandler<Socks5>(settings);
+            client = new HttpClient(proxyClientHandler);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> getRequest(string url)
+        {
+            try {
+                HttpMethod method = HttpMethod.Get;
+                var request = new HttpRequestMessage(method, url);
+                //request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
+                //request.SetTimeout(); = TimeSpan.FromSeconds(6);
+
+                using (var cts = new CancellationTokenSource(new TimeSpan(0, 0, 5))) {
+                    var response = await client.SendAsync(request);
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    return responseString;
+                }
+            } catch (System.Net.Http.HttpRequestException) {
+            
+            }
+            return "";
         }
 
         /// <summary>
@@ -104,9 +166,8 @@ namespace bantam_php
                     if (sendViaCookie) {
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
                     } else {
-                        var values = new Dictionary<string, string>
-                        {
-                           { requestArgsName, b64 }
+                        var values = new Dictionary<string, string> {
+                            { requestArgsName, b64 }
                         };
 
                         var content = new FormUrlEncodedContent(values);
@@ -117,10 +178,11 @@ namespace bantam_php
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
                 return responseString;
-            } catch (System.Net.Http.HttpRequestException e) {
-          //      MessageBox.Show(e.ToString());
-           }
-           return "";
+            } catch (System.Net.Http.HttpRequestException
+            ) {
+
+            }
+            return "";
         }
     }
 }

@@ -65,15 +65,9 @@ namespace bantam_php
             private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="oldFileName"></param>
-        /// <param name="windowTitle"></param>
-        /// <returns></returns>
-        public static string UserAgentSwitcher(string oldFileName, string windowTitle)
+
+        public static string UserAgentSwitcher(string currentUserAgent, string windowTitle)
         {
-            //oldFileName = "Current File Name: " + oldFileName;
             Form prompt = new Form() {
                 Width = 500,
                 Height = 150,
@@ -84,47 +78,48 @@ namespace bantam_php
             };
 
             Label textLabel = new Label() {
-                Left = 50,
+                Left = 17,
                 Top = 20,
-                Text = oldFileName,
-                Width = 400
+                Text = currentUserAgent,
+                Width = 450
             };
 
             TextBox textBox = new TextBox() {
-                Left = 50,
+                Left = 17,
                 Top = 50,
-                Width = 400
+                Width = 450
             };
 
             Button cancel = new Button() {
                 Text = "Cancel",
                 Left = 200,
                 Width = 100,
-                Top = 70,
+                Top = 80,
                 DialogResult = DialogResult.Cancel
             };
 
             Button randomize = new Button() {
-                Text = "Cancel",
+                Text = "Random",
                 Left = 300,
                 Width = 100,
-                Top = 70,
+                Top = 80,
             };
 
             Button confirmation = new Button() {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
-                Top = 70,
+                Top = 80,
                 DialogResult = DialogResult.OK
             };
 
-            randomize.Click += (sender, e) => { string useragent = WebHelper.commonUseragents[WebHelper.randomDicionaryValue(WebHelper.commonUseragents)]; };
+            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[WebHelper.randomDicionaryValue(WebHelper.commonUseragents)]; };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 
             prompt.Controls.Add(textBox);
             prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(randomize);
             prompt.Controls.Add(textLabel);
             prompt.Controls.Add(cancel);
             prompt.AcceptButton = confirmation;
