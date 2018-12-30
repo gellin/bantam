@@ -119,7 +119,7 @@ namespace bantam_php
                 DialogResult = DialogResult.OK
             };
 
-            //randomize.Click += (sender, e) => { string useragent = WebHelper.randomDicionaryValue(WebHelper.commonUseragents); };
+            randomize.Click += (sender, e) => { string useragent = WebHelper.commonUseragents[WebHelper.randomDicionaryValue(WebHelper.commonUseragents)]; };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 

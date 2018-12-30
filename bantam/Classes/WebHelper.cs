@@ -85,7 +85,7 @@ namespace bantam_php
             string requestArgsName = BantamMain.Hosts[url].RequestArgName;
             bool sendViaCookie = BantamMain.Hosts[url].SendDataViaCookie;
 
-           // try {
+            try {
                 HttpMethod method;
                 if (sendViaCookie) {
                     method = HttpMethod.Get;
@@ -117,10 +117,10 @@ namespace bantam_php
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
                 return responseString;
-          //  } catch (System.Net.Http.HttpRequestException e) {
+            } catch (System.Net.Http.HttpRequestException e) {
           //      MessageBox.Show(e.ToString());
-          //  }
-          //  return "";
+           }
+           return "";
         }
     }
 }
