@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using SocksSharp;
 using SocksSharp.Proxy;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace bantam_php
 {
@@ -162,15 +163,16 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(code)) {
                     string minifiedCode = PhpHelper.MinifyCode(code);
-                    string encodedCode = HttpUtility.UrlEncode(minifiedCode);
-                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
+                    string cleanString = Regex.Replace(minifiedCode, @"[^\u0000-\u007F]+", string.Empty);
+                    var plainTextBytes = System.Text.Encoding.ASCII.GetBytes(cleanString);
                     string b64 = System.Convert.ToBase64String(plainTextBytes);
+                    string encodedCode = HttpUtility.UrlEncode(b64);
 
                     if (sendViaCookie) {
-                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + b64);
+                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + encodedCode);
                     } else {
                         var values = new Dictionary<string, string> {
-                            { requestArgsName, b64 }
+                            { requestArgsName, encodedCode }
                         };
 
                         var content = new FormUrlEncodedContent(values);

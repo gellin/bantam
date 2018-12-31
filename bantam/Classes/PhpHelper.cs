@@ -174,7 +174,7 @@ namespace bantam_php
         public static string getHardDriveLetters = @"foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
 
         /// <summary>
-        /// 
+        /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
@@ -314,22 +314,22 @@ namespace bantam_php
 			            );
 
 			            if ($item->isFile()) {
-				            $files[] = array_merge($tmp, array(
+				            array_push($files, array_merge($tmp, array(
 					            'type' => 'file',
                                 'size' => $item->getSize()
-				            ));
+				            )));
 			            }
 			            elseif ($item->isLink()) {
-				            $dirs[] = array_merge($tmp, array(
+				            array_push($dirs, array_merge($tmp, array(
 					            'type' => 'link',
                                 'size' => ''
-				            ));
+				            )));
 			            }
 			            elseif ($item->isDir()) {
-				            $dirs[] = array_merge($tmp, array(
+				            array_push($dirs, array_merge($tmp, array(
 					            'type' => 'dir',
                                 'size' => ''
-				            ));
+				            )));
 			            }
 		            }" + sortCode + responseCode + @"
                 }catch(Exception $e){  }";

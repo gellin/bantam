@@ -1179,7 +1179,7 @@ namespace bantam_php
 
             foreach (ListViewItem lvClients in listViewClients.Items) {
                 string shellUrl = lvClients.Text;
-                if (Shells.ContainsKey(lvClients.Text)) {
+                if (Shells.ContainsKey(shellUrl)) {
                     bool encryptResponse = Shells[shellUrl].encryptResponse;
                     WebHelper.ExecuteRemotePHP(shellUrl, code);
                     //todo show/track responses
