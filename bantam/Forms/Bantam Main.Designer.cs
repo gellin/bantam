@@ -436,19 +436,19 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -456,14 +456,14 @@
             // 
             this.saveClientsToolStripMenuItem.Enabled = false;
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
             // 
@@ -511,8 +511,9 @@
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(99, 26);
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem1.Text = "Eval";
+            this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
             // tabControl1
             // 

@@ -83,6 +83,10 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
 
+            if (checkBoxResponseEncryption.Checked == false) {
+                BantamMain.Shells[shellURL].encryptResponse = false;
+            }
+
             Program.g_BantamMain.getInitDataThread(shellURL);
             Program.g_BantamMain.addClientForm.Hide();
         }
@@ -119,6 +123,10 @@ namespace bantam_php
 
                 if (comboBoxVarType.Text == "cookie") {
                     BantamMain.Shells[shellURL].sendDataViaCookie = true;
+                }
+
+                if (checkBoxResponseEncryption.Checked == false) {
+                    BantamMain.Shells[shellURL].encryptResponse = false;
                 }
 
                 Program.g_BantamMain.getInitDataThread(shellURL);

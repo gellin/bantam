@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bantam_php
 {
@@ -19,7 +20,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string g_EncryptionKey = "anjueolkdiwpoida";
+        public static readonly string g_EncryptionKey = "xrwyafbndsegeokf";
 
         /// <summary>
         /// todo possibly kill  the encrytion if empty result
@@ -31,8 +32,8 @@ namespace bantam_php
                 "$key = '" + g_EncryptionKey + "';" +
                 "$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" +
                 "$result = base64_encode($result);" +
-                "$padding = $block - (strlen($result) % $block);" +
-                "$result.= str_repeat(chr($padding), $padding);" +
+                "$pad = $block - (strlen($result) % $block);" +
+                "$result .= str_repeat(chr($pad), $pad);" +
                 "$crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $result, MCRYPT_MODE_CBC, $iv);" +
                 "echo base64_encode($crypttext);";
             return encryption;
@@ -50,8 +51,14 @@ namespace bantam_php
             }
 
             string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
-            var decbuff = Convert.FromBase64String(cleanB64);
-            return decbuff;
+
+            if (Regex.IsMatch(cleanB64, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+                var decbuff = Convert.FromBase64String(cleanB64);
+                return decbuff;
+            } else {
+                MessageBox.Show("Unable to decode response! - " + str, "Whoops!!");
+                return null;
+            }
         }
 
         /// <summary>
@@ -66,6 +73,11 @@ namespace bantam_php
             }
 
             var encryptedResult = DecodeBase64(response);
+
+            if (encryptedResult == null) {
+                return string.Empty;
+            }
+
             var decryptedResult = DecryptRJ256(encryptedResult, g_EncryptionKey, g_EncryptionIV);
 
             if (string.IsNullOrEmpty(decryptedResult)) {

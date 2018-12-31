@@ -37,6 +37,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAddShell = new System.Windows.Forms.Button();
+            this.checkBoxResponseEncryption = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -136,11 +137,24 @@
             this.btnAddShell.UseVisualStyleBackColor = true;
             this.btnAddShell.Click += new System.EventHandler(this.btnAddShell_Click);
             // 
+            // checkBoxResponseEncryption
+            // 
+            this.checkBoxResponseEncryption.AutoSize = true;
+            this.checkBoxResponseEncryption.Checked = true;
+            this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 135);
+            this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";
+            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(137, 20);
+            this.checkBoxResponseEncryption.TabIndex = 11;
+            this.checkBoxResponseEncryption.Text = "Response Encryption";
+            this.checkBoxResponseEncryption.UseVisualStyleBackColor = true;
+            // 
             // AddHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(498, 173);
+            this.Controls.Add(this.checkBoxResponseEncryption);
             this.Controls.Add(this.btnAddShell);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -175,5 +189,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAddShell;
+        private System.Windows.Forms.CheckBox checkBoxResponseEncryption;
     }
 }
