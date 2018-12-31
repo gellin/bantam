@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\EncryptionHelper.cs" />
     <Compile Include="Classes\ShellInfo.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />

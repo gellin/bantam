@@ -20,20 +20,20 @@ namespace bantam_php
         /// <param name="data"></param>
         public void update(long ping, string[] data)
         {
-            Ping = ping;
-            Files = new TreeView();
+            this.ping = ping;
+            files = new TreeView();
 
-            CWD = PWD = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
-            FreeHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.FREE_SPACE];
-            TotalHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.TOTAL_SPACE];
-            UnameRelease = data[(int)PhpHelper.INIT_DATA_VARS.RELEASE];
-            UnameKernel = data[(int)PhpHelper.INIT_DATA_VARS.KERNEL];
-            IP = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_IP];
-            ServerSoftware = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_SOFTWARE];
-            User = data[(int)PhpHelper.INIT_DATA_VARS.USER];
-            UID = data[(int)PhpHelper.INIT_DATA_VARS.UID];
-            GID = data[(int)PhpHelper.INIT_DATA_VARS.GID];
-            Group = data[(int)PhpHelper.INIT_DATA_VARS.GROUP];
+            cwd = pwd = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
+            freeHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.FREE_SPACE];
+            totalHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.TOTAL_SPACE];
+            unameRelease = data[(int)PhpHelper.INIT_DATA_VARS.RELEASE];
+            unameKernel = data[(int)PhpHelper.INIT_DATA_VARS.KERNEL];
+            ip = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_IP];
+            serverSoftware = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_SOFTWARE];
+            user = data[(int)PhpHelper.INIT_DATA_VARS.USER];
+            uid = data[(int)PhpHelper.INIT_DATA_VARS.UID];
+            gid = data[(int)PhpHelper.INIT_DATA_VARS.GID];
+            group = data[(int)PhpHelper.INIT_DATA_VARS.GROUP];
             PHP_Version = data[(int)PhpHelper.INIT_DATA_VARS.PHP_VERSION];
             isWindows = (data[(int)PhpHelper.INIT_DATA_VARS.OS] == "win") ? true : false;
         }
@@ -41,7 +41,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public long Ping;
+        public long ping;
 
         /// <summary>
         /// 
@@ -51,62 +51,62 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public string CWD;
+        public string cwd;
 
         /// <summary>
         /// 
         /// </summary>
-        public string PWD;
+        public string pwd;
 
         /// <summary>
         /// 
         /// </summary>
-        public string FreeHDDSpace;
+        public string freeHDDSpace;
 
         /// <summary>
         /// 
         /// </summary>
-        public string TotalHDDSpace;
+        public string totalHDDSpace;
 
         /// <summary>
         /// 
         /// </summary>
-        public string UnameRelease;
+        public string unameRelease;
 
         /// <summary>
         /// 
         /// </summary>
-        public string UnameKernel;
+        public string unameKernel;
 
         /// <summary>
         /// 
         /// </summary>
-        public string IP;
+        public string ip;
 
         /// <summary>
         /// 
         /// </summary>
-        public string ServerSoftware;
+        public string serverSoftware;
 
         /// <summary>
         /// 
         /// </summary>
-        public string User;
+        public string user;
 
         /// <summary>
         /// 
         /// </summary>
-        public string UID;
+        public string uid;
 
         /// <summary>
         /// 
         /// </summary>
-        public string GID;
+        public string gid;
 
         /// <summary>
         /// 
         /// </summary>
-        public string Group;
+        public string group;
 
         /// <summary>
         /// 
@@ -116,26 +116,31 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public TreeView Files;
+        public TreeView files;
 
         /// <summary>
         /// 
         /// </summary>
-        public Stopwatch PingStopwatch;
+        public Stopwatch pingStopwatch;
 
         /// <summary>
         /// If true the client target/host is DOWN
         /// </summary>
-        public bool Down = false;
+        public bool down = false;
 
         /// <summary>
         /// If TRUE request's to this target/client will be sent via [GET] using a [COOKIE] to communicate data, if FALSE it will use a [POST] request
         /// </summary>
-        public bool SendDataViaCookie = false;
+        public bool sendDataViaCookie = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool encryptResponse = true;
 
         /// <summary>
         /// Name of the cookie or post argument used to send data to target/hostTargets
         /// </summary>
-        public string RequestArgName = "command";
+        public string requestArgName = "command";
     }
 }

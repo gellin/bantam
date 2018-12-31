@@ -14,8 +14,6 @@ namespace bantam_php
     {
         public static void loadShells(string configFile)
         {
-
-            //check if config file exists, proceed to load it and select the "servers" into an XmlNodeList
             if (File.Exists(configFile)) {
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(configFile);
@@ -23,43 +21,36 @@ namespace bantam_php
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
                 if (itemNodes.Count > 0) {
-                    //loop through every server
                     foreach (XmlNode itemNode in itemNodes) {
-                        //TODO abstract this into process function(s)
-                        //Hot select target onload up
-                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : "";
+                        string hostTarget = (itemNode.Attributes?["host"] != null)  ? itemNode.Attributes?["host"].Value : "";
                         string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : "";
                         string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
 
-                        //invalid hostTarget/target name
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
                         }
 
-                        if (!BantamMain.Hosts.ContainsKey(hostTarget)) { 
-                            //add the hostTarget to our client class containing infos
-                            BantamMain.Hosts.Add(hostTarget, new ShellInfo());
-                        } else {
+                        if (BantamMain.Shells.ContainsKey(hostTarget)) {
                             continue;
+                        } else {
+                            BantamMain.Shells.Add(hostTarget, new ShellInfo());
                         }
 
-                        //if the request arg is specified in the XML and not set to command
                         if (string.IsNullOrEmpty(requestArg) == false
                         && requestArg != "command") {
-                            BantamMain.Hosts[hostTarget].RequestArgName = requestArg;
+                            BantamMain.Shells[hostTarget].requestArgName = requestArg;
                         }
 
-                        //if the request method is specified in the XML and set to cookie
                         if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie") {
-                            BantamMain.Hosts[hostTarget].SendDataViaCookie = true;
+                            BantamMain.Shells[hostTarget].sendDataViaCookie = true;
                         }
-
-                        //execute ping on current hostTarget iteration
 
                         try {
                             Program.g_BantamMain.getInitDataThread(hostTarget);
-                        } catch(Exception e) { MessageBox.Show(e.ToString()); }
+                        } catch(Exception e) {
+                            //MessageBox.Show(e.ToString());
+                        }
                             
                     }
                 }
@@ -75,10 +66,10 @@ namespace bantam_php
             XmlNode rootNode = xmlDoc.CreateElement("servers");
             xmlDoc.AppendChild(rootNode);
 
-            foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Hosts) {
+            foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Shells) {
                 ShellInfo hostInfo = (ShellInfo)host.Value;
 
-                if (hostInfo.Down) {
+                if (hostInfo.down) {
                     continue;
                 }
 
@@ -89,16 +80,15 @@ namespace bantam_php
                 serverNode.Attributes.Append(hostAttribute);
 
                 XmlAttribute requestArgAttribute = xmlDoc.CreateAttribute("request_arg");
-                requestArgAttribute.Value = hostInfo.RequestArgName;
+                requestArgAttribute.Value = hostInfo.requestArgName;
                 serverNode.Attributes.Append(requestArgAttribute);
 
                 XmlAttribute requestMethod = xmlDoc.CreateAttribute("request_method");
-                requestMethod.Value = (hostInfo.SendDataViaCookie ? "cookie" : "post"); //todo post is not the most proper thing it could differ
+                requestMethod.Value = (hostInfo.sendDataViaCookie ? "cookie" : "post"); //todo post is not the most proper thing it could differ
                 serverNode.Attributes.Append(requestMethod);
 
                 rootNode.AppendChild(serverNode);
             }
-
             xmlDoc.Save(configFile);
         }
     }

