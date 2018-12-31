@@ -81,7 +81,7 @@ namespace bantam_php
                         var task = WebHelper.getRequest("http://ipv4.icanhazip.com/");
 
                         //Todo tie this timeout in as a configureable option
-                        if (await Task.WhenAny(task, Task.Delay(3000)) == task) {
+                        if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();

