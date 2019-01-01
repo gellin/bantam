@@ -14,6 +14,11 @@ namespace bantam_php
     public partial class AddHost : Form
     {
         public static AddHost instance = null;
+       
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string g_CallingShellUrl = null;
 
         /// <summary>
         /// 
@@ -115,6 +120,9 @@ namespace bantam_php
             }
 
             if (BantamMain.Shells.ContainsKey(shellURL)) {
+                BantamMain.Shells.Remove(shellURL);
+
+
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
                 BantamMain.Shells.Remove(shellURL);
 
@@ -132,6 +140,11 @@ namespace bantam_php
                 Program.g_BantamMain.getInitDataThread(shellURL);
                 Program.g_BantamMain.updateHostForm.Hide();
             }
+        }
+
+        private void AddHost_Shown(object sender, EventArgs e)
+        {
+            MessageBox.Show("1");
         }
     }
 }

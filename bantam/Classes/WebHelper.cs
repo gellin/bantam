@@ -163,16 +163,14 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(code)) {
                     string minifiedCode = PhpHelper.MinifyCode(code);
-                    string cleanString = Regex.Replace(minifiedCode, @"[^\u0000-\u007F]+", string.Empty);
-                    var plainTextBytes = System.Text.Encoding.ASCII.GetBytes(cleanString);
-                    string b64 = System.Convert.ToBase64String(plainTextBytes);
-                    string encodedCode = HttpUtility.UrlEncode(b64);
+                    string b64EncodedCode = EncryptionHelper.EncodeBase64Tostring(minifiedCode);
+                    string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
 
                     if (sendViaCookie) {
-                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + encodedCode);
+                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + urlEncodedCode);
                     } else {
                         var values = new Dictionary<string, string> {
-                            { requestArgsName, encodedCode }
+                            { requestArgsName, urlEncodedCode }
                         };
 
                         var content = new FormUrlEncodedContent(values);

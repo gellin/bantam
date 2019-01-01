@@ -131,7 +131,7 @@
             // shellColHeader
             // 
             shellColHeader.Text = "Shell";
-            shellColHeader.Width = 211;
+            shellColHeader.Width = 439;
             // 
             // listViewClients
             // 
@@ -149,7 +149,7 @@
             this.listViewClients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(276, 474);
+            this.listViewClients.Size = new System.Drawing.Size(503, 474);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -416,7 +416,7 @@
             this.massExecuteToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(816, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1082, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -504,14 +504,14 @@
             this.massExecuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.evalToolStripMenuItem1});
             this.massExecuteToolStripMenuItem.Name = "massExecuteToolStripMenuItem";
-            this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.massExecuteToolStripMenuItem.Text = "Mass Execute";
+            this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.massExecuteToolStripMenuItem.Text = "Functions";
             // 
             // evalToolStripMenuItem1
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(99, 26);
             this.evalToolStripMenuItem1.Text = "Eval";
             this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
@@ -523,11 +523,11 @@
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageFiles);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(5, 4);
+            this.tabControl1.Location = new System.Drawing.Point(3, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(498, 474);
+            this.tabControl1.Size = new System.Drawing.Size(539, 474);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -551,7 +551,7 @@
             this.tabPageInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageInfo.Size = new System.Drawing.Size(490, 442);
+            this.tabPageInfo.Size = new System.Drawing.Size(531, 442);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -569,7 +569,7 @@
             this.panel3.Location = new System.Drawing.Point(6, 42);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(478, 40);
+            this.panel3.Size = new System.Drawing.Size(519, 40);
             this.panel3.TabIndex = 26;
             // 
             // lblStaticPHP
@@ -621,7 +621,7 @@
             this.panel2.Location = new System.Drawing.Point(6, 216);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(478, 40);
+            this.panel2.Size = new System.Drawing.Size(519, 40);
             this.panel2.TabIndex = 26;
             // 
             // lblStaticUname
@@ -749,7 +749,7 @@
             this.panel1.Location = new System.Drawing.Point(6, 130);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(478, 40);
+            this.panel1.Size = new System.Drawing.Size(519, 40);
             this.panel1.TabIndex = 25;
             // 
             // lblStaticCWD
@@ -915,15 +915,15 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(792, 483);
-            this.splitContainer1.SplitterDistance = 282;
+            this.splitContainer1.Size = new System.Drawing.Size(1058, 483);
+            this.splitContainer1.SplitterDistance = 509;
             this.splitContainer1.TabIndex = 3;
             // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(816, 535);
+            this.ClientSize = new System.Drawing.Size(1082, 535);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

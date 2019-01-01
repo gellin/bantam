@@ -15,12 +15,44 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string g_EncryptionIV = "81278533799109198620954409981093";
+        public static string g_EncryptionIV;
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly string g_EncryptionKey = "xrwyafbndsegeokf";
+        public static string g_EncryptionKey;
+
+        /// <summary>
+        /// todo dynamic and move to helpers
+        /// </summary>
+        public static void RandomizeEncryptionKey()
+        {
+            var rdm = new Random();
+
+            int keyLength = 16;
+            var charSet = "abcdefghijklmnopqrstuvwxyz";
+            var stringResult = new char[keyLength];
+ 
+            for (int i = 0; i < keyLength; i++) {
+                stringResult[i] = charSet[rdm.Next(charSet.Length)];
+            }
+            g_EncryptionKey = new string(stringResult);
+        }
+
+        /// <summary>
+        /// todo dynamic and move to helpers
+        /// </summary>
+        /// <returns></returns>
+        public static void RandomizeEncryptionIV()
+        {
+            var random = new Random();
+            string s = string.Empty;
+            for (int i = 0; i < 32; i++) {
+                s = String.Concat(s, random.Next(10).ToString());
+            }
+            g_EncryptionIV = s;
+        }
+
 
         /// <summary>
         /// todo possibly kill  the encrytion if empty result
@@ -42,6 +74,22 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="base64"></param>
+        /// <returns></returns>
+        public static string EncodeBase64Tostring(string base64)
+        {
+            if (string.IsNullOrEmpty(base64)) {
+                return String.Empty;
+            }
+
+            var plainTextBytes = System.Text.Encoding.ASCII.GetBytes(base64);
+            string b64Code = System.Convert.ToBase64String(plainTextBytes);
+            return b64Code;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
         public static byte[] DecodeBase64(string str)
@@ -49,7 +97,6 @@ namespace bantam_php
             if (string.IsNullOrEmpty(str)) {
                 return null;
             }
-
 
             if (Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");

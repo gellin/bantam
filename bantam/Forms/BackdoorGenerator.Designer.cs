@@ -47,7 +47,7 @@
             // 
             this.chkbxDisableLogging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxDisableLogging.AutoSize = true;
-            this.chkbxDisableLogging.Location = new System.Drawing.Point(454, 466);
+            this.chkbxDisableLogging.Location = new System.Drawing.Point(454, 443);
             this.chkbxDisableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxDisableLogging.Name = "chkbxDisableLogging";
             this.chkbxDisableLogging.Size = new System.Drawing.Size(140, 20);
@@ -64,7 +64,7 @@
             this.richTextBoxBackdoor.Location = new System.Drawing.Point(14, 34);
             this.richTextBoxBackdoor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBoxBackdoor.Name = "richTextBoxBackdoor";
-            this.richTextBoxBackdoor.Size = new System.Drawing.Size(614, 411);
+            this.richTextBoxBackdoor.Size = new System.Drawing.Size(614, 388);
             this.richTextBoxBackdoor.TabIndex = 2;
             this.richTextBoxBackdoor.Text = "";
             // 
@@ -79,7 +79,7 @@
             "native anonymous",
             "tmp include",
             "preg_replace"});
-            this.comboBoxMethod.Location = new System.Drawing.Point(86, 462);
+            this.comboBoxMethod.Location = new System.Drawing.Point(86, 439);
             this.comboBoxMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.Size = new System.Drawing.Size(143, 24);
@@ -91,7 +91,7 @@
             this.lblMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMethod.AutoSize = true;
             this.lblMethod.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMethod.Location = new System.Drawing.Point(10, 466);
+            this.lblMethod.Location = new System.Drawing.Point(10, 443);
             this.lblMethod.Name = "lblMethod";
             this.lblMethod.Size = new System.Drawing.Size(57, 16);
             this.lblMethod.TabIndex = 4;
@@ -102,7 +102,7 @@
             this.lblRequestVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRequestVarName.AutoSize = true;
             this.lblRequestVarName.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRequestVarName.Location = new System.Drawing.Point(10, 536);
+            this.lblRequestVarName.Location = new System.Drawing.Point(10, 513);
             this.lblRequestVarName.Name = "lblRequestVarName";
             this.lblRequestVarName.Size = new System.Drawing.Size(70, 16);
             this.lblRequestVarName.TabIndex = 5;
@@ -111,7 +111,7 @@
             // txtBoxVarName
             // 
             this.txtBoxVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBoxVarName.Location = new System.Drawing.Point(86, 531);
+            this.txtBoxVarName.Location = new System.Drawing.Point(86, 508);
             this.txtBoxVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxVarName.Name = "txtBoxVarName";
             this.txtBoxVarName.Size = new System.Drawing.Size(143, 23);
@@ -123,7 +123,7 @@
             // 
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(454, 497);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(454, 474);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(92, 20);
@@ -137,7 +137,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 501);
+            this.label1.Location = new System.Drawing.Point(10, 478);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 16);
             this.label1.TabIndex = 8;
@@ -151,7 +151,7 @@
             "cookie",
             "post",
             "request"});
-            this.comboBoxVarType.Location = new System.Drawing.Point(86, 499);
+            this.comboBoxVarType.Location = new System.Drawing.Point(86, 476);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxVarType.Name = "comboBoxVarType";
             this.comboBoxVarType.Size = new System.Drawing.Size(143, 24);
@@ -190,7 +190,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 592);
+            this.ClientSize = new System.Drawing.Size(643, 569);
             this.Controls.Add(this.comboBoxVarType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkbxMinifyCode);
