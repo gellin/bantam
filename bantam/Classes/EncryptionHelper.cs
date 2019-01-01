@@ -13,19 +13,9 @@ namespace bantam_php
     class EncryptionHelper
     {
         /// <summary>
-        /// 
-        /// </summary>
-        public static string g_EncryptionIV;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static string g_EncryptionKey;
-
-        /// <summary>
         /// todo dynamic and move to helpers
         /// </summary>
-        public static void RandomizeEncryptionKey()
+        public static string RandomizeEncryptionKey()
         {
             var rdm = new Random();
 
@@ -36,21 +26,21 @@ namespace bantam_php
             for (int i = 0; i < keyLength; i++) {
                 stringResult[i] = charSet[rdm.Next(charSet.Length)];
             }
-            g_EncryptionKey = new string(stringResult);
+            return new string(stringResult);
         }
 
         /// <summary>
         /// todo dynamic and move to helpers
         /// </summary>
         /// <returns></returns>
-        public static void RandomizeEncryptionIV()
+        public static string RandomizeEncryptionIV()
         {
             var random = new Random();
             string s = string.Empty;
             for (int i = 0; i < 32; i++) {
                 s = String.Concat(s, random.Next(10).ToString());
             }
-            g_EncryptionIV = s;
+            return s;
         }
 
 
@@ -58,16 +48,20 @@ namespace bantam_php
         /// todo possibly kill  the encrytion if empty result
         /// </summary>
         /// <returns></returns>
-        public static string encryptPhpResult()
+        public static string EncryptPhpVariableAndEcho(string varName, ref string encryptionKey, ref string encryptionIV)
         {
-            string encryption = @"$iv = '" + g_EncryptionIV + "';" +
-                "$key = '" + g_EncryptionKey + "';" +
+            encryptionIV = EncryptionHelper.RandomizeEncryptionIV();
+            encryptionKey = EncryptionHelper.RandomizeEncryptionKey();
+
+            string encryption = @"$iv = '" + encryptionIV + "';" +
+                "$key = '" + encryptionKey + "';" +
                 "$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" +
-                "$result = base64_encode($result);" +
-                "$pad = $block - (strlen($result) % $block);" +
+                varName + " = base64_encode(" + varName + ");" +
+                "$pad = $block - (strlen(" + varName + ") % $block);" +
                 "$result .= str_repeat(chr($pad), $pad);" +
-                "$crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $result, MCRYPT_MODE_CBC, $iv);" +
+                "$crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, " + varName  + ", MCRYPT_MODE_CBC, $iv);" +
                 "echo base64_encode($crypttext);";
+
             return encryption;
         }
 
@@ -113,7 +107,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        static public string DecryptShellResponse(string response)
+        static public string DecryptShellResponse(string response, string encryptionKey, string encryptionIV)
         {
             if (string.IsNullOrEmpty(response)) {
                 return string.Empty;
@@ -125,7 +119,7 @@ namespace bantam_php
                 return string.Empty;
             }
 
-            var decryptedResult = DecryptRJ256(encryptedResult, g_EncryptionKey, g_EncryptionIV);
+            var decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
 
             if (string.IsNullOrEmpty(decryptedResult)) {
                 return string.Empty;

@@ -53,6 +53,10 @@ namespace bantam_php
             txtBoxShellUrl.Text = shellUrl;
             txtBoxArgName.Text = varName;
 
+            if (BantamMain.Shells.ContainsKey(shellUrl)) {
+                checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].encryptResponse;
+            }
+
             if (requestTypes.ContainsKey(varType)) {
                 comboBoxVarType.SelectedIndex = requestTypes[varType];
             } else {
@@ -92,7 +96,9 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].encryptResponse = false;
             }
 
-            Program.g_BantamMain.getInitDataThread(shellURL);
+            MessageBox.Show("1");
+
+            Program.g_BantamMain.InitializeShellData(shellURL);
             Program.g_BantamMain.addClientForm.Hide();
         }
 
@@ -120,9 +126,6 @@ namespace bantam_php
             }
 
             if (BantamMain.Shells.ContainsKey(shellURL)) {
-                BantamMain.Shells.Remove(shellURL);
-
-
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
                 BantamMain.Shells.Remove(shellURL);
 
@@ -135,16 +138,17 @@ namespace bantam_php
 
                 if (checkBoxResponseEncryption.Checked == false) {
                     BantamMain.Shells[shellURL].encryptResponse = false;
+                    BantamMain.Shells[shellURL].encryptResponse = false;
                 }
 
-                Program.g_BantamMain.getInitDataThread(shellURL);
+                Program.g_BantamMain.InitializeShellData(shellURL);
                 Program.g_BantamMain.updateHostForm.Hide();
             }
         }
 
         private void AddHost_Shown(object sender, EventArgs e)
         {
-            MessageBox.Show("1");
+            //MessageBox.Show("1");
         }
     }
 }

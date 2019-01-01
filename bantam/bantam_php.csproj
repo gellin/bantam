@@ -39,7 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn>1998</NoWarn>
+    <NoWarn>1998, 4014</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -72,12 +72,6 @@
     <Compile Include="Classes\ShellInfo.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
-    <Compile Include="Forms\AddShell.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\AddShell.Designer.cs">
-      <DependentUpon>AddShell.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +92,12 @@
     <Compile Include="Forms\Bantam Main.Designer.cs">
       <DependentUpon>Bantam Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ModifyShell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ModifyShell.Designer.cs">
+      <DependentUpon>ModifyShell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ProxyOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,14 +106,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\AddShell.resx">
-      <DependentUpon>AddShell.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BackdoorGenerator.resx">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ModifyShell.resx">
+      <DependentUpon>ModifyShell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProxyOptions.resx">
       <DependentUpon>ProxyOptions.cs</DependentUpon>

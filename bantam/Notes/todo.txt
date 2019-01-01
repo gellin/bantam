@@ -34,10 +34,12 @@ NEW ITEMS
 * 1 - encryption - should have option to send as stager or already be uploaded
 * 1 - proxy support credentials
 * 1 - change encryption keys on every request option
-
+* 1 - randomize proxy automatically in global options panel
+* 1 - when mass eval, shouldn't be able to click show response, or make feature to track all responses and show them
 * 1 - payload b64 letter swapping XD
 * 1 - strerev payload or parts of the payload and put it back together?
 * 1 - more logging / reporting i.e if encryption fails or defaults
 * 1 - hex encoded functions  on the php side
+* 1 - max payload size
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

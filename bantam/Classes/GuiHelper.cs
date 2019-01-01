@@ -116,7 +116,7 @@ namespace bantam_php
                 DialogResult = DialogResult.OK
             };
 
-            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[GuiHelper.randomDicionaryValue(WebHelper.commonUseragents)]; };
+            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[GuiHelper.RandomDicionaryValue(WebHelper.commonUseragents)]; };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 
@@ -308,7 +308,7 @@ namespace bantam_php
         /// <typeparam name="TValue"></typeparam>
         /// <param name="dict"></param>
         /// <returns></returns>
-        public static TKey randomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
+        public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             Random rand = new Random();
             List<TKey> keyList = new List<TKey>(dict.Keys);

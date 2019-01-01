@@ -112,6 +112,7 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -169,9 +170,10 @@
             this.softwareToolStripMenuItem,
             this.pingToolStripMenuItem1,
             this.editToolStripMenuItem,
-            this.removeToolStripMenuItem});
+            this.removeToolStripMenuItem,
+            this.copyShellURLToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 160);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 208);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -781,7 +783,7 @@
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageFiles.Size = new System.Drawing.Size(490, 442);
+            this.tabPageFiles.Size = new System.Drawing.Size(531, 442);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -919,6 +921,13 @@
             this.splitContainer1.SplitterDistance = 509;
             this.splitContainer1.TabIndex = 3;
             // 
+            // copyShellURLToolStripMenuItem
+            // 
+            this.copyShellURLToolStripMenuItem.Name = "copyShellURLToolStripMenuItem";
+            this.copyShellURLToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.copyShellURLToolStripMenuItem.Text = "Copy Shell URL";
+            this.copyShellURLToolStripMenuItem.Click += new System.EventHandler(this.copyShellURLToolStripMenuItem_Click);
+            // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1042,6 +1051,7 @@
         private System.Windows.Forms.ToolStripMenuItem massExecuteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem evalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem proxySettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyShellURLToolStripMenuItem;
     }
 }
 

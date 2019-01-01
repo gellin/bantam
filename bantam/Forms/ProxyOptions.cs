@@ -78,7 +78,7 @@ namespace bantam_php
                            
                     try {
                         var cancellationToken = new CancellationTokenSource();
-                        var task = WebHelper.getRequest("http://ipv4.icanhazip.com/");
+                        var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
 
                         //Todo tie this timeout in as a configureable option
                         if (await Task.WhenAny(task, Task.Delay(10000)) == task) {

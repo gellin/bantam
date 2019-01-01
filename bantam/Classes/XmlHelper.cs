@@ -12,7 +12,7 @@ namespace bantam_php
 {
     class XmlHelper
     {
-        public static void loadShells(string configFile)
+        public static void LoadShells(string configFile)
         {
             if (File.Exists(configFile)) {
                 XmlDocument xmlDoc = new XmlDocument();
@@ -47,9 +47,9 @@ namespace bantam_php
                         }
 
                         try {
-                            Program.g_BantamMain.getInitDataThread(hostTarget);
-                        } catch(Exception e) {
-                            //MessageBox.Show(e.ToString());
+                            Program.g_BantamMain.InitializeShellData(hostTarget);
+                        } catch(Exception) {
+
                         }
                             
                     }
@@ -59,7 +59,7 @@ namespace bantam_php
             }
         }
 
-        public static void saveShells(string configFile)
+        public static void SaveShells(string configFile)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
