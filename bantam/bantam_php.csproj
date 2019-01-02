@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\EncryptionHelper.cs" />
+    <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\ShellInfo.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />

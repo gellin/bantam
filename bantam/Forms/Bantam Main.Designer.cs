@@ -63,6 +63,7 @@
             this.pingToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,7 +113,6 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -190,7 +190,7 @@
             // 
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -198,7 +198,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -409,6 +409,13 @@
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
+            // copyShellURLToolStripMenuItem
+            // 
+            this.copyShellURLToolStripMenuItem.Name = "copyShellURLToolStripMenuItem";
+            this.copyShellURLToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.copyShellURLToolStripMenuItem.Text = "Copy Shell URL";
+            this.copyShellURLToolStripMenuItem.Click += new System.EventHandler(this.copyShellURLToolStripMenuItem_Click);
+            // 
             // mainMenuStrip
             // 
             this.mainMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -513,8 +520,8 @@
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(99, 26);
-            this.evalToolStripMenuItem1.Text = "Eval";
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem1.Text = "Mass Eval";
             this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
             // tabControl1
@@ -920,13 +927,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1058, 483);
             this.splitContainer1.SplitterDistance = 509;
             this.splitContainer1.TabIndex = 3;
-            // 
-            // copyShellURLToolStripMenuItem
-            // 
-            this.copyShellURLToolStripMenuItem.Name = "copyShellURLToolStripMenuItem";
-            this.copyShellURLToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
-            this.copyShellURLToolStripMenuItem.Text = "Copy Shell URL";
-            this.copyShellURLToolStripMenuItem.Click += new System.EventHandler(this.copyShellURLToolStripMenuItem_Click);
             // 
             // BantamMain
             // 

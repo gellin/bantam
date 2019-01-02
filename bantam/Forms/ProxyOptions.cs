@@ -77,7 +77,6 @@ namespace bantam_php
                     }
                            
                     try {
-                        var cancellationToken = new CancellationTokenSource();
                         var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
 
                         //Todo tie this timeout in as a configureable option
@@ -85,7 +84,6 @@ namespace bantam_php
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();
-                                buttonOk.Enabled = true;
                             } else {
                                 MessageBox.Show("Your IP Is : " + task.Result, "Connection Success");
                                 buttonOk.Enabled = true;
@@ -94,16 +92,16 @@ namespace bantam_php
                         } else {
                             MessageBox.Show("Unable to connect to proxy try again...");
                             WebHelper.ResetHttpClient();
-                            buttonOk.Enabled = true;
                         }
                     }
                     catch(Exception) {
                         MessageBox.Show("Unable to connect to proxy try again...");
                         WebHelper.ResetHttpClient();
-                        buttonOk.Enabled = true;
                     }
                 }
             }
+            buttonOk.Enabled = true;
         }
+
     }
 }

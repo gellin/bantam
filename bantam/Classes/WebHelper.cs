@@ -167,10 +167,10 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(code)) {
                     if (encryptResponse) {
-                        code += EncryptionHelper.EncryptPhpVariableAndEcho(ref encryptionKey, ref encryptionIV);
+                        code += PhpHelper.EncryptPhpVariableAndEcho(ref encryptionKey, ref encryptionIV);
                     }
-                    string minifiedCode = PhpHelper.MinifyCode(code);
-                    string b64EncodedCode = EncryptionHelper.EncodeBase64Tostring(minifiedCode);
+                    string minifiedCode = Helper.MinifyCode(code);
+                    string b64EncodedCode = Helper.EncodeBase64Tostring(minifiedCode);
                    
                     if (sendViaCookie) {
                         string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
@@ -198,15 +198,15 @@ namespace bantam_php
 
     public class ResponseObject
     {
-        public string result { get; set; }
-        public string encryptionKey { get; set; }
-        public string encryptionIV { get; set; }
+        public string Result { get; set; }
+        public string EncryptionKey { get; set; }
+        public string EncryptionIV { get; set; }
 
-        public ResponseObject(string Result, string EncryptionKey, string EncryptionIV)
+        public ResponseObject(string result, string encryptionKey, string encryptionIV)
         {
-            result = Result;
-            encryptionKey = EncryptionKey;
-            encryptionIV = EncryptionIV;
+            Result = result;
+            EncryptionKey = encryptionKey;
+            EncryptionIV = encryptionIV;
         }
     }
 }

@@ -97,7 +97,7 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].encryptResponse = false;
             }
 
-            MessageBox.Show("1");
+            //MessageBox.Show("1");
 
             Program.g_BantamMain.InitializeShellData(shellURL);
             Program.g_BantamMain.addClientForm.Hide();

@@ -116,7 +116,7 @@ namespace bantam_php
                 DialogResult = DialogResult.OK
             };
 
-            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[GuiHelper.RandomDicionaryValue(WebHelper.commonUseragents)]; };
+            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[Helper.RandomDicionaryValue(WebHelper.commonUseragents)]; };
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 
@@ -299,36 +299,6 @@ namespace bantam_php
             showResponse = chkboxResult;
 
             return result;
-        }
-   
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="TKey"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <param name="dict"></param>
-        /// <returns></returns>
-        public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
-        {
-            Random rand = new Random();
-            List<TKey> keyList = new List<TKey>(dict.Keys);
-
-            return keyList[rand.Next(keyList.Count)];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
-        public static string FormatBytes(double bytes)
-        {
-            int i = 0;
-            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-
-            for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024) { }
-
-            return String.Format("{0:0.##} {1}", bytes, suffixes[i]);
         }
 
         /// <summary>

