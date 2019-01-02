@@ -167,7 +167,7 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(code)) {
                     if (encryptResponse) {
-                        code += EncryptionHelper.EncryptPhpVariableAndEcho("$result", ref encryptionKey, ref encryptionIV);
+                        code += EncryptionHelper.EncryptPhpVariableAndEcho(ref encryptionKey, ref encryptionIV);
                     }
                     string minifiedCode = PhpHelper.MinifyCode(code);
                     string b64EncodedCode = EncryptionHelper.EncodeBase64Tostring(minifiedCode);

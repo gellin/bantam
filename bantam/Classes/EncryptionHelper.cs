@@ -12,13 +12,13 @@ namespace bantam_php
 {
     class EncryptionHelper
     {
+        public static Random rdm = new Random();
+
         /// <summary>
         /// todo dynamic and move to helpers
         /// </summary>
         public static string RandomizeEncryptionKey()
         {
-            var rdm = new Random();
-
             int keyLength = 16;
             var charSet = "abcdefghijklmnopqrstuvwxyz";
             var stringResult = new char[keyLength];
@@ -30,15 +30,41 @@ namespace bantam_php
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string RandomString(int length)
+        {
+            var charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var stringResult = new char[length];
+
+            for (int i = 0; i < length; i++) {
+                stringResult[i] = charSet[rdm.Next(charSet.Length)];
+            }
+            return new string(stringResult);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxLength"></param>
+        /// <returns></returns>
+        public static string RandomPHPVar(int maxLength = 16)
+        {
+            string result = RandomString(rdm.Next(1, maxLength));
+            return "$" + result;
+        }
+
+        /// <summary>
         /// todo dynamic and move to helpers
         /// </summary>
         /// <returns></returns>
         public static string RandomizeEncryptionIV()
         {
-            var random = new Random();
             string s = string.Empty;
             for (int i = 0; i < 32; i++) {
-                s = String.Concat(s, random.Next(10).ToString());
+                s = String.Concat(s, rdm.Next(10).ToString());
             }
             return s;
         }
@@ -48,19 +74,24 @@ namespace bantam_php
         /// todo possibly kill  the encrytion if empty result
         /// </summary>
         /// <returns></returns>
-        public static string EncryptPhpVariableAndEcho(string varName, ref string encryptionKey, ref string encryptionIV)
+        public static string EncryptPhpVariableAndEcho(ref string encryptionKey, ref string encryptionIV)
         {
+            //todo make dynamic/random
+            string varName = "$result";
+
             encryptionIV = EncryptionHelper.RandomizeEncryptionIV();
             encryptionKey = EncryptionHelper.RandomizeEncryptionKey();
 
-            string encryption = @"$iv = '" + encryptionIV + "';" +
-                "$key = '" + encryptionKey + "';" +
-                "$block = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" +
-                varName + " = base64_encode(" + varName + ");" +
-                "$pad = $block - (strlen(" + varName + ") % $block);" +
-                "$result .= str_repeat(chr($pad), $pad);" +
-                "$crypttext = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, " + varName  + ", MCRYPT_MODE_CBC, $iv);" +
-                "echo base64_encode($crypttext);";
+            string padVar = RandomPHPVar();
+            string cryptTextvar = RandomPHPVar();
+            string blockBar = RandomPHPVar();
+
+            string encryption = blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" +
+                //varName + " = base64_encode(" + varName + ");" +
+                padVar + " = " + blockBar + " - (strlen(" + varName + ") % " + blockBar + ");" +
+                varName+ " .= str_repeat(chr(" + padVar + "), " + padVar + ");" +
+                cryptTextvar + " = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, '" + encryptionKey + "', " + varName  + ", MCRYPT_MODE_CBC, '" + encryptionIV + "');" +
+                "echo base64_encode(" + cryptTextvar + ");";
 
             return encryption;
         }
@@ -76,8 +107,8 @@ namespace bantam_php
                 return String.Empty;
             }
 
-            var plainTextBytes = System.Text.Encoding.ASCII.GetBytes(base64);
-            string b64Code = System.Convert.ToBase64String(plainTextBytes);
+            var plainTextBytes = Encoding.UTF8.GetBytes(base64);
+            string b64Code = Convert.ToBase64String(plainTextBytes);
             return b64Code;
         }
 
@@ -125,9 +156,7 @@ namespace bantam_php
                 return string.Empty;
             }
 
-            var finalResult = DecodeBase64(decryptedResult);
-            string resultString = System.Text.Encoding.UTF8.GetString(finalResult, 0, finalResult.Length);
-            return resultString;
+            return decryptedResult;
         }
 
         /// <summary>

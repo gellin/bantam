@@ -50,6 +50,7 @@ namespace bantam_php
                             Program.g_BantamMain.InitializeShellData(hostTarget);
                         } catch(Exception) {
 
+
                         }
                             
                     }

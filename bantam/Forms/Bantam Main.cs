@@ -367,16 +367,16 @@ namespace bantam_php
                 }
 
                 if (validTarget() == false) {
-                    lblDynCWD.Text = "";
-                    lblDynFreeSpace.Text = "";
-                    lblDynHDDSpace.Text = "";
-                    lblDynServerIP.Text = "";
-                    lblDynUname.Text = "";
-                    lblDynUser.Text = "";
-                    lblDynWebServer.Text = "";
-                    lblDynGroup.Text = "";
-                    lblDynPHP.Text = "";
-                    txtBoxFileBrowserPath.Text = "";
+                    lblDynCWD.Text = string.Empty;
+                    lblDynFreeSpace.Text = string.Empty;
+                    lblDynHDDSpace.Text = string.Empty;
+                    lblDynServerIP.Text = string.Empty;
+                    lblDynUname.Text = string.Empty;
+                    lblDynUser.Text = string.Empty;
+                    lblDynWebServer.Text = string.Empty;
+                    lblDynGroup.Text = string.Empty;
+                    lblDynPHP.Text = string.Empty;
+                    txtBoxFileBrowserPath.Text = string.Empty;
                     return;
                 } else {
                     lblDynCWD.Text = Shells[g_SelectedShellUrl].cwd;
@@ -830,7 +830,7 @@ namespace bantam_php
                 if (path.Contains("..")) {
                     filebrowserGoBack();
                 } else {
-                    string fullPath = "";
+                    string fullPath = string.Empty;
                     if (Shells[shellUrl].isWindows) {
                         fullPath = path;
                     } else {
