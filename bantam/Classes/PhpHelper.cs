@@ -86,7 +86,7 @@ namespace bantam_php
         {
             //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
             int length = Helper.RandomNumber(maxNum);
-            return "";// "/*" + Helper.RandomString(length, true, true)  + "*/";
+            return "/*" + Helper.RandomString(length, true, true)  + "*/";
         }
 
         /// <summary>
@@ -106,10 +106,12 @@ namespace bantam_php
             string blockBar = RandomPHPVar();
 
             string encryption = RandomPHPComment()
-                    + blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" 
+                    + blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);"
+                + RandomPHPComment()
+                    + varName + " = base64_encode(" + varName + ");"
                 + RandomPHPComment() 
                     + padVar + " = " + blockBar + " - (strlen(" + varName + ") % " + blockBar + ");" 
-                + RandomPHPComment() 
+                + RandomPHPComment()
                     + varName + " .= str_repeat(chr(" + padVar + "), " + padVar + ");" 
                 + RandomPHPComment()
                     + cryptTextvar + " = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, '" + encryptionKey + "', " + varName + ", MCRYPT_MODE_CBC, '" + encryptionIV + "');" 

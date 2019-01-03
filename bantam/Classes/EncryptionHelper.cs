@@ -33,7 +33,7 @@ namespace bantam_php
         }
 
         /// <summary>
-        /// 
+        /// Double base64 encoded because encrpytion or strlen was having issues encrypting non base64 encrypted data
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
@@ -55,7 +55,9 @@ namespace bantam_php
                 return string.Empty;
             }
 
-            return decryptedResult;
+            var finalResult = Helper.DecodeBase64ToString(decryptedResult);
+
+            return finalResult;
         }
 
         /// <summary>

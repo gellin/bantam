@@ -93,6 +93,28 @@ namespace bantam_php
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
+        public static string DecodeBase64ToString(string str)
+        {
+            if (string.IsNullOrEmpty(str)) {
+                return string.Empty;
+            }
+
+            if (Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+                string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+                var decbuff = Convert.FromBase64String(cleanB64);
+                string b64Code = Encoding.UTF8.GetString(decbuff);
+                return b64Code;
+            } else {
+                MessageBox.Show(str, "Unable to decode base64!");
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static byte[] DecodeBase64(string str)
         {
             if (string.IsNullOrEmpty(str)) {
