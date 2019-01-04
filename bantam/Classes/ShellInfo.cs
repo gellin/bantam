@@ -144,6 +144,11 @@ namespace bantam_php
         public int responseEncryptionMode = 0;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool gzipRequestData = false;
+
+        /// <summary>
         /// Name of the cookie or post argument used to send data to target/hostTargets
         /// </summary>
         public string requestArgName = "command";

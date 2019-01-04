@@ -23,6 +23,7 @@ namespace bantam_php
                         string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
                         string responseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes?["response_encryption"].Value : "";
                         string responseEncryptionMode = (itemNode.Attributes?["response_encryption_mode"] != null) ? itemNode.Attributes?["response_encryption_mode"].Value : "";
+                        string gzipRequest = (itemNode.Attributes?["gzip_request"] != null) ? itemNode.Attributes?["gzip_request"].Value : "";
 
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
@@ -51,6 +52,14 @@ namespace bantam_php
                                 BantamMain.Shells[hostTarget].responseEncryption = true;
                             } else {
                                 BantamMain.Shells[hostTarget].responseEncryption = false;
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(gzipRequest) == false) {
+                            if (gzipRequest == "1") {
+                                BantamMain.Shells[hostTarget].gzipRequestData = true;
+                            } else {
+                                BantamMain.Shells[hostTarget].gzipRequestData = false;
                             }
                         }
 
@@ -88,8 +97,9 @@ namespace bantam_php
             foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Shells) {
                 ShellInfo shellInfo = (ShellInfo)host.Value;
 
+                //saves shells that are down, possibly make this an option
                 if (shellInfo.down) {
-                    continue;
+                   // continue;
                 }
 
                 XmlNode serverNode = xmlDoc.CreateElement("server");
@@ -115,6 +125,10 @@ namespace bantam_php
                 XmlAttribute responseEncrpytionMode = xmlDoc.CreateAttribute("response_encryption_mode");
                 responseEncrpytionMode.Value = shellInfo.responseEncryptionMode.ToString(); //todo
                 serverNode.Attributes.Append(responseEncrpytionMode);
+
+                XmlAttribute gzipRequest = xmlDoc.CreateAttribute("gzip_request");
+                gzipRequest.Value = (shellInfo.gzipRequestData ? "1" : "0"); //todo
+                serverNode.Attributes.Append(gzipRequest);
 
                 rootNode.AppendChild(serverNode);
             }

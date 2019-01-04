@@ -106,7 +106,9 @@ namespace bantam_php
                         result = streamReader.ReadLine();
                     }
                 } catch (Exception e) {
-                    return DecryptRJ256( cipherText,  encryptionKey,  encryptionIV, PaddingMode.None);
+                    MessageBox.Show(e.Message, "Failed to decrypt response");
+                    return "";
+                    //return DecryptRJ256( cipherText,  encryptionKey,  encryptionIV, PaddingMode.None);
                 }
                 finally {
                     aes.Clear();

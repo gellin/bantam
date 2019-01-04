@@ -39,6 +39,7 @@
             this.btnAddShell = new System.Windows.Forms.Button();
             this.checkBoxResponseEncryption = new System.Windows.Forms.CheckBox();
             this.comboBoxEncryptionMode = new System.Windows.Forms.ComboBox();
+            this.checkBoxGZipRequest = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +86,7 @@
             // btnUpdateShell
             // 
             this.btnUpdateShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateShell.Location = new System.Drawing.Point(356, 135);
+            this.btnUpdateShell.Location = new System.Drawing.Point(359, 191);
             this.btnUpdateShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btnUpdateShell.Name = "btnUpdateShell";
             this.btnUpdateShell.Size = new System.Drawing.Size(127, 32);
@@ -128,7 +129,7 @@
             // btnAddShell
             // 
             this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.btnAddShell.Location = new System.Drawing.Point(356, 135);
+            this.btnAddShell.Location = new System.Drawing.Point(359, 191);
             this.btnAddShell.Name = "btnAddShell";
             this.btnAddShell.Size = new System.Drawing.Size(127, 32);
             this.btnAddShell.TabIndex = 10;
@@ -158,11 +159,22 @@
             this.comboBoxEncryptionMode.Size = new System.Drawing.Size(121, 24);
             this.comboBoxEncryptionMode.TabIndex = 12;
             // 
+            // checkBoxGZipRequest
+            // 
+            this.checkBoxGZipRequest.AutoSize = true;
+            this.checkBoxGZipRequest.Location = new System.Drawing.Point(22, 191);
+            this.checkBoxGZipRequest.Name = "checkBoxGZipRequest";
+            this.checkBoxGZipRequest.Size = new System.Drawing.Size(136, 20);
+            this.checkBoxGZipRequest.TabIndex = 13;
+            this.checkBoxGZipRequest.Text = "GZip Request Data";
+            this.checkBoxGZipRequest.UseVisualStyleBackColor = true;
+            // 
             // ModifyShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 193);
+            this.ClientSize = new System.Drawing.Size(498, 235);
+            this.Controls.Add(this.checkBoxGZipRequest);
             this.Controls.Add(this.comboBoxEncryptionMode);
             this.Controls.Add(this.checkBoxResponseEncryption);
             this.Controls.Add(this.btnAddShell);
@@ -202,5 +214,6 @@
         private System.Windows.Forms.Button btnAddShell;
         private System.Windows.Forms.CheckBox checkBoxResponseEncryption;
         private System.Windows.Forms.ComboBox comboBoxEncryptionMode;
+        private System.Windows.Forms.CheckBox checkBoxGZipRequest;
     }
 }
