@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -51,7 +50,7 @@ namespace bantam_php
                 switch (msg.Msg) {
                     case 0x30:
                         SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
-                        //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16));
+                        //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16)); //for right aligned button
                         break;
                     default:
                         break;

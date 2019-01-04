@@ -1,6 +1,6 @@
 ﻿namespace bantam_php
 {
-    partial class AddHost
+    partial class ModifyShell
     {
         /// <summary>
         /// Required designer variable.
@@ -38,6 +38,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAddShell = new System.Windows.Forms.Button();
             this.checkBoxResponseEncryption = new System.Windows.Forms.CheckBox();
+            this.comboBoxEncryptionMode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -98,9 +99,6 @@
             // 
             this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxVarType.FormattingEnabled = true;
-            this.comboBoxVarType.Items.AddRange(new object[] {
-            "cookie",
-            "post"});
             this.comboBoxVarType.Location = new System.Drawing.Point(92, 91);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.comboBoxVarType.Name = "comboBoxVarType";
@@ -142,18 +140,27 @@
             this.checkBoxResponseEncryption.AutoSize = true;
             this.checkBoxResponseEncryption.Checked = true;
             this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 135);
+            this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 142);
             this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";
             this.checkBoxResponseEncryption.Size = new System.Drawing.Size(137, 20);
             this.checkBoxResponseEncryption.TabIndex = 11;
             this.checkBoxResponseEncryption.Text = "Response Encryption";
             this.checkBoxResponseEncryption.UseVisualStyleBackColor = true;
             // 
+            // comboBoxEncryptionMode
+            // 
+            this.comboBoxEncryptionMode.FormattingEnabled = true;
+            this.comboBoxEncryptionMode.Location = new System.Drawing.Point(178, 140);
+            this.comboBoxEncryptionMode.Name = "comboBoxEncryptionMode";
+            this.comboBoxEncryptionMode.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxEncryptionMode.TabIndex = 12;
+            // 
             // AddHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 173);
+            this.ClientSize = new System.Drawing.Size(498, 193);
+            this.Controls.Add(this.comboBoxEncryptionMode);
             this.Controls.Add(this.checkBoxResponseEncryption);
             this.Controls.Add(this.btnAddShell);
             this.Controls.Add(this.label5);
@@ -191,5 +198,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAddShell;
         private System.Windows.Forms.CheckBox checkBoxResponseEncryption;
+        private System.Windows.Forms.ComboBox comboBoxEncryptionMode;
     }
 }

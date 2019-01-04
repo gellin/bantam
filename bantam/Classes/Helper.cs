@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace bantam_php
@@ -77,7 +75,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="base64"></param>
         /// <returns></returns>
-        public static string EncodeBase64Tostring(string base64)
+        public static string EncodeBase64ToString(string base64)
         {
             if (string.IsNullOrEmpty(base64)) {
                 return String.Empty;
@@ -99,12 +97,21 @@ namespace bantam_php
                 return string.Empty;
             }
 
-            if (Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+            string cleanB64 = str;
+
+            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+                //todo level 2 or 3 logging cfg
+                //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
+                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+            }
+
+            try {
                 var decbuff = Convert.FromBase64String(cleanB64);
                 string b64Code = Encoding.UTF8.GetString(decbuff);
                 return b64Code;
-            } else {
+            }
+            catch(Exception) {
+                //todo level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return string.Empty;
             }
@@ -121,11 +128,19 @@ namespace bantam_php
                 return null;
             }
 
-            if (Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                string cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+            string cleanB64 = str;
+
+            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
+                //todo level 2 or level 3 logging cfg
+                //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
+                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+            }
+
+            try {
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
-            } else {
+            } catch (Exception) {
+                //todo level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return null;
             }
@@ -152,10 +167,9 @@ namespace bantam_php
         /// <returns></returns>
         public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
-            Random rand = new Random();
             List<TKey> keyList = new List<TKey>(dict.Keys);
 
-            return keyList[rand.Next(keyList.Count)];
+            return keyList[rdm.Next(keyList.Count)];
         }
 
         /// <summary>
@@ -167,7 +181,6 @@ namespace bantam_php
         {
             int i = 0;
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-
             for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024) { }
 
             return String.Format("{0:0.##} {1}", bytes, suffixes[i]);
@@ -180,15 +193,13 @@ namespace bantam_php
         /// <param name="list"></param>
         public static void ShuffleList<T>(IList<T> list)
         {
-            Random random = new Random();
-            int n = list.Count;
+            int count = list.Count;
+            for (int i = count - 1; i > 1; i--) {
+                int rnd = rdm.Next(i + 1);
 
-            for (int i = list.Count - 1; i > 1; i--) {
-                int rnd = random.Next(i + 1);
-
-                T value = list[rnd];
+                T val = list[rnd];
                 list[rnd] = list[i];
-                list[i] = value;
+                list[i] = val;
             }
         }
 

@@ -136,7 +136,12 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public bool encryptResponse = true;
+        public bool responseEncryption = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int responseEncryptionMode = 0;
 
         /// <summary>
         /// Name of the cookie or post argument used to send data to target/hostTargets

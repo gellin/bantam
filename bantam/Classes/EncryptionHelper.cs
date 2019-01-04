@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace bantam_php
@@ -13,13 +10,21 @@ namespace bantam_php
     class EncryptionHelper
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public enum RESPONSE_ENCRYPTION_TYPES
+        {
+            OPENSSL = 0,
+            MCRYPT
+        }
+
+        /// <summary>
         /// todo dynamic and move to helpers
         /// </summary>
         public static string GetRandomEncryptionKey()
         {
-            int keyLength = 16;
-            bool capitals = false;
-            return Helper.RandomString(keyLength, capitals);
+            int ivLength = 32;
+            return Helper.RandomNumberString(ivLength);
         }
 
         /// <summary>
@@ -28,8 +33,9 @@ namespace bantam_php
         /// <returns></returns>
         public static string GetRandomEncryptionIV()
         {
-            int ivLength = 32;
-            return Helper.RandomNumberString(ivLength);
+            int keyLength = 16;
+            bool capitals = false;
+            return Helper.RandomString(keyLength, capitals);
         }
 
         /// <summary>
@@ -37,7 +43,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        static public string DecryptShellResponse(string response, string encryptionKey, string encryptionIV)
+        static public string DecryptShellResponse(string response, string encryptionKey, string encryptionIV, int encryptResponseMode)
         {
             if (string.IsNullOrEmpty(response)) {
                 return string.Empty;
@@ -49,7 +55,19 @@ namespace bantam_php
                 return string.Empty;
             }
 
-            var decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+            string decryptedResult = string.Empty;
+            
+            switch (encryptResponseMode) {
+                case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
+                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+                    break;
+                case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
+                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV, PaddingMode.None);
+                    break;
+                default:
+                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+                    break;
+            }
 
             if (string.IsNullOrEmpty(decryptedResult)) {
                 return string.Empty;
@@ -63,36 +81,38 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="cypher"></param>
-        /// <param name="KeyString"></param>
-        /// <param name="IVString"></param>
+        /// <param name="cipherText"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
         /// <returns></returns>
-        static public String DecryptRJ256(byte[] cypher, string KeyString, string IVString)
+        static public String DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
-            var sRet = "";
-            var encoding = new UTF8Encoding();
-            var Key = encoding.GetBytes(KeyString);
-            var IV = encoding.GetBytes(IVString);
+            var result = string.Empty;
+            var Key = Encoding.UTF8.GetBytes(encryptionKey);
+            var IV = Encoding.UTF8.GetBytes(encryptionIV);
 
-            using (var rj = new RijndaelManaged()) {
+            using (var aes = new RijndaelManaged()) {
                 try {
-                    rj.Padding = PaddingMode.PKCS7;
-                    rj.Mode = CipherMode.CBC;
-                    rj.KeySize = 256;
-                    rj.BlockSize = 256;
-                    rj.Key = Key;
-                    rj.IV = IV;
-                    var ms = new MemoryStream(cypher);
-                    using (var cs = new CryptoStream(ms, rj.CreateDecryptor(Key, IV), CryptoStreamMode.Read)) {
-                        using (var sr = new StreamReader(cs)) {
-                            sRet = sr.ReadLine();
-                        }
+                    aes.Padding = padding;
+                    aes.Mode = CipherMode.CBC;
+                    aes.KeySize = 256;
+                    aes.BlockSize = 128;
+                    aes.Key = Key;
+                    aes.IV = IV;
+
+                    using (var memoryStream = new MemoryStream(cipherText))
+                    using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
+                    using (var streamReader = new StreamReader(cryptoStream)) {
+                        result = streamReader.ReadLine();
                     }
-                } finally {
-                    rj.Clear();
+                } catch (Exception e) {
+                    return DecryptRJ256( cipherText,  encryptionKey,  encryptionIV, PaddingMode.None);
+                }
+                finally {
+                    aes.Clear();
                 }
             }
-            return sRet;
+            return result;
         }
     }
 }

