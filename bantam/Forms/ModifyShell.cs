@@ -21,7 +21,6 @@ namespace bantam_php
             "post",
         };
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -173,9 +172,28 @@ namespace bantam_php
             Program.g_BantamMain.updateHostForm.Hide();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddHost_Shown(object sender, EventArgs e)
         {
             //MessageBox.Show("1");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxResponseEncryption_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxResponseEncryption.Checked) {
+                comboBoxEncryptionMode.Enabled = true;
+            } else {
+                comboBoxEncryptionMode.Enabled = false;
+            }
         }
     }
 }

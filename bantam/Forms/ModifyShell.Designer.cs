@@ -54,11 +54,11 @@
             // 
             // txtBoxShellUrl
             // 
-            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.txtBoxShellUrl.Location = new System.Drawing.Point(22, 34);
             this.txtBoxShellUrl.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxShellUrl.Name = "txtBoxShellUrl";
-            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 23);
+            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 24);
             this.txtBoxShellUrl.TabIndex = 2;
             // 
             // label3
@@ -68,17 +68,17 @@
             this.label3.Location = new System.Drawing.Point(260, 95);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 16);
+            this.label3.Size = new System.Drawing.Size(71, 16);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Var Name:";
+            this.label3.Text = "Arg Name:";
             // 
             // txtBoxArgName
             // 
-            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.txtBoxArgName.Location = new System.Drawing.Point(340, 92);
             this.txtBoxArgName.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxArgName.Name = "txtBoxArgName";
-            this.txtBoxArgName.Size = new System.Drawing.Size(143, 23);
+            this.txtBoxArgName.Size = new System.Drawing.Size(143, 24);
             this.txtBoxArgName.TabIndex = 4;
             this.txtBoxArgName.Text = "command";
             // 
@@ -97,7 +97,7 @@
             // 
             // comboBoxVarType
             // 
-            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.comboBoxVarType.FormattingEnabled = true;
             this.comboBoxVarType.Location = new System.Drawing.Point(92, 91);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -112,9 +112,9 @@
             this.label4.Location = new System.Drawing.Point(19, 94);
             this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 16);
+            this.label4.Size = new System.Drawing.Size(57, 16);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Var Type:";
+            this.label4.Text = "Method:";
             // 
             // label5
             // 
@@ -127,6 +127,7 @@
             // 
             // btnAddShell
             // 
+            this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.btnAddShell.Location = new System.Drawing.Point(356, 135);
             this.btnAddShell.Name = "btnAddShell";
             this.btnAddShell.Size = new System.Drawing.Size(127, 32);
@@ -140,12 +141,14 @@
             this.checkBoxResponseEncryption.AutoSize = true;
             this.checkBoxResponseEncryption.Checked = true;
             this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 142);
             this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";
-            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(137, 20);
+            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(149, 20);
             this.checkBoxResponseEncryption.TabIndex = 11;
             this.checkBoxResponseEncryption.Text = "Response Encryption";
             this.checkBoxResponseEncryption.UseVisualStyleBackColor = true;
+            this.checkBoxResponseEncryption.CheckedChanged += new System.EventHandler(this.checkBoxResponseEncryption_CheckedChanged);
             // 
             // comboBoxEncryptionMode
             // 
@@ -155,7 +158,7 @@
             this.comboBoxEncryptionMode.Size = new System.Drawing.Size(121, 24);
             this.comboBoxEncryptionMode.TabIndex = 12;
             // 
-            // AddHost
+            // ModifyShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -171,12 +174,12 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtBoxShellUrl);
             this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AddHost";
+            this.Name = "ModifyShell";
             this.ShowIcon = false;
             this.Text = "Add Shell";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddHost_FormClosed);

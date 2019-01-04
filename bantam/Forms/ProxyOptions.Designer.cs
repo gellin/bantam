@@ -38,9 +38,9 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(263, 74);
+            this.buttonOk.Location = new System.Drawing.Point(364, 87);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 27);
+            this.buttonOk.Size = new System.Drawing.Size(110, 27);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -50,14 +50,14 @@
             // 
             this.txtBoxProxyUrl.Location = new System.Drawing.Point(12, 30);
             this.txtBoxProxyUrl.Name = "txtBoxProxyUrl";
-            this.txtBoxProxyUrl.Size = new System.Drawing.Size(210, 20);
+            this.txtBoxProxyUrl.Size = new System.Drawing.Size(316, 20);
             this.txtBoxProxyUrl.TabIndex = 2;
             // 
             // txtBoxProxyPort
             // 
-            this.txtBoxProxyPort.Location = new System.Drawing.Point(257, 30);
+            this.txtBoxProxyPort.Location = new System.Drawing.Point(358, 30);
             this.txtBoxProxyPort.Name = "txtBoxProxyPort";
-            this.txtBoxProxyPort.Size = new System.Drawing.Size(84, 20);
+            this.txtBoxProxyPort.Size = new System.Drawing.Size(119, 20);
             this.txtBoxProxyPort.TabIndex = 3;
             // 
             // label1
@@ -72,7 +72,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(254, 14);
+            this.label2.Location = new System.Drawing.Point(355, 14);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 5;
@@ -84,7 +84,7 @@
             this.comboBoxProxyType.Items.AddRange(new object[] {
             "socks",
             "http"});
-            this.comboBoxProxyType.Location = new System.Drawing.Point(12, 74);
+            this.comboBoxProxyType.Location = new System.Drawing.Point(12, 87);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
             this.comboBoxProxyType.Size = new System.Drawing.Size(109, 21);
             this.comboBoxProxyType.TabIndex = 6;
@@ -92,7 +92,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 58);
+            this.label3.Location = new System.Drawing.Point(12, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 7;
@@ -102,7 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 108);
+            this.ClientSize = new System.Drawing.Size(496, 141);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxProxyType);
             this.Controls.Add(this.label2);

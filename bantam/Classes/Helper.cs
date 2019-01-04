@@ -62,12 +62,12 @@ namespace bantam_php
                 charSet += "0123456789";
             }
 
-            var stringResult = new char[length];
+            string stringResult = string.Empty;
 
             for (int i = 0; i < length; i++) {
-                stringResult[i] = charSet[rdm.Next(charSet.Length)];
+               stringResult += charSet[rdm.Next(charSet.Length)];
             }
-            return new string(stringResult);
+            return stringResult;
         }
 
         /// <summary>

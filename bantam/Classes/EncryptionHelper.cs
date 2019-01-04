@@ -62,7 +62,7 @@ namespace bantam_php
                     decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
                     break;
                 case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
-                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV, PaddingMode.None);
+                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
                     break;
                 default:
                     decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);

