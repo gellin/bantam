@@ -21,6 +21,8 @@ namespace bantam_php
                         string hostTarget = (itemNode.Attributes?["host"] != null)  ? itemNode.Attributes?["host"].Value : "";
                         string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : "";
                         string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : "";
+                        string responseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes?["response_encryption"].Value : "";
+                        string responseEncryptionMode = (itemNode.Attributes?["response_encryption_mode"] != null) ? itemNode.Attributes?["response_encryption_mode"].Value : "";
 
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
@@ -32,21 +34,41 @@ namespace bantam_php
                             BantamMain.Shells.Add(hostTarget, new ShellInfo());
                         }
 
+                        //todo default this 
                         if (string.IsNullOrEmpty(requestArg) == false
                         && requestArg != "command") {
                             BantamMain.Shells[hostTarget].requestArgName = requestArg;
                         }
-
+                        
+                        //todo don't default this
                         if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie") {
                             BantamMain.Shells[hostTarget].sendDataViaCookie = true;
                         }
 
+                        if (string.IsNullOrEmpty(responseEncryption) == false) {
+                            if(responseEncryption == "1") {
+                                BantamMain.Shells[hostTarget].responseEncryption = true;
+                            } else {
+                                BantamMain.Shells[hostTarget].responseEncryption = false;
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(responseEncryptionMode) == false) {
+                            if (responseEncryptionMode == (EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL).ToString("D")) {
+                                BantamMain.Shells[hostTarget].responseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
+                            } else if (responseEncryptionMode == EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
+                                BantamMain.Shells[hostTarget].responseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
+                            } else {
+                                BantamMain.Shells[hostTarget].responseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
+                                //todo level 3 log failed check
+                            }
+                        }
+
                         try {
                             Program.g_BantamMain.InitializeShellData(hostTarget);
                         } catch(Exception) {
-
-
+                            //todo loging
                         }
                             
                     }
@@ -64,9 +86,9 @@ namespace bantam_php
             xmlDoc.AppendChild(rootNode);
 
             foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Shells) {
-                ShellInfo hostInfo = (ShellInfo)host.Value;
+                ShellInfo shellInfo = (ShellInfo)host.Value;
 
-                if (hostInfo.down) {
+                if (shellInfo.down) {
                     continue;
                 }
 
@@ -74,15 +96,25 @@ namespace bantam_php
 
                 XmlAttribute hostAttribute = xmlDoc.CreateAttribute("host");
                 hostAttribute.Value = host.Key;
+
                 serverNode.Attributes.Append(hostAttribute);
 
                 XmlAttribute requestArgAttribute = xmlDoc.CreateAttribute("request_arg");
-                requestArgAttribute.Value = hostInfo.requestArgName;
+                requestArgAttribute.Value = shellInfo.requestArgName;
+
                 serverNode.Attributes.Append(requestArgAttribute);
 
                 XmlAttribute requestMethod = xmlDoc.CreateAttribute("request_method");
-                requestMethod.Value = (hostInfo.sendDataViaCookie ? "cookie" : "post"); //todo post is not the most proper thing it could differ
+                requestMethod.Value = (shellInfo.sendDataViaCookie ? "cookie" : "post"); //todo
                 serverNode.Attributes.Append(requestMethod);
+
+                XmlAttribute responseEncryption = xmlDoc.CreateAttribute("response_encryption");
+                responseEncryption.Value = (shellInfo.responseEncryption ? "1" : "0" ); //todo
+                serverNode.Attributes.Append(responseEncryption);
+
+                XmlAttribute responseEncrpytionMode = xmlDoc.CreateAttribute("response_encryption_mode");
+                responseEncrpytionMode.Value = shellInfo.responseEncryptionMode.ToString(); //todo
+                serverNode.Attributes.Append(responseEncrpytionMode);
 
                 rootNode.AppendChild(serverNode);
             }

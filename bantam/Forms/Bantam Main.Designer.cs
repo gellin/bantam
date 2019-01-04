@@ -113,6 +113,7 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.viewPHPCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -173,14 +174,15 @@
             this.removeToolStripMenuItem,
             this.copyShellURLToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 186);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 208);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
             // 
             this.phpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.phpinfoToolStripMenuItem,
-            this.evalToolStripMenuItem});
+            this.evalToolStripMenuItem,
+            this.viewPHPCodeToolStripMenuItem});
             this.phpToolStripMenuItem.Image = global::bantam.Properties.Resources.php2_16x16;
             this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
             this.phpToolStripMenuItem.Size = new System.Drawing.Size(190, 26);
@@ -190,7 +192,7 @@
             // 
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -198,7 +200,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -445,19 +447,19 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -465,14 +467,14 @@
             // 
             this.saveClientsToolStripMenuItem.Enabled = false;
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
             // 
@@ -928,6 +930,13 @@
             this.splitContainer1.SplitterDistance = 513;
             this.splitContainer1.TabIndex = 3;
             // 
+            // viewPHPCodeToolStripMenuItem
+            // 
+            this.viewPHPCodeToolStripMenuItem.Name = "viewPHPCodeToolStripMenuItem";
+            this.viewPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.viewPHPCodeToolStripMenuItem.Text = "View PHP Code";
+            this.viewPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.viewPHPCodeToolStripMenuItem_Click);
+            // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1052,6 +1061,7 @@
         private System.Windows.Forms.ToolStripMenuItem evalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem proxySettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyShellURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewPHPCodeToolStripMenuItem;
     }
 }
 

