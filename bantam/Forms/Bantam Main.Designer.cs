@@ -119,6 +119,7 @@
             this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
             this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
             this.btnConsoleGoClick = new System.Windows.Forms.Button();
+            this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -886,9 +887,10 @@
             this.readFileToolStripMenuItem,
             this.renameFileToolStripMenuItem,
             this.deleteFileToolStripMenuItem,
-            this.copyFileToolStripMenuItem});
+            this.copyFileToolStripMenuItem,
+            this.downloadFileAsToolStripMenuItem});
             this.contextMenuStripFileBrowser.Name = "contextMenuStripFileBrowser";
-            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(139, 92);
+            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(181, 136);
             // 
             // readFileToolStripMenuItem
             // 
@@ -997,6 +999,13 @@
             this.btnConsoleGoClick.TabIndex = 2;
             this.btnConsoleGoClick.UseVisualStyleBackColor = true;
             this.btnConsoleGoClick.Click += new System.EventHandler(this.btnConsoleGoClick_Click);
+            // 
+            // downloadFileAsToolStripMenuItem
+            // 
+            this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
+            this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.downloadFileAsToolStripMenuItem.Text = "Download File As";
+            this.downloadFileAsToolStripMenuItem.Click += new System.EventHandler(this.downloadFileAsToolStripMenuItem_Click);
             // 
             // BantamMain
             // 
@@ -1130,6 +1139,7 @@
         private System.Windows.Forms.TextBox textBoxConsoleInput;
         private System.Windows.Forms.RichTextBox richTextBoxConsoleOutput;
         private System.Windows.Forms.Button btnConsoleGoClick;
+        private System.Windows.Forms.ToolStripMenuItem downloadFileAsToolStripMenuItem;
     }
 }
 

