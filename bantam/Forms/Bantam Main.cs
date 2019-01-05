@@ -689,6 +689,10 @@ namespace bantam_php
                     string[] columns = row.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
 
                     if (columns != null && columns.Length - 2 > 0) {
+
+                        string permissionOctal = Convert.ToString(Convert.ToInt32(columns[4]), 8);
+                        string perms = permissionOctal.Substring(permissionOctal.Length - 4);
+
                         if (columns[columns.Length - 2] == "dir") {
                             //if the user switched targets we do not update the live filebrowser because it is for a different target
                             if (g_SelectedShellUrl == shellUrl) {
@@ -696,7 +700,9 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                } else {
+                                    lastTn.ToolTipText = perms;
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
@@ -704,7 +710,9 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                } else {
+                                    lastTn.ToolTipText = perms;
                                 }
                             }
                         } else {
@@ -714,7 +722,9 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                } else {
+                                    lastTn.ToolTipText = perms;
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
@@ -722,7 +732,9 @@ namespace bantam_php
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                } else {
+                                    lastTn.ToolTipText = perms;
                                 }
                             }
                         }
@@ -909,13 +921,19 @@ namespace bantam_php
                                 string[] columns = row.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
 
                                 if (columns != null && columns.Length - 2 > 0) {
+
+                                    string permissionOctal = Convert.ToString(Convert.ToInt32(columns[4]), 8);
+                                    string perms = permissionOctal.Substring(permissionOctal.Length - 4);
+
                                     if (columns[columns.Length - 2] == "dir") {
                                         if (shellUrl == g_SelectedShellUrl) {
                                             TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                                lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            } else {
+                                                lastTn.ToolTipText = perms;
                                             }
                                         } else {
                                             //TODO update their client cache here user changed clients
@@ -924,7 +942,9 @@ namespace bantam_php
                                         if (shellUrl == g_SelectedShellUrl) {
                                             TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                                lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
+                                            } else {
+                                                lastTn.ToolTipText = perms;
                                             }
                                         } else {
                                             //TODO update their client cache here user changed clients
