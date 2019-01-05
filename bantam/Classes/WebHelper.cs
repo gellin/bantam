@@ -144,6 +144,12 @@ namespace bantam_php
             return string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="removeHeader"></param>
+        /// <returns></returns>
         public static byte[] gzCompress(byte[] input, bool removeHeader = true)
         {
             using (var result = new MemoryStream()) {
@@ -232,7 +238,7 @@ namespace bantam_php
             } catch (System.Net.Http.HttpRequestException) {
 
             }
-            return new ResponseObject("", "", "");
+            return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }
     }
 

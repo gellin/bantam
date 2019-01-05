@@ -72,7 +72,9 @@ namespace bantam_php
             txtBoxArgName.Text = varName;
 
             if (BantamMain.Shells.ContainsKey(shellUrl)) {
+                checkBoxGZipRequest.Checked = BantamMain.Shells[shellUrl].gzipRequestData;
                 checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].responseEncryption;
+                comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].responseEncryptionMode;
             }
 
             if (requestTypes.Contains(varType)) {
@@ -80,8 +82,6 @@ namespace bantam_php
             } else {
                 comboBoxVarType.SelectedIndex = 0;
             }
-
-            comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].responseEncryptionMode;
 
             btnAddShell.Visible = false;
             btnUpdateShell.Visible = true;

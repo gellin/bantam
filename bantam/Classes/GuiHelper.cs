@@ -62,7 +62,6 @@ namespace bantam_php
             private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -127,7 +126,7 @@ namespace bantam_php
             prompt.Controls.Add(cancel);
             prompt.AcceptButton = confirmation;
 
-            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : string.Empty;
         }
 
         /// <summary>
@@ -186,7 +185,7 @@ namespace bantam_php
             prompt.Controls.Add(cancel);
             prompt.AcceptButton = confirmation;
 
-            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : "";
+            return prompt.ShowDialog() == DialogResult.OK ? textBox.Text : string.Empty;
         }
 
         /// <summary>
@@ -293,7 +292,7 @@ namespace bantam_php
             prompt.Controls.Add(chkbxShowResponse);
 
             //show dialog and wait for result
-            string result = prompt.ShowDialog() == DialogResult.OK ? richTextBox.Text : "";
+            string result = prompt.ShowDialog() == DialogResult.OK ? richTextBox.Text : string.Empty;
 
             //set the ref var to the chkboxResult result value
             showResponse = chkboxResult;
