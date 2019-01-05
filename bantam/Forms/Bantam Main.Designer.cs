@@ -817,18 +817,19 @@
             // 
             this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpload.Image = global::bantam.Properties.Resources.upload_1;
-            this.btnUpload.Location = new System.Drawing.Point(528, 510);
+            this.btnUpload.Location = new System.Drawing.Point(528, 515);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(23, 23);
             this.btnUpload.TabIndex = 9;
             this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click_1);
             // 
             // txtBoxFileBrowserPath
             // 
             this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 510);
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 516);
             this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
             this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(487, 23);
@@ -838,23 +839,25 @@
             // 
             this.btnFileBrowserGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileBrowserGo.Image = global::bantam.Properties.Resources.play_2;
-            this.btnFileBrowserGo.Location = new System.Drawing.Point(499, 510);
+            this.btnFileBrowserGo.Location = new System.Drawing.Point(499, 515);
             this.btnFileBrowserGo.Name = "btnFileBrowserGo";
             this.btnFileBrowserGo.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserGo.TabIndex = 8;
             this.btnFileBrowserGo.UseVisualStyleBackColor = true;
+            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click_1);
             // 
             // btnFileBrowserRefresh
             // 
             this.btnFileBrowserRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFileBrowserRefresh.Image = global::bantam.Properties.Resources.home_png;
-            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(557, 510);
+            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(557, 515);
             this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
             this.btnFileBrowserRefresh.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserRefresh.TabIndex = 6;
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
+            this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click_1);
             // 
             // treeViewFileBrowser
             // 
@@ -870,7 +873,7 @@
             this.treeViewFileBrowser.Name = "treeViewFileBrowser";
             this.treeViewFileBrowser.SelectedImageIndex = 0;
             this.treeViewFileBrowser.ShowNodeToolTips = true;
-            this.treeViewFileBrowser.Size = new System.Drawing.Size(574, 494);
+            this.treeViewFileBrowser.Size = new System.Drawing.Size(574, 498);
             this.treeViewFileBrowser.TabIndex = 0;
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
