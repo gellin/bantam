@@ -55,18 +55,18 @@
             // 
             // txtBoxShellUrl
             // 
-            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.txtBoxShellUrl.Location = new System.Drawing.Point(22, 34);
             this.txtBoxShellUrl.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxShellUrl.Name = "txtBoxShellUrl";
-            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 24);
+            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 23);
             this.txtBoxShellUrl.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(260, 95);
+            this.label3.Location = new System.Drawing.Point(19, 134);
             this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 16);
@@ -75,18 +75,18 @@
             // 
             // txtBoxArgName
             // 
-            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.txtBoxArgName.Location = new System.Drawing.Point(340, 92);
+            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.txtBoxArgName.Location = new System.Drawing.Point(95, 131);
             this.txtBoxArgName.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxArgName.Name = "txtBoxArgName";
-            this.txtBoxArgName.Size = new System.Drawing.Size(143, 24);
+            this.txtBoxArgName.Size = new System.Drawing.Size(168, 23);
             this.txtBoxArgName.TabIndex = 4;
             this.txtBoxArgName.Text = "command";
             // 
             // btnUpdateShell
             // 
             this.btnUpdateShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateShell.Location = new System.Drawing.Point(359, 191);
+            this.btnUpdateShell.Location = new System.Drawing.Point(357, 160);
             this.btnUpdateShell.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.btnUpdateShell.Name = "btnUpdateShell";
             this.btnUpdateShell.Size = new System.Drawing.Size(127, 32);
@@ -98,12 +98,12 @@
             // 
             // comboBoxVarType
             // 
-            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.comboBoxVarType.FormattingEnabled = true;
-            this.comboBoxVarType.Location = new System.Drawing.Point(92, 91);
+            this.comboBoxVarType.Location = new System.Drawing.Point(95, 91);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.comboBoxVarType.Name = "comboBoxVarType";
-            this.comboBoxVarType.Size = new System.Drawing.Size(143, 24);
+            this.comboBoxVarType.Size = new System.Drawing.Size(168, 24);
             this.comboBoxVarType.TabIndex = 7;
             // 
             // label4
@@ -129,9 +129,9 @@
             // btnAddShell
             // 
             this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.btnAddShell.Location = new System.Drawing.Point(359, 191);
+            this.btnAddShell.Location = new System.Drawing.Point(338, 160);
             this.btnAddShell.Name = "btnAddShell";
-            this.btnAddShell.Size = new System.Drawing.Size(127, 32);
+            this.btnAddShell.Size = new System.Drawing.Size(145, 32);
             this.btnAddShell.TabIndex = 10;
             this.btnAddShell.Text = "Add Shell";
             this.btnAddShell.UseVisualStyleBackColor = true;
@@ -140,31 +140,34 @@
             // checkBoxResponseEncryption
             // 
             this.checkBoxResponseEncryption.AutoSize = true;
+            this.checkBoxResponseEncryption.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxResponseEncryption.Checked = true;
             this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 142);
+            this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 170);
             this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";
-            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(149, 20);
+            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(120, 20);
             this.checkBoxResponseEncryption.TabIndex = 11;
-            this.checkBoxResponseEncryption.Text = "Response Encryption";
+            this.checkBoxResponseEncryption.Text = "Encrypt Response";
             this.checkBoxResponseEncryption.UseVisualStyleBackColor = true;
             this.checkBoxResponseEncryption.CheckedChanged += new System.EventHandler(this.checkBoxResponseEncryption_CheckedChanged);
             // 
             // comboBoxEncryptionMode
             // 
+            this.comboBoxEncryptionMode.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.comboBoxEncryptionMode.FormattingEnabled = true;
-            this.comboBoxEncryptionMode.Location = new System.Drawing.Point(178, 140);
+            this.comboBoxEncryptionMode.Location = new System.Drawing.Point(163, 168);
             this.comboBoxEncryptionMode.Name = "comboBoxEncryptionMode";
-            this.comboBoxEncryptionMode.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxEncryptionMode.Size = new System.Drawing.Size(100, 24);
             this.comboBoxEncryptionMode.TabIndex = 12;
             // 
             // checkBoxGZipRequest
             // 
             this.checkBoxGZipRequest.AutoSize = true;
-            this.checkBoxGZipRequest.Location = new System.Drawing.Point(22, 191);
+            this.checkBoxGZipRequest.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.checkBoxGZipRequest.Location = new System.Drawing.Point(338, 94);
             this.checkBoxGZipRequest.Name = "checkBoxGZipRequest";
-            this.checkBoxGZipRequest.Size = new System.Drawing.Size(136, 20);
+            this.checkBoxGZipRequest.Size = new System.Drawing.Size(124, 20);
             this.checkBoxGZipRequest.TabIndex = 13;
             this.checkBoxGZipRequest.Text = "GZip Request Data";
             this.checkBoxGZipRequest.UseVisualStyleBackColor = true;
@@ -173,7 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 235);
+            this.ClientSize = new System.Drawing.Size(498, 207);
             this.Controls.Add(this.checkBoxGZipRequest);
             this.Controls.Add(this.comboBoxEncryptionMode);
             this.Controls.Add(this.checkBoxResponseEncryption);

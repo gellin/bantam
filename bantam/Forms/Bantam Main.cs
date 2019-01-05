@@ -18,7 +18,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public String g_SelectedShellUrl;
+        public static string g_SelectedShellUrl;
 
         /// <summary>
         /// 
@@ -610,6 +610,28 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private async void btnUpload_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false) {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
+                return;
+            }
+
+            string shellUrl = g_SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].responseEncryption;
+
+            UploadFile u = new UploadFile(shellUrl, txtBoxFileBrowserPath.Text);
+            u.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnFileBrowserGo_Click(object sender, EventArgs e)
         {
             if (validTarget() == false) {
@@ -706,6 +728,7 @@ namespace bantam_php
                         }
                     }
                 }
+                treeViewFileBrowser.Sort();
             }
         }
 
@@ -887,7 +910,6 @@ namespace bantam_php
 
                                 if (columns != null && columns.Length - 2 > 0) {
                                     if (columns[columns.Length - 2] == "dir") {
-                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
                                         if (shellUrl == g_SelectedShellUrl) {
                                             TreeNode lastTn = tn.Nodes.Add("", columns[0], 0);
                                             lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
@@ -899,7 +921,6 @@ namespace bantam_php
                                             //TODO update their client cache here user changed clients
                                         }
                                     } else {
-                                        //if the user switched targets we do not update the live filebrowser because it is for a different target
                                         if (shellUrl == g_SelectedShellUrl) {
                                             TreeNode lastTn = tn.Nodes.Add("", columns[0], 6);
                                             if (string.IsNullOrEmpty(columns[2]) == false) {
@@ -914,6 +935,7 @@ namespace bantam_php
                                 }
                             }
                             tn.Expand();
+                            treeViewFileBrowser.Sort();
                         }
                     }
                 }
@@ -1058,15 +1080,71 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// Scrolls to the end of the Console Output Richtext box on update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void richTextBoxConsoleOutput_TextChanged(object sender, EventArgs e)
+        {
+            richTextBoxConsoleOutput.SelectionStart = richTextBoxConsoleOutput.Text.Length;
+            richTextBoxConsoleOutput.ScrollToCaret();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProxyOptions proxyOptions = ProxyOptions.getInstance();
             proxyOptions.ShowDialog();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void copyShellURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnConsoleGoClick_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false) {
+                return;
+            }
+
+            string shellUrl = g_SelectedShellUrl;
+            bool isWin = Shells[shellUrl].isWindows;
+            bool encrypt = Shells[shellUrl].responseEncryption;
+            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string cmd = PhpHelper.TaskListFunction(isWin);
+            string phpCode = PhpHelper.ExecuteSystemCode(textBoxConsoleInput.Text, encrypt);
+
+            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encrypt));
+
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
+                if (encrypt) {
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                }
+
+                if (string.IsNullOrEmpty(result)) {
+                    MessageBox.Show("No Data Returned", "Welp..");
+                    return;
+                }
+                richTextBoxConsoleOutput.Text += result + "\r\n";
+            }
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -345,6 +346,25 @@ namespace bantam_php
                 CopyChildrenFromTreeViewNode(newTn, tn);
                 parent.Nodes.Add(newTn);
             }
+        }
+    }
+
+    class NodeSorter : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            TreeNode tx = (TreeNode)x;
+            TreeNode ty = (TreeNode)y;
+
+            if (tx.Text.Length < ty.Text.Length) {
+                return -1;
+            }
+
+            if (tx.Text.Length > ty.Text.Length) {
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

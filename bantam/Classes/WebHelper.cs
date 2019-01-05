@@ -106,13 +106,15 @@ namespace bantam_php
         {
             try {
                 HttpMethod method = HttpMethod.Get;
+
                 var request = new HttpRequestMessage(method, url);
+
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException) {
-            
+                //todo level 3 logging
             }
             return string.Empty;
         }
@@ -126,36 +128,43 @@ namespace bantam_php
         {
             try {
                 HttpMethod method = HttpMethod.Post;
+
                 var request = new HttpRequestMessage(method, url);
+
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
+
                 var content = new FormUrlEncodedContent(values);
                 request.Content = content;
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException) {
-
+                //todo level 3 logging
             }
             return string.Empty;
         }
 
-        public static byte[] Compress(byte[] input)
+        public static byte[] gzCompress(byte[] input, bool removeHeader = true)
         {
             using (var result = new MemoryStream()) {
                 var lengthBytes = BitConverter.GetBytes(input.Length);
                 result.Write(lengthBytes, 0, 4);
 
-                using (var compressionStream = new GZipStream(result,
-                    CompressionMode.Compress)) {
+                using (var compressionStream = new GZipStream(result, CompressionMode.Compress)) {
                     compressionStream.Write(input, 0, input.Length);
                     compressionStream.Flush();
                 }
 
-                //strip header so php can use "gzinflate"
                 Byte[] compressedBytes = result.ToArray();
-                Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - 14];
-                Buffer.BlockCopy(compressedBytes, 14, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
-                return bytesWithoutHeader;
+
+                if (removeHeader) {
+                    int headerSize = 14;
+                    Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - headerSize];
+                    Buffer.BlockCopy(compressedBytes, headerSize, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
+                    return bytesWithoutHeader;
+                } else {
+                    return compressedBytes;
+                }
             }
         }
 
@@ -198,7 +207,7 @@ namespace bantam_php
                     byte[] originalBytes = Encoding.UTF8.GetBytes(minifiedCode);
 
                     if (gzipRequestData) {
-                        originalBytes = Compress(originalBytes);
+                        originalBytes = gzCompress(originalBytes);
                     }
 
                     string b64EncodedCode = Convert.ToBase64String(originalBytes);

