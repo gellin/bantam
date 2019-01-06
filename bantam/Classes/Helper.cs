@@ -75,13 +75,13 @@ namespace bantam_php
         /// </summary>
         /// <param name="base64"></param>
         /// <returns></returns>
-        public static string EncodeBase64ToString(string base64)
+        public static string EncodeBase64ToString(string str)
         {
-            if (string.IsNullOrEmpty(base64)) {
+            if (string.IsNullOrEmpty(str)) {
                 return String.Empty;
             }
 
-            var plainTextBytes = Encoding.UTF8.GetBytes(base64);
+            var plainTextBytes = Encoding.UTF8.GetBytes(str);
             string b64Code = Convert.ToBase64String(plainTextBytes);
             return b64Code;
         }

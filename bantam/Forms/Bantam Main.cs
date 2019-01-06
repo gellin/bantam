@@ -30,6 +30,10 @@ namespace bantam_php
         /// Static Forms
         /// </summary>
         public ModifyShell addClientForm, updateHostForm;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public BackdoorGenerator backdoorGenerator;
 
         /// <summary>

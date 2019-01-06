@@ -45,8 +45,8 @@ namespace bantam_php
                        + "Python files (*.py)|*.py|"
                        + "HTML files (*.html|*.html|"
                        + "C files (*.c|*.c",
-                FilterIndex = 2,
-                RestoreDirectory = true
+                FilterIndex = 1,
+                RestoreDirectory = false
             }) {
                 if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                     LocalFileLocation = openShellXMLDialog.FileName;
@@ -107,7 +107,7 @@ namespace bantam_php
             string phpCode = PhpHelper.WriteFile(remoteFileLocation, b64FileContents);
 
             await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode, true);
-
+           // GC.Collect();
             this.Close();
         }
 

