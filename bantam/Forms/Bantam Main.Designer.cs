@@ -112,6 +112,7 @@
             this.renameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
             this.tabPageCmd = new System.Windows.Forms.TabPage();
             this.btnConsoleGoClick = new System.Windows.Forms.Button();
@@ -119,7 +120,6 @@
             this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -181,7 +181,7 @@
             this.removeToolStripMenuItem,
             this.copyShellURLToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 186);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(191, 208);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -891,35 +891,42 @@
             this.copyFileToolStripMenuItem,
             this.downloadToolStripMenuItem});
             this.contextMenuStripFileBrowser.Name = "contextMenuStripFileBrowser";
-            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(181, 136);
+            this.contextMenuStripFileBrowser.Size = new System.Drawing.Size(129, 114);
             // 
             // readFileToolStripMenuItem
             // 
             this.readFileToolStripMenuItem.Name = "readFileToolStripMenuItem";
-            this.readFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.readFileToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.readFileToolStripMenuItem.Text = "Read";
             this.readFileToolStripMenuItem.Click += new System.EventHandler(this.readFileToolStripMenuItem_Click_1);
             // 
             // renameFileToolStripMenuItem
             // 
             this.renameFileToolStripMenuItem.Name = "renameFileToolStripMenuItem";
-            this.renameFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.renameFileToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.renameFileToolStripMenuItem.Text = "Rename";
             this.renameFileToolStripMenuItem.Click += new System.EventHandler(this.renameFileToolStripMenuItem_Click);
             // 
             // deleteFileToolStripMenuItem
             // 
             this.deleteFileToolStripMenuItem.Name = "deleteFileToolStripMenuItem";
-            this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.deleteFileToolStripMenuItem.Text = "Delete";
             this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
             // 
             // copyFileToolStripMenuItem
             // 
             this.copyFileToolStripMenuItem.Name = "copyFileToolStripMenuItem";
-            this.copyFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyFileToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.copyFileToolStripMenuItem.Text = "Copy";
             this.copyFileToolStripMenuItem.Click += new System.EventHandler(this.copyFileToolStripMenuItem_Click);
+            // 
+            // downloadToolStripMenuItem
+            // 
+            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
+            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.downloadToolStripMenuItem.Text = "Download";
+            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
             // 
             // imageListFileBrowser
             // 
@@ -1002,12 +1009,10 @@
             this.splitContainer1.SplitterDistance = 452;
             this.splitContainer1.TabIndex = 3;
             // 
-            // downloadToolStripMenuItem
+            // downloadFileAsToolStripMenuItem
             // 
-            this.downloadToolStripMenuItem.Name = "downloadToolStripMenuItem";
-            this.downloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.downloadToolStripMenuItem.Text = "Download";
-            this.downloadToolStripMenuItem.Click += new System.EventHandler(this.downloadToolStripMenuItem_Click);
+            this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
+            this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // BantamMain
             // 

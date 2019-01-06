@@ -240,10 +240,10 @@ namespace bantam_php
                 }
             } catch (System.Net.Http.HttpRequestException e) {
                 //todo level 2/3 logging
-                MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message);
             } catch (Exception e) {
                 //todo level 2/3 logging
-                MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }
