@@ -224,7 +224,6 @@ namespace bantam_php
                     phpCode = HttpUtility.UrlEncode(phpCode);
 
                     if (sendViaCookie) {
-
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
                     } else {
                         string postArgs = string.Format(requestArgsName+"={0}", phpCode);
