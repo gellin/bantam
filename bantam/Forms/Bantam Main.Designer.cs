@@ -157,7 +157,7 @@
             this.listViewShells.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewShells.MultiSelect = false;
             this.listViewShells.Name = "listViewShells";
-            this.listViewShells.Size = new System.Drawing.Size(447, 577);
+            this.listViewShells.Size = new System.Drawing.Size(446, 577);
             this.listViewShells.TabIndex = 0;
             this.listViewShells.UseCompatibleStateImageBehavior = false;
             this.listViewShells.View = System.Windows.Forms.View.Details;
@@ -552,7 +552,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(594, 577);
+            this.tabControl1.Size = new System.Drawing.Size(595, 577);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
@@ -576,7 +576,7 @@
             this.tabPageInfo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageInfo.Name = "tabPageInfo";
             this.tabPageInfo.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageInfo.Size = new System.Drawing.Size(586, 545);
+            this.tabPageInfo.Size = new System.Drawing.Size(587, 545);
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
@@ -594,7 +594,7 @@
             this.panel3.Location = new System.Drawing.Point(6, 42);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(574, 40);
+            this.panel3.Size = new System.Drawing.Size(575, 40);
             this.panel3.TabIndex = 26;
             // 
             // lblStaticPHP
@@ -646,7 +646,7 @@
             this.panel2.Location = new System.Drawing.Point(6, 216);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(574, 40);
+            this.panel2.Size = new System.Drawing.Size(575, 40);
             this.panel2.TabIndex = 26;
             // 
             // lblStaticUname
@@ -774,7 +774,7 @@
             this.panel1.Location = new System.Drawing.Point(6, 130);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(574, 40);
+            this.panel1.Size = new System.Drawing.Size(575, 40);
             this.panel1.TabIndex = 25;
             // 
             // lblStaticCWD
@@ -822,7 +822,7 @@
             this.btnUpload.Size = new System.Drawing.Size(23, 23);
             this.btnUpload.TabIndex = 9;
             this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click_1);
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // txtBoxFileBrowserPath
             // 
@@ -844,7 +844,7 @@
             this.btnFileBrowserGo.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserGo.TabIndex = 8;
             this.btnFileBrowserGo.UseVisualStyleBackColor = true;
-            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click_1);
+            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click);
             // 
             // btnFileBrowserRefresh
             // 
@@ -857,7 +857,7 @@
             this.btnFileBrowserRefresh.Size = new System.Drawing.Size(23, 23);
             this.btnFileBrowserRefresh.TabIndex = 6;
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
-            this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click_1);
+            this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
             // 
             // treeViewFileBrowser
             // 
@@ -938,7 +938,7 @@
             this.tabPageCmd.Location = new System.Drawing.Point(4, 28);
             this.tabPageCmd.Name = "tabPageCmd";
             this.tabPageCmd.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageCmd.Size = new System.Drawing.Size(586, 545);
+            this.tabPageCmd.Size = new System.Drawing.Size(587, 545);
             this.tabPageCmd.TabIndex = 2;
             this.tabPageCmd.Text = "Console";
             this.tabPageCmd.UseVisualStyleBackColor = true;
@@ -947,7 +947,7 @@
             // 
             this.btnConsoleGoClick.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConsoleGoClick.Image = global::bantam.Properties.Resources.play_2;
-            this.btnConsoleGoClick.Location = new System.Drawing.Point(556, 515);
+            this.btnConsoleGoClick.Location = new System.Drawing.Point(557, 515);
             this.btnConsoleGoClick.Name = "btnConsoleGoClick";
             this.btnConsoleGoClick.Size = new System.Drawing.Size(23, 23);
             this.btnConsoleGoClick.TabIndex = 2;
@@ -961,7 +961,7 @@
             this.textBoxConsoleInput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.textBoxConsoleInput.Location = new System.Drawing.Point(6, 516);
             this.textBoxConsoleInput.Name = "textBoxConsoleInput";
-            this.textBoxConsoleInput.Size = new System.Drawing.Size(544, 23);
+            this.textBoxConsoleInput.Size = new System.Drawing.Size(545, 23);
             this.textBoxConsoleInput.TabIndex = 1;
             // 
             // richTextBoxConsoleOutput
@@ -973,7 +973,7 @@
             this.richTextBoxConsoleOutput.Location = new System.Drawing.Point(6, 6);
             this.richTextBoxConsoleOutput.Name = "richTextBoxConsoleOutput";
             this.richTextBoxConsoleOutput.ReadOnly = true;
-            this.richTextBoxConsoleOutput.Size = new System.Drawing.Size(573, 503);
+            this.richTextBoxConsoleOutput.Size = new System.Drawing.Size(574, 503);
             this.richTextBoxConsoleOutput.TabIndex = 0;
             this.richTextBoxConsoleOutput.Text = "";
             this.richTextBoxConsoleOutput.TextChanged += new System.EventHandler(this.richTextBoxConsoleOutput_TextChanged);
@@ -995,7 +995,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(1057, 585);
-            this.splitContainer1.SplitterDistance = 453;
+            this.splitContainer1.SplitterDistance = 452;
             this.splitContainer1.TabIndex = 3;
             // 
             // downloadFileAsToolStripMenuItem
