@@ -236,7 +236,7 @@ namespace bantam_php
 
                 return new ResponseObject(responseString, encryptionKey, encryptionIV);
             } catch (System.Net.Http.HttpRequestException) {
-
+                MessageBox.Show("Fucking fuck everything got fucked");
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }

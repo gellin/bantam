@@ -834,6 +834,7 @@
             this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
             this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(487, 23);
             this.txtBoxFileBrowserPath.TabIndex = 7;
+            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
             // 
             // btnFileBrowserGo
             // 

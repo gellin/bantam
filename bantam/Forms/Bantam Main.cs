@@ -604,6 +604,26 @@ namespace bantam_php
             }
         }
 
+        private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnConsoleGoClick_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtBoxFileBrowserPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnFileBrowserGo_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
         #endregion
 
         #region FILE_BROWSER_EVENTS
@@ -1191,7 +1211,7 @@ namespace bantam_php
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            string cmd = PhpHelper.TaskListFunction(isWin);
+            string cmd = textBoxConsoleInput.Text;
             string phpCode = PhpHelper.ExecuteSystemCode(textBoxConsoleInput.Text, encryptResponse);
 
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse));
@@ -1202,11 +1222,11 @@ namespace bantam_php
                     result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
                 }
 
-                if (string.IsNullOrEmpty(result)) {
-                    MessageBox.Show("No Data Returned", "Welp..");
+                if (string.IsNullOrEmpty(result)) { // TODO level 3 logging
+                    //MessageBox.Show("No Data Returned", "Welp..");
                     return;
                 }
-                richTextBoxConsoleOutput.Text += result + "\r\n";
+                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\n" + result + "\r\n";
             } else {
                 //todo level 3 logging
             }
@@ -1430,14 +1450,6 @@ namespace bantam_php
         private void downloadFileAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-            {
-                btnConsoleGoClick_Click(sender, e);
-            }
         }
 
         /// <summary>
