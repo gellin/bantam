@@ -1432,6 +1432,14 @@ namespace bantam_php
 
         }
 
+        private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                btnConsoleGoClick_Click(sender, e);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

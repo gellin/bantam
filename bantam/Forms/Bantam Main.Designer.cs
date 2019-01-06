@@ -807,7 +807,7 @@
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
             this.tabPageFiles.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPageFiles.Size = new System.Drawing.Size(586, 545);
+            this.tabPageFiles.Size = new System.Drawing.Size(587, 545);
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
@@ -963,6 +963,7 @@
             this.textBoxConsoleInput.Name = "textBoxConsoleInput";
             this.textBoxConsoleInput.Size = new System.Drawing.Size(545, 23);
             this.textBoxConsoleInput.TabIndex = 1;
+            this.textBoxConsoleInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxConsoleInput_KeyDown);
             // 
             // richTextBoxConsoleOutput
             // 
