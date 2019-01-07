@@ -105,7 +105,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode)
+        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode)
         {
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode, encryptResponse));
 
@@ -116,13 +116,17 @@ namespace bantam_php
                 }
 
                 if (string.IsNullOrEmpty(result)) {
-                    MessageBox.Show("No Data Returned", "Welp..");
+                    //todo level 2 logging
+                    //MessageBox.Show("No Data Returned", "Welp..");
                     return;
                 }
 
+                result = result.Replace(PhpHelper.rowSeperator, "\r\n");
+
                 GuiHelper.RichTextBoxDialog(title, result);
             } else {
-                MessageBox.Show("No Data Returned", "Welp...");
+                //todo level 3 logging
+                //MessageBox.Show("No Data Returned", "Welp...");
             }
         }
 
@@ -1552,6 +1556,34 @@ namespace bantam_php
             string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, encryptResponse);
 
             executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encryptResponse, responseEncryptionMode);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void portScannerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PortScanner ps = new PortScanner(g_SelectedShellUrl);
+            ps.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listViewShells_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            MessageBox.Show(s.ToString());
+        }
+
+        private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DistributedPortScanner ds = new DistributedPortScanner();
+            ds.ShowDialog();
         }
 
         /// <summary>

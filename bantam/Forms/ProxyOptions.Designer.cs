@@ -39,7 +39,7 @@
             // buttonOk
             // 
             this.buttonOk.Location = new System.Drawing.Point(402, 90);
-            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(115, 33);
             this.buttonOk.TabIndex = 0;
@@ -51,7 +51,7 @@
             // 
             this.txtBoxProxyUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.txtBoxProxyUrl.Location = new System.Drawing.Point(16, 37);
-            this.txtBoxProxyUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBoxProxyUrl.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxProxyUrl.Name = "txtBoxProxyUrl";
             this.txtBoxProxyUrl.Size = new System.Drawing.Size(350, 21);
             this.txtBoxProxyUrl.TabIndex = 2;
@@ -60,10 +60,11 @@
             // 
             this.txtBoxProxyPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.txtBoxProxyPort.Location = new System.Drawing.Point(402, 37);
-            this.txtBoxProxyPort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBoxProxyPort.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxProxyPort.Name = "txtBoxProxyPort";
             this.txtBoxProxyPort.Size = new System.Drawing.Size(115, 21);
             this.txtBoxProxyPort.TabIndex = 3;
+            this.txtBoxProxyPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProxyPort_KeyPress);
             // 
             // label1
             // 
@@ -93,7 +94,7 @@
             "socks",
             "http"});
             this.comboBoxProxyType.Location = new System.Drawing.Point(16, 100);
-            this.comboBoxProxyType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxProxyType.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
             this.comboBoxProxyType.Size = new System.Drawing.Size(144, 23);
             this.comboBoxProxyType.TabIndex = 6;
@@ -122,7 +123,7 @@
             this.Controls.Add(this.buttonOk);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProxyOptions";
             this.Text = "ProxySettings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxyOptions_FormClosing);

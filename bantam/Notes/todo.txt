@@ -39,4 +39,6 @@
 * 1 - passwd bypass
 * 1 - find suid/gid files !
 
+* 1 - timeout on the fsock side of the port scanner (make as a controllable option/var)
+
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info

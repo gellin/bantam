@@ -96,5 +96,11 @@ namespace bantam_php
             buttonOk.Enabled = true;
         }
 
+        private void txtBoxProxyPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
     }
 }

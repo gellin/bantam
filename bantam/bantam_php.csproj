@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>bantam_php.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SocksSharp">
       <HintPath>Dependencies\SocksSharp.dll</HintPath>
@@ -87,17 +90,29 @@
       <DependentUpon>BrowserView.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\GuiHelper.cs" />
-    <Compile Include="Forms\Bantam Main.cs">
+    <Compile Include="Forms\BantamMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Bantam Main.Designer.cs">
-      <DependentUpon>Bantam Main.cs</DependentUpon>
+    <Compile Include="Forms\BantamMain.Designer.cs">
+      <DependentUpon>BantamMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DistributedPortScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DistributedPortScanner.Designer.cs">
+      <DependentUpon>DistributedPortScanner.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ModifyShell.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\ModifyShell.Designer.cs">
       <DependentUpon>ModifyShell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PortScanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PortScanner.Designer.cs">
+      <DependentUpon>PortScanner.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ProxyOptions.cs">
       <SubType>Form</SubType>
@@ -119,8 +134,14 @@
     <EmbeddedResource Include="Forms\BrowserView.resx">
       <DependentUpon>BrowserView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DistributedPortScanner.resx">
+      <DependentUpon>DistributedPortScanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ModifyShell.resx">
       <DependentUpon>ModifyShell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PortScanner.resx">
+      <DependentUpon>PortScanner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProxyOptions.resx">
       <DependentUpon>ProxyOptions.cs</DependentUpon>
@@ -138,8 +159,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\Bantam Main.resx">
-      <DependentUpon>Bantam Main.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\BantamMain.resx">
+      <DependentUpon>BantamMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />

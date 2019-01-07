@@ -169,6 +169,8 @@ namespace bantam_php
                     Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - headerSize];
                     Buffer.BlockCopy(compressedBytes, headerSize, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
 
+                    compressedBytes = null;
+
                     return bytesWithoutHeader;
                 } else {
                     return compressedBytes;
@@ -216,7 +218,9 @@ namespace bantam_php
                     if (gzipRequestData) {
                         byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
                         phpCodeBytes = gzCompress(phpCodeBytes);
+
                         phpCode = Convert.ToBase64String(phpCodeBytes);
+                        phpCodeBytes = null;
                     } else {
                         phpCode = Helper.EncodeBase64ToString(phpCode);
                     }
@@ -225,17 +229,21 @@ namespace bantam_php
 
                     if (sendViaCookie) {
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
+                        phpCode = null;
                     } else {
                         string postArgs = string.Format(requestArgsName+"={0}", phpCode);
                         request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
+                        phpCode = null;
+                        postArgs = null;
                     }
                 }
-
-                //using (HttpResponseMessage response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
 
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) 
                 { 
                     var responseString = await response.Content.ReadAsStringAsync();
+
+                    GC.Collect();
+
                     return new ResponseObject(responseString, encryptionKey, encryptionIV);
                 }
             } catch (System.Net.Http.HttpRequestException e) {

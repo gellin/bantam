@@ -261,6 +261,64 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public static string PortsScannerPorts1To1024()
+        {
+            return "$ports = range(1, 1024);";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string PortScannerPortsAll()
+        {
+            return "$ports = range(1, 65535);";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string PortScannerPortsCommon()
+        {
+            return "$ports = array(20, 21, 22, 23, 25, 53, 80, 81, 88, 110, 123, 135, 137, 138, 143, 443, 445, 587, 2049, 2082, 2083, 2086, 2087, 2525, 3306, 6379, 6380, 8443, 8843, 8080, 8081, 8888, 11211);";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <returns></returns>
+        public static string PortScanner(string host, string portsCode, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return RandomPHPComment()
+                     + "$result;"
+                     + "@ini_set('max_execution_time', 0);"
+                     + portsCode
+                     + "foreach ($ports as $port) {"
+                     + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
+                     + "if (is_resource($conn)) { "
+                     + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '"+ rowSeperator + "';"
+                     + "fclose($conn);"
+                     + "}}";
+            } else {
+                return RandomPHPComment()
+                     + "@ini_set('max_execution_time', 0);"
+                     + portsCode
+                     + "foreach ($ports as $port) {"
+                     + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
+                     + "if (is_resource($conn)) { "
+                     + "echo $port . ' ' . getservbyport($port, 'tcp'). \"\n\";"
+                     + "fclose($conn);"
+                     + "}}";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="code"></param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
