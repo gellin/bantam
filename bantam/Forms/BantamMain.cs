@@ -1274,7 +1274,6 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            bool isWin = Shells[shellUrl].isWindows;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
@@ -1294,6 +1293,7 @@ namespace bantam_php
                     return;
                 }
                 richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\n" + result + "\r\n";
+                textBoxConsoleInput.Text = string.Empty;
             } else {
                 //todo level 3 logging
             }

@@ -69,19 +69,33 @@ namespace bantam_php
         {
             btnScan.Enabled = true;
             if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
-                textBoxPorts.Text = "1-1024";
+                //textBoxPorts.Text = "1-1024";
             } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
-                textBoxPorts.Text = "common ports";
+                //textBoxPorts.Text = "common ports";
             } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
-                textBoxPorts.Text = "1-65535";
+                //textBoxPorts.Text = "1-65535";
             } else {
                 //todo fuck off
             }
+            textBoxPorts.Text = "";
         }
 
         private void textBoxPorts_TextChanged(object sender, EventArgs e)
         {
+            comboBoxCommonPorts.SelectedIndex = 0;
+            btnScan.Enabled = true;
+        }
 
+        private void PortScanner_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPorts_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
         }
     }
 }

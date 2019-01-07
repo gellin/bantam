@@ -129,9 +129,9 @@
             // btnAddShell
             // 
             this.btnAddShell.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.btnAddShell.Location = new System.Drawing.Point(338, 160);
+            this.btnAddShell.Location = new System.Drawing.Point(338, 148);
             this.btnAddShell.Name = "btnAddShell";
-            this.btnAddShell.Size = new System.Drawing.Size(145, 32);
+            this.btnAddShell.Size = new System.Drawing.Size(145, 44);
             this.btnAddShell.TabIndex = 10;
             this.btnAddShell.Text = "Add Shell";
             this.btnAddShell.UseVisualStyleBackColor = true;
@@ -143,10 +143,10 @@
             this.checkBoxResponseEncryption.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkBoxResponseEncryption.Checked = true;
             this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 170);
             this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";
-            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(120, 20);
+            this.checkBoxResponseEncryption.Size = new System.Drawing.Size(131, 20);
             this.checkBoxResponseEncryption.TabIndex = 11;
             this.checkBoxResponseEncryption.Text = "Encrypt Response";
             this.checkBoxResponseEncryption.UseVisualStyleBackColor = true;
@@ -164,10 +164,10 @@
             // checkBoxGZipRequest
             // 
             this.checkBoxGZipRequest.AutoSize = true;
-            this.checkBoxGZipRequest.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.checkBoxGZipRequest.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.checkBoxGZipRequest.Location = new System.Drawing.Point(338, 94);
             this.checkBoxGZipRequest.Name = "checkBoxGZipRequest";
-            this.checkBoxGZipRequest.Size = new System.Drawing.Size(124, 20);
+            this.checkBoxGZipRequest.Size = new System.Drawing.Size(136, 20);
             this.checkBoxGZipRequest.TabIndex = 13;
             this.checkBoxGZipRequest.Text = "GZip Request Data";
             this.checkBoxGZipRequest.UseVisualStyleBackColor = true;
