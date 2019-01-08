@@ -242,7 +242,7 @@ namespace bantam_php
                 { 
                     var responseString = await response.Content.ReadAsStringAsync();
 
-                    GC.Collect();
+                    //GC.Collect();
 
                     return new ResponseObject(responseString, encryptionKey, encryptionIV);
                 }

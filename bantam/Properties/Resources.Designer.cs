@@ -203,6 +203,26 @@ namespace bantam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ports_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("ports_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap proxy_chain_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("proxy_chain_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap social_windows_outline {
             get {
                 object obj = ResourceManager.GetObject("social_windows_outline", resourceCulture);
@@ -236,6 +256,16 @@ namespace bantam.Properties {
         internal static System.Drawing.Bitmap upload_1 {
             get {
                 object obj = ResourceManager.GetObject("upload_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("user_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

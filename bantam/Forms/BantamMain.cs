@@ -105,7 +105,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode)
+        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null)
         {
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode, encryptResponse));
 
@@ -123,7 +123,11 @@ namespace bantam_php
 
                 result = result.Replace(PhpHelper.rowSeperator, "\r\n");
 
-                GuiHelper.RichTextBoxDialog(title, result);
+                if (richTextBox != null && richTextBox.IsDisposed == false) {
+                    richTextBox.Text += result;
+                } else {
+                    GuiHelper.RichTextBoxDialog(title, result);
+                }
             } else {
                 //todo level 3 logging
                 //MessageBox.Show("No Data Returned", "Welp...");
@@ -1347,10 +1351,6 @@ namespace bantam_php
         /// <param name="e"></param>
         private void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false) {
-                return;
-            }
-
             string shellUrl = g_SelectedShellUrl;
             bool isWin = Shells[shellUrl].isWindows;
             bool encrypt = Shells[shellUrl].responseEncryption;

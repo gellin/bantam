@@ -45,6 +45,8 @@ namespace bantam_php
             int shellsCount = checkedListBoxShells.CheckedItems.Count;
             int portsPerShell = ((endPort - startPort) / shellsCount);
 
+            RichTextBox rtb = GuiHelper.RichTextBoxDialog("", "");
+
             int iter = 1;
             foreach(var checkedItem in checkedListBoxShells.CheckedItems) {
                 string portsCode = string.Empty;
@@ -72,8 +74,8 @@ namespace bantam_php
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
                 string windowTitle = "Ports Scanned ( " + textBoxTarget.Text + ":" + scannedRange + ") - " + shellUrl;
                 string phpCode = PhpHelper.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
-
-                BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL);
+            
+                BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb);
 
                 btnScan.Enabled = true;
             }

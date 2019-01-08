@@ -125,7 +125,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProxyOptions";
-            this.Text = "ProxySettings";
+            this.Text = "Proxy Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxyOptions_FormClosing);
             this.Load += new System.EventHandler(this.ProxyOptions_Load);
             this.ResumeLayout(false);

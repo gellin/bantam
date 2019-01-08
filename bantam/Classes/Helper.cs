@@ -168,7 +168,7 @@ namespace bantam_php
         public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             List<TKey> keyList = new List<TKey>(dict.Keys);
-
+      
             return keyList[rdm.Next(keyList.Count)];
         }
 

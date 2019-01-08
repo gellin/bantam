@@ -115,7 +115,10 @@ namespace bantam_php
                 DialogResult = DialogResult.OK
             };
 
-            randomize.Click += (sender, e) => { textBox.Text = WebHelper.commonUseragents[Helper.RandomDicionaryValue(WebHelper.commonUseragents)]; };
+            randomize.Click += (sender, e) => {
+                textBox.Text = WebHelper.commonUseragents[Helper.RandomDicionaryValue(WebHelper.commonUseragents)];
+            };
+
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 
@@ -193,13 +196,13 @@ namespace bantam_php
         /// </summary>
         /// <param name="windowTitle"></param>
         /// <param name="text"></param>
-        public static void RichTextBoxDialog(string windowTitle, string text)
+        public static RichTextBox RichTextBoxDialog(string windowTitle, string text)
         {
             //oldFileName = "Current File Name: " + oldFileName;
             Form prompt = new Form() {
                 Width = 500,
                 Height = 500,
-                FormBorderStyle = FormBorderStyle.SizableToolWindow,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
                 Text = windowTitle,
                 StartPosition = FormStartPosition.CenterScreen,
                 MinimumSize = new System.Drawing.Size(180, 300)
@@ -219,7 +222,9 @@ namespace bantam_php
             richTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top;
 
             prompt.Controls.Add(richTextBox);
-            prompt.ShowDialog();
+            prompt.Show();
+            
+            return richTextBox;
         }
 
         /// <summary>

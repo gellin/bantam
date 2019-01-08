@@ -8,7 +8,7 @@
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 * 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
-* 3 - make edit file with cancel button
+
 * 3 - auto deploy upload features such as ysm, privenum
 * 3 - read file size limit check & mime check/show pictures in picture control
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
@@ -33,7 +33,6 @@
 * ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 
 * 3 - bantam self / shell code editor, editing the bantam stored online
-* 2 - internal port scanner!!
 * 1 - disable functions bypass 
 * 1 - touch feature
 * 1 - passwd bypass

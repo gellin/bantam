@@ -98,9 +98,9 @@ namespace bantam_php
                 ShellInfo shellInfo = (ShellInfo)host.Value;
 
                 //saves shells that are down, possibly make this an option
-                if (shellInfo.down) {
+                //if (shellInfo.down) {
                    // continue;
-                }
+                //}
 
                 XmlNode serverNode = xmlDoc.CreateElement("server");
 

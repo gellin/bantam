@@ -54,8 +54,8 @@
             // 
             // textBoxPorts
             // 
-            this.textBoxPorts.Enabled = false;
             this.textBoxPorts.Location = new System.Drawing.Point(65, 61);
+            this.textBoxPorts.MaxLength = 5;
             this.textBoxPorts.Name = "textBoxPorts";
             this.textBoxPorts.Size = new System.Drawing.Size(58, 24);
             this.textBoxPorts.TabIndex = 2;
@@ -65,7 +65,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 69);
+            this.label2.Location = new System.Drawing.Point(13, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 16);
             this.label2.TabIndex = 3;
@@ -118,10 +118,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxHost);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "PortScanner";
-            this.Text = "PortScanner";
+            this.Text = "Port Scanner";
             this.Load += new System.EventHandler(this.PortScanner_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

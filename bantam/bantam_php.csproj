@@ -102,11 +102,11 @@
     <Compile Include="Forms\DistributedPortScanner.Designer.cs">
       <DependentUpon>DistributedPortScanner.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ModifyShell.cs">
+    <Compile Include="Forms\ModifyShellInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ModifyShell.Designer.cs">
-      <DependentUpon>ModifyShell.cs</DependentUpon>
+    <Compile Include="Forms\ModifyShellInfo.Designer.cs">
+      <DependentUpon>ModifyShellInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PortScanner.cs">
       <SubType>Form</SubType>
@@ -137,8 +137,8 @@
     <EmbeddedResource Include="Forms\DistributedPortScanner.resx">
       <DependentUpon>DistributedPortScanner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ModifyShell.resx">
-      <DependentUpon>ModifyShell.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ModifyShellInfo.resx">
+      <DependentUpon>ModifyShellInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PortScanner.resx">
       <DependentUpon>PortScanner.cs</DependentUpon>
@@ -194,6 +194,11 @@
     <None Include="Art\home.png.png" />
     <None Include="Art\enter_16x16.png" />
     <None Include="Art\upload_1.png" />
+    <None Include="Art\connection2_16x16.png" />
+    <None Include="Art\user_16x16.png" />
+    <None Include="Art\proxy_chain_16x16.png" />
+    <Content Include="Dependencies\SocksSharp.dll" />
+    <Content Include="Dependencies\SocksSharp.pdb" />
     <Content Include="Notes\todo.txt" />
     <None Include="resources\download.bmp" />
   </ItemGroup>

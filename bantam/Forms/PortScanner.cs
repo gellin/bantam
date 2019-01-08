@@ -33,29 +33,32 @@ namespace bantam_php
 
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxPorts.Text)) {
-                //todo fuck off message
-                return;
-            }
-
             btnScan.Enabled = false;
 
             if (BantamMain.Shells.ContainsKey(ShellUrl)) {
-
                 string scanType = string.Empty;
                 string portsCode = string.Empty;
 
                 bool encryptResponse = BantamMain.Shells[ShellUrl].responseEncryption;
                 int responseEncryptionMode = BantamMain.Shells[ShellUrl].responseEncryptionMode;
 
-                if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
-                    portsCode = PhpHelper.PortsScannerPorts1To1024();
-                } else if(comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
-                    portsCode = PhpHelper.PortScannerPortsCommon();
-                } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
-                    portsCode = PhpHelper.PortScannerPortsAll();
+                //todo validate this port
+                if (!string.IsNullOrEmpty(textBoxPorts.Text)) {
+                    portsCode = "$ports = array('" + textBoxPorts.Text + "');";
                 } else {
-                    //todo fuck off
+                    if (comboBoxCommonPorts.SelectedIndex != 0) {
+                        if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
+                            portsCode = PhpHelper.PortsScannerPorts1To1024();
+                        } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
+                            portsCode = PhpHelper.PortScannerPortsCommon();
+                        } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
+                            portsCode = PhpHelper.PortScannerPortsAll();
+                        } else {
+                            //todo fuck off
+                        }
+                    } else {
+                        //todo fuck off
+                    }
                 }
 
                 string phpCode = PhpHelper.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
@@ -68,16 +71,9 @@ namespace bantam_php
         private void comboBoxCommonPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnScan.Enabled = true;
-            if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
-                //textBoxPorts.Text = "1-1024";
-            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
-                //textBoxPorts.Text = "common ports";
-            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
-                //textBoxPorts.Text = "1-65535";
-            } else {
-                //todo fuck off
+            if (comboBoxCommonPorts.SelectedIndex != 0) {
+                textBoxPorts.Text = "";
             }
-            textBoxPorts.Text = "";
         }
 
         private void textBoxPorts_TextChanged(object sender, EventArgs e)

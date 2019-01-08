@@ -47,7 +47,7 @@
             this.checkedListBoxShells.Location = new System.Drawing.Point(14, 42);
             this.checkedListBoxShells.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkedListBoxShells.Name = "checkedListBoxShells";
-            this.checkedListBoxShells.Size = new System.Drawing.Size(537, 308);
+            this.checkedListBoxShells.Size = new System.Drawing.Size(499, 327);
             this.checkedListBoxShells.TabIndex = 0;
             // 
             // label1
@@ -63,10 +63,10 @@
             // 
             this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnScan.Enabled = false;
-            this.btnScan.Location = new System.Drawing.Point(423, 440);
+            this.btnScan.Location = new System.Drawing.Point(384, 423);
             this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(129, 46);
+            this.btnScan.Size = new System.Drawing.Size(129, 39);
             this.btnScan.TabIndex = 2;
             this.btnScan.Text = "Scan";
             this.btnScan.UseVisualStyleBackColor = true;
@@ -74,11 +74,12 @@
             // 
             // textBoxTarget
             // 
-            this.textBoxTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxTarget.Location = new System.Drawing.Point(81, 364);
+            this.textBoxTarget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTarget.Location = new System.Drawing.Point(81, 379);
             this.textBoxTarget.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxTarget.Name = "textBoxTarget";
-            this.textBoxTarget.Size = new System.Drawing.Size(418, 24);
+            this.textBoxTarget.Size = new System.Drawing.Size(432, 24);
             this.textBoxTarget.TabIndex = 3;
             this.textBoxTarget.TextChanged += new System.EventHandler(this.textBoxTarget_TextChanged);
             // 
@@ -86,7 +87,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 368);
+            this.label2.Location = new System.Drawing.Point(16, 396);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 4;
@@ -95,10 +96,10 @@
             // textBoxStartPort
             // 
             this.textBoxStartPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxStartPort.Location = new System.Drawing.Point(81, 403);
+            this.textBoxStartPort.Location = new System.Drawing.Point(81, 431);
             this.textBoxStartPort.MaxLength = 5;
             this.textBoxStartPort.Name = "textBoxStartPort";
-            this.textBoxStartPort.Size = new System.Drawing.Size(100, 24);
+            this.textBoxStartPort.Size = new System.Drawing.Size(77, 24);
             this.textBoxStartPort.TabIndex = 5;
             this.textBoxStartPort.Text = "1";
             this.textBoxStartPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxStartPort_KeyPress);
@@ -107,7 +108,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 406);
+            this.label3.Location = new System.Drawing.Point(19, 434);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 6;
@@ -117,7 +118,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(191, 406);
+            this.label4.Location = new System.Drawing.Point(191, 434);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 18);
             this.label4.TabIndex = 7;
@@ -126,10 +127,10 @@
             // textBoxEndPort
             // 
             this.textBoxEndPort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxEndPort.Location = new System.Drawing.Point(211, 403);
+            this.textBoxEndPort.Location = new System.Drawing.Point(231, 431);
             this.textBoxEndPort.MaxLength = 5;
             this.textBoxEndPort.Name = "textBoxEndPort";
-            this.textBoxEndPort.Size = new System.Drawing.Size(100, 24);
+            this.textBoxEndPort.Size = new System.Drawing.Size(77, 24);
             this.textBoxEndPort.TabIndex = 8;
             this.textBoxEndPort.Text = "1000";
             this.textBoxEndPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxEndPort_KeyPress);
@@ -138,7 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 497);
+            this.ClientSize = new System.Drawing.Size(525, 525);
             this.Controls.Add(this.textBoxEndPort);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -150,6 +151,8 @@
             this.Controls.Add(this.checkedListBoxShells);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.85F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DistributedPortScanner";
             this.Text = "Distributed Port Scanner";
             this.Load += new System.EventHandler(this.DistributedScanner_Load);
