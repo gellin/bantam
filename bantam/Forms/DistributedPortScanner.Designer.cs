@@ -27,8 +27,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.checkedListBoxShells = new System.Windows.Forms.CheckedListBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnScan = new System.Windows.Forms.Button();
             this.textBoxTarget = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,6 +36,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxEndPort = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.contextMenuStripOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deSelectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkedListBoxShells
@@ -43,27 +48,19 @@
             this.checkedListBoxShells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxShells.ContextMenuStrip = this.contextMenuStripOptions;
             this.checkedListBoxShells.FormattingEnabled = true;
             this.checkedListBoxShells.Location = new System.Drawing.Point(14, 42);
             this.checkedListBoxShells.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkedListBoxShells.Name = "checkedListBoxShells";
-            this.checkedListBoxShells.Size = new System.Drawing.Size(499, 308);
+            this.checkedListBoxShells.Size = new System.Drawing.Size(499, 346);
             this.checkedListBoxShells.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 18);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Hosts";
             // 
             // btnScan
             // 
-            this.btnScan.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnScan.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnScan.Enabled = false;
-            this.btnScan.Location = new System.Drawing.Point(384, 414);
+            this.btnScan.Location = new System.Drawing.Point(384, 449);
             this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(129, 39);
@@ -74,8 +71,8 @@
             // 
             // textBoxTarget
             // 
-            this.textBoxTarget.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxTarget.Location = new System.Drawing.Point(81, 370);
+            this.textBoxTarget.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.textBoxTarget.Location = new System.Drawing.Point(81, 405);
             this.textBoxTarget.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxTarget.Name = "textBoxTarget";
             this.textBoxTarget.Size = new System.Drawing.Size(432, 24);
@@ -84,9 +81,9 @@
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 373);
+            this.label2.Location = new System.Drawing.Point(11, 408);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 4;
@@ -94,8 +91,8 @@
             // 
             // textBoxStartPort
             // 
-            this.textBoxStartPort.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxStartPort.Location = new System.Drawing.Point(81, 422);
+            this.textBoxStartPort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.textBoxStartPort.Location = new System.Drawing.Point(81, 457);
             this.textBoxStartPort.MaxLength = 5;
             this.textBoxStartPort.Name = "textBoxStartPort";
             this.textBoxStartPort.Size = new System.Drawing.Size(77, 24);
@@ -105,9 +102,9 @@
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 425);
+            this.label3.Location = new System.Drawing.Point(14, 460);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 6;
@@ -115,9 +112,9 @@
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(175, 425);
+            this.label4.Location = new System.Drawing.Point(175, 460);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 18);
             this.label4.TabIndex = 7;
@@ -125,8 +122,8 @@
             // 
             // textBoxEndPort
             // 
-            this.textBoxEndPort.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBoxEndPort.Location = new System.Drawing.Point(208, 422);
+            this.textBoxEndPort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.textBoxEndPort.Location = new System.Drawing.Point(208, 457);
             this.textBoxEndPort.MaxLength = 5;
             this.textBoxEndPort.Name = "textBoxEndPort";
             this.textBoxEndPort.Size = new System.Drawing.Size(77, 24);
@@ -134,11 +131,42 @@
             this.textBoxEndPort.Text = "1000";
             this.textBoxEndPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxEndPort_KeyPress);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 18);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Hosts";
+            // 
+            // contextMenuStripOptions
+            // 
+            this.contextMenuStripOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectAllToolStripMenuItem,
+            this.deSelectAllToolStripMenuItem});
+            this.contextMenuStripOptions.Name = "contextMenuStripOptions";
+            this.contextMenuStripOptions.Size = new System.Drawing.Size(142, 48);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // deSelectAllToolStripMenuItem
+            // 
+            this.deSelectAllToolStripMenuItem.Name = "deSelectAllToolStripMenuItem";
+            this.deSelectAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deSelectAllToolStripMenuItem.Text = "De-Select All";
+            this.deSelectAllToolStripMenuItem.Click += new System.EventHandler(this.deSelectAllToolStripMenuItem_Click);
+            // 
             // DistributedPortScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(525, 465);
+            this.ClientSize = new System.Drawing.Size(525, 500);
             this.Controls.Add(this.textBoxEndPort);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -155,6 +183,7 @@
             this.Name = "DistributedPortScanner";
             this.Text = "Distributed Port Scanner";
             this.Load += new System.EventHandler(this.DistributedScanner_Load);
+            this.contextMenuStripOptions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,7 +192,6 @@
         #endregion
 
         private System.Windows.Forms.CheckedListBox checkedListBoxShells;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.TextBox textBoxTarget;
         private System.Windows.Forms.Label label2;
@@ -171,5 +199,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxEndPort;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripOptions;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deSelectAllToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }

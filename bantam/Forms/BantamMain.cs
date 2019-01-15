@@ -302,7 +302,7 @@ namespace bantam_php
                 Shells[shellUrl].pingStopwatch.Start();
 
                 //todo test this when shell has gone away
-                string phpCode = PhpHelper.PhpTestExecutionWithEcho(encryptResponse);
+                string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
                 ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
 
                 if (string.IsNullOrEmpty(response.Result)) {
@@ -398,10 +398,19 @@ namespace bantam_php
                  && !string.IsNullOrEmpty(Shells[g_SelectedShellUrl].pwd)
                  && !string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
                     Shells[g_SelectedShellUrl].pwd = txtBoxFileBrowserPath.Text;
-                    //MessageBox.Show(Hosts[g_SelectedTarget].PWD);
                 }
 
                 g_SelectedShellUrl = lvi.SubItems[0].Text;
+
+                if (Shells[g_SelectedShellUrl].isWindows) {
+                    btnUpload.Enabled = false;
+                    btnFileBrowserGo.Enabled = false;
+                    txtBoxFileBrowserPath.Enabled = false;
+                } else {
+                    btnUpload.Enabled = true;
+                    btnFileBrowserGo.Enabled = true;
+                    txtBoxFileBrowserPath.Enabled = true;
+                }
 
                 foreach (ListViewItem lvClients in listViewShells.Items) {
                     //todo store color and revert to original color, for now skip if red
@@ -728,6 +737,11 @@ namespace bantam_php
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
 
+            //windows does not currently support uploading
+            if (Shells[shellUrl].isWindows) {
+                return;
+            }
+
             UploadFile u = new UploadFile(shellUrl, txtBoxFileBrowserPath.Text);
             u.ShowDialog();
         }
@@ -751,6 +765,11 @@ namespace bantam_php
             string phpVersion = Shells[shellUrl].PHP_Version;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            //windows does not currently support direct path operations
+            if (Shells[shellUrl].isWindows) {
+                return;
+            }
 
             string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
             ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
@@ -926,16 +945,6 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void fileBrowserToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StartFileBrowser();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         private async void filebrowserGoBack()
         {
             if (validTarget() == false) {
@@ -944,6 +953,11 @@ namespace bantam_php
 
             string shellUrl = g_SelectedShellUrl;
             ShellInfo shell = Shells[shellUrl];
+            
+            //windows does not currently support the back operation
+            if (shell.isWindows) {
+                return;
+            }
 
             bool encryptResponse = shell.responseEncryption;
             string phpVersion = shell.PHP_Version;
@@ -1590,6 +1604,13 @@ namespace bantam_php
         {
             DistributedPortScanner ds = new DistributedPortScanner();
             ds.ShowDialog();
+        }
+
+        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
         }
 
         /// <summary>

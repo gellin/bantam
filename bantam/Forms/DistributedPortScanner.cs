@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace bantam_php
@@ -109,6 +110,20 @@ namespace bantam_php
                 btnScan.Enabled = false;
             } else {
                 btnScan.Enabled = true;
+            }
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i < checkedListBoxShells.Items.Count; i++) {
+                checkedListBoxShells.SetItemCheckState(i, CheckState.Checked);
+            }
+        }
+
+        private void deSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < checkedListBoxShells.Items.Count; i++) {
+                checkedListBoxShells.SetItemCheckState(i, CheckState.Unchecked);
             }
         }
     }

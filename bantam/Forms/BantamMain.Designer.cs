@@ -122,16 +122,18 @@
             this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
             this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
             this.tabPageLogging = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPageOptions = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.trackBarLoggingLevel = new System.Windows.Forms.TrackBar();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
             this.checkBoxRandomComments = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarCommentFrequency = new System.Windows.Forms.TrackBar();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxMaxCommentLength = new System.Windows.Forms.TextBox();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -1064,8 +1066,20 @@
             this.tabPageLogging.Text = "Logs";
             this.tabPageLogging.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Enabled = false;
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Location = new System.Drawing.Point(6, 6);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(610, 529);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
             // tabPageOptions
             // 
+            this.tabPageOptions.Controls.Add(this.textBoxMaxCommentLength);
+            this.tabPageOptions.Controls.Add(this.label3);
             this.tabPageOptions.Controls.Add(this.textBox1);
             this.tabPageOptions.Controls.Add(this.label2);
             this.tabPageOptions.Controls.Add(this.trackBarLoggingLevel);
@@ -1080,6 +1094,22 @@
             this.tabPageOptions.TabIndex = 3;
             this.tabPageOptions.Text = "Options";
             this.tabPageOptions.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(185, 212);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 27);
+            this.textBox1.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(34, 215);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(135, 19);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Max Post Size (KB):";
             // 
             // trackBarLoggingLevel
             // 
@@ -1135,31 +1165,22 @@
             this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
             this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // richTextBox1
+            // label3
             // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(6, 6);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(610, 529);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(378, 420);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(158, 19);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Max Comment Length:";
             // 
-            // label2
+            // textBoxMaxCommentLength
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 215);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 19);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Max Post Size (KB):";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(185, 212);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 27);
-            this.textBox1.TabIndex = 5;
+            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(382, 442);
+            this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
+            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(154, 27);
+            this.textBoxMaxCommentLength.TabIndex = 7;
+            this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
             // 
             // BantamMain
             // 
@@ -1312,6 +1333,8 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxMaxCommentLength;
+        private System.Windows.Forms.Label label3;
     }
 }
 

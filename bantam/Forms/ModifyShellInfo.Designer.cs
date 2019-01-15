@@ -40,6 +40,7 @@
             this.checkBoxResponseEncryption = new System.Windows.Forms.CheckBox();
             this.comboBoxEncryptionMode = new System.Windows.Forms.ComboBox();
             this.checkBoxGZipRequest = new System.Windows.Forms.CheckBox();
+            this.labelDynAddHostsStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -172,11 +173,21 @@
             this.checkBoxGZipRequest.Text = "GZip Request Data";
             this.checkBoxGZipRequest.UseVisualStyleBackColor = true;
             // 
+            // labelDynAddHostsStatus
+            // 
+            this.labelDynAddHostsStatus.AutoSize = true;
+            this.labelDynAddHostsStatus.ForeColor = System.Drawing.Color.Red;
+            this.labelDynAddHostsStatus.Location = new System.Drawing.Point(19, 201);
+            this.labelDynAddHostsStatus.Name = "labelDynAddHostsStatus";
+            this.labelDynAddHostsStatus.Size = new System.Drawing.Size(0, 16);
+            this.labelDynAddHostsStatus.TabIndex = 14;
+            // 
             // ModifyShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(498, 207);
+            this.ClientSize = new System.Drawing.Size(498, 226);
+            this.Controls.Add(this.labelDynAddHostsStatus);
             this.Controls.Add(this.checkBoxGZipRequest);
             this.Controls.Add(this.comboBoxEncryptionMode);
             this.Controls.Add(this.checkBoxResponseEncryption);
@@ -218,5 +229,6 @@
         private System.Windows.Forms.CheckBox checkBoxResponseEncryption;
         private System.Windows.Forms.ComboBox comboBoxEncryptionMode;
         private System.Windows.Forms.CheckBox checkBoxGZipRequest;
+        private System.Windows.Forms.Label labelDynAddHostsStatus;
     }
 }
