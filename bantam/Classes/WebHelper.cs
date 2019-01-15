@@ -187,7 +187,7 @@ namespace bantam_php
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCode, bool encryptResponse)
         {
             string encryptionKey = string.Empty,
-                   encryptionIV = string.Empty;
+                   encryptionIV  = string.Empty;
 
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
             bool gzipRequestData = BantamMain.Shells[url].gzipRequestData;
@@ -229,10 +229,12 @@ namespace bantam_php
 
                     if (sendViaCookie) {
                         request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
+
                         phpCode = null;
                     } else {
                         string postArgs = string.Format(requestArgsName+"={0}", phpCode);
                         request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
+
                         phpCode = null;
                         postArgs = null;
                     }

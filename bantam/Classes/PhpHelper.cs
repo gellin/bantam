@@ -302,17 +302,21 @@ namespace bantam_php
                      + "if (is_resource($conn)) { "
                      + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '"+ rowSeperator + "';"
                      + "fclose($conn);"
-                     + "}}";
+                     + "}}"
+                     + "if (empty($result)) { $result = 'None'; }";
             } else {
                 return RandomPHPComment()
                      + "@ini_set('max_execution_time', 0);"
+                     + "$result = 0;"
                      + portsCode
                      + "foreach ($ports as $port) {"
                      + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
                      + "if (is_resource($conn)) { "
+                     + "$result = 1;"
                      + "echo $port . ' ' . getservbyport($port, 'tcp'). \"\n\";"
                      + "fclose($conn);"
-                     + "}}";
+                     + "}}"
+                     + "if (empty($result)) { echo 'None'; }";
             }
         }
 

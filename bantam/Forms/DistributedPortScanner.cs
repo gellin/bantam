@@ -42,10 +42,11 @@ namespace bantam_php
 
             btnScan.Enabled = false;
 
+            string windowTitle = "Open Ports ( " + textBoxTarget.Text + " )";
+            RichTextBox rtb = GuiHelper.RichTextBoxDialog(windowTitle, string.Empty);
+
             int shellsCount = checkedListBoxShells.CheckedItems.Count;
             int portsPerShell = ((endPort - startPort) / shellsCount);
-
-            RichTextBox rtb = GuiHelper.RichTextBoxDialog("", "");
 
             int iter = 1;
             foreach(var checkedItem in checkedListBoxShells.CheckedItems) {
@@ -72,10 +73,17 @@ namespace bantam_php
 
                 bool encryptResponse = true;
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
-                string windowTitle = "Ports Scanned ( " + textBoxTarget.Text + ":" + scannedRange + ") - " + shellUrl;
+
+                var uri = new Uri(shellUrl);
+                var host = uri.Host;
+
+                string responseText = "[" + host + "] - returned ports (" + scannedRange + ") - \r\n";
+
                 string phpCode = PhpHelper.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
-            
-                BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb);
+
+                BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
+
+                //TODO if done and no response from one of the servers display that it did not respond for the
 
                 btnScan.Enabled = true;
             }

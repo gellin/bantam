@@ -34,6 +34,7 @@
             this.comboBoxCommonPorts = new System.Windows.Forms.ComboBox();
             this.btnScan = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelDynStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBoxHost
@@ -105,11 +106,20 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "or";
             // 
+            // labelDynStatus
+            // 
+            this.labelDynStatus.AutoSize = true;
+            this.labelDynStatus.Location = new System.Drawing.Point(13, 143);
+            this.labelDynStatus.Name = "labelDynStatus";
+            this.labelDynStatus.Size = new System.Drawing.Size(0, 16);
+            this.labelDynStatus.TabIndex = 8;
+            // 
             // PortScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 151);
+            this.ClientSize = new System.Drawing.Size(411, 152);
+            this.Controls.Add(this.labelDynStatus);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.comboBoxCommonPorts);
@@ -138,5 +148,6 @@
         private System.Windows.Forms.ComboBox comboBoxCommonPorts;
         private System.Windows.Forms.Button btnScan;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelDynStatus;
     }
 }

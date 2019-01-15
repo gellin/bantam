@@ -107,6 +107,9 @@ namespace bantam_php
                 btnUpload.Enabled = true;
                 return;
             }
+
+            //todo check file size and validate send mode and max send size..
+            //eventually todo chunking
             string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
 
             phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);

@@ -106,9 +106,7 @@ namespace bantam_php
             }
 
             try {
-                var decbuff = Convert.FromBase64String(cleanB64);
-                string b64Code = Encoding.UTF8.GetString(decbuff);
-                return b64Code;
+                return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             }
             catch(Exception) {
                 //todo level 1 logging

@@ -6,31 +6,23 @@
 * 4 - password feature / require useragent feature
 * 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-* 2 - enum for the imagelist icons,  and enum for the returned data from file browser
 * 2 - add validity/testing checking to edit / add shell
 
 * 3 - auto deploy upload features such as ysm, privenum
-* 3 - read file size limit check & mime check/show pictures in picture control
+
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
 * 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
 * 1 - filebrowser bug when click back from windows
 * 1 - allowable charector check on var name of backdoor generator
 * 1 - make row and col seperator random
-* 1 - encryption - should have option to send as stager or already be uploaded
-* 1 - proxy support credentials
+
+
 * 1 - if i do eval and type echo '123' it apends to the resposne and breaks the decryption
 * 1 - when mass eval, shouldn't be able to click show response, or make feature to track all responses and show them
 * 1 - strerev payload or parts of the payload and put it back together / payload b64 letter swapping XD / rot13
 * 1 - more logging / reporting i.e if encryption fails or defaults
-* 1 - hex encoded functions on the php side
 
-* 1 - global cfg for proxy settings so it saves?
-* 1 - max payload size cfg
 * 3 - Advanced options to edit code execution type to change from system to exec, etc (global)
-* 3 - CMD option to disable message boxes
-* 1 - global cfg option to enable disable error suppression via @ to see more debug data
-* 3 - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
-* ? - global cfg for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 
 * 3 - bantam self / shell code editor, editing the bantam stored online
 * 1 - disable functions bypass 
@@ -40,4 +32,14 @@
 
 * 1 - timeout on the fsock side of the port scanner (make as a controllable option/var)
 
+* ? - global XML for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
+* 1 - global XML for proxy settings so it saves?
+
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info
+
+  ICE BOX
+  * ? - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
+  * ? - global cfg option to enable disable error suppression via @ to see more debug data
+  * ? - read file size limit check & mime check/show pictures in picture control
+  * ? - proxy support credentials
+  * ? - encryption - should have option to send as stager or already be uploaded
