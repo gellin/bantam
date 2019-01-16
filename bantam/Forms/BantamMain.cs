@@ -1296,6 +1296,10 @@ namespace bantam_php
                 return;
             }
 
+            if (string.IsNullOrEmpty(textBoxConsoleInput.Text)) {
+                return;
+            }
+
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
@@ -1312,13 +1316,15 @@ namespace bantam_php
                 }
 
                 if (string.IsNullOrEmpty(result)) { // TODO level 3 logging
-                    //MessageBox.Show("No Data Returned", "Welp..");
+                    richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\nNo Data Returned\r\n";
+                    textBoxConsoleInput.Text = string.Empty;
                     return;
                 }
                 richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\n" + result + "\r\n";
                 textBoxConsoleInput.Text = string.Empty;
             } else {
-                //todo level 3 logging
+                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\nNo Data Returned\r\n";
+                textBoxConsoleInput.Text = string.Empty;
             }
         }
 
