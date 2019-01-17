@@ -233,8 +233,15 @@ namespace bantam
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+            string code;
 
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
+            if (encryptResponse) {
+                code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, "/* Pass output buffer to $result for the encryption response to work */\r\n@ob_start();\r\n/* Code start */\r\n\r\n/* Code end */\r\n$result = @ob_get_contents();\r\n@ob_end_clean();", ref checkBoxChecked);
+            }
+            else
+            {
+                code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
+            }
 
             if (string.IsNullOrEmpty(code) == false) {
                 if (checkBoxChecked) {
