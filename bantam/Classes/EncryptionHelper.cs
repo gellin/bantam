@@ -55,17 +55,17 @@ namespace bantam.Classes
             }
 
             string decryptedResult = string.Empty;
-            
+
             switch (encryptResponseMode) {
                 case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
-                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                    break;
+                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+                break;
                 case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
-                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                    break;
+                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+                break;
                 default:
-                    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                    break;
+                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+                break;
             }
 
             if (string.IsNullOrEmpty(decryptedResult)) {
@@ -107,8 +107,7 @@ namespace bantam.Classes
                 } catch (Exception e) {
                     MessageBox.Show(e.Message, "Failed to decrypt response");
                     return string.Empty;
-                }
-                finally {
+                } finally {
                     aes.Clear();
                 }
             }

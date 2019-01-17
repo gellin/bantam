@@ -49,11 +49,11 @@ namespace bantam.Classes
 
                 switch (msg.Msg) {
                     case 0x30:
-                        SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
-                        //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16)); //for right aligned button
-                        break;
+                    SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
+                    //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16)); //for right aligned button
+                    break;
                     default:
-                        break;
+                    break;
                 }
             }
 
@@ -222,7 +222,7 @@ namespace bantam.Classes
 
             prompt.Controls.Add(richTextBox);
             prompt.Show();
-            
+
             return richTextBox;
         }
 

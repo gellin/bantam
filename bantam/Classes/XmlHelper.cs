@@ -18,7 +18,7 @@ namespace bantam.Classes
 
                 if (itemNodes.Count > 0) {
                     foreach (XmlNode itemNode in itemNodes) {
-                        string hostTarget = (itemNode.Attributes?["host"] != null)  ? itemNode.Attributes?["host"].Value : string.Empty;
+                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : string.Empty;
                         string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : string.Empty;
                         string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : string.Empty;
                         string responseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes?["response_encryption"].Value : string.Empty;
@@ -40,7 +40,7 @@ namespace bantam.Classes
                         && requestArg != "command") {
                             BantamMain.Shells[hostTarget].requestArgName = requestArg;
                         }
-                        
+
                         //todo don't default this
                         if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie") {
@@ -48,7 +48,7 @@ namespace bantam.Classes
                         }
 
                         if (string.IsNullOrEmpty(responseEncryption) == false) {
-                            if(responseEncryption == "1") {
+                            if (responseEncryption == "1") {
                                 BantamMain.Shells[hostTarget].responseEncryption = true;
                             } else {
                                 BantamMain.Shells[hostTarget].responseEncryption = false;
@@ -76,10 +76,10 @@ namespace bantam.Classes
 
                         try {
                             Program.g_BantamMain.InitializeShellData(hostTarget);
-                        } catch(Exception) {
+                        } catch (Exception) {
                             //todo loging
                         }
-                            
+
                     }
                 }
             } else {
@@ -99,7 +99,7 @@ namespace bantam.Classes
 
                 //saves shells that are down, possibly make this an option
                 //if (shellInfo.down) {
-                   // continue;
+                // continue;
                 //}
 
                 XmlNode serverNode = xmlDoc.CreateElement("server");
@@ -119,7 +119,7 @@ namespace bantam.Classes
                 serverNode.Attributes.Append(requestMethod);
 
                 XmlAttribute responseEncryption = xmlDoc.CreateAttribute("response_encryption");
-                responseEncryption.Value = (shellInfo.responseEncryption ? "1" : "0" ); //todo
+                responseEncryption.Value = (shellInfo.responseEncryption ? "1" : "0"); //todo
                 serverNode.Attributes.Append(responseEncryption);
 
                 XmlAttribute responseEncrpytionMode = xmlDoc.CreateAttribute("response_encryption_mode");

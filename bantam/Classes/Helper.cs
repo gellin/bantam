@@ -65,7 +65,7 @@ namespace bantam.Classes
             string stringResult = string.Empty;
 
             for (int i = 0; i < length; i++) {
-               stringResult += charSet[rdm.Next(charSet.Length)];
+                stringResult += charSet[rdm.Next(charSet.Length)];
             }
             return stringResult;
         }
@@ -107,8 +107,7 @@ namespace bantam.Classes
 
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
-            }
-            catch(Exception) {
+            } catch (Exception) {
                 //todo level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return string.Empty;
@@ -166,7 +165,7 @@ namespace bantam.Classes
         public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             List<TKey> keyList = new List<TKey>(dict.Keys);
-      
+
             return keyList[rdm.Next(keyList.Count)];
         }
 

