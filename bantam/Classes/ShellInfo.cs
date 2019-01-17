@@ -116,6 +116,11 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
+        public string consoleText;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public TreeView files;
 
         /// <summary>

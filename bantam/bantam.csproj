@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Classes\EncryptionHelper.cs" />
     <Compile Include="Classes\Helper.cs" />
+    <Compile Include="Classes\ResponseObject.cs" />
     <Compile Include="Classes\ShellInfo.cs" />
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
@@ -206,6 +207,7 @@
     <None Include="Art\connection2_16x16.png" />
     <None Include="Art\user_16x16.png" />
     <None Include="Art\proxy_chain_16x16.png" />
+    <None Include="Art\console_16x14.png" />
     <Content Include="Dependencies\SocksSharp.dll" />
     <Content Include="Dependencies\SocksSharp.pdb" />
     <Content Include="Notes\todo.txt" />

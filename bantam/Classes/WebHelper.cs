@@ -98,53 +98,6 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static async Task<string> GetRequest(string url)
-        {
-            try {
-                HttpMethod method = HttpMethod.Get;
-
-                var request = new HttpRequestMessage(method, url);
-
-                var response = await client.SendAsync(request);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                return responseString;
-            } catch (System.Net.Http.HttpRequestException) {
-                //todo level 3 logging
-            }
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
-        {
-            try {
-                HttpMethod method = HttpMethod.Post;
-
-                var request = new HttpRequestMessage(method, url);
-
-                var response = await client.SendAsync(request);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                var content = new FormUrlEncodedContent(values);
-                request.Content = content;
-
-                return responseString;
-            } catch (System.Net.Http.HttpRequestException) {
-                //todo level 3 logging
-            }
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="input"></param>
         /// <param name="removeHeader"></param>
         /// <returns></returns>
@@ -180,6 +133,55 @@ namespace bantam.Classes
         /// 
         /// </summary>
         /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> GetRequest(string url)
+        {
+            try {
+                HttpMethod method = HttpMethod.Get;
+
+                var request = new HttpRequestMessage(method, url);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
+
+                var response       = await client.SendAsync(request);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                return responseString;
+            } catch (System.Net.Http.HttpRequestException) {
+                //todo level 3 logging
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
+        {
+            try {
+                HttpMethod method = HttpMethod.Post;
+
+                var request = new HttpRequestMessage(method, url);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
+
+                var response = await client.SendAsync(request);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                var content = new FormUrlEncodedContent(values);
+                request.Content = content;
+
+                return responseString;
+            } catch (System.Net.Http.HttpRequestException) {
+                //todo level 3 logging
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
         /// <param name="phpCode"></param>
         /// <returns></returns>
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCode, bool encryptResponse)
@@ -202,6 +204,7 @@ namespace bantam.Classes
                 }
 
                 var request = new HttpRequestMessage(method, url);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
 
                 //HttpClientHandler handler = new HttpClientHandler();
                 //handler.AutomaticDecompression = System.Net.DecompressionMethods.GZip;
@@ -253,20 +256,6 @@ namespace bantam.Classes
                 //MessageBox.Show(e.Message);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
-        }
-    }
-
-    public class ResponseObject
-    {
-        public string Result { get; set; }
-        public string EncryptionKey { get; set; }
-        public string EncryptionIV { get; set; }
-
-        public ResponseObject(string result, string encryptionKey, string encryptionIV)
-        {
-            Result = result;
-            EncryptionKey = encryptionKey;
-            EncryptionIV = encryptionIV;
         }
     }
 }

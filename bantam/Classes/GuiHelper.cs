@@ -252,15 +252,6 @@ namespace bantam.Classes
                 Text = text
             };
 
-            Button cancel = new Button() {
-                Text = "Cancel",
-                Left = 330,
-                Width = 50,
-                Top = 455,
-                DialogResult = DialogResult.Cancel,
-                Anchor = AnchorStyles.Right | AnchorStyles.Bottom
-            };
-
             Button confirmation = new Button() {
                 Text = "Ok",
                 Left = 380,
@@ -278,9 +269,6 @@ namespace bantam.Classes
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
 
-            confirmation.Click += (sender, e) => { prompt.Close(); };
-            cancel.Click += (sender, e) => { prompt.Close(); };
-
             //C# doesn't allow lambda functions to play with out/ref vars.... :(
             //set the tmp var equal to that of the checkbox status to return through the out parameter
             bool chkboxResult = showResponse;
@@ -292,11 +280,12 @@ namespace bantam.Classes
 
             prompt.Controls.Add(richTextBox);
             prompt.Controls.Add(confirmation);
-            prompt.Controls.Add(cancel);
             prompt.Controls.Add(chkbxShowResponse);
 
             //show dialog and wait for result
             string result = prompt.ShowDialog() == DialogResult.OK ? richTextBox.Text : string.Empty;
+
+            confirmation.Click += (sender, e) => { prompt.Close(); };
 
             //set the ref var to the chkboxResult result value
             showResponse = chkboxResult;

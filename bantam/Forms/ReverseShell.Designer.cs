@@ -72,6 +72,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(58, 24);
             this.textBoxPort.TabIndex = 3;
+            this.textBoxPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPort_KeyPress);
             // 
             // label1
             // 

@@ -288,7 +288,13 @@ namespace bantam
         private async void evalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             bool showResponse = false;
+
             string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", string.Empty, ref showResponse);
+
+            if (string.IsNullOrEmpty(code)) {
+                return;
+            }
+
             RichTextBox rtb = GuiHelper.RichTextBoxDialog("Mass Eval", string.Empty);
 
             foreach (ListViewItem lvClients in listViewShells.Items) {
@@ -446,7 +452,17 @@ namespace bantam
                     Shells[g_SelectedShellUrl].pwd = txtBoxFileBrowserPath.Text;
                 }
 
+                if (!string.IsNullOrEmpty(richTextBoxConsoleOutput.Text)) {
+                    Shells[g_SelectedShellUrl].consoleText = richTextBoxConsoleOutput.Text;
+                }
+
                 g_SelectedShellUrl = lvi.SubItems[0].Text;
+
+                if (!string.IsNullOrEmpty(Shells[g_SelectedShellUrl].consoleText)) {
+                    richTextBoxConsoleOutput.Text = Shells[g_SelectedShellUrl].consoleText;
+                } else {
+                    richTextBoxConsoleOutput.Text = string.Empty;
+                }
 
                 if (Shells[g_SelectedShellUrl].isWindows) {
                     btnUpload.Enabled = false;
@@ -805,6 +821,8 @@ namespace bantam
         /// <param name="e"></param>
         private async void btnFileBrowserGo_Click(object sender, EventArgs e)
         {
+            btnFileBrowserGo.Enabled = false;
+
             if (validTarget() == false) {
                 return;
             }
@@ -852,6 +870,7 @@ namespace bantam
                     //todo level 3 logging
                 }
             }
+            btnFileBrowserGo.Enabled = true;
         }
 
         /// <summary>
@@ -1671,15 +1690,15 @@ namespace bantam
             }
         }
 
-        private void spawnShellToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ReverseShell reverseShellForm = new ReverseShell(g_SelectedShellUrl);
-            reverseShellForm.ShowDialog();
-        }
-
         private void tabPageInfo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            ReverseShell reverseShellForm = new ReverseShell(g_SelectedShellUrl);
+            reverseShellForm.ShowDialog();
         }
 
         /// <summary>
