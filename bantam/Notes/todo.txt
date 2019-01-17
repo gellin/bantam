@@ -4,7 +4,6 @@
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
 * 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
 * 4 - password feature / require useragent feature
-* 4 - Implement posix get posix_getpwuid function for linux getpasswd bypass, use a prompt to get use input for loop size
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 * 3 - auto deploy upload features such as ysm, privenum
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py

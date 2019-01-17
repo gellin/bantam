@@ -52,7 +52,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>bantam_php.Program</StartupObject>
+    <StartupObject>bantam.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SocksSharp">
@@ -120,6 +120,12 @@
     <Compile Include="Forms\ProxyOptions.Designer.cs">
       <DependentUpon>ProxyOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ReverseShell.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReverseShell.Designer.cs">
+      <DependentUpon>ReverseShell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UploadFile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProxyOptions.resx">
       <DependentUpon>ProxyOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReverseShell.resx">
+      <DependentUpon>ReverseShell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UploadFile.resx">
       <DependentUpon>UploadFile.cs</DependentUpon>

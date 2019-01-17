@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam.Forms
 {
     partial class PortScanner
     {
@@ -133,7 +133,6 @@
             this.MinimizeBox = false;
             this.Name = "PortScanner";
             this.Text = "Port Scanner";
-            this.Load += new System.EventHandler(this.PortScanner_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

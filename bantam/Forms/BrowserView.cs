@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace bantam_php
+namespace bantam.Forms
 {
     public partial class BrowserView : Form
     {

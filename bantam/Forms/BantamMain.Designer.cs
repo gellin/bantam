@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam
 {
     partial class BantamMain
     {
@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -47,6 +46,7 @@
             this.windowshostTargetsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsVerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spawnShellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxIfconfigMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linuxInterfacesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linusVersionMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,7 +113,7 @@
             this.lblDynCWD = new System.Windows.Forms.Label();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
             this.btnUpload = new System.Windows.Forms.Button();
-            this.txtBoxFileBrowserPath = new bantam_php.GuiHelper.TextBoxButton();
+            this.txtBoxFileBrowserPath = new bantam.Classes.GuiHelper.TextBoxButton();
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
             this.btnFileBrowserGo = new System.Windows.Forms.Button();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
@@ -124,6 +124,8 @@
             this.tabPageLogging = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabPageOptions = new System.Windows.Forms.TabPage();
+            this.textBoxMaxCommentLength = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.trackBarLoggingLevel = new System.Windows.Forms.TrackBar();
@@ -132,8 +134,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarCommentFrequency = new System.Windows.Forms.TrackBar();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxMaxCommentLength = new System.Windows.Forms.TextBox();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -162,8 +162,8 @@
             // 
             // listViewShells
             // 
-            this.listViewShells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listViewShells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewShells.BackColor = System.Drawing.SystemColors.Window;
             this.listViewShells.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -312,6 +312,7 @@
             // linuxToolStripMenuItem
             // 
             this.linuxToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spawnShellToolStripMenuItem,
             this.linuxIfconfigMenuItem,
             this.linuxInterfacesMenuItem,
             this.linusVersionMenuItem,
@@ -324,52 +325,59 @@
             this.linuxToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.linuxToolStripMenuItem.Text = "Linux";
             // 
+            // spawnShellToolStripMenuItem
+            // 
+            this.spawnShellToolStripMenuItem.Name = "spawnShellToolStripMenuItem";
+            this.spawnShellToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.spawnShellToolStripMenuItem.Text = "Spawn Shell";
+            this.spawnShellToolStripMenuItem.Click += new System.EventHandler(this.spawnShellToolStripMenuItem_Click);
+            // 
             // linuxIfconfigMenuItem
             // 
             this.linuxIfconfigMenuItem.Name = "linuxIfconfigMenuItem";
-            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(145, 22);
             this.linuxIfconfigMenuItem.Text = "ifconfig";
             this.linuxIfconfigMenuItem.Click += new System.EventHandler(this.linuxIfconfigMenuItem_Click);
             // 
             // linuxInterfacesMenuItem
             // 
             this.linuxInterfacesMenuItem.Name = "linuxInterfacesMenuItem";
-            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(145, 22);
             this.linuxInterfacesMenuItem.Text = "interfaces";
             this.linuxInterfacesMenuItem.Click += new System.EventHandler(this.linuxInterfacesMenuItem_Click);
             // 
             // linusVersionMenuItem
             // 
             this.linusVersionMenuItem.Name = "linusVersionMenuItem";
-            this.linusVersionMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linusVersionMenuItem.Size = new System.Drawing.Size(145, 22);
             this.linusVersionMenuItem.Text = "version";
             this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
             // 
             // linuxhostTargetsMenuItem
             // 
             this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
-            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(145, 22);
             this.linuxhostTargetsMenuItem.Text = "hosts";
             this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
             // 
             // linuxIssuenetMenuItem
             // 
             this.linuxIssuenetMenuItem.Name = "linuxIssuenetMenuItem";
-            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(145, 22);
             this.linuxIssuenetMenuItem.Text = "issue.net";
             this.linuxIssuenetMenuItem.Click += new System.EventHandler(this.linuxIssuenetMenuItem_Click);
             // 
             // passwdToolStripMenuItem
             // 
             this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
-            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.passwdToolStripMenuItem.Text = "passwd";
             this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
             // 
             // shadowToolStripMenuItem
             // 
             this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
-            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.shadowToolStripMenuItem.Text = "shadow";
             this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
             // 
@@ -645,8 +653,8 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(12, 29);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -665,8 +673,8 @@
             // 
             // tabControlMain
             // 
-            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageInfo);
             this.tabControlMain.Controls.Add(this.tabPageFiles);
@@ -706,10 +714,11 @@
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
+            this.tabPageInfo.Click += new System.EventHandler(this.tabPageInfo_Click);
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -763,7 +772,7 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -891,7 +900,7 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -952,7 +961,7 @@
             // 
             // txtBoxFileBrowserPath
             // 
-            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
@@ -964,8 +973,8 @@
             // 
             // treeViewFileBrowser
             // 
-            this.treeViewFileBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.treeViewFileBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewFileBrowser.ContextMenuStrip = this.contextMenuStripFileBrowser;
             this.treeViewFileBrowser.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1032,7 +1041,7 @@
             // 
             // textBoxConsoleInput
             // 
-            this.textBoxConsoleInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxConsoleInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConsoleInput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.textBoxConsoleInput.Location = new System.Drawing.Point(6, 512);
@@ -1043,8 +1052,8 @@
             // 
             // richTextBoxConsoleOutput
             // 
-            this.richTextBoxConsoleOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBoxConsoleOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxConsoleOutput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBoxConsoleOutput.Location = new System.Drawing.Point(6, 6);
@@ -1094,6 +1103,23 @@
             this.tabPageOptions.TabIndex = 3;
             this.tabPageOptions.Text = "Options";
             this.tabPageOptions.UseVisualStyleBackColor = true;
+            // 
+            // textBoxMaxCommentLength
+            // 
+            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(382, 442);
+            this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
+            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(154, 27);
+            this.textBoxMaxCommentLength.TabIndex = 7;
+            this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(378, 420);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(158, 19);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Max Comment Length:";
             // 
             // textBox1
             // 
@@ -1164,23 +1190,6 @@
             // 
             this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
             this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(378, 420);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(158, 19);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Max Comment Length:";
-            // 
-            // textBoxMaxCommentLength
-            // 
-            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(382, 442);
-            this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
-            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(154, 27);
-            this.textBoxMaxCommentLength.TabIndex = 7;
-            this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
             // 
             // BantamMain
             // 
@@ -1315,7 +1324,7 @@
         private System.Windows.Forms.Label lblDynCWD;
         private System.Windows.Forms.TabPage tabPageFiles;
         private System.Windows.Forms.Button btnUpload;
-        private GuiHelper.TextBoxButton txtBoxFileBrowserPath;
+        private bantam.Classes.GuiHelper.TextBoxButton txtBoxFileBrowserPath;
         private System.Windows.Forms.Button btnFileBrowserGo;
         private System.Windows.Forms.Button btnFileBrowserRefresh;
         private System.Windows.Forms.TreeView treeViewFileBrowser;
@@ -1335,6 +1344,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBoxMaxCommentLength;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem spawnShellToolStripMenuItem;
     }
 }
 

@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace bantam_php
+namespace bantam.Classes
 {
     class XmlHelper
     {
@@ -32,7 +32,7 @@ namespace bantam_php
                         if (BantamMain.Shells.ContainsKey(hostTarget)) {
                             continue;
                         } else {
-                            BantamMain.Shells.Add(hostTarget, new ShellInfo());
+                            BantamMain.Shells.TryAdd(hostTarget, new ShellInfo());
                         }
 
                         //todo default this 

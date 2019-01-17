@@ -2,7 +2,9 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace bantam_php
+using bantam.Classes;
+
+namespace bantam.Forms
 {
     public partial class ProxyOptions : Form
     {

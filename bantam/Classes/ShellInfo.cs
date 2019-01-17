@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace bantam_php
+namespace bantam.Classes
 {
     public class ShellInfo
     {

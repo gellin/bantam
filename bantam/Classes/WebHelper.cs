@@ -9,10 +9,8 @@ using SocksSharp.Proxy;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
-using System.Windows.Forms;
-using System.Net.Http.Headers;
 
-namespace bantam_php
+namespace bantam.Classes
 {
     class WebHelper
     {

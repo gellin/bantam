@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam.Forms
 {
     partial class BackdoorGenerator
     {
@@ -13,8 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -49,7 +48,7 @@
             this.chkbxDisableLogging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxDisableLogging.AutoSize = true;
             this.chkbxDisableLogging.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxDisableLogging.Location = new System.Drawing.Point(567, 356);
+            this.chkbxDisableLogging.Location = new System.Drawing.Point(493, 356);
             this.chkbxDisableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxDisableLogging.Name = "chkbxDisableLogging";
             this.chkbxDisableLogging.Size = new System.Drawing.Size(156, 20);
@@ -60,13 +59,13 @@
             // 
             // richTextBoxBackdoor
             // 
-            this.richTextBoxBackdoor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBoxBackdoor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxBackdoor.Location = new System.Drawing.Point(14, 34);
             this.richTextBoxBackdoor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBoxBackdoor.Name = "richTextBoxBackdoor";
-            this.richTextBoxBackdoor.Size = new System.Drawing.Size(743, 301);
+            this.richTextBoxBackdoor.Size = new System.Drawing.Size(669, 301);
             this.richTextBoxBackdoor.TabIndex = 2;
             this.richTextBoxBackdoor.Text = "";
             // 
@@ -116,7 +115,7 @@
             this.txtBoxVarName.Location = new System.Drawing.Point(86, 421);
             this.txtBoxVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxVarName.Name = "txtBoxVarName";
-            this.txtBoxVarName.Size = new System.Drawing.Size(143, 23);
+            this.txtBoxVarName.Size = new System.Drawing.Size(143, 24);
             this.txtBoxVarName.TabIndex = 6;
             this.txtBoxVarName.Text = "command";
             this.txtBoxVarName.TextChanged += new System.EventHandler(this.txtBoxVarName_TextChanged);
@@ -126,7 +125,7 @@
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
             this.chkbxMinifyCode.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(567, 389);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(493, 389);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(97, 20);
@@ -163,13 +162,14 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveAsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(772, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(698, 24);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,7 +185,7 @@
             // saveAsToolStripMenuItem1
             // 
             this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem1.Text = "Save As";
             this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
             // 
@@ -193,9 +193,9 @@
             // 
             this.chckbxGzipDecodeRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chckbxGzipDecodeRequest.AutoSize = true;
-            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(567, 421);
+            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(493, 422);
             this.chckbxGzipDecodeRequest.Name = "chckbxGzipDecodeRequest";
-            this.chckbxGzipDecodeRequest.Size = new System.Drawing.Size(143, 20);
+            this.chckbxGzipDecodeRequest.Size = new System.Drawing.Size(159, 20);
             this.chckbxGzipDecodeRequest.TabIndex = 11;
             this.chckbxGzipDecodeRequest.Text = "Gzip Decode Requests";
             this.chckbxGzipDecodeRequest.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(772, 482);
+            this.ClientSize = new System.Drawing.Size(698, 482);
             this.Controls.Add(this.chckbxGzipDecodeRequest);
             this.Controls.Add(this.comboBoxVarType);
             this.Controls.Add(this.label1);
@@ -217,7 +217,7 @@
             this.Controls.Add(this.richTextBoxBackdoor);
             this.Controls.Add(this.chkbxDisableLogging);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;

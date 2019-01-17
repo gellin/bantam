@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam.Forms
 {
     partial class DistributedPortScanner
     {
@@ -45,8 +45,8 @@
             // 
             // checkedListBoxShells
             // 
-            this.checkedListBoxShells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.checkedListBoxShells.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxShells.ContextMenuStrip = this.contextMenuStripOptions;
             this.checkedListBoxShells.FormattingEnabled = true;

@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace bantam_php
+using bantam.Classes;
+
+namespace bantam.Forms
 {
     public partial class PortScanner : Form
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string ShellUrl { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public enum PORTS_OPTIONS
         {
            ONE_TO_1024 = 1,
@@ -22,6 +22,10 @@ namespace bantam_php
            ALL_PORTS
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shellUrl"></param>
         public PortScanner(string shellUrl)
         {
             InitializeComponent();
@@ -31,6 +35,11 @@ namespace bantam_php
             this.Text += " - (" + ShellUrl + ")";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
             btnScan.Enabled = false;
@@ -68,6 +77,11 @@ namespace bantam_php
             btnScan.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxCommonPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnScan.Enabled = true;
@@ -76,17 +90,22 @@ namespace bantam_php
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxPorts_TextChanged(object sender, EventArgs e)
         {
             comboBoxCommonPorts.SelectedIndex = 0;
             btnScan.Enabled = true;
         }
 
-        private void PortScanner_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxPorts_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {

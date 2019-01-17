@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam.Forms
 {
     partial class UploadFile
     {
@@ -39,8 +39,8 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.richTextBox1.Location = new System.Drawing.Point(16, 15);
@@ -83,7 +83,7 @@
             // 
             // txtBoxFileName
             // 
-            this.txtBoxFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtBoxFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBoxFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.txtBoxFileName.Location = new System.Drawing.Point(94, 413);

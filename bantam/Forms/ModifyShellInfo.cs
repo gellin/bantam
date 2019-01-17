@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace bantam_php
+using bantam.Classes;
+
+namespace bantam.Forms
 {
     public partial class ModifyShell : Form
     {
@@ -104,12 +106,15 @@ namespace bantam_php
 
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
-                BantamMain.Shells.Remove(shellURL);
+
+                ShellInfo shellInfoOut = new ShellInfo();
+                BantamMain.Shells.TryRemove(shellURL, out shellInfoOut);
             }
 
-            BantamMain.Shells.Add(shellURL, new ShellInfo());
+            BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
             BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
+            //todo check index
             if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
@@ -117,6 +122,7 @@ namespace bantam_php
             if (checkBoxResponseEncryption.Checked == false) {
                 BantamMain.Shells[shellURL].responseEncryption = false;
             } else {
+                BantamMain.Shells[shellURL].responseEncryption = true;
                 BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
 
@@ -175,17 +181,22 @@ namespace bantam_php
 
             if (BantamMain.Shells.ContainsKey(g_CallingShellUrl)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(g_CallingShellUrl);
-                BantamMain.Shells.Remove(g_CallingShellUrl);
+
+                ShellInfo outShellInfo = new ShellInfo();
+                BantamMain.Shells.TryRemove(g_CallingShellUrl, out outShellInfo);
             }
 
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
-                BantamMain.Shells.Remove(shellURL);
+
+                ShellInfo outShellInfo = new ShellInfo();
+                BantamMain.Shells.TryRemove(g_CallingShellUrl, out outShellInfo);
             }
 
-            BantamMain.Shells.Add(shellURL, new ShellInfo());
+            BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
             BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
+            //todo check index
             if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
@@ -193,6 +204,7 @@ namespace bantam_php
             if (checkBoxResponseEncryption.Checked == false) {
                 BantamMain.Shells[shellURL].responseEncryption = false;
             } else {
+                BantamMain.Shells[shellURL].responseEncryption = true;
                 BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
 

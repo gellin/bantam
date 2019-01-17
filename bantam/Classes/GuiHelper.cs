@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace bantam_php
+namespace bantam.Classes
 {
     class GuiHelper
     {

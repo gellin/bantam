@@ -1,4 +1,4 @@
-﻿namespace bantam_php
+﻿namespace bantam.Forms
 {
     partial class ProxyOptions
     {
