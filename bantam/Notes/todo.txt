@@ -1,16 +1,12 @@
 ﻿* 10 - SQL Browser - https://github.com/epinna/weevely3/blob/master/modules/sql/_dump/mysqldump.tpl
-* 7 - reverse tcp connection feature with all the backconnects xD - https://github.com/epinna/weevely3/blob/master/modules/backdoor/reversetcp.py
 * 7 - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
 * 6 - Make payloads and functionality for the Software->Apache .. Samba .. etc and more, Payload should attempt to read a bunch of files (possible locations of related files for selected software), concact result, display files names and results in a single rich textbox?
-* 4 - Make a way to spawn a listener type shell, and multiple ways to do a back connect shell ?
 * 4 - password feature / require useragent feature
 * 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 * 3 - auto deploy upload features such as ysm, privenum
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
 * 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
 * 1 - make row and col seperator random
-* 1 - if i do eval and type echo '123' it apends to the resposne and breaks the decryption
-* 1 - when mass eval, shouldn't be able to click show response, or make feature to track all responses and show them
 * 1 - strerev payload or parts of the payload and put it back together / payload b64 letter swapping XD / rot13
 * 1 - more logging / reporting i.e if encryption fails or defaults
 * 1 - remember last 10-20 commands in the console and use up arrow to access them
@@ -27,7 +23,6 @@
 
 * ? - global XML for Backdoor generator features to save "per server" to change the signatures, request vars, encrpytion, match encryption options etc
 * 1 - global XML for proxy settings so it saves?
-
 
   https://github.com/epinna/weevely3/blob/master/modules/audit/_linuxprivchecker/linuxprivchecker.py - helpful system info
 

