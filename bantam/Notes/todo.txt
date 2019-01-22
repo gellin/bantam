@@ -12,7 +12,6 @@
 
 * 3 - Advanced options to edit code execution type to change from system to exec, etc (global)
 
-* 3 - bantam self / shell code editor, editing the bantam stored online
 * 1 - disable functions bypass
 * 1 - touch feature
 * 1 - passwd bypass
