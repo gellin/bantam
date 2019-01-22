@@ -50,7 +50,7 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
-        public static string RandomString(int length, bool capitals = true, bool numbers = false)
+        public static string RandomString(int length, bool capitals = true, bool numbers = false, bool special = false)
         {
             var charSet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -60,6 +60,10 @@ namespace bantam.Classes
 
             if (numbers) {
                 charSet += "0123456789";
+            }
+            
+            if (special) {
+                charSet += "!#$%&()*+,-.";
             }
 
             string stringResult = string.Empty;

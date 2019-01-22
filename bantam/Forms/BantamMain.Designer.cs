@@ -33,73 +33,11 @@
             this.listViewShells = new System.Windows.Forms.ListView();
             this.pingColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveShellsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.backdoorGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.massExecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripFileBrowser = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.readFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPageInfo = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblStaticPHP = new System.Windows.Forms.Label();
-            this.lblDynPHP = new System.Windows.Forms.Label();
-            this.lblStaticServerIP = new System.Windows.Forms.Label();
-            this.lblDynServerIP = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblStaticUname = new System.Windows.Forms.Label();
-            this.lblDynUname = new System.Windows.Forms.Label();
-            this.lblDynHDDSpace = new System.Windows.Forms.Label();
-            this.lblStaticUser = new System.Windows.Forms.Label();
-            this.lblDynGroup = new System.Windows.Forms.Label();
-            this.lblStaticGroup = new System.Windows.Forms.Label();
-            this.lblDynWebServer = new System.Windows.Forms.Label();
-            this.lblDynFreeSpace = new System.Windows.Forms.Label();
-            this.lblDynUser = new System.Windows.Forms.Label();
-            this.lblStaticWebServer = new System.Windows.Forms.Label();
-            this.lblStaticFreeHDD = new System.Windows.Forms.Label();
-            this.lblStaticHDD = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblStaticCWD = new System.Windows.Forms.Label();
-            this.lblDynCWD = new System.Windows.Forms.Label();
-            this.tabPageFiles = new System.Windows.Forms.TabPage();
-            this.txtBoxFileBrowserPath = new bantam.Classes.GuiHelper.TextBoxButton();
-            this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
-            this.tabPageCmd = new System.Windows.Forms.TabPage();
-            this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
-            this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
-            this.tabPageLogging = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.tabPageOptions = new System.Windows.Forms.TabPage();
-            this.textBoxMaxCommentLength = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.trackBarLoggingLevel = new System.Windows.Forms.TrackBar();
-            this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
-            this.checkBoxRandomComments = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.trackBarCommentFrequency = new System.Windows.Forms.TrackBar();
-            this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpinfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewPHPCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.portScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editPHPCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.systemToolstripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsNetuserMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,21 +57,72 @@
             this.pingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whoamiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.softwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.apacheToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nginxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sambaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mysqlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testConnectionStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemReverseShell = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnUpload = new System.Windows.Forms.Button();
-            this.btnFileBrowserGo = new System.Windows.Forms.Button();
-            this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
-            this.btnConsoleGoClick = new System.Windows.Forms.Button();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveShellsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backdoorGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userAgentSwitcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proxySettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.massExecuteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.portScannerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripFileBrowser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.readFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageListFileBrowser = new System.Windows.Forms.ImageList(this.components);
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabPageInfo = new System.Windows.Forms.TabPage();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxGroup = new System.Windows.Forms.TextBox();
+            this.textBoxUser = new System.Windows.Forms.TextBox();
+            this.textBoxHDDSpace = new System.Windows.Forms.TextBox();
+            this.textBoxWebServer = new System.Windows.Forms.TextBox();
+            this.textBoxFreeSpace = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.textBoxServerIP = new System.Windows.Forms.TextBox();
+            this.textBoxPHP = new System.Windows.Forms.TextBox();
+            this.lblStaticPHP = new System.Windows.Forms.Label();
+            this.lblStaticServerIP = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxUname = new System.Windows.Forms.TextBox();
+            this.lblStaticUname = new System.Windows.Forms.Label();
+            this.lblStaticUser = new System.Windows.Forms.Label();
+            this.lblStaticGroup = new System.Windows.Forms.Label();
+            this.lblStaticWebServer = new System.Windows.Forms.Label();
+            this.lblStaticFreeHDD = new System.Windows.Forms.Label();
+            this.lblStaticHDD = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxCWD = new System.Windows.Forms.TextBox();
+            this.lblStaticCWD = new System.Windows.Forms.Label();
+            this.tabPageFiles = new System.Windows.Forms.TabPage();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
+            this.btnFileBrowserGo = new System.Windows.Forms.Button();
+            this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
+            this.tabPageCmd = new System.Windows.Forms.TabPage();
+            this.btnConsoleGoClick = new System.Windows.Forms.Button();
+            this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
+            this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
+            this.tabPageLogging = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -150,9 +139,6 @@
             this.tabPageFiles.SuspendLayout();
             this.tabPageCmd.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
-            this.tabPageOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.SuspendLayout();
             // 
             // shellColHeader
@@ -198,19 +184,251 @@
             this.softwareToolStripMenuItem,
             this.testConnectionStripMenuItem,
             this.editToolStripMenuItem,
-            this.removeToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.copyShellURLToolStripMenuItem});
+            this.toolStripMenuItemReverseShell,
+            this.copyShellURLToolStripMenuItem,
+            this.removeToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(203, 212);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(205, 234);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
+            // 
+            // phpToolStripMenuItem
+            // 
+            this.phpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.phpinfoToolStripMenuItem,
+            this.evalToolStripMenuItem,
+            this.portScannerToolStripMenuItem,
+            this.editPHPCodeToolStripMenuItem});
+            this.phpToolStripMenuItem.Image = global::bantam.Properties.Resources.php2_16x16;
+            this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
+            this.phpToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.phpToolStripMenuItem.Text = "PHP";
+            // 
+            // phpinfoToolStripMenuItem
+            // 
+            this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
+            this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.phpinfoToolStripMenuItem.Text = "phpinfo";
+            this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
+            // 
+            // evalToolStripMenuItem
+            // 
+            this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
+            this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem.Text = "Eval";
+            this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
+            // 
+            // portScannerToolStripMenuItem
+            // 
+            this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
+            this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
+            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.portScannerToolStripMenuItem.Text = "Port Scanner";
+            this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
+            // 
+            // editPHPCodeToolStripMenuItem
+            // 
+            this.editPHPCodeToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
+            this.editPHPCodeToolStripMenuItem.Name = "editPHPCodeToolStripMenuItem";
+            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.editPHPCodeToolStripMenuItem.Text = "Edit Bantam PHP";
+            this.editPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.editPHPCodeToolStripMenuItem_Click);
+            // 
+            // systemToolstripMenuItem
+            // 
+            this.systemToolstripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.windowsToolStripMenuItem,
+            this.linuxToolStripMenuItem,
+            this.psAuxToolStripMenuItem,
+            this.pingToolStripMenuItem,
+            this.whoamiToolStripMenuItem});
+            this.systemToolstripMenuItem.Image = global::bantam.Properties.Resources.gibson_16x16;
+            this.systemToolstripMenuItem.Name = "systemToolstripMenuItem";
+            this.systemToolstripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.systemToolstripMenuItem.Text = "System";
+            // 
+            // windowsToolStripMenuItem
+            // 
+            this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.windowsNetuserMenuItem,
+            this.windowsNetaccountsMenuItem,
+            this.windowsIpconfigMenuItem,
+            this.windowshostTargetsMenuItem,
+            this.windowsVerToolStripMenuItem});
+            this.windowsToolStripMenuItem.Image = global::bantam.Properties.Resources.social_windows_outline;
+            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.windowsToolStripMenuItem.Text = "Windows";
+            // 
+            // windowsNetuserMenuItem
+            // 
+            this.windowsNetuserMenuItem.Name = "windowsNetuserMenuItem";
+            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.windowsNetuserMenuItem.Text = "net user";
+            this.windowsNetuserMenuItem.Click += new System.EventHandler(this.windowsNetuserMenuItem_Click);
+            // 
+            // windowsNetaccountsMenuItem
+            // 
+            this.windowsNetaccountsMenuItem.Name = "windowsNetaccountsMenuItem";
+            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.windowsNetaccountsMenuItem.Text = "net accounts";
+            this.windowsNetaccountsMenuItem.Click += new System.EventHandler(this.windowsNetaccountsMenuItem_Click);
+            // 
+            // windowsIpconfigMenuItem
+            // 
+            this.windowsIpconfigMenuItem.Name = "windowsIpconfigMenuItem";
+            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.windowsIpconfigMenuItem.Text = "ipconfig";
+            this.windowsIpconfigMenuItem.Click += new System.EventHandler(this.windowsIpconfigMenuItem_Click);
+            // 
+            // windowshostTargetsMenuItem
+            // 
+            this.windowshostTargetsMenuItem.Name = "windowshostTargetsMenuItem";
+            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.windowshostTargetsMenuItem.Text = "hosts";
+            this.windowshostTargetsMenuItem.Click += new System.EventHandler(this.windowsTargetsMenuItem_Click);
+            // 
+            // windowsVerToolStripMenuItem
+            // 
+            this.windowsVerToolStripMenuItem.Name = "windowsVerToolStripMenuItem";
+            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.windowsVerToolStripMenuItem.Text = "ver";
+            this.windowsVerToolStripMenuItem.Click += new System.EventHandler(this.windowsVerToolStripMenuItem_Click);
+            // 
+            // linuxToolStripMenuItem
+            // 
+            this.linuxToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linuxIfconfigMenuItem,
+            this.linuxInterfacesMenuItem,
+            this.linusVersionMenuItem,
+            this.linuxhostTargetsMenuItem,
+            this.linuxIssuenetMenuItem,
+            this.passwdToolStripMenuItem,
+            this.shadowToolStripMenuItem});
+            this.linuxToolStripMenuItem.Image = global::bantam.Properties.Resources.linux_16x16;
+            this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
+            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.linuxToolStripMenuItem.Text = "Linux";
+            // 
+            // linuxIfconfigMenuItem
+            // 
+            this.linuxIfconfigMenuItem.Name = "linuxIfconfigMenuItem";
+            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxIfconfigMenuItem.Text = "ifconfig";
+            this.linuxIfconfigMenuItem.Click += new System.EventHandler(this.linuxIfconfigMenuItem_Click);
+            // 
+            // linuxInterfacesMenuItem
+            // 
+            this.linuxInterfacesMenuItem.Name = "linuxInterfacesMenuItem";
+            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxInterfacesMenuItem.Text = "interfaces";
+            this.linuxInterfacesMenuItem.Click += new System.EventHandler(this.linuxInterfacesMenuItem_Click);
+            // 
+            // linusVersionMenuItem
+            // 
+            this.linusVersionMenuItem.Name = "linusVersionMenuItem";
+            this.linusVersionMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linusVersionMenuItem.Text = "version";
+            this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
+            // 
+            // linuxhostTargetsMenuItem
+            // 
+            this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
+            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxhostTargetsMenuItem.Text = "hosts";
+            this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
+            // 
+            // linuxIssuenetMenuItem
+            // 
+            this.linuxIssuenetMenuItem.Name = "linuxIssuenetMenuItem";
+            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.linuxIssuenetMenuItem.Text = "issue.net";
+            this.linuxIssuenetMenuItem.Click += new System.EventHandler(this.linuxIssuenetMenuItem_Click);
+            // 
+            // passwdToolStripMenuItem
+            // 
+            this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
+            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.passwdToolStripMenuItem.Text = "passwd";
+            this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
+            // 
+            // shadowToolStripMenuItem
+            // 
+            this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
+            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.shadowToolStripMenuItem.Text = "shadow";
+            this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
+            // 
+            // psAuxToolStripMenuItem
+            // 
+            this.psAuxToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
+            this.psAuxToolStripMenuItem.Name = "psAuxToolStripMenuItem";
+            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.psAuxToolStripMenuItem.Text = "process list";
+            this.psAuxToolStripMenuItem.Click += new System.EventHandler(this.psAuxToolStripMenuItem_Click);
+            // 
+            // pingToolStripMenuItem
+            // 
+            this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
+            this.pingToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.pingToolStripMenuItem.Text = "ping";
+            this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
+            // 
+            // whoamiToolStripMenuItem
+            // 
+            this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
+            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.whoamiToolStripMenuItem.Text = "whoami";
+            this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
+            // 
+            // softwareToolStripMenuItem
+            // 
+            this.softwareToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("softwareToolStripMenuItem.Image")));
+            this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
+            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.softwareToolStripMenuItem.Text = "Software Information";
+            // 
+            // testConnectionStripMenuItem
+            // 
+            this.testConnectionStripMenuItem.Image = global::bantam.Properties.Resources.connection_16x16;
+            this.testConnectionStripMenuItem.Name = "testConnectionStripMenuItem";
+            this.testConnectionStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.testConnectionStripMenuItem.Text = "Test Connection";
+            this.testConnectionStripMenuItem.Click += new System.EventHandler(this.testConnectionStripMenuItem1_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.editToolStripMenuItem.Text = "Edit Shell Information";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItemReverseShell
+            // 
+            this.toolStripMenuItemReverseShell.Image = global::bantam.Properties.Resources.console_16x14;
+            this.toolStripMenuItemReverseShell.Name = "toolStripMenuItemReverseShell";
+            this.toolStripMenuItemReverseShell.Size = new System.Drawing.Size(204, 26);
+            this.toolStripMenuItemReverseShell.Text = "Pop Reverse Shell";
+            this.toolStripMenuItemReverseShell.Click += new System.EventHandler(this.toolStripMenuItemReverseShell_Click);
             // 
             // copyShellURLToolStripMenuItem
             // 
+            this.copyShellURLToolStripMenuItem.Image = global::bantam.Properties.Resources.copy_16x16;
             this.copyShellURLToolStripMenuItem.Name = "copyShellURLToolStripMenuItem";
-            this.copyShellURLToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.copyShellURLToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.copyShellURLToolStripMenuItem.Text = "Copy Shell URL";
             this.copyShellURLToolStripMenuItem.Click += new System.EventHandler(this.copyShellURLToolStripMenuItem_Click);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Image = global::bantam.Properties.Resources.trash_16x16;
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // mainMenuStrip
             // 
@@ -278,7 +496,9 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backdoorGeneratorToolStripMenuItem,
             this.userAgentSwitcherToolStripMenuItem,
-            this.proxySettingsToolStripMenuItem});
+            this.proxySettingsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
+            this.logsToolStripMenuItem});
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
@@ -291,6 +511,37 @@
             this.backdoorGeneratorToolStripMenuItem.Text = "Backdoor Generator";
             this.backdoorGeneratorToolStripMenuItem.Click += new System.EventHandler(this.backdoorGeneratorToolStripMenuItem_Click);
             // 
+            // userAgentSwitcherToolStripMenuItem
+            // 
+            this.userAgentSwitcherToolStripMenuItem.Image = global::bantam.Properties.Resources.user_16x16;
+            this.userAgentSwitcherToolStripMenuItem.Name = "userAgentSwitcherToolStripMenuItem";
+            this.userAgentSwitcherToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.userAgentSwitcherToolStripMenuItem.Text = "User Agent Switcher";
+            this.userAgentSwitcherToolStripMenuItem.Click += new System.EventHandler(this.userAgentSwitcherToolStripMenuItem_Click);
+            // 
+            // proxySettingsToolStripMenuItem
+            // 
+            this.proxySettingsToolStripMenuItem.Image = global::bantam.Properties.Resources.proxy_chain_16x16;
+            this.proxySettingsToolStripMenuItem.Name = "proxySettingsToolStripMenuItem";
+            this.proxySettingsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.proxySettingsToolStripMenuItem.Text = "Proxy Settings";
+            this.proxySettingsToolStripMenuItem.Click += new System.EventHandler(this.proxySettingsToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+            // 
+            // logsToolStripMenuItem
+            // 
+            this.logsToolStripMenuItem.Image = global::bantam.Properties.Resources.logs_16x16;
+            this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
+            this.logsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.logsToolStripMenuItem.Text = "Logs";
+            // 
             // massExecuteToolStripMenuItem
             // 
             this.massExecuteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -300,6 +551,22 @@
             this.massExecuteToolStripMenuItem.Name = "massExecuteToolStripMenuItem";
             this.massExecuteToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
             this.massExecuteToolStripMenuItem.Text = "Mass Execute";
+            // 
+            // evalToolStripMenuItem1
+            // 
+            this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
+            this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.evalToolStripMenuItem1.Text = "Eval";
+            this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
+            // 
+            // portScannerToolStripMenuItem1
+            // 
+            this.portScannerToolStripMenuItem1.Image = global::bantam.Properties.Resources.ports_16x16;
+            this.portScannerToolStripMenuItem1.Name = "portScannerToolStripMenuItem1";
+            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.portScannerToolStripMenuItem1.Text = "Port Scanner";
+            this.portScannerToolStripMenuItem1.Click += new System.EventHandler(this.portScannerToolStripMenuItem1_Click);
             // 
             // contextMenuStripFileBrowser
             // 
@@ -390,7 +657,6 @@
             this.tabControlMain.Controls.Add(this.tabPageFiles);
             this.tabControlMain.Controls.Add(this.tabPageCmd);
             this.tabControlMain.Controls.Add(this.tabPageLogging);
-            this.tabControlMain.Controls.Add(this.tabPageOptions);
             this.tabControlMain.Font = new System.Drawing.Font("Microsoft Tai Le", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlMain.Location = new System.Drawing.Point(3, 4);
             this.tabControlMain.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -403,15 +669,16 @@
             // 
             // tabPageInfo
             // 
+            this.tabPageInfo.Controls.Add(this.textBox2);
+            this.tabPageInfo.Controls.Add(this.textBoxGroup);
+            this.tabPageInfo.Controls.Add(this.textBoxUser);
+            this.tabPageInfo.Controls.Add(this.textBoxHDDSpace);
+            this.tabPageInfo.Controls.Add(this.textBoxWebServer);
+            this.tabPageInfo.Controls.Add(this.textBoxFreeSpace);
             this.tabPageInfo.Controls.Add(this.panel3);
             this.tabPageInfo.Controls.Add(this.panel2);
-            this.tabPageInfo.Controls.Add(this.lblDynHDDSpace);
             this.tabPageInfo.Controls.Add(this.lblStaticUser);
-            this.tabPageInfo.Controls.Add(this.lblDynGroup);
             this.tabPageInfo.Controls.Add(this.lblStaticGroup);
-            this.tabPageInfo.Controls.Add(this.lblDynWebServer);
-            this.tabPageInfo.Controls.Add(this.lblDynFreeSpace);
-            this.tabPageInfo.Controls.Add(this.lblDynUser);
             this.tabPageInfo.Controls.Add(this.lblStaticWebServer);
             this.tabPageInfo.Controls.Add(this.lblStaticFreeHDD);
             this.tabPageInfo.Controls.Add(this.lblStaticHDD);
@@ -426,21 +693,108 @@
             this.tabPageInfo.UseVisualStyleBackColor = true;
             this.tabPageInfo.Click += new System.EventHandler(this.tabPageInfo_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Location = new System.Drawing.Point(233, 260);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(157, 20);
+            this.textBox2.TabIndex = 32;
+            // 
+            // textBoxGroup
+            // 
+            this.textBoxGroup.BackColor = System.Drawing.Color.White;
+            this.textBoxGroup.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxGroup.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxGroup.Location = new System.Drawing.Point(319, 14);
+            this.textBoxGroup.Name = "textBoxGroup";
+            this.textBoxGroup.ReadOnly = true;
+            this.textBoxGroup.Size = new System.Drawing.Size(285, 16);
+            this.textBoxGroup.TabIndex = 31;
+            // 
+            // textBoxUser
+            // 
+            this.textBoxUser.BackColor = System.Drawing.Color.White;
+            this.textBoxUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUser.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxUser.Location = new System.Drawing.Point(85, 15);
+            this.textBoxUser.Name = "textBoxUser";
+            this.textBoxUser.ReadOnly = true;
+            this.textBoxUser.Size = new System.Drawing.Size(157, 16);
+            this.textBoxUser.TabIndex = 30;
+            // 
+            // textBoxHDDSpace
+            // 
+            this.textBoxHDDSpace.BackColor = System.Drawing.Color.White;
+            this.textBoxHDDSpace.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxHDDSpace.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxHDDSpace.Location = new System.Drawing.Point(85, 98);
+            this.textBoxHDDSpace.Name = "textBoxHDDSpace";
+            this.textBoxHDDSpace.ReadOnly = true;
+            this.textBoxHDDSpace.Size = new System.Drawing.Size(157, 16);
+            this.textBoxHDDSpace.TabIndex = 29;
+            // 
+            // textBoxWebServer
+            // 
+            this.textBoxWebServer.BackColor = System.Drawing.Color.White;
+            this.textBoxWebServer.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxWebServer.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxWebServer.Location = new System.Drawing.Point(86, 184);
+            this.textBoxWebServer.Name = "textBoxWebServer";
+            this.textBoxWebServer.ReadOnly = true;
+            this.textBoxWebServer.Size = new System.Drawing.Size(519, 16);
+            this.textBoxWebServer.TabIndex = 28;
+            // 
+            // textBoxFreeSpace
+            // 
+            this.textBoxFreeSpace.BackColor = System.Drawing.Color.White;
+            this.textBoxFreeSpace.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxFreeSpace.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxFreeSpace.Location = new System.Drawing.Point(321, 97);
+            this.textBoxFreeSpace.Name = "textBoxFreeSpace";
+            this.textBoxFreeSpace.ReadOnly = true;
+            this.textBoxFreeSpace.Size = new System.Drawing.Size(285, 16);
+            this.textBoxFreeSpace.TabIndex = 27;
+            // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.textBoxServerIP);
+            this.panel3.Controls.Add(this.textBoxPHP);
             this.panel3.Controls.Add(this.lblStaticPHP);
-            this.panel3.Controls.Add(this.lblDynPHP);
             this.panel3.Controls.Add(this.lblStaticServerIP);
-            this.panel3.Controls.Add(this.lblDynServerIP);
             this.panel3.Location = new System.Drawing.Point(6, 42);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(600, 40);
             this.panel3.TabIndex = 26;
+            // 
+            // textBoxServerIP
+            // 
+            this.textBoxServerIP.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.textBoxServerIP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxServerIP.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxServerIP.Location = new System.Drawing.Point(312, 12);
+            this.textBoxServerIP.Name = "textBoxServerIP";
+            this.textBoxServerIP.ReadOnly = true;
+            this.textBoxServerIP.Size = new System.Drawing.Size(283, 16);
+            this.textBoxServerIP.TabIndex = 32;
+            // 
+            // textBoxPHP
+            // 
+            this.textBoxPHP.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.textBoxPHP.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxPHP.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxPHP.Location = new System.Drawing.Point(78, 12);
+            this.textBoxPHP.Name = "textBoxPHP";
+            this.textBoxPHP.ReadOnly = true;
+            this.textBoxPHP.Size = new System.Drawing.Size(157, 16);
+            this.textBoxPHP.TabIndex = 31;
             // 
             // lblStaticPHP
             // 
@@ -452,15 +806,6 @@
             this.lblStaticPHP.TabIndex = 2;
             this.lblStaticPHP.Text = "PHP:";
             // 
-            // lblDynPHP
-            // 
-            this.lblDynPHP.AutoSize = true;
-            this.lblDynPHP.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F);
-            this.lblDynPHP.Location = new System.Drawing.Point(82, 13);
-            this.lblDynPHP.Name = "lblDynPHP";
-            this.lblDynPHP.Size = new System.Drawing.Size(0, 14);
-            this.lblDynPHP.TabIndex = 10;
-            // 
             // lblStaticServerIP
             // 
             this.lblStaticServerIP.AutoSize = true;
@@ -471,28 +816,30 @@
             this.lblStaticServerIP.TabIndex = 6;
             this.lblStaticServerIP.Text = "Server IP:";
             // 
-            // lblDynServerIP
-            // 
-            this.lblDynServerIP.AutoSize = true;
-            this.lblDynServerIP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynServerIP.Location = new System.Drawing.Point(311, 13);
-            this.lblDynServerIP.Name = "lblDynServerIP";
-            this.lblDynServerIP.Size = new System.Drawing.Size(0, 13);
-            this.lblDynServerIP.TabIndex = 14;
-            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.textBoxUname);
             this.panel2.Controls.Add(this.lblStaticUname);
-            this.panel2.Controls.Add(this.lblDynUname);
             this.panel2.Location = new System.Drawing.Point(6, 216);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(600, 40);
             this.panel2.TabIndex = 26;
+            // 
+            // textBoxUname
+            // 
+            this.textBoxUname.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.textBoxUname.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUname.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxUname.Location = new System.Drawing.Point(79, 12);
+            this.textBoxUname.Name = "textBoxUname";
+            this.textBoxUname.ReadOnly = true;
+            this.textBoxUname.Size = new System.Drawing.Size(517, 16);
+            this.textBoxUname.TabIndex = 33;
             // 
             // lblStaticUname
             // 
@@ -504,24 +851,6 @@
             this.lblStaticUname.TabIndex = 0;
             this.lblStaticUname.Text = "Uname:";
             // 
-            // lblDynUname
-            // 
-            this.lblDynUname.AutoSize = true;
-            this.lblDynUname.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynUname.Location = new System.Drawing.Point(83, 10);
-            this.lblDynUname.Name = "lblDynUname";
-            this.lblDynUname.Size = new System.Drawing.Size(0, 13);
-            this.lblDynUname.TabIndex = 8;
-            // 
-            // lblDynHDDSpace
-            // 
-            this.lblDynHDDSpace.AutoSize = true;
-            this.lblDynHDDSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDynHDDSpace.Location = new System.Drawing.Point(96, 98);
-            this.lblDynHDDSpace.Name = "lblDynHDDSpace";
-            this.lblDynHDDSpace.Size = new System.Drawing.Size(0, 15);
-            this.lblDynHDDSpace.TabIndex = 11;
-            // 
             // lblStaticUser
             // 
             this.lblStaticUser.AutoSize = true;
@@ -532,15 +861,6 @@
             this.lblStaticUser.TabIndex = 1;
             this.lblStaticUser.Text = "User:";
             // 
-            // lblDynGroup
-            // 
-            this.lblDynGroup.AutoSize = true;
-            this.lblDynGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynGroup.Location = new System.Drawing.Point(324, 14);
-            this.lblDynGroup.Name = "lblDynGroup";
-            this.lblDynGroup.Size = new System.Drawing.Size(0, 13);
-            this.lblDynGroup.TabIndex = 17;
-            // 
             // lblStaticGroup
             // 
             this.lblStaticGroup.AutoSize = true;
@@ -550,33 +870,6 @@
             this.lblStaticGroup.Size = new System.Drawing.Size(43, 14);
             this.lblStaticGroup.TabIndex = 16;
             this.lblStaticGroup.Text = "Group:";
-            // 
-            // lblDynWebServer
-            // 
-            this.lblDynWebServer.AutoSize = true;
-            this.lblDynWebServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynWebServer.Location = new System.Drawing.Point(96, 184);
-            this.lblDynWebServer.Name = "lblDynWebServer";
-            this.lblDynWebServer.Size = new System.Drawing.Size(0, 13);
-            this.lblDynWebServer.TabIndex = 15;
-            // 
-            // lblDynFreeSpace
-            // 
-            this.lblDynFreeSpace.AutoSize = true;
-            this.lblDynFreeSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynFreeSpace.Location = new System.Drawing.Point(324, 98);
-            this.lblDynFreeSpace.Name = "lblDynFreeSpace";
-            this.lblDynFreeSpace.Size = new System.Drawing.Size(0, 13);
-            this.lblDynFreeSpace.TabIndex = 12;
-            // 
-            // lblDynUser
-            // 
-            this.lblDynUser.AutoSize = true;
-            this.lblDynUser.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F);
-            this.lblDynUser.Location = new System.Drawing.Point(95, 14);
-            this.lblDynUser.Name = "lblDynUser";
-            this.lblDynUser.Size = new System.Drawing.Size(0, 14);
-            this.lblDynUser.TabIndex = 9;
             // 
             // lblStaticWebServer
             // 
@@ -614,13 +907,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.textBoxCWD);
             this.panel1.Controls.Add(this.lblStaticCWD);
-            this.panel1.Controls.Add(this.lblDynCWD);
             this.panel1.Location = new System.Drawing.Point(6, 130);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 40);
             this.panel1.TabIndex = 25;
+            // 
+            // textBoxCWD
+            // 
+            this.textBoxCWD.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.textBoxCWD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxCWD.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.textBoxCWD.Location = new System.Drawing.Point(78, 13);
+            this.textBoxCWD.Name = "textBoxCWD";
+            this.textBoxCWD.ReadOnly = true;
+            this.textBoxCWD.Size = new System.Drawing.Size(517, 16);
+            this.textBoxCWD.TabIndex = 33;
             // 
             // lblStaticCWD
             // 
@@ -632,22 +936,13 @@
             this.lblStaticCWD.TabIndex = 5;
             this.lblStaticCWD.Text = "CWD:";
             // 
-            // lblDynCWD
-            // 
-            this.lblDynCWD.AutoSize = true;
-            this.lblDynCWD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.lblDynCWD.Location = new System.Drawing.Point(82, 10);
-            this.lblDynCWD.Name = "lblDynCWD";
-            this.lblDynCWD.Size = new System.Drawing.Size(0, 13);
-            this.lblDynCWD.TabIndex = 13;
-            // 
             // tabPageFiles
             // 
             this.tabPageFiles.Controls.Add(this.btnUpload);
-            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserGo);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
+            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Location = new System.Drawing.Point(4, 28);
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
@@ -658,17 +953,16 @@
             this.tabPageFiles.UseVisualStyleBackColor = true;
             this.tabPageFiles.Click += new System.EventHandler(this.tabPageFiles_Click);
             // 
-            // txtBoxFileBrowserPath
+            // btnUpload
             // 
-            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
-            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
-            this.txtBoxFileBrowserPath.TabIndex = 7;
-            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
+            this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpload.Image = global::bantam.Properties.Resources.upload_1;
+            this.btnUpload.Location = new System.Drawing.Point(563, 511);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(23, 23);
+            this.btnUpload.TabIndex = 9;
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // treeViewFileBrowser
             // 
@@ -690,6 +984,30 @@
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             this.treeViewFileBrowser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileBrowserTreeView_MouseDoubleClick);
             // 
+            // btnFileBrowserGo
+            // 
+            this.btnFileBrowserGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileBrowserGo.Image = global::bantam.Properties.Resources.play_2;
+            this.btnFileBrowserGo.Location = new System.Drawing.Point(534, 511);
+            this.btnFileBrowserGo.Name = "btnFileBrowserGo";
+            this.btnFileBrowserGo.Size = new System.Drawing.Size(23, 23);
+            this.btnFileBrowserGo.TabIndex = 8;
+            this.btnFileBrowserGo.UseVisualStyleBackColor = true;
+            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click);
+            // 
+            // btnFileBrowserRefresh
+            // 
+            this.btnFileBrowserRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFileBrowserRefresh.Image = global::bantam.Properties.Resources.home_png;
+            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(592, 511);
+            this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
+            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(23, 23);
+            this.btnFileBrowserRefresh.TabIndex = 6;
+            this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
+            this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
+            // 
             // tabPageCmd
             // 
             this.tabPageCmd.Controls.Add(this.btnConsoleGoClick);
@@ -702,6 +1020,17 @@
             this.tabPageCmd.TabIndex = 2;
             this.tabPageCmd.Text = "Console";
             this.tabPageCmd.UseVisualStyleBackColor = true;
+            // 
+            // btnConsoleGoClick
+            // 
+            this.btnConsoleGoClick.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConsoleGoClick.Image = global::bantam.Properties.Resources.play_2;
+            this.btnConsoleGoClick.Location = new System.Drawing.Point(592, 511);
+            this.btnConsoleGoClick.Name = "btnConsoleGoClick";
+            this.btnConsoleGoClick.Size = new System.Drawing.Size(23, 23);
+            this.btnConsoleGoClick.TabIndex = 2;
+            this.btnConsoleGoClick.UseVisualStyleBackColor = true;
+            this.btnConsoleGoClick.Click += new System.EventHandler(this.btnConsoleGoClick_Click);
             // 
             // textBoxConsoleInput
             // 
@@ -749,448 +1078,22 @@
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
-            // tabPageOptions
-            // 
-            this.tabPageOptions.Controls.Add(this.textBoxMaxCommentLength);
-            this.tabPageOptions.Controls.Add(this.label3);
-            this.tabPageOptions.Controls.Add(this.textBox1);
-            this.tabPageOptions.Controls.Add(this.label2);
-            this.tabPageOptions.Controls.Add(this.trackBarLoggingLevel);
-            this.tabPageOptions.Controls.Add(this.checkBoxEnableLogging);
-            this.tabPageOptions.Controls.Add(this.checkBoxRandomComments);
-            this.tabPageOptions.Controls.Add(this.label1);
-            this.tabPageOptions.Controls.Add(this.trackBarCommentFrequency);
-            this.tabPageOptions.Location = new System.Drawing.Point(4, 28);
-            this.tabPageOptions.Name = "tabPageOptions";
-            this.tabPageOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOptions.Size = new System.Drawing.Size(622, 541);
-            this.tabPageOptions.TabIndex = 3;
-            this.tabPageOptions.Text = "Options";
-            this.tabPageOptions.UseVisualStyleBackColor = true;
-            // 
-            // textBoxMaxCommentLength
-            // 
-            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(382, 442);
-            this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
-            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(154, 27);
-            this.textBoxMaxCommentLength.TabIndex = 7;
-            this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(378, 420);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(158, 19);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Max Comment Length:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(185, 212);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 27);
-            this.textBox1.TabIndex = 5;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(34, 215);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 19);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Max Post Size (KB):";
-            // 
-            // trackBarLoggingLevel
-            // 
-            this.trackBarLoggingLevel.Location = new System.Drawing.Point(38, 74);
-            this.trackBarLoggingLevel.Maximum = 3;
-            this.trackBarLoggingLevel.Minimum = 1;
-            this.trackBarLoggingLevel.Name = "trackBarLoggingLevel";
-            this.trackBarLoggingLevel.Size = new System.Drawing.Size(132, 45);
-            this.trackBarLoggingLevel.TabIndex = 3;
-            this.trackBarLoggingLevel.Value = 1;
-            // 
-            // checkBoxEnableLogging
-            // 
-            this.checkBoxEnableLogging.AutoSize = true;
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(38, 45);
-            this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
-            this.checkBoxEnableLogging.Size = new System.Drawing.Size(132, 23);
-            this.checkBoxEnableLogging.TabIndex = 2;
-            this.checkBoxEnableLogging.Text = "Enable Logging";
-            this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxRandomComments
-            // 
-            this.checkBoxRandomComments.AutoSize = true;
-            this.checkBoxRandomComments.Location = new System.Drawing.Point(38, 416);
-            this.checkBoxRandomComments.Name = "checkBoxRandomComments";
-            this.checkBoxRandomComments.Size = new System.Drawing.Size(159, 23);
-            this.checkBoxRandomComments.TabIndex = 1;
-            this.checkBoxRandomComments.Text = "Random Comments";
-            this.checkBoxRandomComments.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 473);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(145, 19);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Comment Frequency";
-            // 
-            // trackBarCommentFrequency
-            // 
-            this.trackBarCommentFrequency.Location = new System.Drawing.Point(185, 460);
-            this.trackBarCommentFrequency.Maximum = 4;
-            this.trackBarCommentFrequency.Minimum = 1;
-            this.trackBarCommentFrequency.Name = "trackBarCommentFrequency";
-            this.trackBarCommentFrequency.Size = new System.Drawing.Size(139, 45);
-            this.trackBarCommentFrequency.TabIndex = 0;
-            this.trackBarCommentFrequency.Value = 1;
-            // 
             // downloadFileAsToolStripMenuItem
             // 
             this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
             this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Image = global::bantam.Properties.Resources.console_16x14;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(202, 26);
-            this.toolStripMenuItem2.Text = "Spawn Shell";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // phpToolStripMenuItem
-            // 
-            this.phpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.phpinfoToolStripMenuItem,
-            this.evalToolStripMenuItem,
-            this.viewPHPCodeToolStripMenuItem,
-            this.portScannerToolStripMenuItem});
-            this.phpToolStripMenuItem.Image = global::bantam.Properties.Resources.php2_16x16;
-            this.phpToolStripMenuItem.Name = "phpToolStripMenuItem";
-            this.phpToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.phpToolStripMenuItem.Text = "PHP";
-            // 
-            // phpinfoToolStripMenuItem
-            // 
-            this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
-            this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.phpinfoToolStripMenuItem.Text = "phpinfo";
-            this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
-            // 
-            // evalToolStripMenuItem
-            // 
-            this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
-            this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.evalToolStripMenuItem.Text = "Eval";
-            this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
-            // 
-            // viewPHPCodeToolStripMenuItem
-            // 
-            this.viewPHPCodeToolStripMenuItem.Name = "viewPHPCodeToolStripMenuItem";
-            this.viewPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.viewPHPCodeToolStripMenuItem.Text = "View PHP Code";
-            this.viewPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.viewPHPCodeToolStripMenuItem_Click);
-            // 
-            // portScannerToolStripMenuItem
-            // 
-            this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
-            this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
-            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
-            this.portScannerToolStripMenuItem.Text = "Port Scanner";
-            this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
-            // 
-            // systemToolstripMenuItem
-            // 
-            this.systemToolstripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.windowsToolStripMenuItem,
-            this.linuxToolStripMenuItem,
-            this.psAuxToolStripMenuItem,
-            this.pingToolStripMenuItem,
-            this.whoamiToolStripMenuItem});
-            this.systemToolstripMenuItem.Image = global::bantam.Properties.Resources.gibson_16x16;
-            this.systemToolstripMenuItem.Name = "systemToolstripMenuItem";
-            this.systemToolstripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.systemToolstripMenuItem.Text = "System";
-            // 
-            // windowsToolStripMenuItem
-            // 
-            this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.windowsNetuserMenuItem,
-            this.windowsNetaccountsMenuItem,
-            this.windowsIpconfigMenuItem,
-            this.windowshostTargetsMenuItem,
-            this.windowsVerToolStripMenuItem});
-            this.windowsToolStripMenuItem.Image = global::bantam.Properties.Resources.social_windows_outline;
-            this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
-            this.windowsToolStripMenuItem.Text = "Windows";
-            // 
-            // windowsNetuserMenuItem
-            // 
-            this.windowsNetuserMenuItem.Name = "windowsNetuserMenuItem";
-            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.windowsNetuserMenuItem.Text = "net user";
-            this.windowsNetuserMenuItem.Click += new System.EventHandler(this.windowsNetuserMenuItem_Click);
-            // 
-            // windowsNetaccountsMenuItem
-            // 
-            this.windowsNetaccountsMenuItem.Name = "windowsNetaccountsMenuItem";
-            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.windowsNetaccountsMenuItem.Text = "net accounts";
-            this.windowsNetaccountsMenuItem.Click += new System.EventHandler(this.windowsNetaccountsMenuItem_Click);
-            // 
-            // windowsIpconfigMenuItem
-            // 
-            this.windowsIpconfigMenuItem.Name = "windowsIpconfigMenuItem";
-            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.windowsIpconfigMenuItem.Text = "ipconfig";
-            this.windowsIpconfigMenuItem.Click += new System.EventHandler(this.windowsIpconfigMenuItem_Click);
-            // 
-            // windowshostTargetsMenuItem
-            // 
-            this.windowshostTargetsMenuItem.Name = "windowshostTargetsMenuItem";
-            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.windowshostTargetsMenuItem.Text = "hostTargets";
-            this.windowshostTargetsMenuItem.Click += new System.EventHandler(this.windowsTargetsMenuItem_Click);
-            // 
-            // windowsVerToolStripMenuItem
-            // 
-            this.windowsVerToolStripMenuItem.Name = "windowsVerToolStripMenuItem";
-            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
-            this.windowsVerToolStripMenuItem.Text = "ver";
-            this.windowsVerToolStripMenuItem.Click += new System.EventHandler(this.windowsVerToolStripMenuItem_Click);
-            // 
-            // linuxToolStripMenuItem
-            // 
-            this.linuxToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.linuxIfconfigMenuItem,
-            this.linuxInterfacesMenuItem,
-            this.linusVersionMenuItem,
-            this.linuxhostTargetsMenuItem,
-            this.linuxIssuenetMenuItem,
-            this.passwdToolStripMenuItem,
-            this.shadowToolStripMenuItem});
-            this.linuxToolStripMenuItem.Image = global::bantam.Properties.Resources.linux_16x16;
-            this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
-            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
-            this.linuxToolStripMenuItem.Text = "Linux";
-            // 
-            // linuxIfconfigMenuItem
-            // 
-            this.linuxIfconfigMenuItem.Name = "linuxIfconfigMenuItem";
-            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.linuxIfconfigMenuItem.Text = "ifconfig";
-            this.linuxIfconfigMenuItem.Click += new System.EventHandler(this.linuxIfconfigMenuItem_Click);
-            // 
-            // linuxInterfacesMenuItem
-            // 
-            this.linuxInterfacesMenuItem.Name = "linuxInterfacesMenuItem";
-            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.linuxInterfacesMenuItem.Text = "interfaces";
-            this.linuxInterfacesMenuItem.Click += new System.EventHandler(this.linuxInterfacesMenuItem_Click);
-            // 
-            // linusVersionMenuItem
-            // 
-            this.linusVersionMenuItem.Name = "linusVersionMenuItem";
-            this.linusVersionMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.linusVersionMenuItem.Text = "version";
-            this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
-            // 
-            // linuxhostTargetsMenuItem
-            // 
-            this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
-            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.linuxhostTargetsMenuItem.Text = "hosts";
-            this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
-            // 
-            // linuxIssuenetMenuItem
-            // 
-            this.linuxIssuenetMenuItem.Name = "linuxIssuenetMenuItem";
-            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.linuxIssuenetMenuItem.Text = "issue.net";
-            this.linuxIssuenetMenuItem.Click += new System.EventHandler(this.linuxIssuenetMenuItem_Click);
-            // 
-            // passwdToolStripMenuItem
-            // 
-            this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
-            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.passwdToolStripMenuItem.Text = "passwd";
-            this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
-            // 
-            // shadowToolStripMenuItem
-            // 
-            this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
-            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
-            this.shadowToolStripMenuItem.Text = "shadow";
-            this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
-            // 
-            // psAuxToolStripMenuItem
-            // 
-            this.psAuxToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
-            this.psAuxToolStripMenuItem.Name = "psAuxToolStripMenuItem";
-            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
-            this.psAuxToolStripMenuItem.Text = "process list";
-            this.psAuxToolStripMenuItem.Click += new System.EventHandler(this.psAuxToolStripMenuItem_Click);
-            // 
-            // pingToolStripMenuItem
-            // 
-            this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
-            this.pingToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
-            this.pingToolStripMenuItem.Text = "ping";
-            this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
-            // 
-            // whoamiToolStripMenuItem
-            // 
-            this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
-            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
-            this.whoamiToolStripMenuItem.Text = "whoami";
-            this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
-            // 
-            // softwareToolStripMenuItem
-            // 
-            this.softwareToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.apacheToolStripMenuItem,
-            this.nginxToolStripMenuItem,
-            this.sambaToolStripMenuItem,
-            this.mysqlToolStripMenuItem});
-            this.softwareToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("softwareToolStripMenuItem.Image")));
-            this.softwareToolStripMenuItem.Name = "softwareToolStripMenuItem";
-            this.softwareToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.softwareToolStripMenuItem.Text = "Software Information";
-            // 
-            // apacheToolStripMenuItem
-            // 
-            this.apacheToolStripMenuItem.Name = "apacheToolStripMenuItem";
-            this.apacheToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.apacheToolStripMenuItem.Text = "apache";
-            // 
-            // nginxToolStripMenuItem
-            // 
-            this.nginxToolStripMenuItem.Name = "nginxToolStripMenuItem";
-            this.nginxToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.nginxToolStripMenuItem.Text = "nginx";
-            // 
-            // sambaToolStripMenuItem
-            // 
-            this.sambaToolStripMenuItem.Name = "sambaToolStripMenuItem";
-            this.sambaToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.sambaToolStripMenuItem.Text = "samba";
-            // 
-            // mysqlToolStripMenuItem
-            // 
-            this.mysqlToolStripMenuItem.Name = "mysqlToolStripMenuItem";
-            this.mysqlToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
-            this.mysqlToolStripMenuItem.Text = "mysql";
-            // 
-            // testConnectionStripMenuItem
-            // 
-            this.testConnectionStripMenuItem.Image = global::bantam.Properties.Resources.connection_16x16;
-            this.testConnectionStripMenuItem.Name = "testConnectionStripMenuItem";
-            this.testConnectionStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.testConnectionStripMenuItem.Text = "Test Connection";
-            this.testConnectionStripMenuItem.Click += new System.EventHandler(this.testConnectionStripMenuItem1_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Image = global::bantam.Properties.Resources.trash_16x16;
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.removeToolStripMenuItem.Text = "Remove";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
-            // 
-            // btnUpload
-            // 
-            this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpload.Image = global::bantam.Properties.Resources.upload_1;
-            this.btnUpload.Location = new System.Drawing.Point(563, 511);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(23, 23);
-            this.btnUpload.TabIndex = 9;
-            this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // btnFileBrowserGo
-            // 
-            this.btnFileBrowserGo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileBrowserGo.Image = global::bantam.Properties.Resources.play_2;
-            this.btnFileBrowserGo.Location = new System.Drawing.Point(534, 511);
-            this.btnFileBrowserGo.Name = "btnFileBrowserGo";
-            this.btnFileBrowserGo.Size = new System.Drawing.Size(23, 23);
-            this.btnFileBrowserGo.TabIndex = 8;
-            this.btnFileBrowserGo.UseVisualStyleBackColor = true;
-            this.btnFileBrowserGo.Click += new System.EventHandler(this.btnFileBrowserGo_Click);
-            // 
-            // btnFileBrowserRefresh
-            // 
-            this.btnFileBrowserRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileBrowserRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFileBrowserRefresh.Image = global::bantam.Properties.Resources.home_png;
-            this.btnFileBrowserRefresh.Location = new System.Drawing.Point(592, 511);
-            this.btnFileBrowserRefresh.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnFileBrowserRefresh.Name = "btnFileBrowserRefresh";
-            this.btnFileBrowserRefresh.Size = new System.Drawing.Size(23, 23);
-            this.btnFileBrowserRefresh.TabIndex = 6;
-            this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
-            this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
-            // 
-            // btnConsoleGoClick
-            // 
-            this.btnConsoleGoClick.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConsoleGoClick.Image = global::bantam.Properties.Resources.play_2;
-            this.btnConsoleGoClick.Location = new System.Drawing.Point(592, 511);
-            this.btnConsoleGoClick.Name = "btnConsoleGoClick";
-            this.btnConsoleGoClick.Size = new System.Drawing.Size(23, 23);
-            this.btnConsoleGoClick.TabIndex = 2;
-            this.btnConsoleGoClick.UseVisualStyleBackColor = true;
-            this.btnConsoleGoClick.Click += new System.EventHandler(this.btnConsoleGoClick_Click);
-            // 
-            // userAgentSwitcherToolStripMenuItem
-            // 
-            this.userAgentSwitcherToolStripMenuItem.Image = global::bantam.Properties.Resources.user_16x16;
-            this.userAgentSwitcherToolStripMenuItem.Name = "userAgentSwitcherToolStripMenuItem";
-            this.userAgentSwitcherToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.userAgentSwitcherToolStripMenuItem.Text = "User Agent Switcher";
-            this.userAgentSwitcherToolStripMenuItem.Click += new System.EventHandler(this.userAgentSwitcherToolStripMenuItem_Click);
-            // 
-            // proxySettingsToolStripMenuItem
-            // 
-            this.proxySettingsToolStripMenuItem.Image = global::bantam.Properties.Resources.proxy_chain_16x16;
-            this.proxySettingsToolStripMenuItem.Name = "proxySettingsToolStripMenuItem";
-            this.proxySettingsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.proxySettingsToolStripMenuItem.Text = "Proxy Settings";
-            this.proxySettingsToolStripMenuItem.Click += new System.EventHandler(this.proxySettingsToolStripMenuItem_Click);
-            // 
-            // evalToolStripMenuItem1
-            // 
-            this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
-            this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.evalToolStripMenuItem1.Text = "Eval";
-            this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
-            // 
-            // portScannerToolStripMenuItem1
-            // 
-            this.portScannerToolStripMenuItem1.Image = global::bantam.Properties.Resources.ports_16x16;
-            this.portScannerToolStripMenuItem1.Name = "portScannerToolStripMenuItem1";
-            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.portScannerToolStripMenuItem1.Text = "Port Scanner";
-            this.portScannerToolStripMenuItem1.Click += new System.EventHandler(this.portScannerToolStripMenuItem1_Click);
+            // txtBoxFileBrowserPath
+            // 
+            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
+            this.txtBoxFileBrowserPath.TabIndex = 7;
+            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
             // 
             // BantamMain
             // 
@@ -1231,10 +1134,6 @@
             this.tabPageCmd.ResumeLayout(false);
             this.tabPageCmd.PerformLayout();
             this.tabPageLogging.ResumeLayout(false);
-            this.tabPageOptions.ResumeLayout(false);
-            this.tabPageOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1275,10 +1174,6 @@
         private System.Windows.Forms.ToolStripMenuItem passwdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem shadowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem softwareToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem apacheToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nginxToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sambaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mysqlToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem whoamiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
@@ -1295,7 +1190,7 @@
         private System.Windows.Forms.ToolStripMenuItem evalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem proxySettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyShellURLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewPHPCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editPHPCodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadFileAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem portScannerToolStripMenuItem;
@@ -1304,28 +1199,19 @@
         private System.Windows.Forms.TabPage tabPageInfo;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblStaticPHP;
-        private System.Windows.Forms.Label lblDynPHP;
         private System.Windows.Forms.Label lblStaticServerIP;
-        private System.Windows.Forms.Label lblDynServerIP;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblStaticUname;
-        private System.Windows.Forms.Label lblDynUname;
-        private System.Windows.Forms.Label lblDynHDDSpace;
         private System.Windows.Forms.Label lblStaticUser;
-        private System.Windows.Forms.Label lblDynGroup;
         private System.Windows.Forms.Label lblStaticGroup;
-        private System.Windows.Forms.Label lblDynWebServer;
-        private System.Windows.Forms.Label lblDynFreeSpace;
-        private System.Windows.Forms.Label lblDynUser;
         private System.Windows.Forms.Label lblStaticWebServer;
         private System.Windows.Forms.Label lblStaticFreeHDD;
         private System.Windows.Forms.Label lblStaticHDD;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblStaticCWD;
-        private System.Windows.Forms.Label lblDynCWD;
         private System.Windows.Forms.TabPage tabPageFiles;
         private System.Windows.Forms.Button btnUpload;
-        private bantam.Classes.GuiHelper.TextBoxButton txtBoxFileBrowserPath;
+        private bantam.Classes.TextBoxButton txtBoxFileBrowserPath;
         private System.Windows.Forms.Button btnFileBrowserGo;
         private System.Windows.Forms.Button btnFileBrowserRefresh;
         private System.Windows.Forms.TreeView treeViewFileBrowser;
@@ -1333,20 +1219,22 @@
         private System.Windows.Forms.Button btnConsoleGoClick;
         private System.Windows.Forms.TextBox textBoxConsoleInput;
         private System.Windows.Forms.RichTextBox richTextBoxConsoleOutput;
-        private System.Windows.Forms.TabPage tabPageOptions;
         private System.Windows.Forms.TabPage tabPageLogging;
-        private System.Windows.Forms.TrackBar trackBarCommentFrequency;
-        private System.Windows.Forms.CheckBox checkBoxRandomComments;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trackBarLoggingLevel;
-        private System.Windows.Forms.CheckBox checkBoxEnableLogging;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBoxMaxCommentLength;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem spawnShellToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemReverseShell;
+        private System.Windows.Forms.TextBox textBoxFreeSpace;
+        private System.Windows.Forms.TextBox textBoxGroup;
+        private System.Windows.Forms.TextBox textBoxUser;
+        private System.Windows.Forms.TextBox textBoxHDDSpace;
+        private System.Windows.Forms.TextBox textBoxWebServer;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxServerIP;
+        private System.Windows.Forms.TextBox textBoxPHP;
+        private System.Windows.Forms.TextBox textBoxUname;
+        private System.Windows.Forms.TextBox textBoxCWD;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logsToolStripMenuItem;
     }
 }
 

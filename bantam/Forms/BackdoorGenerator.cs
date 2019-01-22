@@ -6,21 +6,24 @@ using bantam.Classes;
 
 namespace bantam.Forms
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public enum BackdoorTypes
-    {
-        EVAL = 0,
-        ASSERT,
-        CREATE_FUNCTION,
-        NATIVE_ANON,
-        TMP_INCLUDE,
-        PREG_REPLACE
-    }
-
     public partial class BackdoorGenerator : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum BackdoorTypes
+        {
+            EVAL = 0,
+            ASSERT,
+            CREATE_FUNCTION,
+            NATIVE_ANON,
+            TMP_INCLUDE,
+            PREG_REPLACE
+        }
+
+        /// <summary>
+        /// Backdoor generator constructor
+        /// </summary>
         public BackdoorGenerator()
         {
             InitializeComponent();
@@ -31,6 +34,10 @@ namespace bantam.Forms
             richTextBoxBackdoor.Text = generateBackdoor();
         }
 
+
+        /// <summary>
+        /// Called everytime a UI element is changed that modifys the backdoor code to update the richtextbox text.
+        /// </summary>
         public void UpdateForm()
         {
             string backdoorCode = generateBackdoor(txtBoxVarName.Text, comboBoxVarType.Text, chckbxGzipDecodeRequest.Checked, (BackdoorTypes)comboBoxMethod.SelectedIndex);
@@ -42,6 +49,14 @@ namespace bantam.Forms
             richTextBoxBackdoor.Text = backdoorCode;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="varName"></param>
+        /// <param name="varType"></param>
+        /// <param name="gzInflateRequest"></param>
+        /// <param name="backdoorType"></param>
+        /// <returns></returns>
         public string generateBackdoor(string varName = "command", string varType = "COOKIE", bool gzInflateRequest = false, BackdoorTypes backdoorType = BackdoorTypes.EVAL)
         {
             string backdoorResult = string.Empty;
@@ -140,11 +155,6 @@ namespace bantam.Forms
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
                 File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);
             }
-        }
-
-        private void BackdoorGenerator_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.g_BantamMain.backdoorGenerator = null;
         }
     }
 }

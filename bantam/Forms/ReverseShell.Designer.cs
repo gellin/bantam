@@ -35,6 +35,7 @@
             this.labelMethod = new System.Windows.Forms.Label();
             this.comboBoxMethod = new System.Windows.Forms.ComboBox();
             this.btnPopShell = new System.Windows.Forms.Button();
+            this.checkBoxDisabledFunctionsBypass = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelIP
@@ -48,7 +49,8 @@
             // 
             // buttonGetIpv4
             // 
-            this.buttonGetIpv4.Location = new System.Drawing.Point(334, 16);
+            this.buttonGetIpv4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGetIpv4.Location = new System.Drawing.Point(314, 16);
             this.buttonGetIpv4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonGetIpv4.Name = "buttonGetIpv4";
             this.buttonGetIpv4.Size = new System.Drawing.Size(87, 28);
@@ -59,10 +61,12 @@
             // 
             // textBoxIP
             // 
+            this.textBoxIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxIP.Location = new System.Drawing.Point(96, 18);
             this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(222, 24);
+            this.textBoxIP.Size = new System.Drawing.Size(202, 24);
             this.textBoxIP.TabIndex = 2;
             // 
             // textBoxPort
@@ -85,8 +89,9 @@
             // 
             // labelMethod
             // 
+            this.labelMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMethod.AutoSize = true;
-            this.labelMethod.Location = new System.Drawing.Point(24, 103);
+            this.labelMethod.Location = new System.Drawing.Point(24, 87);
             this.labelMethod.Name = "labelMethod";
             this.labelMethod.Size = new System.Drawing.Size(57, 16);
             this.labelMethod.TabIndex = 5;
@@ -94,15 +99,17 @@
             // 
             // comboBoxMethod
             // 
+            this.comboBoxMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxMethod.FormattingEnabled = true;
-            this.comboBoxMethod.Location = new System.Drawing.Point(96, 100);
+            this.comboBoxMethod.Location = new System.Drawing.Point(96, 84);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.Size = new System.Drawing.Size(133, 24);
             this.comboBoxMethod.TabIndex = 6;
             // 
             // btnPopShell
             // 
-            this.btnPopShell.Location = new System.Drawing.Point(334, 103);
+            this.btnPopShell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPopShell.Location = new System.Drawing.Point(314, 83);
             this.btnPopShell.Name = "btnPopShell";
             this.btnPopShell.Size = new System.Drawing.Size(87, 28);
             this.btnPopShell.TabIndex = 7;
@@ -110,11 +117,24 @@
             this.btnPopShell.UseVisualStyleBackColor = true;
             this.btnPopShell.Click += new System.EventHandler(this.btnPopShell_Click);
             // 
+            // checkBoxDisabledFunctionsBypass
+            // 
+            this.checkBoxDisabledFunctionsBypass.AutoSize = true;
+            this.checkBoxDisabledFunctionsBypass.Location = new System.Drawing.Point(27, 132);
+            this.checkBoxDisabledFunctionsBypass.Name = "checkBoxDisabledFunctionsBypass";
+            this.checkBoxDisabledFunctionsBypass.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.checkBoxDisabledFunctionsBypass.Size = new System.Drawing.Size(271, 20);
+            this.checkBoxDisabledFunctionsBypass.TabIndex = 8;
+            this.checkBoxDisabledFunctionsBypass.Text = "disabled_functions / open_basedir bypass";
+            this.checkBoxDisabledFunctionsBypass.UseVisualStyleBackColor = true;
+            this.checkBoxDisabledFunctionsBypass.CheckedChanged += new System.EventHandler(this.checkBoxDisabledFunctionsBypass_CheckedChanged);
+            // 
             // ReverseShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 145);
+            this.ClientSize = new System.Drawing.Size(417, 164);
+            this.Controls.Add(this.checkBoxDisabledFunctionsBypass);
             this.Controls.Add(this.btnPopShell);
             this.Controls.Add(this.comboBoxMethod);
             this.Controls.Add(this.labelMethod);
@@ -124,6 +144,7 @@
             this.Controls.Add(this.buttonGetIpv4);
             this.Controls.Add(this.labelIP);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -144,5 +165,6 @@
         private System.Windows.Forms.Label labelMethod;
         private System.Windows.Forms.ComboBox comboBoxMethod;
         private System.Windows.Forms.Button btnPopShell;
+        private System.Windows.Forms.CheckBox checkBoxDisabledFunctionsBypass;
     }
 }

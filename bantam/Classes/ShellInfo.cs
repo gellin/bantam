@@ -114,9 +114,14 @@ namespace bantam.Classes
         public string PHP_Version;
 
         /// <summary>
-        /// 
+        /// Stores the console richtextbox string
         /// </summary>
         public string consoleText;
+
+        /// <summary>
+        /// Stores the logs richtextbox string
+        /// </summary>
+        public string logText;
 
         /// <summary>
         /// 

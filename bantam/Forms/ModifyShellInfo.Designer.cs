@@ -207,8 +207,6 @@
             this.Name = "ModifyShell";
             this.ShowIcon = false;
             this.Text = "Add Shell";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddHost_FormClosed);
-            this.Shown += new System.EventHandler(this.AddHost_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

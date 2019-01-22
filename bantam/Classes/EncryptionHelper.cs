@@ -18,23 +18,22 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// todo dynamic and move to helpers
+        /// 
         /// </summary>
         public static string GetRandomEncryptionKey()
         {
             int ivLength = 32;
-            return Helper.RandomNumberString(ivLength);
+            return Helper.RandomString(ivLength, true, true, true);
         }
 
         /// <summary>
-        /// todo dynamic and move to helpers
+        /// 
         /// </summary>
         /// <returns></returns>
         public static string GetRandomEncryptionIV()
         {
             int keyLength = 16;
-            bool capitals = false;
-            return Helper.RandomString(keyLength, capitals);
+            return Helper.RandomString(keyLength, true, true, true);
         }
 
         /// <summary>
@@ -56,17 +55,19 @@ namespace bantam.Classes
 
             string decryptedResult = string.Empty;
 
-            switch (encryptResponseMode) {
-                case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
-                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                break;
-                case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
-                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                break;
-                default:
-                decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-                break;
-            }
+            decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+
+            //switch (encryptResponseMode) {
+            //    case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
+            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+            //    break;
+            //    case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
+            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+            //    break;
+            //    default:
+            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
+            //    break;
+            //}
 
             if (string.IsNullOrEmpty(decryptedResult)) {
                 return string.Empty;
@@ -91,7 +92,6 @@ namespace bantam.Classes
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
 
             using (var aes = new RijndaelManaged()) {
-                try {
                     aes.Padding = padding;
                     aes.Mode = CipherMode.CBC;
                     aes.KeySize = 256;
@@ -99,13 +99,53 @@ namespace bantam.Classes
                     aes.Key = Key;
                     aes.IV = IV;
 
+                try {
                     using (var memoryStream = new MemoryStream(cipherText))
                     using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
                     using (var streamReader = new StreamReader(cryptoStream)) {
-                        result = streamReader.ReadLine();
+                        result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
+                    //todo logging
                     MessageBox.Show(e.Message, "Failed to decrypt response");
+                    return string.Empty;
+                } finally {
+                    aes.Clear();
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a base64 encoded AES256 encrypted string
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
+        /// <param name="padding"></param>
+        /// <returns></returns>
+        static public String EncryptRJ256(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        {
+            var result = string.Empty;
+            var Key = Encoding.UTF8.GetBytes(encryptionKey);
+            var IV = Encoding.UTF8.GetBytes(encryptionIV);
+
+            using (var aes = new RijndaelManaged()) {
+                aes.Padding = padding;
+                aes.Mode = CipherMode.CBC;
+                aes.KeySize = 256;
+                aes.BlockSize = 128;
+                aes.Key = Key;
+                aes.IV = IV;
+
+                try {
+                    using (var memoryStream = new MemoryStream())
+                    using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) { 
+                        result = Convert.ToBase64String(memoryStream.ToArray());
+                    }
+                } catch (Exception e) {
+                    //todo logging
+                    //MessageBox.Show(e.Message, "Failed to encrypt string");
                     return string.Empty;
                 } finally {
                     aes.Clear();

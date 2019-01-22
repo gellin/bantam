@@ -26,6 +26,7 @@ namespace bantam.Forms
                 //todo ui thing
             }
 
+            //todo port validation?
             int startPort = Convert.ToInt32(textBoxStartPort.Text);
             int endPort = Convert.ToInt32(textBoxEndPort.Text);
 
@@ -68,7 +69,7 @@ namespace bantam.Forms
 
                 bool encryptResponse = true;
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
-
+                //todo uri validation
                 var uri = new Uri(shellUrl);
                 var host = uri.Host;
 

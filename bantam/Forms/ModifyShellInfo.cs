@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 using bantam.Classes;
@@ -8,8 +9,6 @@ namespace bantam.Forms
 {
     public partial class ModifyShell : Form
     {
-        public static ModifyShell instance = null;
-       
         /// <summary>
         /// 
         /// </summary>
@@ -18,21 +17,21 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public List<string> requestTypes = new List<string>() {
+        public static ReadOnlyCollection<string> requestTypes = new List<string> {
             "cookie",
             "post",
-        };
+        }.AsReadOnly();
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly List<string> responseEncryptionModes = new List<string>() {
+        public static ReadOnlyCollection<string> responseEncryptionModes = new List<string>() {
              "openssl",
              "mcrypt",
-        };
+        }.AsReadOnly();
 
         /// <summary>
-        /// 
+        /// Add shell constructor
         /// </summary>
         public ModifyShell()
         {
@@ -52,7 +51,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Update / Edit Shell Routine
+        /// Update / Edit Shell Constructor
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="varName"></param>
@@ -107,14 +106,13 @@ namespace bantam.Forms
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
 
-                ShellInfo shellInfoOut = new ShellInfo();
+                ShellInfo shellInfoOut;
                 BantamMain.Shells.TryRemove(shellURL, out shellInfoOut);
             }
 
             BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
             BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
-            //todo check index
             if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
@@ -153,17 +151,7 @@ namespace bantam.Forms
             }
 
             Program.g_BantamMain.InitializeShellData(shellURL);
-            Program.g_BantamMain.addClientForm.Hide();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddHost_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.g_BantamMain.addClientForm = null;
+            this.Close();
         }
 
         /// <summary>
@@ -182,21 +170,20 @@ namespace bantam.Forms
             if (BantamMain.Shells.ContainsKey(g_CallingShellUrl)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(g_CallingShellUrl);
 
-                ShellInfo outShellInfo = new ShellInfo();
+                ShellInfo outShellInfo;
                 BantamMain.Shells.TryRemove(g_CallingShellUrl, out outShellInfo);
             }
 
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
 
-                ShellInfo outShellInfo = new ShellInfo();
+                ShellInfo outShellInfo;
                 BantamMain.Shells.TryRemove(g_CallingShellUrl, out outShellInfo);
             }
 
             BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
             BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
-            //todo check index
             if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Shells[shellURL].sendDataViaCookie = true;
             }
@@ -215,17 +202,7 @@ namespace bantam.Forms
             }
 
             Program.g_BantamMain.InitializeShellData(shellURL);
-            Program.g_BantamMain.updateHostForm.Hide();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddHost_Shown(object sender, EventArgs e)
-        {
-            //MessageBox.Show("1");
+            this.Close();
         }
 
         /// <summary>

