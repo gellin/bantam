@@ -65,9 +65,12 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveClientsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveShellsAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backdoorGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userAgentSwitcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,7 +113,6 @@
             this.tabPageFiles = new System.Windows.Forms.TabPage();
             this.btnUpload = new System.Windows.Forms.Button();
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
-            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
             this.btnFileBrowserGo = new System.Windows.Forms.Button();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
             this.tabPageCmd = new System.Windows.Forms.TabPage();
@@ -120,9 +122,7 @@
             this.tabPageLogging = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -462,14 +462,19 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.addToolStripMenuItem.Text = "Add Shell";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(128, 6);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.openToolStripMenuItem.Text = "Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -477,16 +482,28 @@
             // 
             this.saveClientsToolStripMenuItem.Enabled = false;
             this.saveClientsToolStripMenuItem.Name = "saveClientsToolStripMenuItem";
-            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveClientsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveClientsToolStripMenuItem.Text = "Save";
             this.saveClientsToolStripMenuItem.Click += new System.EventHandler(this.saveClientsToolStripMenuItem_Click);
             // 
             // saveShellsAsToolStripMenuItem
             // 
             this.saveShellsAsToolStripMenuItem.Name = "saveShellsAsToolStripMenuItem";
-            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveShellsAsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.saveShellsAsToolStripMenuItem.Text = "Save As...";
             this.saveShellsAsToolStripMenuItem.Click += new System.EventHandler(this.saveShellsAsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(128, 6);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.optionsToolStripMenuItem.Text = "Options";
             // 
             // toolsToolStripMenuItem
             // 
@@ -504,7 +521,7 @@
             this.backdoorGeneratorToolStripMenuItem.Image = global::bantam.Properties.Resources.ninja_16x16;
             this.backdoorGeneratorToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.White;
             this.backdoorGeneratorToolStripMenuItem.Name = "backdoorGeneratorToolStripMenuItem";
-            this.backdoorGeneratorToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.backdoorGeneratorToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.backdoorGeneratorToolStripMenuItem.Text = "Backdoor Generator";
             this.backdoorGeneratorToolStripMenuItem.Click += new System.EventHandler(this.backdoorGeneratorToolStripMenuItem_Click);
             // 
@@ -512,7 +529,7 @@
             // 
             this.userAgentSwitcherToolStripMenuItem.Image = global::bantam.Properties.Resources.user_16x16;
             this.userAgentSwitcherToolStripMenuItem.Name = "userAgentSwitcherToolStripMenuItem";
-            this.userAgentSwitcherToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.userAgentSwitcherToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.userAgentSwitcherToolStripMenuItem.Text = "User Agent Switcher";
             this.userAgentSwitcherToolStripMenuItem.Click += new System.EventHandler(this.userAgentSwitcherToolStripMenuItem_Click);
             // 
@@ -520,7 +537,7 @@
             // 
             this.proxySettingsToolStripMenuItem.Image = global::bantam.Properties.Resources.proxy_chain_16x16;
             this.proxySettingsToolStripMenuItem.Name = "proxySettingsToolStripMenuItem";
-            this.proxySettingsToolStripMenuItem.Size = new System.Drawing.Size(198, 26);
+            this.proxySettingsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.proxySettingsToolStripMenuItem.Text = "Proxy Settings";
             this.proxySettingsToolStripMenuItem.Click += new System.EventHandler(this.proxySettingsToolStripMenuItem_Click);
             // 
@@ -538,7 +555,7 @@
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.evalToolStripMenuItem1.Text = "Eval";
             this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
@@ -546,7 +563,7 @@
             // 
             this.portScannerToolStripMenuItem1.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem1.Name = "portScannerToolStripMenuItem1";
-            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
+            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
             this.portScannerToolStripMenuItem1.Text = "Port Scanner";
             this.portScannerToolStripMenuItem1.Click += new System.EventHandler(this.portScannerToolStripMenuItem1_Click);
             // 
@@ -922,9 +939,9 @@
             // 
             this.tabPageFiles.Controls.Add(this.btnUpload);
             this.tabPageFiles.Controls.Add(this.treeViewFileBrowser);
-            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserGo);
             this.tabPageFiles.Controls.Add(this.btnFileBrowserRefresh);
+            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
             this.tabPageFiles.Location = new System.Drawing.Point(4, 28);
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPageFiles.Name = "tabPageFiles";
@@ -965,18 +982,6 @@
             this.treeViewFileBrowser.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             this.treeViewFileBrowser.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
             this.treeViewFileBrowser.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.fileBrowserTreeView_MouseDoubleClick);
-            // 
-            // txtBoxFileBrowserPath
-            // 
-            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
-            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
-            this.txtBoxFileBrowserPath.TabIndex = 7;
-            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
             // 
             // btnFileBrowserGo
             // 
@@ -1077,22 +1082,17 @@
             this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
             this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // toolStripSeparator1
+            // txtBoxFileBrowserPath
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.optionsToolStripMenuItem.Text = "Options";
+            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
+            this.txtBoxFileBrowserPath.TabIndex = 7;
+            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
             // 
             // BantamMain
             // 

@@ -153,6 +153,32 @@ namespace bantam.Classes
         /// </summary>
         public int responseEncryptionMode = 0;
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool requestEncryption = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string requestEncryptionKey;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string requestEncryptionIV;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool sendRequestEncryptionIV = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string requestEncryptionIVRequestVarName;
+
         /// <summary>
         /// 
         /// </summary>

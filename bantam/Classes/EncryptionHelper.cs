@@ -106,9 +106,8 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
-                    //todo logging
+                    //todo global logging
                     MessageBox.Show(e.Message, "Failed to decrypt response");
-                    return string.Empty;
                 } finally {
                     aes.Clear();
                 }
@@ -124,12 +123,11 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        static public String EncryptRJ256(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        static public string EncryptRJ256(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
-            var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
-
+            var result = string.Empty;
             using (var aes = new RijndaelManaged()) {
                 aes.Padding = padding;
                 aes.Mode = CipherMode.CBC;
@@ -139,14 +137,57 @@ namespace bantam.Classes
                 aes.IV = IV;
 
                 try {
-                    using (var memoryStream = new MemoryStream())
-                    using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) { 
+                    using (var memoryStream = new MemoryStream()) {
+                        using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
+                            cryptoStream.Write(plainText, 0, plainText.Length);
+                            cryptoStream.Close();
+                        }
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
+
                 } catch (Exception e) {
-                    //todo logging
-                    //MessageBox.Show(e.Message, "Failed to encrypt string");
-                    return string.Empty;
+                    //todo global logging
+                    MessageBox.Show(e.Message, "Failed to encrypt string");
+                } finally {
+                    aes.Clear();
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a base64 encoded AES256 encrypted string
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
+        /// <param name="padding"></param>
+        /// <returns></returns>
+        static public string EncryptRJ256(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        {
+            var Key = Encoding.UTF8.GetBytes(encryptionKey);
+            var IV = Encoding.UTF8.GetBytes(encryptionIV);
+            var result = string.Empty;
+            using (var aes = new RijndaelManaged()) {
+                aes.Padding = padding;
+                aes.Mode = CipherMode.CBC;
+                aes.KeySize = 256;
+                aes.BlockSize = 128;
+                aes.Key = Key;
+                aes.IV = IV;
+
+                try {
+                    using (var memoryStream = new MemoryStream()) {
+                        using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write))
+                        using (var streamWriter = new StreamWriter(cryptoStream)) {
+                            streamWriter.Write(plainText);
+                        }
+                        result = Convert.ToBase64String(memoryStream.ToArray());
+                    }
+
+                } catch (Exception e) {
+                    //todo global logging
+                    MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
                     aes.Clear();
                 }

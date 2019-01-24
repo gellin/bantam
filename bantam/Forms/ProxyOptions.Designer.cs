@@ -27,25 +27,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonConnect = new System.Windows.Forms.Button();
             this.txtBoxProxyUrl = new System.Windows.Forms.TextBox();
             this.txtBoxProxyPort = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxProxyType = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.buttonResetProxy = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // buttonOk
+            // buttonConnect
             // 
-            this.buttonOk.Location = new System.Drawing.Point(402, 90);
-            this.buttonOk.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(115, 33);
-            this.buttonOk.TabIndex = 0;
-            this.buttonOk.Text = "Ok";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.button1_Click);
+            this.buttonConnect.Location = new System.Drawing.Point(402, 90);
+            this.buttonConnect.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(115, 33);
+            this.buttonConnect.TabIndex = 0;
+            this.buttonConnect.Text = "Connect";
+            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // txtBoxProxyUrl
             // 
@@ -109,25 +110,36 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Proxy Type";
             // 
+            // buttonResetProxy
+            // 
+            this.buttonResetProxy.Enabled = false;
+            this.buttonResetProxy.Location = new System.Drawing.Point(324, 90);
+            this.buttonResetProxy.Name = "buttonResetProxy";
+            this.buttonResetProxy.Size = new System.Drawing.Size(71, 33);
+            this.buttonResetProxy.TabIndex = 8;
+            this.buttonResetProxy.Text = "Reset";
+            this.buttonResetProxy.UseVisualStyleBackColor = true;
+            this.buttonResetProxy.Click += new System.EventHandler(this.buttonResetProxy_Click);
+            // 
             // ProxyOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 134);
+            this.Controls.Add(this.buttonResetProxy);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxProxyType);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBoxProxyPort);
             this.Controls.Add(this.txtBoxProxyUrl);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.buttonConnect);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ProxyOptions";
             this.Text = "Proxy Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxyOptions_FormClosing);
-            this.Load += new System.EventHandler(this.ProxyOptions_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,12 +147,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.TextBox txtBoxProxyUrl;
         private System.Windows.Forms.TextBox txtBoxProxyPort;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxProxyType;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonResetProxy;
     }
 }

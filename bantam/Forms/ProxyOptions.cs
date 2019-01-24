@@ -19,6 +19,8 @@ namespace bantam.Forms
         public ProxyOptions()
         {
             InitializeComponent();
+
+            comboBoxProxyType.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -38,16 +40,6 @@ namespace bantam.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ProxyOptions_Load(object sender, EventArgs e)
-        {
-            comboBoxProxyType.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ProxyOptions_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -59,10 +51,10 @@ namespace bantam.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void button1_Click(object sender, EventArgs e)
+        private async void buttonConnect_Click(object sender, EventArgs e)
         {
             //todo verify url
-            buttonOk.Enabled = false;
+            buttonConnect.Enabled = false;
             if (!string.IsNullOrEmpty(txtBoxProxyUrl.Text)) {
                 if (int.TryParse(txtBoxProxyPort.Text, out int port)) {
                     if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.http) {
@@ -79,23 +71,27 @@ namespace bantam.Forms
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();
+
                             } else {
                                 MessageBox.Show("Your IP Is : " + task.Result, "Connection Success");
-                                buttonOk.Enabled = true;
+                                buttonConnect.Enabled = true;
+                                buttonResetProxy.Enabled = true;
                                 this.Close();
                             }
                         } else {
                             MessageBox.Show("Unable to connect to proxy try again...");
                             WebHelper.ResetHttpClient();
+                            buttonResetProxy.Enabled = false;
                         }
                     }
                     catch(Exception) {
                         MessageBox.Show("Unable to connect to proxy try again...");
                         WebHelper.ResetHttpClient();
+                        buttonResetProxy.Enabled = false;
                     }
                 }
             }
-            buttonOk.Enabled = true;
+            buttonConnect.Enabled = true;
         }
 
         private void txtBoxProxyPort_KeyPress(object sender, KeyPressEventArgs e)
@@ -103,6 +99,12 @@ namespace bantam.Forms
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
+        }
+
+        private void buttonResetProxy_Click(object sender, EventArgs e)
+        {
+            WebHelper.ResetHttpClient();
+            buttonResetProxy.Enabled = false;
         }
     }
 }

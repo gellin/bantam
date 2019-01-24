@@ -46,9 +46,12 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Build a randon string of a charectors at a fixed length, with or without numbers and a few special chars
         /// </summary>
         /// <param name="length"></param>
+        /// <param name="capitals"></param>
+        /// <param name="numbers"></param>
+        /// <param name="special"></param>
         /// <returns></returns>
         public static string RandomString(int length, bool capitals = true, bool numbers = false, bool special = false)
         {
@@ -74,10 +77,11 @@ namespace bantam.Classes
             return stringResult;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="base64"></param>
+        /// <param name="str"></param>
         /// <returns></returns>
         public static string EncodeBase64ToString(string str)
         {
@@ -104,7 +108,7 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                //todo level 2 or 3 logging cfg
+                //todo global level 2 or 3 logging cfg
                 //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
@@ -112,7 +116,7 @@ namespace bantam.Classes
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
-                //todo level 1 logging
+                //todo global level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return string.Empty;
             }
@@ -132,7 +136,7 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                //todo level 2 or level 3 logging cfg
+                //todo global slevel 2 or level 3 logging cfg
                 //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
@@ -141,17 +145,17 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
-                //todo level 1 logging
+                //todo global level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return null;
             }
         }
 
         /// <summary>
-        /// 
+        /// Removes tabs, new lines, dirty charectors and whitespace from a string
         /// </summary>
         /// <param name="code"></param>
-        /// <returns></returns>
+        /// <returns>string clean and minified</returns>
         public static string MinifyCode(string code)
         {
             string clean = Regex.Replace(code, @"\t|\n|\r", string.Empty);

@@ -122,9 +122,13 @@ namespace bantam.Classes
             return result;
         }
 
+
         /// <summary>
-        /// todo possibly kill  the encrytion if empty result
+        /// 
         /// </summary>
+        /// <param name="responseEncryptionMode"></param>
+        /// <param name="encryptionKey">Generated in this function and passed out by reference to use for decryption of the response</param>
+        /// <param name="encryptionIV">Generated in this function and passed out by reference to use for decryption of the response</param>
         /// <returns></returns>
         public static string EncryptPhpVariableAndEcho(int responseEncryptionMode, ref string encryptionKey, ref string encryptionIV)
         {
@@ -157,7 +161,8 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        /// 
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
         public static string InitShellData(bool encryptResponse)
         {
             string osVar = RandomPHPVar();

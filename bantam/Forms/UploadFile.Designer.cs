@@ -72,7 +72,7 @@
             this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpload.Enabled = false;
             this.btnUpload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnUpload.Location = new System.Drawing.Point(480, 471);
+            this.btnUpload.Location = new System.Drawing.Point(480, 469);
             this.btnUpload.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(127, 40);
@@ -86,7 +86,7 @@
             this.txtBoxFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBoxFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.txtBoxFileName.Location = new System.Drawing.Point(94, 413);
+            this.txtBoxFileName.Location = new System.Drawing.Point(94, 408);
             this.txtBoxFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxFileName.Name = "txtBoxFileName";
             this.txtBoxFileName.Size = new System.Drawing.Size(513, 21);
@@ -96,7 +96,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 415);
+            this.label1.Location = new System.Drawing.Point(13, 413);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 16);

@@ -36,12 +36,14 @@
             this.comboBoxMethod = new System.Windows.Forms.ComboBox();
             this.btnPopShell = new System.Windows.Forms.Button();
             this.checkBoxDisabledFunctionsBypass = new System.Windows.Forms.CheckBox();
+            this.comboBoxArch = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelIP
             // 
             this.labelIP.AutoSize = true;
-            this.labelIP.Location = new System.Drawing.Point(24, 22);
+            this.labelIP.Location = new System.Drawing.Point(12, 22);
             this.labelIP.Name = "labelIP";
             this.labelIP.Size = new System.Drawing.Size(21, 16);
             this.labelIP.TabIndex = 0;
@@ -50,10 +52,10 @@
             // buttonGetIpv4
             // 
             this.buttonGetIpv4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGetIpv4.Location = new System.Drawing.Point(314, 16);
+            this.buttonGetIpv4.Location = new System.Drawing.Point(296, 16);
             this.buttonGetIpv4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonGetIpv4.Name = "buttonGetIpv4";
-            this.buttonGetIpv4.Size = new System.Drawing.Size(87, 28);
+            this.buttonGetIpv4.Size = new System.Drawing.Size(105, 28);
             this.buttonGetIpv4.TabIndex = 1;
             this.buttonGetIpv4.Text = "Get My IPv4";
             this.buttonGetIpv4.UseVisualStyleBackColor = true;
@@ -63,7 +65,7 @@
             // 
             this.textBoxIP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIP.Location = new System.Drawing.Point(96, 18);
+            this.textBoxIP.Location = new System.Drawing.Point(84, 18);
             this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxIP.Name = "textBoxIP";
             this.textBoxIP.Size = new System.Drawing.Size(202, 24);
@@ -71,7 +73,7 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(96, 50);
+            this.textBoxPort.Location = new System.Drawing.Point(84, 50);
             this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(58, 24);
@@ -81,7 +83,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 54);
+            this.label1.Location = new System.Drawing.Point(12, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 16);
             this.label1.TabIndex = 4;
@@ -89,9 +91,8 @@
             // 
             // labelMethod
             // 
-            this.labelMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelMethod.AutoSize = true;
-            this.labelMethod.Location = new System.Drawing.Point(24, 87);
+            this.labelMethod.Location = new System.Drawing.Point(12, 90);
             this.labelMethod.Name = "labelMethod";
             this.labelMethod.Size = new System.Drawing.Size(57, 16);
             this.labelMethod.TabIndex = 5;
@@ -99,19 +100,17 @@
             // 
             // comboBoxMethod
             // 
-            this.comboBoxMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxMethod.FormattingEnabled = true;
-            this.comboBoxMethod.Location = new System.Drawing.Point(96, 84);
+            this.comboBoxMethod.Location = new System.Drawing.Point(84, 87);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.Size = new System.Drawing.Size(133, 24);
             this.comboBoxMethod.TabIndex = 6;
             // 
             // btnPopShell
             // 
-            this.btnPopShell.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPopShell.Location = new System.Drawing.Point(314, 83);
+            this.btnPopShell.Location = new System.Drawing.Point(296, 199);
             this.btnPopShell.Name = "btnPopShell";
-            this.btnPopShell.Size = new System.Drawing.Size(87, 28);
+            this.btnPopShell.Size = new System.Drawing.Size(109, 40);
             this.btnPopShell.TabIndex = 7;
             this.btnPopShell.Text = "Pop Shell";
             this.btnPopShell.UseVisualStyleBackColor = true;
@@ -120,20 +119,43 @@
             // checkBoxDisabledFunctionsBypass
             // 
             this.checkBoxDisabledFunctionsBypass.AutoSize = true;
-            this.checkBoxDisabledFunctionsBypass.Location = new System.Drawing.Point(27, 132);
+            this.checkBoxDisabledFunctionsBypass.Location = new System.Drawing.Point(15, 144);
             this.checkBoxDisabledFunctionsBypass.Name = "checkBoxDisabledFunctionsBypass";
             this.checkBoxDisabledFunctionsBypass.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkBoxDisabledFunctionsBypass.Size = new System.Drawing.Size(271, 20);
+            this.checkBoxDisabledFunctionsBypass.Size = new System.Drawing.Size(263, 20);
             this.checkBoxDisabledFunctionsBypass.TabIndex = 8;
-            this.checkBoxDisabledFunctionsBypass.Text = "disabled_functions / open_basedir bypass";
+            this.checkBoxDisabledFunctionsBypass.Text = "disable_functions / open_basedir bypass";
             this.checkBoxDisabledFunctionsBypass.UseVisualStyleBackColor = true;
             this.checkBoxDisabledFunctionsBypass.CheckedChanged += new System.EventHandler(this.checkBoxDisabledFunctionsBypass_CheckedChanged);
+            // 
+            // comboBoxArch
+            // 
+            this.comboBoxArch.Enabled = false;
+            this.comboBoxArch.FormattingEnabled = true;
+            this.comboBoxArch.Items.AddRange(new object[] {
+            "x64",
+            "x86"});
+            this.comboBoxArch.Location = new System.Drawing.Point(14, 170);
+            this.comboBoxArch.Name = "comboBoxArch";
+            this.comboBoxArch.Size = new System.Drawing.Size(101, 24);
+            this.comboBoxArch.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label7.Location = new System.Drawing.Point(14, 127);
+            this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(391, 1);
+            this.label7.TabIndex = 23;
             // 
             // ReverseShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 164);
+            this.ClientSize = new System.Drawing.Size(417, 251);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.comboBoxArch);
             this.Controls.Add(this.checkBoxDisabledFunctionsBypass);
             this.Controls.Add(this.btnPopShell);
             this.Controls.Add(this.comboBoxMethod);
@@ -166,5 +188,7 @@
         private System.Windows.Forms.ComboBox comboBoxMethod;
         private System.Windows.Forms.Button btnPopShell;
         private System.Windows.Forms.CheckBox checkBoxDisabledFunctionsBypass;
+        private System.Windows.Forms.ComboBox comboBoxArch;
+        private System.Windows.Forms.Label label7;
     }
 }

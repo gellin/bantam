@@ -36,58 +36,64 @@
             this.checkBoxRandomComments = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.trackBarCommentFrequency = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxMaxCommentSize = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxMaxCommentLength
             // 
-            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(497, 392);
+            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(580, 482);
+            this.textBoxMaxCommentLength.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
-            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(154, 20);
+            this.textBoxMaxCommentLength.Size = new System.Drawing.Size(179, 24);
             this.textBoxMaxCommentLength.TabIndex = 16;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(493, 370);
+            this.label3.Location = new System.Drawing.Point(575, 455);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.Size = new System.Drawing.Size(139, 16);
             this.label3.TabIndex = 15;
             this.label3.Text = "Max Comment Length:";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(300, 162);
+            this.textBox1.Location = new System.Drawing.Point(350, 199);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(116, 24);
             this.textBox1.TabIndex = 14;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(149, 165);
+            this.label2.Location = new System.Drawing.Point(174, 203);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 13);
+            this.label2.Size = new System.Drawing.Size(119, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Max Post Size (KB):";
             // 
             // trackBarLoggingLevel
             // 
-            this.trackBarLoggingLevel.Location = new System.Drawing.Point(153, 52);
+            this.trackBarLoggingLevel.Location = new System.Drawing.Point(178, 69);
+            this.trackBarLoggingLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBarLoggingLevel.Maximum = 3;
             this.trackBarLoggingLevel.Minimum = 1;
             this.trackBarLoggingLevel.Name = "trackBarLoggingLevel";
-            this.trackBarLoggingLevel.Size = new System.Drawing.Size(132, 45);
+            this.trackBarLoggingLevel.Size = new System.Drawing.Size(154, 45);
             this.trackBarLoggingLevel.TabIndex = 12;
             this.trackBarLoggingLevel.Value = 1;
             // 
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(153, 23);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(178, 28);
+            this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
-            this.checkBoxEnableLogging.Size = new System.Drawing.Size(100, 17);
+            this.checkBoxEnableLogging.Size = new System.Drawing.Size(118, 20);
             this.checkBoxEnableLogging.TabIndex = 11;
             this.checkBoxEnableLogging.Text = "Enable Logging";
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
@@ -95,9 +101,10 @@
             // checkBoxRandomComments
             // 
             this.checkBoxRandomComments.AutoSize = true;
-            this.checkBoxRandomComments.Location = new System.Drawing.Point(153, 366);
+            this.checkBoxRandomComments.Location = new System.Drawing.Point(178, 450);
+            this.checkBoxRandomComments.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxRandomComments.Name = "checkBoxRandomComments";
-            this.checkBoxRandomComments.Size = new System.Drawing.Size(118, 17);
+            this.checkBoxRandomComments.Size = new System.Drawing.Size(142, 20);
             this.checkBoxRandomComments.TabIndex = 9;
             this.checkBoxRandomComments.Text = "Random Comments";
             this.checkBoxRandomComments.UseVisualStyleBackColor = true;
@@ -105,27 +112,49 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(149, 423);
+            this.label1.Location = new System.Drawing.Point(174, 521);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.Size = new System.Drawing.Size(127, 16);
             this.label1.TabIndex = 10;
             this.label1.Text = "Comment Frequency";
             // 
             // trackBarCommentFrequency
             // 
-            this.trackBarCommentFrequency.Location = new System.Drawing.Point(300, 410);
+            this.trackBarCommentFrequency.Location = new System.Drawing.Point(350, 505);
+            this.trackBarCommentFrequency.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBarCommentFrequency.Maximum = 4;
             this.trackBarCommentFrequency.Minimum = 1;
             this.trackBarCommentFrequency.Name = "trackBarCommentFrequency";
-            this.trackBarCommentFrequency.Size = new System.Drawing.Size(139, 45);
+            this.trackBarCommentFrequency.Size = new System.Drawing.Size(162, 45);
             this.trackBarCommentFrequency.TabIndex = 8;
             this.trackBarCommentFrequency.Value = 1;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(175, 287);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(143, 16);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Max Comment Size (b):";
+            // 
+            // textBoxMaxCommentSize
+            // 
+            this.textBoxMaxCommentSize.Enabled = false;
+            this.textBoxMaxCommentSize.Location = new System.Drawing.Point(350, 287);
+            this.textBoxMaxCommentSize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxMaxCommentSize.Name = "textBoxMaxCommentSize";
+            this.textBoxMaxCommentSize.Size = new System.Drawing.Size(116, 24);
+            this.textBoxMaxCommentSize.TabIndex = 18;
+            this.textBoxMaxCommentSize.Text = "8192";
+            // 
             // Options
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 462);
+            this.ClientSize = new System.Drawing.Size(933, 569);
+            this.Controls.Add(this.textBoxMaxCommentSize);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxMaxCommentLength);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
@@ -135,6 +164,8 @@
             this.Controls.Add(this.checkBoxRandomComments);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBarCommentFrequency);
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Options";
             this.Text = "Options";
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).EndInit();
@@ -155,5 +186,7 @@
         private System.Windows.Forms.CheckBox checkBoxRandomComments;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TrackBar trackBarCommentFrequency;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxMaxCommentSize;
     }
 }

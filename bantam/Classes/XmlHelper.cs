@@ -24,7 +24,11 @@ namespace bantam.Classes
                         string responseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes?["response_encryption"].Value : string.Empty;
                         string responseEncryptionMode = (itemNode.Attributes?["response_encryption_mode"] != null) ? itemNode.Attributes?["response_encryption_mode"].Value : string.Empty;
                         string gzipRequest = (itemNode.Attributes?["gzip_request"] != null) ? itemNode.Attributes?["gzip_request"].Value : string.Empty;
-
+                        string requestEncryption = (itemNode.Attributes?["request_encryption"] != null) ? itemNode.Attributes?["request_encryption"].Value : string.Empty;
+                        string requestEncryptionKey = (itemNode.Attributes?["request_encryption_key"] != null) ? itemNode.Attributes?["request_encryption_key"].Value : string.Empty;
+                        string requestEncryptionIV = (itemNode.Attributes?["request_encryption_iv"] != null) ? itemNode.Attributes?["request_encryption_iv"].Value : string.Empty;
+                        string requestEncryptionIVVarName = (itemNode.Attributes?["request_encryption_iv_var_name"] != null) ? itemNode.Attributes?["request_encryption_iv_var_name"].Value : string.Empty;
+                        
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
                         }
@@ -52,6 +56,31 @@ namespace bantam.Classes
                                 BantamMain.Shells[hostTarget].responseEncryption = true;
                             } else {
                                 BantamMain.Shells[hostTarget].responseEncryption = false;
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(requestEncryption) == false 
+                        && requestEncryption == "1") {
+                            BantamMain.Shells[hostTarget].requestEncryption = true;
+
+                            if (string.IsNullOrEmpty(requestEncryptionKey) == false) {
+                                BantamMain.Shells[hostTarget].requestEncryptionKey = requestEncryptionKey;
+                            } else {
+                                //todo global logging
+                            }
+
+                            if (string.IsNullOrEmpty(requestEncryptionIV) == false) {
+                                BantamMain.Shells[hostTarget].requestEncryptionIV = requestEncryptionIV;
+                                BantamMain.Shells[hostTarget].requestEncryptionIVRequestVarName = string.Empty;
+                                BantamMain.Shells[hostTarget].sendRequestEncryptionIV = false;
+                            } else {
+                                if (string.IsNullOrEmpty(requestEncryptionIVVarName) == false) {
+                                    BantamMain.Shells[hostTarget].sendRequestEncryptionIV = true;
+                                    BantamMain.Shells[hostTarget].requestEncryptionIV = string.Empty;
+                                    BantamMain.Shells[hostTarget].requestEncryptionIVRequestVarName = requestEncryptionIVVarName;
+                                } else {
+                                    //todo global logging
+                                }
                             }
                         }
 
@@ -115,20 +144,36 @@ namespace bantam.Classes
                 serverNode.Attributes.Append(requestArgAttribute);
 
                 XmlAttribute requestMethod = xmlDoc.CreateAttribute("request_method");
-                requestMethod.Value = (shellInfo.sendDataViaCookie ? "cookie" : "post"); //todo
+                requestMethod.Value = (shellInfo.sendDataViaCookie ? "cookie" : "post");
                 serverNode.Attributes.Append(requestMethod);
 
                 XmlAttribute responseEncryption = xmlDoc.CreateAttribute("response_encryption");
-                responseEncryption.Value = (shellInfo.responseEncryption ? "1" : "0"); //todo
+                responseEncryption.Value = (shellInfo.responseEncryption ? "1" : "0");
                 serverNode.Attributes.Append(responseEncryption);
 
                 XmlAttribute responseEncrpytionMode = xmlDoc.CreateAttribute("response_encryption_mode");
-                responseEncrpytionMode.Value = shellInfo.responseEncryptionMode.ToString(); //todo
+                responseEncrpytionMode.Value = shellInfo.responseEncryptionMode.ToString();
                 serverNode.Attributes.Append(responseEncrpytionMode);
 
                 XmlAttribute gzipRequest = xmlDoc.CreateAttribute("gzip_request");
-                gzipRequest.Value = (shellInfo.gzipRequestData ? "1" : "0"); //todo
+                gzipRequest.Value = (shellInfo.gzipRequestData ? "1" : "0");
                 serverNode.Attributes.Append(gzipRequest);
+
+                XmlAttribute requestEncryption = xmlDoc.CreateAttribute("request_encryption");
+                requestEncryption.Value = (shellInfo.requestEncryption ? "1" : "0");
+                serverNode.Attributes.Append(requestEncryption);
+
+                XmlAttribute requestEncryptionKey = xmlDoc.CreateAttribute("request_encryption_key");
+                requestEncryptionKey.Value = shellInfo.requestEncryptionKey;
+                serverNode.Attributes.Append(requestEncryptionKey);
+
+                XmlAttribute requestEncryptionIV = xmlDoc.CreateAttribute("request_encryption_iv");
+                requestEncryptionIV.Value = shellInfo.requestEncryptionIV;
+                serverNode.Attributes.Append(requestEncryptionIV);
+
+                XmlAttribute requestEncryptionIVVarName = xmlDoc.CreateAttribute("request_encryption_iv_var_name");
+                requestEncryptionIVVarName.Value = shellInfo.requestEncryptionIVRequestVarName;
+                serverNode.Attributes.Append(requestEncryptionIVVarName);
 
                 rootNode.AppendChild(serverNode);
             }

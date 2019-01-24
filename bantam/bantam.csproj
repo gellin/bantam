@@ -225,6 +225,7 @@
     <None Include="Art\options_16x16.png" />
     <None Include="Art\logs_16x16.png" />
     <None Include="Art\ninja_16x16.png" />
+    <None Include="Art\generate_16x16.png" />
     <Content Include="Dependencies\SocksSharp.dll" />
     <Content Include="Dependencies\SocksSharp.pdb" />
     <Content Include="Notes\todo.txt" />
