@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -8,6 +10,14 @@ namespace bantam.Forms
 {
     public partial class BackdoorGenerator : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public static ReadOnlyCollection<string> requestEncryptionModes = new List<string>() {
+             "openssl",
+             "mcrypt",
+        }.AsReadOnly();
+
         /// <summary>
         /// 
         /// </summary>
@@ -33,7 +43,6 @@ namespace bantam.Forms
 
             richTextBoxBackdoor.Text = generateBackdoor();
         }
-
 
         /// <summary>
         /// Called everytime a UI element is changed that modifys the backdoor code to update the richtextbox text.
@@ -155,6 +164,45 @@ namespace bantam.Forms
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
                 File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);
             }
+        }
+
+        private void checkBoxEncryptRequest_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxEncryptRequest.Checked) {
+                textBoxEncrpytionIV.Enabled = true;
+                textBoxEncrpytionKey.Enabled = true;
+                checkBoxSendIVInRequest.Enabled = true;
+                buttonRandomIV.Enabled = true;
+                buttonRandomKey.Enabled = true;
+            } else {
+                textBoxEncrpytionIV.Enabled = false;
+                textBoxEncrpytionKey.Enabled = false;
+                textBoxIVVarName.Enabled = false;
+                buttonRandomIV.Enabled = false;
+                checkBoxSendIVInRequest.Enabled = false;
+                buttonRandomKey.Enabled = false;
+            }
+        }
+
+        private void checkBoxSendIVInRequest_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSendIVInRequest.Checked) {
+                textBoxEncrpytionIV.Enabled = false;
+                textBoxIVVarName.Enabled = true;
+            } else {
+                textBoxEncrpytionIV.Enabled = true;
+                textBoxIVVarName.Enabled = false;
+            }
+        }
+
+        private void buttonRandomKey_Click(object sender, EventArgs e)
+        {
+            textBoxEncrpytionKey.Text = EncryptionHelper.GetRandomEncryptionKey();
+        }
+
+        private void buttonRandomIV_Click(object sender, EventArgs e)
+        {
+            textBoxEncrpytionIV.Text = EncryptionHelper.GetRandomEncryptionIV();
         }
     }
 }

@@ -82,7 +82,7 @@
             // 
             this.btnScan.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnScan.Enabled = false;
-            this.btnScan.Location = new System.Drawing.Point(385, 522);
+            this.btnScan.Location = new System.Drawing.Point(385, 515);
             this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(129, 39);
@@ -94,7 +94,7 @@
             // textBoxTarget
             // 
             this.textBoxTarget.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.textBoxTarget.Location = new System.Drawing.Point(82, 478);
+            this.textBoxTarget.Location = new System.Drawing.Point(83, 476);
             this.textBoxTarget.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxTarget.MaxLength = 512;
             this.textBoxTarget.Name = "textBoxTarget";
@@ -106,7 +106,7 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 481);
+            this.label2.Location = new System.Drawing.Point(12, 482);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 4;
@@ -115,7 +115,7 @@
             // textBoxStartPort
             // 
             this.textBoxStartPort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.textBoxStartPort.Location = new System.Drawing.Point(82, 530);
+            this.textBoxStartPort.Location = new System.Drawing.Point(82, 523);
             this.textBoxStartPort.MaxLength = 5;
             this.textBoxStartPort.Name = "textBoxStartPort";
             this.textBoxStartPort.Size = new System.Drawing.Size(77, 24);
@@ -127,7 +127,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 533);
+            this.label3.Location = new System.Drawing.Point(15, 526);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 18);
             this.label3.TabIndex = 6;
@@ -137,7 +137,7 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(176, 533);
+            this.label4.Location = new System.Drawing.Point(176, 526);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(14, 18);
             this.label4.TabIndex = 7;
@@ -146,7 +146,7 @@
             // textBoxEndPort
             // 
             this.textBoxEndPort.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.textBoxEndPort.Location = new System.Drawing.Point(209, 530);
+            this.textBoxEndPort.Location = new System.Drawing.Point(209, 523);
             this.textBoxEndPort.MaxLength = 5;
             this.textBoxEndPort.Name = "textBoxEndPort";
             this.textBoxEndPort.Size = new System.Drawing.Size(77, 24);
@@ -167,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 577);
+            this.ClientSize = new System.Drawing.Size(527, 578);
             this.Controls.Add(this.textBoxEndPort);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);

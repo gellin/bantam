@@ -106,9 +106,8 @@ namespace bantam.Classes
                         try {
                             Program.g_BantamMain.InitializeShellData(hostTarget);
                         } catch (Exception) {
-                            //todo loging
+                            //todo logging
                         }
-
                     }
                 }
             } else {

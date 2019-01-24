@@ -443,19 +443,21 @@ namespace bantam
         {
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
             if (lvi != null) {
-                //copy a backup of the current file tree view into clients
-                if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
-                    //Clear previously cached treeview to only store 1 copy
-                    if (!string.IsNullOrEmpty(g_SelectedShellUrl)
-                    && Shells[g_SelectedShellUrl].files != null
-                    && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
-                        Shells[g_SelectedShellUrl].files.Nodes.Clear();
-                    }
-                    //store current treeview into client and clear
-                    GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].files);
-                    treeViewFileBrowser.Nodes.Clear();
-                }
 
+                if (!string.IsNullOrEmpty(g_SelectedShellUrl) && Shells.ContainsKey(g_SelectedShellUrl)) {
+                    //copy a backup of the current file tree view into clients
+                    if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
+                        //Clear previously cached treeview to only store 1 copy
+                        if (Shells[g_SelectedShellUrl].files != null
+                        && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
+                            Shells[g_SelectedShellUrl].files.Nodes.Clear();
+                        }
+                        //store current treeview into client and clear
+                        GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].files);
+                        treeViewFileBrowser.Nodes.Clear();
+                    }
+                }
+                
                 if (!string.IsNullOrEmpty(g_SelectedShellUrl)
                  && Shells.ContainsKey(g_SelectedShellUrl)
                  && !string.IsNullOrEmpty(Shells[g_SelectedShellUrl].pwd)
@@ -1198,13 +1200,14 @@ namespace bantam
 
             if (treeViewFileBrowser.Nodes != null
              && treeViewFileBrowser.Nodes.Count > 0) {
-                Shells[g_SelectedShellUrl].files.Nodes.Clear();
+                if (Shells[g_SelectedShellUrl].files != null) {
+                    Shells[g_SelectedShellUrl].files.Nodes.Clear();
+                }
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
             }
             StartFileBrowser();
         }
-
 
         /// <summary>
         /// Updates selected node on right click to ensure that we have the correct node selected whenever 

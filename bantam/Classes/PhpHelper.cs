@@ -122,7 +122,6 @@ namespace bantam.Classes
             return result;
         }
 
-
         /// <summary>
         /// 
         /// </summary>
