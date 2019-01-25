@@ -14,7 +14,6 @@ namespace bantam.Classes
         public TextBoxButton()
         {
             //InitializeComponent();
-
         }
 
         /// <summary>

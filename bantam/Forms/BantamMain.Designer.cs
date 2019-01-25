@@ -167,7 +167,6 @@
             this.listViewShells.UseCompatibleStateImageBehavior = false;
             this.listViewShells.View = System.Windows.Forms.View.Details;
             this.listViewShells.SelectedIndexChanged += new System.EventHandler(this.listviewClients_SelectedIndexChanged);
-            this.listViewShells.DragDrop += new System.Windows.Forms.DragEventHandler(this.listViewShells_DragDrop);
             // 
             // pingColHeader
             // 
@@ -179,16 +178,16 @@
             this.listviewClientsContextMenu.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.listviewClientsContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.listviewClientsContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
             this.phpToolStripMenuItem,
             this.systemToolstripMenuItem,
             this.softwareToolStripMenuItem,
             this.testConnectionStripMenuItem,
-            this.editToolStripMenuItem,
             this.toolStripMenuItemReverseShell,
             this.copyShellURLToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(205, 212);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(205, 234);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -208,7 +207,7 @@
             this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -216,7 +215,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem.Text = "Eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -224,7 +223,7 @@
             // 
             this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
-            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.portScannerToolStripMenuItem.Text = "Port Scanner";
             this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
             // 
@@ -232,7 +231,7 @@
             // 
             this.editPHPCodeToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
             this.editPHPCodeToolStripMenuItem.Name = "editPHPCodeToolStripMenuItem";
-            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.editPHPCodeToolStripMenuItem.Text = "Edit Bantam PHP";
             this.editPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.editPHPCodeToolStripMenuItem_Click);
             // 
@@ -690,7 +689,6 @@
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
-            this.tabPageInfo.Click += new System.EventHandler(this.tabPageInfo_Click);
             // 
             // textBox2
             // 

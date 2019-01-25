@@ -52,7 +52,7 @@
             this.textBoxEncrpytionKey = new System.Windows.Forms.TextBox();
             this.checkBoxEncryptRequest = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxRequestEncryptionType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -206,7 +206,7 @@
             // 
             this.chckbxGzipDecodeRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chckbxGzipDecodeRequest.AutoSize = true;
-            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(451, 483);
+            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(451, 482);
             this.chckbxGzipDecodeRequest.Name = "chckbxGzipDecodeRequest";
             this.chckbxGzipDecodeRequest.Size = new System.Drawing.Size(159, 20);
             this.chckbxGzipDecodeRequest.TabIndex = 11;
@@ -240,6 +240,7 @@
             this.textBoxIVVarName.Name = "textBoxIVVarName";
             this.textBoxIVVarName.Size = new System.Drawing.Size(163, 24);
             this.textBoxIVVarName.TabIndex = 35;
+            this.textBoxIVVarName.TextChanged += new System.EventHandler(this.textBoxIVVarName_TextChanged);
             // 
             // checkBoxSendIVInRequest
             // 
@@ -292,6 +293,7 @@
             this.textBoxEncrpytionIV.Name = "textBoxEncrpytionIV";
             this.textBoxEncrpytionIV.Size = new System.Drawing.Size(163, 24);
             this.textBoxEncrpytionIV.TabIndex = 30;
+            this.textBoxEncrpytionIV.TextChanged += new System.EventHandler(this.textBoxEncrpytionIV_TextChanged);
             // 
             // label2
             // 
@@ -310,6 +312,7 @@
             this.textBoxEncrpytionKey.Name = "textBoxEncrpytionKey";
             this.textBoxEncrpytionKey.Size = new System.Drawing.Size(278, 24);
             this.textBoxEncrpytionKey.TabIndex = 28;
+            this.textBoxEncrpytionKey.TextChanged += new System.EventHandler(this.textBoxEncrpytionKey_TextChanged);
             // 
             // checkBoxEncryptRequest
             // 
@@ -331,20 +334,22 @@
             this.label7.Size = new System.Drawing.Size(626, 1);
             this.label7.TabIndex = 38;
             // 
-            // comboBox1
+            // comboBoxRequestEncryptionType
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(287, 539);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 24);
-            this.comboBox1.TabIndex = 39;
+            this.comboBoxRequestEncryptionType.Enabled = false;
+            this.comboBoxRequestEncryptionType.FormattingEnabled = true;
+            this.comboBoxRequestEncryptionType.Location = new System.Drawing.Point(287, 539);
+            this.comboBoxRequestEncryptionType.Name = "comboBoxRequestEncryptionType";
+            this.comboBoxRequestEncryptionType.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxRequestEncryptionType.TabIndex = 39;
+            this.comboBoxRequestEncryptionType.SelectedIndexChanged += new System.EventHandler(this.comboBoxRequestEncryptionType_SelectedIndexChanged);
             // 
             // BackdoorGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 711);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBoxRequestEncryptionType);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.labelOr);
             this.Controls.Add(this.label8);
@@ -410,6 +415,6 @@
         private System.Windows.Forms.TextBox textBoxEncrpytionKey;
         private System.Windows.Forms.CheckBox checkBoxEncryptRequest;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxRequestEncryptionType;
     }
 }

@@ -445,13 +445,16 @@ namespace bantam
             if (lvi != null) {
 
                 if (!string.IsNullOrEmpty(g_SelectedShellUrl) && Shells.ContainsKey(g_SelectedShellUrl)) {
+
                     //copy a backup of the current file tree view into clients
                     if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
+
                         //Clear previously cached treeview to only store 1 copy
                         if (Shells[g_SelectedShellUrl].files != null
-                        && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
+                         && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
                             Shells[g_SelectedShellUrl].files.Nodes.Clear();
                         }
+
                         //store current treeview into client and clear
                         GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].files);
                         treeViewFileBrowser.Nodes.Clear();
@@ -557,9 +560,11 @@ namespace bantam
             string shellUrl = g_SelectedShellUrl;
             if (tabControlMain.SelectedTab == tabPageFiles) {
                 //if the gui's treeview is empty and the cached treeview data is not empty
-                if (treeViewFileBrowser.Nodes.Count == 0
+                if (treeViewFileBrowser.Nodes != null 
+                && treeViewFileBrowser.Nodes.Count == 0
                 && Shells[shellUrl].files.Nodes != null
                 && Shells[shellUrl].files.Nodes.Count > 0) {
+
                     //populate the treeview from cache
                     GuiHelper.CopyNodesFromTreeView(Shells[shellUrl].files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
@@ -644,8 +649,7 @@ namespace bantam
                 listViewShells.SelectedItems[0].Remove();
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
 
-                    ShellInfo outShellInfo;
-                    Shells.TryRemove(g_SelectedShellUrl, out outShellInfo);
+                    Shells.TryRemove(g_SelectedShellUrl, out ShellInfo outShellInfo);
                 }
             }
         }
@@ -673,9 +677,8 @@ namespace bantam
 
             listViewShells.FindItemWithText(shellURL).Remove();
 
-            ShellInfo shellInfoRemove;
-            Shells.TryRemove(shellURL, out shellInfoRemove);
-           
+            Shells.TryRemove(shellURL, out ShellInfo shellInfoRemove);
+
             Shells.TryAdd(shellURL, shellInfo);
             InitializeShellData(shellURL);
         }
@@ -726,8 +729,7 @@ namespace bantam
                     foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
 
-                            ShellInfo outShellInfo;
-                            Shells.TryRemove(lvClients.Text, out outShellInfo);
+                            Shells.TryRemove(lvClients.Text, out ShellInfo outShellInfo);
                         }
                         lvClients.Remove();
                     }
@@ -1331,7 +1333,6 @@ namespace bantam
             }
         }
 
-
         /// <summary>
         /// Scrolls to the end of the Console Output Richtext box on update
         /// </summary>
@@ -1456,17 +1457,6 @@ namespace bantam
             ps.ShowDialog();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void listViewShells_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] s = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            MessageBox.Show(s.ToString());
-        }
-
         private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DistributedPortScanner ds = new DistributedPortScanner();
@@ -1478,11 +1468,6 @@ namespace bantam
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
-        }
-
-        private void tabPageInfo_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripMenuItemReverseShell_Click(object sender, EventArgs e)

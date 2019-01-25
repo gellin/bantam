@@ -222,6 +222,7 @@ namespace bantam.Classes
 
                     phpCode = Helper.MinifyCode(phpCode);
 
+                    //todo cleanup / minimize and refactor this shit
                     if (gzipRequestData) {
                         byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
                         phpCodeBytes = gzCompress(phpCodeBytes);
@@ -245,7 +246,6 @@ namespace bantam.Classes
                             phpCode = Convert.ToBase64String(phpCodeBytes);
                             b64Encoded = true;
                         }
-
                     } else {
                         if (encryptRequest) {
                             string encryptionKey = BantamMain.Shells[url].requestEncryptionKey;
@@ -254,16 +254,15 @@ namespace bantam.Classes
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
                                 requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
 
-                                phpCode = EncryptionHelper.EncryptRJ256(phpCode, encryptionKey, requestEncryptionIV);
+                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCode, encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
                                 string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
 
-                                phpCode = EncryptionHelper.EncryptRJ256(phpCode, encryptionKey, encryptionIV);
+                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCode, encryptionKey, encryptionIV);
                                 b64Encoded = true;
                             }
                         }
-
                     }
 
                     if (!b64Encoded) {
