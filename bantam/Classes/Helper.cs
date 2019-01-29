@@ -13,11 +13,11 @@ namespace bantam.Classes
         /// </summary>
         private static Random rdm = new Random();
 
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="maxLength"></param>
-        /// <param name="matchLength"></param>
+        /// <param name="maxNumber"></param>
         /// <returns></returns>
         public static int RandomNumber(int maxNumber)
         {
@@ -89,8 +89,7 @@ namespace bantam.Classes
                 return String.Empty;
             }
 
-            var plainTextBytes = Encoding.UTF8.GetBytes(str);
-            string b64Code = Convert.ToBase64String(plainTextBytes);
+            string b64Code = Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
             return b64Code;
         }
 
@@ -158,9 +157,10 @@ namespace bantam.Classes
         /// <returns>string clean and minified</returns>
         public static string MinifyCode(string code)
         {
-            string clean = Regex.Replace(code, @"\t|\n|\r", string.Empty);
-            string clean2 = Regex.Replace(clean, @"[^\u0000-\u007F]+", string.Empty);
-            return Regex.Replace(clean2, @"\s+", " ");
+            string result = string.Empty;
+            result = Regex.Replace(code, @"\t|\n|\r", string.Empty);
+            result = Regex.Replace(result, @"[^\u0000-\u007F]+", string.Empty);
+            return Regex.Replace(result, @"\s+", " ");
         }
 
         /// <summary>
@@ -173,7 +173,6 @@ namespace bantam.Classes
         public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             List<TKey> keyList = new List<TKey>(dict.Keys);
-
             return keyList[rdm.Next(keyList.Count)];
         }
 

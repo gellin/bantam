@@ -341,7 +341,7 @@
             this.Controls.Add(this.txtBoxShellUrl);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

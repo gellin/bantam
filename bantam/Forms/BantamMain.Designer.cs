@@ -33,6 +33,7 @@
             this.listViewShells = new System.Windows.Forms.ListView();
             this.pingColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpinfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,6 @@
             this.whoamiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.softwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testConnectionStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemReverseShell = new System.Windows.Forms.ToolStripMenuItem();
             this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +88,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageInfo = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBoxGroup = new System.Windows.Forms.TextBox();
             this.textBoxUser = new System.Windows.Forms.TextBox();
             this.textBoxHDDSpace = new System.Windows.Forms.TextBox();
@@ -115,6 +114,7 @@
             this.treeViewFileBrowser = new System.Windows.Forms.TreeView();
             this.btnFileBrowserGo = new System.Windows.Forms.Button();
             this.btnFileBrowserRefresh = new System.Windows.Forms.Button();
+            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
             this.tabPageCmd = new System.Windows.Forms.TabPage();
             this.btnConsoleGoClick = new System.Windows.Forms.Button();
             this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
@@ -122,7 +122,6 @@
             this.tabPageLogging = new System.Windows.Forms.TabPage();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -187,8 +186,16 @@
             this.copyShellURLToolStripMenuItem,
             this.removeToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(205, 234);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(205, 212);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
+            this.editToolStripMenuItem.Text = "Edit Shell Information";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // phpToolStripMenuItem
             // 
@@ -207,7 +214,7 @@
             this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.phpinfoToolStripMenuItem.Text = "phpinfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -215,7 +222,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.evalToolStripMenuItem.Text = "Eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -223,7 +230,7 @@
             // 
             this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
-            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.portScannerToolStripMenuItem.Text = "Port Scanner";
             this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
             // 
@@ -231,7 +238,7 @@
             // 
             this.editPHPCodeToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
             this.editPHPCodeToolStripMenuItem.Name = "editPHPCodeToolStripMenuItem";
-            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.editPHPCodeToolStripMenuItem.Text = "Edit Bantam PHP";
             this.editPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.editPHPCodeToolStripMenuItem_Click);
             // 
@@ -396,14 +403,6 @@
             this.testConnectionStripMenuItem.Size = new System.Drawing.Size(204, 26);
             this.testConnectionStripMenuItem.Text = "Test Connection";
             this.testConnectionStripMenuItem.Click += new System.EventHandler(this.testConnectionStripMenuItem1_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(204, 26);
-            this.editToolStripMenuItem.Text = "Edit Shell Information";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // toolStripMenuItemReverseShell
             // 
@@ -667,7 +666,6 @@
             // 
             // tabPageInfo
             // 
-            this.tabPageInfo.Controls.Add(this.textBox2);
             this.tabPageInfo.Controls.Add(this.textBoxGroup);
             this.tabPageInfo.Controls.Add(this.textBoxUser);
             this.tabPageInfo.Controls.Add(this.textBoxHDDSpace);
@@ -689,16 +687,6 @@
             this.tabPageInfo.TabIndex = 0;
             this.tabPageInfo.Text = "Information";
             this.tabPageInfo.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(233, 260);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(157, 20);
-            this.textBox2.TabIndex = 32;
             // 
             // textBoxGroup
             // 
@@ -1005,6 +993,18 @@
             this.btnFileBrowserRefresh.UseVisualStyleBackColor = true;
             this.btnFileBrowserRefresh.Click += new System.EventHandler(this.btnFileBrowserRefresh_Click);
             // 
+            // txtBoxFileBrowserPath
+            // 
+            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
+            this.txtBoxFileBrowserPath.TabIndex = 7;
+            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
+            // 
             // tabPageCmd
             // 
             this.tabPageCmd.Controls.Add(this.btnConsoleGoClick);
@@ -1079,18 +1079,6 @@
             // 
             this.downloadFileAsToolStripMenuItem.Name = "downloadFileAsToolStripMenuItem";
             this.downloadFileAsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // txtBoxFileBrowserPath
-            // 
-            this.txtBoxFileBrowserPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileBrowserPath.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
-            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
-            this.txtBoxFileBrowserPath.TabIndex = 7;
-            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
             // 
             // BantamMain
             // 
@@ -1224,7 +1212,6 @@
         private System.Windows.Forms.TextBox textBoxUser;
         private System.Windows.Forms.TextBox textBoxHDDSpace;
         private System.Windows.Forms.TextBox textBoxWebServer;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBoxServerIP;
         private System.Windows.Forms.TextBox textBoxPHP;
         private System.Windows.Forms.TextBox textBoxUname;

@@ -123,7 +123,7 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        static public string EncryptRJ256(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        static public string EncryptRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);

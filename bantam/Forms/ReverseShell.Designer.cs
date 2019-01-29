@@ -52,7 +52,7 @@
             // buttonGetIpv4
             // 
             this.buttonGetIpv4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGetIpv4.Location = new System.Drawing.Point(296, 16);
+            this.buttonGetIpv4.Location = new System.Drawing.Point(294, 16);
             this.buttonGetIpv4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonGetIpv4.Name = "buttonGetIpv4";
             this.buttonGetIpv4.Size = new System.Drawing.Size(105, 28);
@@ -68,7 +68,7 @@
             this.textBoxIP.Location = new System.Drawing.Point(84, 18);
             this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(202, 24);
+            this.textBoxIP.Size = new System.Drawing.Size(200, 24);
             this.textBoxIP.TabIndex = 2;
             // 
             // textBoxPort
@@ -153,7 +153,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 251);
+            this.ClientSize = new System.Drawing.Size(415, 248);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxArch);
             this.Controls.Add(this.checkBoxDisabledFunctionsBypass);

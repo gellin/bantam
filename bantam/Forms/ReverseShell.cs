@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly List<string> shellVectors = new List<string>() {
+        public static ReadOnlyCollection<string> shellVectors = new List<string>() {
              "perl",
              "netcat",
              "netcat with pipe",
@@ -25,7 +26,7 @@ namespace bantam.Forms
              "bash",
              "python",
              "barrage"
-        };
+        }.AsReadOnly();
 
         /// <summary>
         /// 

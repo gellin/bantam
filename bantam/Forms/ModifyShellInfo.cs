@@ -160,7 +160,6 @@ namespace bantam.Forms
             bool encryptResponse = BantamMain.Shells[shellURL].responseEncryption;
             int responseEncryptionMode = BantamMain.Shells[shellURL].responseEncryptionMode;
 
-
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
@@ -213,109 +212,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnUpdateShell_Click(object sender, EventArgs e)
         {
-            string newShellURL = txtBoxShellUrl.Text;
-
-            if (string.IsNullOrEmpty(newShellURL)) {
-                return;
-            }
-
-            if (checkBoxEncryptRequest.Checked) {
-                string encryptionKey = textBoxEncrpytionKey.Text;
-
-                //todo set as var?
-                if (encryptionKey.Length != 32) {
-                    labelDynAddHostsStatus.Text = "Encryption key length must be 32 charectors... Try again.";
-                    return;
-                }
-
-                if (!checkBoxSendIVInRequest.Checked) {
-                    string encryptionIV = textBoxEncrpytionIV.Text;
-
-                    if (string.IsNullOrEmpty(encryptionIV) || encryptionIV.Length != 16) {
-                        labelDynAddHostsStatus.Text = "Encryption IV length must be 16 charectors... Try again.";
-                        return;
-                    }
-                }
-            }
-
-            if (BantamMain.Shells.ContainsKey(g_CallingShellUrl)) {
-                Program.g_BantamMain.guiCallbackRemoveShellURL(g_CallingShellUrl);
-
-                BantamMain.Shells.TryRemove(g_CallingShellUrl, out ShellInfo outShellInfo);
-            }
-
-            if (BantamMain.Shells.ContainsKey(newShellURL)) {
-                Program.g_BantamMain.guiCallbackRemoveShellURL(newShellURL);
-
-                BantamMain.Shells.TryRemove(g_CallingShellUrl, out ShellInfo outShellInfo);
-            }
-
-            BantamMain.Shells.TryAdd(newShellURL, new ShellInfo());
-            BantamMain.Shells[newShellURL].requestArgName = txtBoxArgName.Text;
-
-            if (comboBoxVarType.Text == "cookie") {
-                BantamMain.Shells[newShellURL].sendDataViaCookie = true;
-            }
-
-            if (checkBoxResponseEncryption.Checked == false) {
-                BantamMain.Shells[newShellURL].responseEncryption = false;
-            } else {
-                BantamMain.Shells[newShellURL].responseEncryption = true;
-                BantamMain.Shells[newShellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
-            }
-
-            if (checkBoxGZipRequest.Checked) {
-                BantamMain.Shells[newShellURL].gzipRequestData = true;
-            } else {
-                BantamMain.Shells[newShellURL].gzipRequestData = false;
-            }
-
-            bool encryptResponse = BantamMain.Shells[newShellURL].responseEncryption;
-            int responseEncryptionMode = BantamMain.Shells[newShellURL].responseEncryptionMode;
-
-            if (checkBoxEncryptRequest.Checked) {
-                string encryptionKey = textBoxEncrpytionKey.Text;
-
-                BantamMain.Shells[newShellURL].requestEncryption = true;
-                BantamMain.Shells[newShellURL].requestEncryptionKey = textBoxEncrpytionKey.Text;
-
-                if (checkBoxSendIVInRequest.Checked) {
-                    BantamMain.Shells[newShellURL].sendRequestEncryptionIV = true;
-                    BantamMain.Shells[newShellURL].requestEncryptionIV = string.Empty;
-                    BantamMain.Shells[newShellURL].requestEncryptionIVRequestVarName = textBoxIVVarName.Text;
-                } else {
-                    BantamMain.Shells[newShellURL].requestEncryptionIV = textBoxEncrpytionIV.Text;
-                    BantamMain.Shells[newShellURL].requestEncryptionIVRequestVarName = string.Empty;
-                }
-            } else {
-                BantamMain.Shells[newShellURL].requestEncryption = false;
-                BantamMain.Shells[newShellURL].requestEncryptionIVRequestVarName = string.Empty;
-                BantamMain.Shells[newShellURL].requestEncryptionIV = string.Empty;
-                BantamMain.Shells[newShellURL].requestEncryptionKey = string.Empty;
-            }
-
-            string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(newShellURL, phpCode);
-
-            if (string.IsNullOrEmpty(response.Result)) {
-                labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
-                return;
-            }
-
-            string result = response.Result;
-
-            if (encryptResponse) {
-                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-            }
-
-            if (string.IsNullOrEmpty(result)) {
-                labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
-                return;
-            }
-
-            Program.g_BantamMain.InitializeShellData(newShellURL);
-
-            this.Close();
+            btnAddShell_Click(sender, e);
         }
 
         /// <summary>

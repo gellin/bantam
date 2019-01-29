@@ -43,7 +43,6 @@ namespace bantam
 
         #region HELPER_FUNCTIONS
 
-
         //public void AddShellLog(string )
 
         /// <summary>
@@ -163,7 +162,6 @@ namespace bantam
 
                 //todo add to global config delay
                 if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
-
                     ResponseObject response = task.Result;
 
                     if (string.IsNullOrEmpty(response.Result) == false) {
@@ -209,6 +207,8 @@ namespace bantam
 
             if (!string.IsNullOrEmpty(newUserAgent)) {
                 WebHelper.g_GlobalDefaultUserAgent = newUserAgent;
+            } else {
+                //todo logging
             }
         }
 
@@ -223,14 +223,16 @@ namespace bantam
                 return;
             }
 
+            string code;
             bool checkBoxChecked = true;
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
-            string code;
 
             if (encryptResponse) {
-                code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, "/* Pass output buffer to $result for the encryption response to work */\r\n@ob_start();\r\n/* Code start */\r\n\r\n/* Code end */\r\n$result = @ob_get_contents();\r\n@ob_end_clean();", ref checkBoxChecked);
+                string preCode = "@ob_start();";
+                string postCode = "$result = @ob_get_contents(); @ob_end_clean();";
+                code = preCode + GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked) + postCode;
             } else {
                 code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
             }
@@ -241,6 +243,8 @@ namespace bantam
                 } else {
                     await WebHelper.ExecuteRemotePHP(shellUrl, code);
                 }
+            } else {
+                //todo logging
             }
         }
 
@@ -267,7 +271,9 @@ namespace bantam
                 }
 
                 if (!string.IsNullOrEmpty(result)) {
-                    rtb.Text += "Result from (" + shellUrl + ") \r\n" + result + "\r\n\r\n";
+                    if (rtb != null && rtb.IsDisposed == false) {
+                        rtb.Text += "Result from (" + shellUrl + ") \r\n" + result + "\r\n\r\n";
+                    }
                 }
             }
         }
@@ -605,8 +611,7 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void 
-            addToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ModifyShell addClientForm = new ModifyShell();
             addClientForm.Show();
@@ -649,7 +654,9 @@ namespace bantam
                 listViewShells.SelectedItems[0].Remove();
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
 
-                    Shells.TryRemove(g_SelectedShellUrl, out ShellInfo outShellInfo);
+                    if (!Shells.TryRemove(g_SelectedShellUrl, out ShellInfo outShellInfo)) {
+                        //todo global logging
+                    }
                 }
             }
         }
@@ -678,8 +685,8 @@ namespace bantam
             listViewShells.FindItemWithText(shellURL).Remove();
 
             Shells.TryRemove(shellURL, out ShellInfo shellInfoRemove);
-
             Shells.TryAdd(shellURL, shellInfo);
+
             InitializeShellData(shellURL);
         }
 
@@ -723,8 +730,7 @@ namespace bantam
                 Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml",
                 FilterIndex = 2,
                 RestoreDirectory = true
-            }) 
-            {
+            }) {
                 if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                     foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
@@ -758,7 +764,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Enter Keydown Hadler for console input
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -773,7 +779,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Enter Keydown handler for filebrowser path
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

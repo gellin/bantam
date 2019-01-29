@@ -234,12 +234,12 @@ namespace bantam.Classes
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
                                 requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
 
-                                phpCode = EncryptionHelper.EncryptRJ256(phpCodeBytes, encryptionKey, requestEncryptionIV);
+                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
                                 string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
 
-                                phpCode = EncryptionHelper.EncryptRJ256(phpCodeBytes, encryptionKey, encryptionIV);
+                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
                                 b64Encoded = true;
                             }
                         } else {

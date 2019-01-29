@@ -66,6 +66,89 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+
+            saveFileDialog1.Filter = "All files (*.*)|*.*|php files (*.php)|*.php";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
+                File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxEncryptRequest_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxEncryptRequest.Checked) {
+                textBoxEncrpytionIV.Enabled = true;
+                textBoxEncrpytionKey.Enabled = true;
+                checkBoxSendIVInRequest.Enabled = true;
+                buttonRandomIV.Enabled = true;
+                buttonRandomKey.Enabled = true;
+                comboBoxRequestEncryptionType.Enabled = true;
+            } else {
+                textBoxEncrpytionIV.Enabled = false;
+                textBoxEncrpytionKey.Enabled = false;
+                textBoxIVVarName.Enabled = false;
+                buttonRandomIV.Enabled = false;
+                checkBoxSendIVInRequest.Enabled = false;
+                buttonRandomKey.Enabled = false;
+                comboBoxRequestEncryptionType.Enabled = false;
+            }
+            UpdateForm();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkBoxSendIVInRequest_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSendIVInRequest.Checked) {
+                textBoxEncrpytionIV.Enabled = false;
+                textBoxIVVarName.Enabled = true;
+                buttonRandomIV.Enabled = false;
+            } else {
+                textBoxEncrpytionIV.Enabled = true;
+                textBoxIVVarName.Enabled = false;
+                buttonRandomIV.Enabled = true;
+            }
+            UpdateForm();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRandomKey_Click(object sender, EventArgs e)
+        {
+            textBoxEncrpytionKey.Text = EncryptionHelper.GetRandomEncryptionKey();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRandomIV_Click(object sender, EventArgs e)
+        {
+            textBoxEncrpytionIV.Text = EncryptionHelper.GetRandomEncryptionIV();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="varName"></param>
         /// <param name="varType"></param>
         /// <param name="gzInflateRequest"></param>
@@ -201,64 +284,6 @@ namespace bantam.Forms
         private void comboBoxVarType_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateForm();
-        }
-
-        private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = "All files (*.*)|*.*|php files (*.php)|*.php";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
-                File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);
-            }
-        }
-
-        private void checkBoxEncryptRequest_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxEncryptRequest.Checked) {
-                textBoxEncrpytionIV.Enabled = true;
-                textBoxEncrpytionKey.Enabled = true;
-                checkBoxSendIVInRequest.Enabled = true;
-                buttonRandomIV.Enabled = true;
-                buttonRandomKey.Enabled = true;
-                comboBoxRequestEncryptionType.Enabled = true;
-            } else {
-                textBoxEncrpytionIV.Enabled = false;
-                textBoxEncrpytionKey.Enabled = false;
-                textBoxIVVarName.Enabled = false;
-                buttonRandomIV.Enabled = false;
-                checkBoxSendIVInRequest.Enabled = false;
-                buttonRandomKey.Enabled = false;
-                comboBoxRequestEncryptionType.Enabled = false;
-            }
-            UpdateForm();
-        }
-
-        private void checkBoxSendIVInRequest_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxSendIVInRequest.Checked) {
-                textBoxEncrpytionIV.Enabled = false;
-                textBoxIVVarName.Enabled = true;
-                buttonRandomIV.Enabled = false;
-            } else {
-                textBoxEncrpytionIV.Enabled = true;
-                textBoxIVVarName.Enabled = false;
-                buttonRandomIV.Enabled = true;
-            }
-            UpdateForm();
-        }
-
-        private void buttonRandomKey_Click(object sender, EventArgs e)
-        {
-            textBoxEncrpytionKey.Text = EncryptionHelper.GetRandomEncryptionKey();
-        }
-
-        private void buttonRandomIV_Click(object sender, EventArgs e)
-        {
-            textBoxEncrpytionIV.Text = EncryptionHelper.GetRandomEncryptionIV();
         }
 
         private void comboBoxRequestEncryptionType_SelectedIndexChanged(object sender, EventArgs e)
