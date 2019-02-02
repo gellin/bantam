@@ -39,7 +39,9 @@ namespace bantam.Forms
             InitializeComponent();
 
             ShellUrl = shellUrl;
-            lblDynPath.Text = ServerPath = serverPath;
+
+            lblDynPath.Text = serverPath;
+            ServerPath = serverPath;
         }
 
         /// <summary>

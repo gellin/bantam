@@ -146,7 +146,7 @@ namespace bantam
         public async void InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
-                string[] data = { null };     
+                string[] data;     
                 bool encryptResponse = Shells[shellUrl].responseEncryption;
                 int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
@@ -172,12 +172,14 @@ namespace bantam
 
                         data = result.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
                         
-                        var initDataReturnedVarCount = Enum.GetValues(typeof(PhpHelper.INIT_DATA_VARS)).Cast<PhpHelper.INIT_DATA_VARS>().Max();
+                        var initDataReturnedVarCount = Enum.GetValues(typeof(ShellInfo.INIT_DATA_VARS)).Cast<ShellInfo.INIT_DATA_VARS>().Max();
 
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
                             AddShellToListView(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
+
                             Shells[shellUrl].Update(pingWatch.ElapsedMilliseconds, data);
                             Shells[shellUrl].down = false;
+
                         } else {
                             AddShellToListView(shellUrl, "-");
                         }
@@ -324,7 +326,7 @@ namespace bantam
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             //windows does not currently support uploading
-            if (Shells[shellUrl].isWindows) {
+            if (Shells[shellUrl].IsWindows) {
                 return;
             }
 
@@ -448,8 +450,8 @@ namespace bantam
         private void listviewClients_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
-            if (lvi != null) {
 
+            if (lvi != null) {
                 if (!string.IsNullOrEmpty(g_SelectedShellUrl) && Shells.ContainsKey(g_SelectedShellUrl)) {
 
                     //copy a backup of the current file tree view into clients
@@ -457,6 +459,7 @@ namespace bantam
 
                         //Clear previously cached treeview to only store 1 copy
                         if (Shells[g_SelectedShellUrl].files != null
+                         && Shells[g_SelectedShellUrl].files.Nodes != null
                          && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
                             Shells[g_SelectedShellUrl].files.Nodes.Clear();
                         }
@@ -469,9 +472,9 @@ namespace bantam
                 
                 if (!string.IsNullOrEmpty(g_SelectedShellUrl)
                  && Shells.ContainsKey(g_SelectedShellUrl)
-                 && !string.IsNullOrEmpty(Shells[g_SelectedShellUrl].pwd)
+                 && !string.IsNullOrEmpty(Shells[g_SelectedShellUrl].Pwd)
                  && !string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
-                    Shells[g_SelectedShellUrl].pwd = txtBoxFileBrowserPath.Text;
+                    Shells[g_SelectedShellUrl].Pwd = txtBoxFileBrowserPath.Text;
                 }
 
                 if (!string.IsNullOrEmpty(richTextBoxConsoleOutput.Text)) {
@@ -486,7 +489,7 @@ namespace bantam
                     richTextBoxConsoleOutput.Text = string.Empty;
                 }
 
-                if (Shells[g_SelectedShellUrl].isWindows) {
+                if (Shells[g_SelectedShellUrl].IsWindows) {
                     btnUpload.Enabled = false;
                     btnFileBrowserGo.Enabled = false;
                     txtBoxFileBrowserPath.Enabled = false;
@@ -522,19 +525,19 @@ namespace bantam
                     txtBoxFileBrowserPath.Text = string.Empty;
                     return;
                 } else {
-                    textBoxCWD.Text = Shells[g_SelectedShellUrl].cwd;
-                    textBoxFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].freeHDDSpace) ? "0"
-                                         : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].freeHDDSpace));
+                    textBoxCWD.Text = Shells[g_SelectedShellUrl].Cwd;
+                    textBoxFreeSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].FreeHDDSpace) ? "0"
+                                         : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].FreeHDDSpace));
 
-                    textBoxHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].totalHDDSpace) ? "0"
-                                        : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].totalHDDSpace));
+                    textBoxHDDSpace.Text = string.IsNullOrEmpty(Shells[g_SelectedShellUrl].TotalHDDSpace) ? "0"
+                                        : Helper.FormatBytes(Convert.ToDouble(Shells[g_SelectedShellUrl].TotalHDDSpace));
 
-                    textBoxServerIP.Text = Shells[g_SelectedShellUrl].ip;
-                    textBoxUname.Text = Shells[g_SelectedShellUrl].unameRelease + " " + Shells[g_SelectedShellUrl].unameKernel;
-                    textBoxUser.Text = Shells[g_SelectedShellUrl].uid + " ( " + Shells[g_SelectedShellUrl].user + " )";
-                    textBoxWebServer.Text = Shells[g_SelectedShellUrl].serverSoftware;
-                    textBoxGroup.Text = Shells[g_SelectedShellUrl].gid + " ( " + Shells[g_SelectedShellUrl].group + " )";
-                    textBoxPHP.Text = Shells[g_SelectedShellUrl].PHP_Version;
+                    textBoxServerIP.Text = Shells[g_SelectedShellUrl].Ip;
+                    textBoxUname.Text = Shells[g_SelectedShellUrl].UnameRelease + " " + Shells[g_SelectedShellUrl].UnameKernel;
+                    textBoxUser.Text = Shells[g_SelectedShellUrl].Uid + " ( " + Shells[g_SelectedShellUrl].User + " )";
+                    textBoxWebServer.Text = Shells[g_SelectedShellUrl].ServerSoftware;
+                    textBoxGroup.Text = Shells[g_SelectedShellUrl].Gid + " ( " + Shells[g_SelectedShellUrl].Group + " )";
+                    textBoxPHP.Text = Shells[g_SelectedShellUrl].PHP_VERSION;
                 }
 
                 if (tabControlMain.SelectedTab == tabPageFiles) {
@@ -544,7 +547,7 @@ namespace bantam
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
 
-                        txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].pwd;
+                        txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].Pwd;
                     } else {
                         StartFileBrowser();
                     }
@@ -576,7 +579,7 @@ namespace bantam
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
 
-                    txtBoxFileBrowserPath.Text = Shells[shellUrl].pwd;
+                    txtBoxFileBrowserPath.Text = Shells[shellUrl].Pwd;
                 } else {
                     //if the gui treeview is empty, start the filebrowser and display it
                     if (treeViewFileBrowser.Nodes.Count == 0) {
@@ -629,7 +632,7 @@ namespace bantam
                 systemToolstripMenuItem.Visible = true;
                 softwareToolStripMenuItem.Visible = true;
 
-                if (Shells[g_SelectedShellUrl].isWindows) {
+                if (Shells[g_SelectedShellUrl].IsWindows) {
                     linuxToolStripMenuItem.Visible = false;
                     windowsToolStripMenuItem.Visible = true;
                 } else {
@@ -819,7 +822,7 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].responseEncryption;
 
             //windows does not currently support uploading
-            if (Shells[shellUrl].isWindows) {
+            if (Shells[shellUrl].IsWindows) {
                 return;
             }
 
@@ -845,12 +848,12 @@ namespace bantam
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string phpVersion = Shells[shellUrl].PHP_Version;
+            string phpVersion = Shells[shellUrl].PHP_VERSION;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
             //windows does not currently support direct path operations
-            if (Shells[shellUrl].isWindows) {
+            if (Shells[shellUrl].IsWindows) {
                 return;
             }
 
@@ -863,12 +866,6 @@ namespace bantam
             if (g_SelectedShellUrl == shellUrl) {
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
-            }
-
-            //set path
-            string path = txtBoxFileBrowserPath?.Text;
-            if (string.IsNullOrEmpty(path)) {
-                path = ".";
             }
 
             if (response.Result != null && response.Result.Length > 0) {
@@ -968,9 +965,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
-            txtBoxFileBrowserPath.Text = Shells[shellUrl].cwd;
+            txtBoxFileBrowserPath.Text = Shells[shellUrl].Cwd;
 
-            if (Shells[shellUrl].isWindows) {
+            if (Shells[shellUrl].IsWindows) {
                 txtBoxFileBrowserPath.Text = string.Empty;
 
                 string phpCode = PhpHelper.GetHardDriveLettersPhp(encryptResponse);
@@ -1001,7 +998,7 @@ namespace bantam
                     MessageBox.Show(response.Result, "Failed decoding response");
                 }
             } else {
-                string phpVersion = Shells[shellUrl].PHP_Version;
+                string phpVersion = Shells[shellUrl].PHP_VERSION;
 
                 string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(".", phpVersion, encryptResponse);
                 ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, directoryContentsPHPCode);
@@ -1039,13 +1036,13 @@ namespace bantam
             ShellInfo shell = Shells[shellUrl];
             
             //windows does not currently support the back operation
-            if (shell.isWindows) {
+            if (shell.IsWindows) {
                 return;
             }
 
             bool encryptResponse = shell.responseEncryption;
             int responseEncryptionMode = shell.responseEncryptionMode;
-            string phpVersion = shell.PHP_Version;
+            string phpVersion = shell.PHP_VERSION;
 
             string[] paths = txtBoxFileBrowserPath.Text.Split('/');
             string lastPathRemoved = string.Join("/", paths, 0, paths.Count() - 1);
@@ -1098,7 +1095,7 @@ namespace bantam
             }
 
             string shellUrl = g_SelectedShellUrl;
-            string phpVersion = Shells[shellUrl].PHP_Version;
+            string phpVersion = Shells[shellUrl].PHP_VERSION;
             bool encryptResponse = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 
@@ -1111,7 +1108,7 @@ namespace bantam
                     filebrowserGoBack();
                 } else {
                     string fullPath = string.Empty;
-                    if (Shells[shellUrl].isWindows) {
+                    if (Shells[shellUrl].IsWindows) {
                         fullPath = path;
                     } else {
                         fullPath = txtBoxFileBrowserPath.Text + "/" + path;
@@ -1489,7 +1486,7 @@ namespace bantam
         private void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            bool isWin = Shells[shellUrl].isWindows;
+            bool isWin = Shells[shellUrl].IsWindows;
             bool encrypt = Shells[shellUrl].responseEncryption;
             int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
 

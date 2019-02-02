@@ -70,7 +70,9 @@ namespace bantam.Forms
                 comboBoxEncryptionMode.Items.Add(item);
             }
 
-            g_CallingShellUrl = txtBoxShellUrl.Text = shellUrl;
+            g_CallingShellUrl = shellUrl;
+            txtBoxShellUrl.Text = shellUrl;
+
             txtBoxArgName.Text = varName;
 
             if (BantamMain.Shells.ContainsKey(shellUrl)) {
@@ -78,7 +80,8 @@ namespace bantam.Forms
                 checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].responseEncryption;
                 comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].responseEncryptionMode;
 
-                if (checkBoxEncryptRequest.Checked = BantamMain.Shells[shellUrl].requestEncryption) {
+                checkBoxEncryptRequest.Checked = BantamMain.Shells[shellUrl].requestEncryption;
+                if (checkBoxEncryptRequest.Checked) {
                     checkBoxSendIVInRequest.Checked = (string.IsNullOrEmpty(BantamMain.Shells[shellUrl].requestEncryptionIV)) ? true : false;
                     textBoxEncrpytionIV.Text = BantamMain.Shells[shellUrl].requestEncryptionIV;
                     textBoxEncrpytionKey.Text = BantamMain.Shells[shellUrl].requestEncryptionKey;

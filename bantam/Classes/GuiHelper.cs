@@ -222,12 +222,10 @@ namespace bantam.Classes
             prompt.Controls.Add(confirmation);
             prompt.Controls.Add(chkbxShowResponse);
 
-            //show dialog and wait for result
             string result = prompt.ShowDialog() == DialogResult.OK ? richTextBox.Text : string.Empty;
 
             confirmation.Click += (sender, e) => { prompt.Close(); };
 
-            //set the ref var to the chkboxResult result value
             showResponse = chkboxResult;
 
             return result;

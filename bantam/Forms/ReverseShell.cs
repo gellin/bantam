@@ -274,6 +274,10 @@ namespace bantam.Forms
                     shellCode = PythonShell(ipv4, port);
                     PopReverseShell(shellCode);
                 return;
+                default:
+                    //todo logging lvl 3
+                    MessageBox.Show("Unknwon shell vector selection", "GUI Error");
+                break;
             }
 
             if (checkBoxDisabledFunctionsBypass.Checked) {

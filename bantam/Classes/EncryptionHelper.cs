@@ -41,7 +41,7 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        static public string DecryptShellResponse(string response, string encryptionKey, string encryptionIV, int encryptResponseMode)
+        public static string DecryptShellResponse(string response, string encryptionKey, string encryptionIV, int encryptResponseMode)
         {
             if (string.IsNullOrEmpty(response)) {
                 return string.Empty;
@@ -73,7 +73,7 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        static public RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV, PaddingMode padding)
+        public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV, PaddingMode padding)
         {
             var aes = new RijndaelManaged {
                 Padding = padding,
@@ -94,7 +94,7 @@ namespace bantam.Classes
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
         /// <returns></returns>
-        static public String DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        public static String DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
@@ -124,7 +124,7 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        static public string EncryptRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        public static string EncryptRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
@@ -139,7 +139,6 @@ namespace bantam.Classes
                         }
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
-
                 } catch (Exception e) {
                     MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
@@ -157,7 +156,7 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        static public string EncryptRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        public static string EncryptRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
@@ -172,7 +171,6 @@ namespace bantam.Classes
                         }
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
-
                 } catch (Exception e) {
                     MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
