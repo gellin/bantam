@@ -40,36 +40,43 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxMaxCookieSize = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.labelStaticLogLevel = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBoxPhpVarNameMaxLen = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxRandomPhpVarNames = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelStaticLogLevel = new System.Windows.Forms.Label();
+            this.checkBoxGlobalLogs = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
+            this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTipCommentTracker = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxMaxCommentLength
             // 
-            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(116, 121);
+            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(108, 119);
             this.textBoxMaxCommentLength.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxMaxCommentLength.MaxLength = 3;
             this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
             this.textBoxMaxCommentLength.Size = new System.Drawing.Size(35, 24);
             this.textBoxMaxCommentLength.TabIndex = 16;
-            this.textBoxMaxCommentLength.Text = "32";
+            this.textBoxMaxCommentLength.Text = "24";
+            this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
             // 
             // labelStaticMaxLength
             // 
             this.labelStaticMaxLength.AutoSize = true;
-            this.labelStaticMaxLength.Location = new System.Drawing.Point(31, 124);
+            this.labelStaticMaxLength.Location = new System.Drawing.Point(23, 122);
             this.labelStaticMaxLength.Name = "labelStaticMaxLength";
             this.labelStaticMaxLength.Size = new System.Drawing.Size(79, 16);
             this.labelStaticMaxLength.TabIndex = 15;
@@ -107,6 +114,8 @@
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
+            this.checkBoxEnableLogging.Checked = true;
+            this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Location = new System.Drawing.Point(15, 24);
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
@@ -127,11 +136,12 @@
             this.checkBoxRandomComments.TabIndex = 9;
             this.checkBoxRandomComments.Text = "Inject Random Comments";
             this.checkBoxRandomComments.UseVisualStyleBackColor = true;
+            this.checkBoxRandomComments.CheckedChanged += new System.EventHandler(this.checkBoxRandomComments_CheckedChanged);
             // 
             // labelStaticCommentFrequency
             // 
             this.labelStaticCommentFrequency.AutoSize = true;
-            this.labelStaticCommentFrequency.Location = new System.Drawing.Point(47, 44);
+            this.labelStaticCommentFrequency.Location = new System.Drawing.Point(39, 44);
             this.labelStaticCommentFrequency.Name = "labelStaticCommentFrequency";
             this.labelStaticCommentFrequency.Size = new System.Drawing.Size(127, 16);
             this.labelStaticCommentFrequency.TabIndex = 10;
@@ -139,14 +149,14 @@
             // 
             // trackBarCommentFrequency
             // 
-            this.trackBarCommentFrequency.Location = new System.Drawing.Point(29, 64);
+            this.trackBarCommentFrequency.Location = new System.Drawing.Point(21, 64);
             this.trackBarCommentFrequency.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBarCommentFrequency.Maximum = 4;
             this.trackBarCommentFrequency.Minimum = 1;
             this.trackBarCommentFrequency.Name = "trackBarCommentFrequency";
             this.trackBarCommentFrequency.Size = new System.Drawing.Size(162, 45);
             this.trackBarCommentFrequency.TabIndex = 8;
-            this.trackBarCommentFrequency.Value = 1;
+            this.trackBarCommentFrequency.Value = 2;
             this.trackBarCommentFrequency.Scroll += new System.EventHandler(this.trackBarCommentFrequency_Scroll);
             // 
             // label4
@@ -170,18 +180,77 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Location = new System.Drawing.Point(12, 265);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 220);
+            this.groupBox1.Size = new System.Drawing.Size(435, 201);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Request Obfuscation";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.textBoxPhpVarNameMaxLen);
+            this.groupBox5.Controls.Add(this.label1);
+            this.groupBox5.Controls.Add(this.checkBoxRandomPhpVarNames);
+            this.groupBox5.Location = new System.Drawing.Point(225, 26);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(195, 73);
+            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabStop = false;
+            this.toolTipCommentTracker.SetToolTip(this.groupBox5, "asd");
+            this.toolTip1.SetToolTip(this.groupBox5, "asd");
+            // 
+            // textBoxPhpVarNameMaxLen
+            // 
+            this.textBoxPhpVarNameMaxLen.Location = new System.Drawing.Point(120, 31);
+            this.textBoxPhpVarNameMaxLen.MaxLength = 2;
+            this.textBoxPhpVarNameMaxLen.Name = "textBoxPhpVarNameMaxLen";
+            this.textBoxPhpVarNameMaxLen.Size = new System.Drawing.Size(35, 24);
+            this.textBoxPhpVarNameMaxLen.TabIndex = 20;
+            this.textBoxPhpVarNameMaxLen.Text = "16";
+            this.textBoxPhpVarNameMaxLen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPhpVarNameMaxLen_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(35, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 16);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "Max Length:";
+            // 
+            // checkBoxRandomPhpVarNames
+            // 
+            this.checkBoxRandomPhpVarNames.AutoSize = true;
+            this.checkBoxRandomPhpVarNames.Checked = true;
+            this.checkBoxRandomPhpVarNames.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRandomPhpVarNames.Location = new System.Drawing.Point(11, 0);
+            this.checkBoxRandomPhpVarNames.Name = "checkBoxRandomPhpVarNames";
+            this.checkBoxRandomPhpVarNames.Size = new System.Drawing.Size(172, 20);
+            this.checkBoxRandomPhpVarNames.TabIndex = 18;
+            this.checkBoxRandomPhpVarNames.Text = "Random PHP Var Names";
+            this.checkBoxRandomPhpVarNames.UseVisualStyleBackColor = true;
+            this.checkBoxRandomPhpVarNames.CheckedChanged += new System.EventHandler(this.checkBoxRandomPhpVarNames_CheckedChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.checkBoxRandomComments);
+            this.groupBox4.Controls.Add(this.labelStaticMaxLength);
+            this.groupBox4.Controls.Add(this.trackBarCommentFrequency);
+            this.groupBox4.Controls.Add(this.textBoxMaxCommentLength);
+            this.groupBox4.Controls.Add(this.labelStaticCommentFrequency);
+            this.groupBox4.Location = new System.Drawing.Point(15, 26);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(194, 164);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelStaticLogLevel);
-            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Controls.Add(this.checkBoxGlobalLogs);
             this.groupBox2.Controls.Add(this.trackBarLoggingLevel);
             this.groupBox2.Controls.Add(this.checkBoxEnableLogging);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
@@ -190,16 +259,6 @@
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Logging";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(15, 74);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(140, 20);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.Text = "Enable Global Logs";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // labelStaticLogLevel
             // 
@@ -210,10 +269,20 @@
             this.labelStaticLogLevel.TabIndex = 14;
             this.labelStaticLogLevel.Text = "Log Level";
             // 
+            // checkBoxGlobalLogs
+            // 
+            this.checkBoxGlobalLogs.AutoSize = true;
+            this.checkBoxGlobalLogs.Location = new System.Drawing.Point(15, 74);
+            this.checkBoxGlobalLogs.Name = "checkBoxGlobalLogs";
+            this.checkBoxGlobalLogs.Size = new System.Drawing.Size(140, 20);
+            this.checkBoxGlobalLogs.TabIndex = 13;
+            this.checkBoxGlobalLogs.Text = "Enable Global Logs";
+            this.checkBoxGlobalLogs.UseVisualStyleBackColor = true;
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.checkBox3);
-            this.groupBox3.Controls.Add(this.checkBox2);
+            this.groupBox3.Controls.Add(this.checkBoxDisableErrorLogs);
+            this.groupBox3.Controls.Add(this.checkBoxMaxExecutionTime);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.label4);
@@ -225,44 +294,34 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Request Settings";
             // 
-            // groupBox4
+            // checkBoxDisableErrorLogs
             // 
-            this.groupBox4.Controls.Add(this.checkBoxRandomComments);
-            this.groupBox4.Controls.Add(this.labelStaticMaxLength);
-            this.groupBox4.Controls.Add(this.trackBarCommentFrequency);
-            this.groupBox4.Controls.Add(this.textBoxMaxCommentLength);
-            this.groupBox4.Controls.Add(this.labelStaticCommentFrequency);
-            this.groupBox4.Location = new System.Drawing.Point(20, 26);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 178);
-            this.groupBox4.TabIndex = 17;
-            this.groupBox4.TabStop = false;
+            this.checkBoxDisableErrorLogs.AutoSize = true;
+            this.checkBoxDisableErrorLogs.Checked = true;
+            this.checkBoxDisableErrorLogs.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxDisableErrorLogs.Location = new System.Drawing.Point(15, 61);
+            this.checkBoxDisableErrorLogs.Name = "checkBoxDisableErrorLogs";
+            this.checkBoxDisableErrorLogs.Size = new System.Drawing.Size(136, 20);
+            this.checkBoxDisableErrorLogs.TabIndex = 20;
+            this.checkBoxDisableErrorLogs.Text = "Disable Error Logs";
+            this.checkBoxDisableErrorLogs.UseVisualStyleBackColor = true;
+            this.checkBoxDisableErrorLogs.CheckedChanged += new System.EventHandler(this.checkBoxDisableErrorLogs_CheckedChanged);
             // 
-            // checkBox2
+            // checkBoxMaxExecutionTime
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(15, 23);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(143, 20);
-            this.checkBox2.TabIndex = 19;
-            this.checkBox2.Text = "Max Execution Time";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(15, 61);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(136, 20);
-            this.checkBox3.TabIndex = 20;
-            this.checkBox3.Text = "Disable Error Logs";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxMaxExecutionTime.AutoSize = true;
+            this.checkBoxMaxExecutionTime.Location = new System.Drawing.Point(15, 23);
+            this.checkBoxMaxExecutionTime.Name = "checkBoxMaxExecutionTime";
+            this.checkBoxMaxExecutionTime.Size = new System.Drawing.Size(143, 20);
+            this.checkBoxMaxExecutionTime.TabIndex = 19;
+            this.checkBoxMaxExecutionTime.Text = "Max Execution Time";
+            this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 498);
+            this.ClientSize = new System.Drawing.Size(462, 475);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -274,12 +333,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -300,11 +361,16 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelStaticLogLevel;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxGlobalLogs;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ToolTip toolTipCommentTracker;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBoxDisableErrorLogs;
+        private System.Windows.Forms.CheckBox checkBoxMaxExecutionTime;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox checkBoxRandomPhpVarNames;
+        private System.Windows.Forms.TextBox textBoxPhpVarNameMaxLen;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

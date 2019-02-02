@@ -211,8 +211,6 @@ namespace bantam.Classes
                 Anchor = AnchorStyles.Left | AnchorStyles.Bottom
             };
 
-            //C# doesn't allow lambda functions to play with out/ref vars.... :(
-            //set the tmp var equal to that of the checkbox status to return through the out parameter
             bool chkboxResult = showResponse;
             chkbxShowResponse.CheckedChanged += (sender, e) => { chkboxResult = chkbxShowResponse.Checked; };
 

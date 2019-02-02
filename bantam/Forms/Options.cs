@@ -31,5 +31,34 @@ namespace bantam.Forms
         {
 
         }
+
+        private void checkBoxRandomPhpVarNames_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxPhpVarNameMaxLen_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
+        private void checkBoxDisableErrorLogs_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

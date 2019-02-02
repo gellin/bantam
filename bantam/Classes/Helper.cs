@@ -114,7 +114,6 @@ namespace bantam.Classes
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
-                //todo global level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return string.Empty;
             }
@@ -143,7 +142,6 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
-                //todo global level 1 logging
                 MessageBox.Show(str, "Unable to decode base64!");
                 return null;
             }
