@@ -57,19 +57,6 @@ namespace bantam.Classes
 
             decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
 
-            //currently the same decryption routine will work but this is how it would be implemented
-            //switch (encryptResponseMode) {
-            //    case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
-            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-            //    break;
-            //    case (int)RESPONSE_ENCRYPTION_TYPES.MCRYPT:
-            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-            //    break;
-            //    default:
-            //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
-            //    break;
-            //}
-
             if (string.IsNullOrEmpty(decryptedResult)) {
                 return string.Empty;
             }
@@ -77,6 +64,27 @@ namespace bantam.Classes
             var finalResult = Helper.DecodeBase64ToString(decryptedResult);
 
             return finalResult;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
+        /// <param name="padding"></param>
+        /// <returns></returns>
+        static public RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV, PaddingMode padding)
+        {
+            var aes = new RijndaelManaged {
+                Padding = padding,
+                Mode = CipherMode.CBC,
+                KeySize = 256,
+                BlockSize = 128,
+                Key = encryptionKey,
+                IV = encryptionIV
+            };
+
+            return aes;
         }
 
         /// <summary>
@@ -92,14 +100,7 @@ namespace bantam.Classes
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
 
-            using (var aes = new RijndaelManaged()) {
-                    aes.Padding = padding;
-                    aes.Mode = CipherMode.CBC;
-                    aes.KeySize = 256;
-                    aes.BlockSize = 128;
-                    aes.Key = Key;
-                    aes.IV = IV;
-
+            using (var aes = BuildAesMode(Key, IV, padding)) {
                 try {
                     using (var memoryStream = new MemoryStream(cipherText))
                     using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
@@ -107,7 +108,6 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
-                    //todo global logging
                     MessageBox.Show(e.Message, "Failed to decrypt response");
                 } finally {
                     aes.Clear();
@@ -126,17 +126,11 @@ namespace bantam.Classes
         /// <returns></returns>
         static public string EncryptRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
+            var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
-            var result = string.Empty;
-            using (var aes = new RijndaelManaged()) {
-                aes.Padding = padding;
-                aes.Mode = CipherMode.CBC;
-                aes.KeySize = 256;
-                aes.BlockSize = 128;
-                aes.Key = Key;
-                aes.IV = IV;
 
+            using (var aes = BuildAesMode(Key, IV, padding)) {
                 try {
                     using (var memoryStream = new MemoryStream()) {
                         using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
@@ -147,7 +141,6 @@ namespace bantam.Classes
                     }
 
                 } catch (Exception e) {
-                    //todo global logging
                     MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
                     aes.Clear();
@@ -166,17 +159,11 @@ namespace bantam.Classes
         /// <returns></returns>
         static public string EncryptRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
+            var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
-            var result = string.Empty;
-            using (var aes = new RijndaelManaged()) {
-                aes.Padding = padding;
-                aes.Mode = CipherMode.CBC;
-                aes.KeySize = 256;
-                aes.BlockSize = 128;
-                aes.Key = Key;
-                aes.IV = IV;
 
+            using (var aes = BuildAesMode(Key, IV, padding)) {
                 try {
                     using (var memoryStream = new MemoryStream()) {
                         using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write))
@@ -187,7 +174,6 @@ namespace bantam.Classes
                     }
 
                 } catch (Exception e) {
-                    //todo global logging
                     MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
                     aes.Clear();

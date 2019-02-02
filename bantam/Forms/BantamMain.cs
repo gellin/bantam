@@ -1070,7 +1070,7 @@ namespace bantam
                 //    path = ".";
                 //}
 
-                if (response.Result != null && response.Result.Length > 0) {
+                if (!string.IsNullOrEmpty(response.Result)) {
                     string result = response.Result;
                     if (encryptResponse) {
                         result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);

