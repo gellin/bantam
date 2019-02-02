@@ -45,7 +45,6 @@ namespace bantam.Forms
             btnScan.Enabled = false;
 
             if (BantamMain.Shells.ContainsKey(ShellUrl)) {
-                string scanType = string.Empty;
                 string portsCode = string.Empty;
 
                 bool encryptResponse = BantamMain.Shells[ShellUrl].responseEncryption;

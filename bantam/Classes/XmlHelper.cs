@@ -8,7 +8,7 @@ namespace bantam.Classes
 {
     class XmlHelper
     {
-        public static void LoadShells(string configFile)
+        public async static void LoadShells(string configFile)
         {
             if (File.Exists(configFile)) {
                 XmlDocument xmlDoc = new XmlDocument();

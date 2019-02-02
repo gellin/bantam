@@ -201,21 +201,12 @@ namespace bantam.Classes
             }
 
             if (encryptResponse) {
-                responseCode = "$result = " + osVar + ".'" + g_delimiter
-                     + "'." + cwdVar + ".'" + g_delimiter
-                     + "'." + freespaceVar + ".'" + g_delimiter
-                     + "'." + totalfreespaceVar + ".'" + g_delimiter
-                     + "'." + releaseVar + ".'" + g_delimiter
-                     + "'." + kernelVar + ".'" + g_delimiter
-                     + "'." + serverIpVar + ".'" + g_delimiter
-                     + "'." + serverSoftwareVar + ".'" + g_delimiter
-                     + "'." + userVar + ".'" + g_delimiter
-                     + "'." + uidVar + ".'" + g_delimiter
-                     + "'." + gidVar + ".'" + g_delimiter
-                     + "'." + groupVar + ".'" + g_delimiter
-                     + "'." + phpVersionVar + ";";
+                responseCode = "$result = ";
             } else {
-                responseCode = "echo " + osVar + ".'" + g_delimiter
+                responseCode = "echo ";
+            }
+
+            responseCode += osVar + ".'" + g_delimiter
                      + "'." + cwdVar + ".'" + g_delimiter
                      + "'." + freespaceVar + ".'" + g_delimiter
                      + "'." + totalfreespaceVar + ".'" + g_delimiter
@@ -228,7 +219,6 @@ namespace bantam.Classes
                      + "'." + gidVar + ".'" + g_delimiter
                      + "'." + groupVar + ".'" + g_delimiter
                      + "'." + phpVersionVar + ";";
-            }
 
             return linesRandomized 
                 + "if (!function_exists('posix_getegid')) {" + RandomPHPComment()

@@ -41,12 +41,12 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public long ping;
+        private long ping { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool isWindows;
+        public bool isWindows { get; set; }
 
         /// <summary>
         /// 

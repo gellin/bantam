@@ -141,7 +141,6 @@ namespace bantam.Classes
         /// <param name="text"></param>
         public static RichTextBox RichTextBoxDialog(string windowTitle, string text)
         {
-            //oldFileName = "Current File Name: " + oldFileName;
             Form prompt = new Form {
                 Width = 500,
                 Height = 500,
@@ -178,7 +177,7 @@ namespace bantam.Classes
         /// <param name="text"></param>
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
         {
-            Form prompt = new Form() {
+            Form prompt = new Form {
                 Width = 500,
                 Height = 520,
                 FormBorderStyle = FormBorderStyle.SizableToolWindow,

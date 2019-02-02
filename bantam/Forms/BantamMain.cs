@@ -718,7 +718,7 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void openShellXmlFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var openShellXMLDialog = new OpenFileDialog {
                 Filter = "All files (*.*)|*.*|xml files (*.xml)|*.xml",
@@ -734,6 +734,7 @@ namespace bantam
                         lvClients.Remove();
                     }
                     XmlHelper.LoadShells(openShellXMLDialog.FileName);
+
                     g_OpenFileName = openShellXMLDialog.FileName;
                     saveClientsToolStripMenuItem.Enabled = true;
                 }

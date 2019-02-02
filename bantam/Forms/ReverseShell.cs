@@ -18,7 +18,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static ReadOnlyCollection<string> shellVectors = new List<string>() {
+        public static readonly ReadOnlyCollection<string> shellVectors = new List<string>() {
              "perl",
              "netcat",
              "netcat with pipe",

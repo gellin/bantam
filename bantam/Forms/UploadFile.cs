@@ -181,10 +181,5 @@ namespace bantam.Forms
                 btnUpload.Enabled = true;
             }
         }
-
-        private void UploadFile_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
