@@ -46,6 +46,7 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.webBrowser1);
             this.Name = "BrowserView";
+            this.ShowIcon = false;
             this.Text = "BrowserView";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BrowserView_FormClosing);
             this.ResumeLayout(false);

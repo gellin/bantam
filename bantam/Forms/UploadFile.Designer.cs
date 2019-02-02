@@ -142,6 +142,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UploadFile";
+            this.ShowIcon = false;
             this.Text = "Upload File";
             this.Load += new System.EventHandler(this.UploadFile_Load);
             this.ResumeLayout(false);

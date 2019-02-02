@@ -16,5 +16,20 @@ namespace bantam.Forms
         {
             InitializeComponent();
         }
+
+        private void DefaultOptions()
+        {
+
+        }
+
+        private void Options_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBarCommentFrequency_Scroll(object sender, EventArgs e)
+        {
+
+        }
     }
 }

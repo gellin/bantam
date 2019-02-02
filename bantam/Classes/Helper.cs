@@ -9,10 +9,9 @@ namespace bantam.Classes
     class Helper
     {
         /// <summary>
-        /// 
+        /// Single shared random object for rng generation, for multi-threading / concurrent calls
         /// </summary>
         private static Random rdm = new Random();
-
 
         /// <summary>
         /// 

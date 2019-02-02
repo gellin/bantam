@@ -66,6 +66,7 @@ namespace bantam.Forms
                     try {
                         var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
 
+                        //todo put these messages in a label?
                         //Todo tie this timeout in as a configureable option
                         if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
                             if (string.IsNullOrEmpty(task.Result)) {

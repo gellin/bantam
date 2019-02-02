@@ -64,7 +64,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// TODO clean this up and make a success / fail function
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="pingMS"></param>
@@ -171,7 +171,7 @@ namespace bantam
                         }
 
                         data = result.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
-
+                        
                         var initDataReturnedVarCount = Enum.GetValues(typeof(PhpHelper.INIT_DATA_VARS)).Cast<PhpHelper.INIT_DATA_VARS>().Max();
 
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
@@ -676,12 +676,6 @@ namespace bantam
             string shellURL = g_SelectedShellUrl;
             ShellInfo shellInfo = Shells[shellURL];
 
-            string requestArgName = shellInfo.requestArgName;
-            bool sendViaCookie = shellInfo.sendDataViaCookie;
-            bool encryptResponse = shellInfo.responseEncryption;
-            int responseEncryptionMode = shellInfo.responseEncryptionMode;
-            bool gzipRequest = shellInfo.gzipRequestData;
-
             listViewShells.FindItemWithText(shellURL).Remove();
 
             Shells.TryRemove(shellURL, out ShellInfo shellInfoRemove);
@@ -1049,8 +1043,8 @@ namespace bantam
             }
 
             bool encryptResponse = shell.responseEncryption;
-            string phpVersion = shell.PHP_Version;
             int responseEncryptionMode = shell.responseEncryptionMode;
+            string phpVersion = shell.PHP_Version;
 
             string[] paths = txtBoxFileBrowserPath.Text.Split('/');
             string lastPathRemoved = string.Join("/", paths, 0, paths.Count() - 1);
@@ -1070,10 +1064,10 @@ namespace bantam
 
                 txtBoxFileBrowserPath.Text = lastPathRemoved;
 
-                string path = txtBoxFileBrowserPath?.Text;
-                if (string.IsNullOrEmpty(path)) {
-                    path = ".";
-                }
+                //string path = txtBoxFileBrowserPath?.Text;
+                //if (string.IsNullOrEmpty(path)) {
+                //    path = ".";
+                //}
 
                 if (response.Result != null && response.Result.Length > 0) {
                     string result = response.Result;
@@ -1743,5 +1737,10 @@ namespace bantam
 
         }
 
+        private void optionsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Options optionsForm = new Options();
+            optionsForm.ShowDialog();
+        }
     }
 }

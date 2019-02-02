@@ -90,7 +90,6 @@
             "eval",
             "assert",
             "create_function",
-            "native anonymous",
             "tmp include",
             "preg_replace"});
             this.comboBoxMethod.Location = new System.Drawing.Point(86, 413);

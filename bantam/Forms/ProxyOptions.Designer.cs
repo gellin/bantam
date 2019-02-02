@@ -140,6 +140,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProxyOptions";
+            this.ShowIcon = false;
             this.Text = "Proxy Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProxyOptions_FormClosing);
             this.ResumeLayout(false);

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace bantam.Classes
 {
-    class GuiHelper
+    static class GuiHelper
     {
         /// <summary>
         /// 
@@ -14,7 +14,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string UserAgentSwitcher(string currentUserAgent, string windowTitle)
         {
-            Form prompt = new Form() {
+            Form prompt = new Form {
                 Width = 500,
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
@@ -23,20 +23,20 @@ namespace bantam.Classes
                 MinimumSize = new System.Drawing.Size(500, 150)
             };
 
-            Label textLabel = new Label() {
+            Label textLabel = new Label {
                 Left = 17,
                 Top = 20,
                 Text = currentUserAgent,
                 Width = 450
             };
 
-            TextBox textBox = new TextBox() {
+            TextBox textBox = new TextBox {
                 Left = 17,
                 Top = 50,
                 Width = 450
             };
 
-            Button cancel = new Button() {
+            Button cancel = new Button {
                 Text = "Cancel",
                 Left = 200,
                 Width = 100,
@@ -44,14 +44,14 @@ namespace bantam.Classes
                 DialogResult = DialogResult.Cancel
             };
 
-            Button randomize = new Button() {
+            Button randomize = new Button {
                 Text = "Random",
                 Left = 300,
                 Width = 100,
                 Top = 80,
             };
 
-            Button confirmation = new Button() {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
@@ -84,8 +84,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RenameFileDialog(string oldFileName, string windowTitle)
         {
-            //oldFileName = "Current File Name: " + oldFileName;
-            Form prompt = new Form() {
+            Form prompt = new Form {
                 Width = 500,
                 Height = 150,
                 FormBorderStyle = FormBorderStyle.FixedDialog,
@@ -94,20 +93,20 @@ namespace bantam.Classes
                 MinimumSize = new System.Drawing.Size(500, 150)
             };
 
-            Label textLabel = new Label() {
+            Label textLabel = new Label {
                 Left = 50,
                 Top = 20,
                 Text = oldFileName,
                 Width = 400
             };
 
-            TextBox textBox = new TextBox() {
+            TextBox textBox = new TextBox {
                 Left = 50,
                 Top = 50,
                 Width = 400
             };
 
-            Button cancel = new Button() {
+            Button cancel = new Button {
                 Text = "Cancel",
                 Left = 300,
                 Width = 100,
@@ -115,7 +114,7 @@ namespace bantam.Classes
                 DialogResult = DialogResult.Cancel
             };
 
-            Button confirmation = new Button() {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
@@ -143,7 +142,7 @@ namespace bantam.Classes
         public static RichTextBox RichTextBoxDialog(string windowTitle, string text)
         {
             //oldFileName = "Current File Name: " + oldFileName;
-            Form prompt = new Form() {
+            Form prompt = new Form {
                 Width = 500,
                 Height = 500,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
@@ -152,7 +151,7 @@ namespace bantam.Classes
                 MinimumSize = new System.Drawing.Size(180, 300)
             };
 
-            RichTextBox richTextBox = new RichTextBox() {
+            RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -179,7 +178,6 @@ namespace bantam.Classes
         /// <param name="text"></param>
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
         {
-            //oldFileName = "Current File Name: " + oldFileName;
             Form prompt = new Form() {
                 Width = 500,
                 Height = 520,
@@ -189,7 +187,7 @@ namespace bantam.Classes
                 MinimumSize = new System.Drawing.Size(300, 300)
             };
 
-            RichTextBox richTextBox = new RichTextBox() {
+            RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -197,7 +195,7 @@ namespace bantam.Classes
                 Text = text
             };
 
-            Button confirmation = new Button() {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 380,
                 Width = 100,
@@ -206,7 +204,7 @@ namespace bantam.Classes
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            CheckBox chkbxShowResponse = new CheckBox() {
+            CheckBox chkbxShowResponse = new CheckBox {
                 Text = "Show Response",
                 Left = 25,
                 Top = 455,
