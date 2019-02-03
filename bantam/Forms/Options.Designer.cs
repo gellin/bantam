@@ -71,6 +71,8 @@
             this.textBoxMaxCommentLength.Size = new System.Drawing.Size(35, 24);
             this.textBoxMaxCommentLength.TabIndex = 16;
             this.textBoxMaxCommentLength.Text = "24";
+            this.toolTip1.SetToolTip(this.textBoxMaxCommentLength, "Sets the max length for each comment, a random length less than this value will b" +
+        "e selected.");
             this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
             // 
             // labelStaticMaxLength
@@ -81,6 +83,8 @@
             this.labelStaticMaxLength.Size = new System.Drawing.Size(79, 16);
             this.labelStaticMaxLength.TabIndex = 15;
             this.labelStaticMaxLength.Text = "Max Length:";
+            this.toolTip1.SetToolTip(this.labelStaticMaxLength, "Sets the max length for each comment, a random length less than this value will b" +
+        "e selected.");
             // 
             // textBox1
             // 
@@ -102,7 +106,7 @@
             // 
             // trackBarLoggingLevel
             // 
-            this.trackBarLoggingLevel.Location = new System.Drawing.Point(240, 38);
+            this.trackBarLoggingLevel.Location = new System.Drawing.Point(236, 47);
             this.trackBarLoggingLevel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBarLoggingLevel.Maximum = 3;
             this.trackBarLoggingLevel.Minimum = 1;
@@ -135,6 +139,7 @@
             this.checkBoxRandomComments.Size = new System.Drawing.Size(176, 20);
             this.checkBoxRandomComments.TabIndex = 9;
             this.checkBoxRandomComments.Text = "Inject Random Comments";
+            this.toolTip1.SetToolTip(this.checkBoxRandomComments, "Injects comments with random text, throughout the request.");
             this.checkBoxRandomComments.UseVisualStyleBackColor = true;
             this.checkBoxRandomComments.CheckedChanged += new System.EventHandler(this.checkBoxRandomComments_CheckedChanged);
             // 
@@ -156,6 +161,8 @@
             this.trackBarCommentFrequency.Name = "trackBarCommentFrequency";
             this.trackBarCommentFrequency.Size = new System.Drawing.Size(162, 45);
             this.trackBarCommentFrequency.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.trackBarCommentFrequency, "Determines the rate of comment injection (1 = 25%, 4 = 100%) of locations utilize" +
+        "d.");
             this.trackBarCommentFrequency.Value = 2;
             this.trackBarCommentFrequency.Scroll += new System.EventHandler(this.trackBarCommentFrequency_Scroll);
             // 
@@ -210,6 +217,8 @@
             this.textBoxPhpVarNameMaxLen.Size = new System.Drawing.Size(35, 24);
             this.textBoxPhpVarNameMaxLen.TabIndex = 20;
             this.textBoxPhpVarNameMaxLen.Text = "16";
+            this.toolTip1.SetToolTip(this.textBoxPhpVarNameMaxLen, "Sets the max length for each PHP variable, a random length less than this value w" +
+        "ill be selected.");
             this.textBoxPhpVarNameMaxLen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPhpVarNameMaxLen_KeyPress);
             // 
             // label1
@@ -220,6 +229,8 @@
             this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 19;
             this.label1.Text = "Max Length:";
+            this.toolTip1.SetToolTip(this.label1, "Sets the max length for each PHP variable, a random length less than this value w" +
+        "ill be selected.");
             // 
             // checkBoxRandomPhpVarNames
             // 
@@ -231,6 +242,7 @@
             this.checkBoxRandomPhpVarNames.Size = new System.Drawing.Size(172, 20);
             this.checkBoxRandomPhpVarNames.TabIndex = 18;
             this.checkBoxRandomPhpVarNames.Text = "Random PHP Var Names";
+            this.toolTip1.SetToolTip(this.checkBoxRandomPhpVarNames, "Creates random variable names for send PHP code (always on).");
             this.checkBoxRandomPhpVarNames.UseVisualStyleBackColor = true;
             this.checkBoxRandomPhpVarNames.CheckedChanged += new System.EventHandler(this.checkBoxRandomPhpVarNames_CheckedChanged);
             // 
@@ -263,7 +275,7 @@
             // labelStaticLogLevel
             // 
             this.labelStaticLogLevel.AutoSize = true;
-            this.labelStaticLogLevel.Location = new System.Drawing.Point(287, 75);
+            this.labelStaticLogLevel.Location = new System.Drawing.Point(286, 31);
             this.labelStaticLogLevel.Name = "labelStaticLogLevel";
             this.labelStaticLogLevel.Size = new System.Drawing.Size(63, 16);
             this.labelStaticLogLevel.TabIndex = 14;
@@ -304,6 +316,7 @@
             this.checkBoxDisableErrorLogs.Size = new System.Drawing.Size(136, 20);
             this.checkBoxDisableErrorLogs.TabIndex = 20;
             this.checkBoxDisableErrorLogs.Text = "Disable Error Logs";
+            this.toolTip1.SetToolTip(this.checkBoxDisableErrorLogs, "Sends php code with request to disable error logging.");
             this.checkBoxDisableErrorLogs.UseVisualStyleBackColor = true;
             this.checkBoxDisableErrorLogs.CheckedChanged += new System.EventHandler(this.checkBoxDisableErrorLogs_CheckedChanged);
             // 
@@ -315,6 +328,7 @@
             this.checkBoxMaxExecutionTime.Size = new System.Drawing.Size(143, 20);
             this.checkBoxMaxExecutionTime.TabIndex = 19;
             this.checkBoxMaxExecutionTime.Text = "Max Execution Time";
+            this.toolTip1.SetToolTip(this.checkBoxMaxExecutionTime, "Sends php code with request to extend execution time.");
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             // 
             // Options

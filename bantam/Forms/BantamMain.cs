@@ -592,6 +592,16 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void pingClientsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //keep alive checks with this?
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ModifyShell addClientForm = new ModifyShell();

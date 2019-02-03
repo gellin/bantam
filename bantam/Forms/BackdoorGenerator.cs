@@ -13,7 +13,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        private static readonly ReadOnlyCollection<string> requestEncryptionModes = new List<string>() {
+        private static readonly ReadOnlyCollection<string> requestEncryptionModes = new List<string> {
              "openssl",
              "mcrypt",
         }.AsReadOnly();
