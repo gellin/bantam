@@ -42,7 +42,7 @@ namespace bantam.Classes
         /// 
         /// </summary>
         /// 
-        public static HttpClient client = new HttpClient(new HttpClientHandler() {
+        public static HttpClient client = new HttpClient(new HttpClientHandler {
             UseCookies = false,
         });
 
@@ -54,7 +54,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            client = new HttpClient(new HttpClientHandler() {
+            client = new HttpClient(new HttpClientHandler {
                 UseCookies = false,
             });
         }
@@ -69,7 +69,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            client = new HttpClient(new HttpClientHandler() {
+            client = new HttpClient(new HttpClientHandler {
                 UseProxy = true,
                 UseCookies = false,
                 Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false)

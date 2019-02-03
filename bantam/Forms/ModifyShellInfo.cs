@@ -12,7 +12,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static string g_CallingShellUrl = string.Empty;
+        private static string g_CallingShellUrl = string.Empty;
 
         /// <summary>
         /// 
@@ -25,7 +25,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> responseEncryptionModes = new List<string>() {
+        public static readonly ReadOnlyCollection<string> responseEncryptionModes = new List<string> {
              "openssl",
              "mcrypt",
         }.AsReadOnly();

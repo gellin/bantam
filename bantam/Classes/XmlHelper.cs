@@ -8,7 +8,7 @@ namespace bantam.Classes
 {
     static class XmlHelper
     {
-        public async static void LoadShells(string configFile)
+        public async static Task LoadShells(string configFile)
         {
             if (File.Exists(configFile)) {
                 XmlDocument xmlDoc = new XmlDocument();
@@ -98,7 +98,6 @@ namespace bantam.Classes
                             } else if (responseEncryptionMode == EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
                                 BantamMain.Shells[hostTarget].responseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
                             } else {
-                                BantamMain.Shells[hostTarget].responseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
                                 //todo level 3 log failed check
                             }
                         }

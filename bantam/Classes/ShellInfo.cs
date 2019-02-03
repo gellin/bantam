@@ -28,14 +28,6 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public ShellInfo()
-        {
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="ping"></param>
         /// <param name="data"></param>
         public void Update(long ping, string[] data)
@@ -91,7 +83,7 @@ namespace bantam.Classes
         public string Pwd
         {
             get{ return pwd; }
-            set { pwd = Pwd; }
+            set { pwd = value; }
         }
 
         /// <summary>

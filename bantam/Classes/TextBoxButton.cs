@@ -44,13 +44,8 @@ namespace bantam.Classes
         {
             base.WndProc(ref msg);
 
-            switch (msg.Msg) {
-                case 0x30:
+            if (msg.Msg == 0x30) {
                 SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
-                //SendMessage(this.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnBack.Width << 16)); //for right aligned button
-                break;
-                default:
-                break;
             }
         }
 

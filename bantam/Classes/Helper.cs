@@ -29,15 +29,29 @@ namespace bantam.Classes
         /// <param name="maxLength"></param>
         /// <param name="matchLength"></param>
         /// <returns></returns>
-        public static string RandomNumberString(int maxLength, bool matchLength = true)
+        public static string RandomNumberStringSetLength(int length)
         {
             string s = string.Empty;
 
-            if (!matchLength) {
-                maxLength = rdm.Next(1, maxLength);
+            for (int i = 0; i < length; i++) {
+                s += rdm.Next(10).ToString();
             }
 
-            for (int i = 0; i < maxLength; i++) {
+            return s;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxLength"></param>
+        /// <param name="matchLength"></param>
+        /// <returns></returns>
+        public static string RandomNumberStringMaxLength(int maxLength)
+        {
+            string s = string.Empty;
+            int length = rdm.Next(1, maxLength);
+
+            for (int i = 0; i < length; i++) {
                 s += rdm.Next(10).ToString();
             }
 

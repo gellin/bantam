@@ -11,7 +11,7 @@ namespace bantam
         /// The main entry point for the application.
         /// </summary>
         /// 
-        static public BantamMain g_BantamMain = null;
+        static public BantamMain g_BantamMain;
 
         [STAThread]
         static void Main()
