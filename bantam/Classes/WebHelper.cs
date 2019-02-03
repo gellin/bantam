@@ -22,7 +22,7 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public static Dictionary<int, string> commonUseragents = new Dictionary<int, string>() {
+        public static Dictionary<int, string> commonUseragents = new Dictionary<int, string> {
             {0, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"},
             {1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" },
             {2, "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" },
@@ -86,7 +86,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            var settings = new ProxySettings() {
+            var settings = new ProxySettings {
                 Host = proxyUrl,
                 Port = proxyPort
             };
@@ -302,10 +302,8 @@ namespace bantam.Classes
                 }
             } catch (System.Net.Http.HttpRequestException e) {
                 //todo level 2/3 logging
-                //MessageBox.Show(e.Message);
             } catch (Exception e) {
                 //todo level 2/3 logging
-                //MessageBox.Show(e.Message);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }

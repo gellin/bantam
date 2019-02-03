@@ -70,7 +70,7 @@ namespace bantam.Forms
                 }
 
                 string phpCode = PhpHelper.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
-                BantamMain.executePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, responseEncryptionMode);
+                BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, responseEncryptionMode);
             }
 
             btnScan.Enabled = true;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -123,11 +124,6 @@ namespace bantam.Classes
 
             foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Shells) {
                 ShellInfo shellInfo = (ShellInfo)host.Value;
-
-                //saves shells that are down, possibly make this an option
-                //if (shellInfo.down) {
-                // continue;
-                //}
 
                 XmlNode serverNode = xmlDoc.CreateElement("server");
 

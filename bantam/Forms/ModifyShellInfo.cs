@@ -134,7 +134,7 @@ namespace bantam.Forms
 
             //Remove Shell
             if (BantamMain.Shells.ContainsKey(shellURL)) {
-                Program.g_BantamMain.guiCallbackRemoveShellURL(shellURL);
+                Program.g_BantamMain.GuiCallbackRemoveShellURL(shellURL);
                 BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut);
             }
 
