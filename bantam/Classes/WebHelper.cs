@@ -15,14 +15,14 @@ namespace bantam.Classes
     static class WebHelper
     {
         /// <summary>
-        /// 
+        /// todo replace this useragent into a defaults config of sorts
         /// </summary>
-        public static string g_GlobalDefaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
+        public static string g_CurrentUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
 
         /// <summary>
         /// 
         /// </summary>
-        public static Dictionary<int, string> commonUseragents = new Dictionary<int, string> {
+        public static readonly Dictionary<int, string> commonUseragents = new Dictionary<int, string> {
             {0, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"},
             {1, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" },
             {2, "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0" },
@@ -42,7 +42,7 @@ namespace bantam.Classes
         /// 
         /// </summary>
         /// 
-        public static HttpClient client = new HttpClient(new HttpClientHandler {
+        private static HttpClient client = new HttpClient(new HttpClientHandler {
             UseCookies = false,
         });
 
@@ -140,7 +140,7 @@ namespace bantam.Classes
                 HttpMethod method = HttpMethod.Get;
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
 
                 var response       = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -163,7 +163,7 @@ namespace bantam.Classes
                 HttpMethod method = HttpMethod.Post;
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
 
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -213,7 +213,7 @@ namespace bantam.Classes
                 }
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_GlobalDefaultUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
 
                 if (!string.IsNullOrEmpty(phpCode)) {
                     if (encryptResponse) {

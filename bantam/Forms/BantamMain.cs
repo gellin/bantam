@@ -43,13 +43,20 @@ namespace bantam
 
         #region HELPER_FUNCTIONS
 
-        //public void AddShellLog(string )
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public bool ValidTarget()
+        {
+            return ValidTarget(g_SelectedShellUrl);
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ValidTarget(string shellUrl = "")
+        public bool ValidTarget(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl)) {
                 shellUrl = g_SelectedShellUrl;
@@ -70,7 +77,7 @@ namespace bantam
         /// <param name="pingMS"></param>
         public void AddShellToListView(string shellUrl, string pingMS)
         {
-            ListViewItem lvi = new ListViewItem(new string[] { shellUrl, pingMS + " ms" }) {
+            ListViewItem lvi = new ListViewItem(new [] { shellUrl, pingMS + " ms" }) {
                 Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0)
             };
             listViewShells.Items.Add(lvi);
@@ -168,7 +175,7 @@ namespace bantam
                             result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
                         }
 
-                        data = result.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
+                        data = result.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
                         
                         var initDataReturnedVarCount = Enum.GetValues(typeof(ShellInfo.INIT_DATA_VARS)).Cast<ShellInfo.INIT_DATA_VARS>().Max();
 
@@ -202,11 +209,11 @@ namespace bantam
         /// <param name="e"></param>
         private async void userAgentSwitcherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string userAgent = "User Agent: " + WebHelper.g_GlobalDefaultUserAgent;
+            string userAgent = "User Agent: " + WebHelper.g_CurrentUserAgent;
             string newUserAgent = GuiHelper.UserAgentSwitcher(userAgent, "Change User Agent");
 
             if (!string.IsNullOrEmpty(newUserAgent)) {
-                WebHelper.g_GlobalDefaultUserAgent = newUserAgent;
+                WebHelper.g_CurrentUserAgent = newUserAgent;
             } else {
                 //todo logging
             }
@@ -878,11 +885,11 @@ namespace bantam
         /// <param name="shellUrl"></param>
         private async Task FileBrowserRender(string result, string shellUrl)
         {
-            string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
+            string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
             if (rows.Length > 0 && rows != null) {
                 foreach (string row in rows) {
-                    string[] columns = row.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
+                    string[] columns = row.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
 
                     if (columns != null && columns.Length - 2 > 0) {
 
@@ -974,7 +981,7 @@ namespace bantam
 
                 if (string.IsNullOrEmpty(result) == false) {
                     string[] drives;
-                    drives = result.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                    drives = result.Split(new [] { "|" }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (drives != null && drives.Length > 0) {
                         treeViewFileBrowser.Nodes.Clear();
@@ -1110,11 +1117,11 @@ namespace bantam
                             MessageBox.Show("Error Decoding Response", "Whoops!!!!");
                             return;
                         }
-                        string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
+                        string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
                         if (rows.Length > 0 && rows != null) {
                             foreach (string row in rows) {
-                                string[] columns = row.Split(new string[] { PhpHelper.g_delimiter }, StringSplitOptions.None);
+                                string[] columns = row.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
 
                                 if (columns != null && columns.Length - 2 > 0) {
 

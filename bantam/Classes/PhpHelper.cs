@@ -290,7 +290,7 @@ namespace bantam.Classes
                         "curl_setopt_array($curl, array(" +
                             "CURLOPT_SSL_VERIFYPEER => false," +
                             "CURLOPT_FOLLOWLOCATION => true," +
-                            "CURLOPT_USERAGENT => '" + WebHelper.g_GlobalDefaultUserAgent  + "'," +
+                            "CURLOPT_USERAGENT => '" + WebHelper.g_CurrentUserAgent  + "'," +
                             "CURLOPT_RETURNTRANSFER => 1," +
                             "CURLOPT_URL => '" + url + "'," +
                         "));" +
@@ -301,7 +301,7 @@ namespace bantam.Classes
                         "curl_setopt_array($curl, array(" +
                             "CURLOPT_SSL_VERIFYPEER => false," +
                             "CURLOPT_FOLLOWLOCATION => true," +
-                            "CURLOPT_USERAGENT => '" + WebHelper.g_GlobalDefaultUserAgent + "'," +
+                            "CURLOPT_USERAGENT => '" + WebHelper.g_CurrentUserAgent + "'," +
                             "CURLOPT_URL => '" + url + "'," +
                         "));" +
                         "curl_exec($curl);" +
@@ -473,7 +473,7 @@ namespace bantam.Classes
             string responseCode = string.Empty;
 
             if (encryptResponse) {
-                responseCode = "$result = ";
+                responseCode = "$result .= ";
             } else {
                 responseCode = "echo ";
             }
