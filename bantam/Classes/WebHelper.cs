@@ -234,12 +234,12 @@ namespace bantam.Classes
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
                                 requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
 
-                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
+                                phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
                                 string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
 
-                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
+                                phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
                                 b64Encoded = true;
                             }
                         } else {
@@ -254,12 +254,12 @@ namespace bantam.Classes
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
                                 requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
 
-                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCode, encryptionKey, requestEncryptionIV);
+                                phpCode = EncryptionHelper.EncryptStringToRJ256ToBase64(phpCode, encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
                                 string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
 
-                                phpCode = EncryptionHelper.EncryptRJ256ToBase64(phpCode, encryptionKey, encryptionIV);
+                                phpCode = EncryptionHelper.EncryptStringToRJ256ToBase64(phpCode, encryptionKey, encryptionIV);
                                 b64Encoded = true;
                             }
                         }

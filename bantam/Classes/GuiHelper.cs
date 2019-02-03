@@ -9,19 +9,32 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="title"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static Form BuildForm(string title, int width, int height)
+        {
+            Form prompt = new Form {
+                Width = width,
+                Height = height,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                Text = title,
+                StartPosition = FormStartPosition.CenterScreen,
+                MinimumSize = new System.Drawing.Size(width, height)
+            };
+            return prompt;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="currentUserAgent"></param>
         /// <param name="windowTitle"></param>
         /// <returns></returns>
         public static string UserAgentSwitcher(string currentUserAgent, string windowTitle)
         {
-            Form prompt = new Form {
-                Width = 500,
-                Height = 150,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = windowTitle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimumSize = new System.Drawing.Size(500, 150)
-            };
+            Form prompt = BuildForm(windowTitle, 500, 150); 
 
             Label textLabel = new Label {
                 Left = 17,
@@ -63,13 +76,13 @@ namespace bantam.Classes
                 textBox.Text = WebHelper.commonUseragents[Helper.RandomDicionaryValue(WebHelper.commonUseragents)];
             };
 
-            confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
-
-            prompt.Controls.Add(textBox);
+            confirmation.Click += (sender, e) => { prompt.Close(); };
+            
             prompt.Controls.Add(confirmation);
             prompt.Controls.Add(randomize);
             prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(textBox);
             prompt.Controls.Add(cancel);
             prompt.AcceptButton = confirmation;
 
@@ -84,14 +97,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RenameFileDialog(string oldFileName, string windowTitle)
         {
-            Form prompt = new Form {
-                Width = 500,
-                Height = 150,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = windowTitle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimumSize = new System.Drawing.Size(500, 150)
-            };
+            Form prompt = BuildForm(windowTitle, 500, 150);
 
             Label textLabel = new Label {
                 Left = 50,
@@ -125,9 +131,9 @@ namespace bantam.Classes
             confirmation.Click += (sender, e) => { prompt.Close(); };
             cancel.Click += (sender, e) => { prompt.Close(); };
 
-            prompt.Controls.Add(textBox);
-            prompt.Controls.Add(confirmation);
             prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(textBox);
             prompt.Controls.Add(cancel);
             prompt.AcceptButton = confirmation;
 
@@ -141,14 +147,7 @@ namespace bantam.Classes
         /// <param name="text"></param>
         public static RichTextBox RichTextBoxDialog(string windowTitle, string text)
         {
-            Form prompt = new Form {
-                Width = 500,
-                Height = 500,
-                FormBorderStyle = FormBorderStyle.FixedSingle,
-                Text = windowTitle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimumSize = new System.Drawing.Size(180, 300)
-            };
+            Form prompt = BuildForm(windowTitle, 500, 500);
 
             RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
@@ -177,14 +176,7 @@ namespace bantam.Classes
         /// <param name="text"></param>
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
         {
-            Form prompt = new Form {
-                Width = 500,
-                Height = 520,
-                FormBorderStyle = FormBorderStyle.SizableToolWindow,
-                Text = windowTitle,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimumSize = new System.Drawing.Size(300, 300)
-            };
+            Form prompt = BuildForm(windowTitle, 500, 520);
 
             RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
