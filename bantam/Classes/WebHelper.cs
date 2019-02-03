@@ -12,7 +12,7 @@ using System.IO.Compression;
 
 namespace bantam.Classes
 {
-    class WebHelper
+    static class WebHelper
     {
         /// <summary>
         /// 

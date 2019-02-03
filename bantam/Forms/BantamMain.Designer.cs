@@ -937,7 +937,6 @@
             this.tabPageFiles.TabIndex = 1;
             this.tabPageFiles.Text = "File Browser";
             this.tabPageFiles.UseVisualStyleBackColor = true;
-            this.tabPageFiles.Click += new System.EventHandler(this.tabPageFiles_Click);
             // 
             // btnUpload
             // 

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace bantam.Classes
 {
-    class EncryptionHelper
+    static class EncryptionHelper
     {
         /// <summary>
         /// 

@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace bantam.Classes
 {
-    class XmlHelper
+    static class XmlHelper
     {
         public async static void LoadShells(string configFile)
         {

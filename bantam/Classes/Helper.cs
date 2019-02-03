@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace bantam.Classes
 {
-    class Helper
+    static class Helper
     {
         /// <summary>
         /// Single shared random object for rng generation, for multi-threading / concurrent calls

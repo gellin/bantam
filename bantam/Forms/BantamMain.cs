@@ -17,12 +17,12 @@ namespace bantam
         /// <summary>
         /// Full path and name of xml file if a file has opened (used for saving)
         /// </summary>
-        public static string g_OpenFileName;
+        private static string g_OpenFileName;
 
         /// <summary>
         /// Full url of the Shell we have selected in the main listview
         /// </summary>
-        public static string g_SelectedShellUrl;
+        private static string g_SelectedShellUrl;
 
         /// <summary>
         /// 
@@ -105,7 +105,7 @@ namespace bantam
         /// <param name="responseEncryptionMode"></param>
         /// <param name="richTextBox"></param>
         /// <param name="prependText"></param>
-        public static async void executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
+        public static async Task executePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int responseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
         {
             //todo this doesn't have a timeout
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode));
@@ -118,7 +118,6 @@ namespace bantam
 
                 if (string.IsNullOrEmpty(result)) {
                     //todo level 2 logging
-                    //MessageBox.Show("No Data Returned", "Welp..");
                     return;
                 }
 
@@ -135,7 +134,6 @@ namespace bantam
                 }
             } else {
                 //todo level 3 logging
-                //MessageBox.Show("No Data Returned", "Welp...");
             }
         }
 
@@ -143,7 +141,7 @@ namespace bantam
         /// 
         /// </summary>
         /// <param name="shellUrl"></param>
-        public async void InitializeShellData(string shellUrl)
+        public async Task InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
                 string[] data;     
@@ -258,7 +256,7 @@ namespace bantam
         /// <param name="encryptResponse"></param>
         /// <param name="responseEncryptionMode"></param>
         /// <param name="rtb"></param>
-        private async void executeMassEval(string shellUrl, string code, bool encryptResponse, int responseEncryptionMode, bool showResponse, RichTextBox rtb)
+        private async Task executeMassEval(string shellUrl, string code, bool encryptResponse, int responseEncryptionMode, bool showResponse, RichTextBox rtb)
         {
             ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, code);
 
@@ -430,16 +428,6 @@ namespace bantam
             } else {
                 //todo level 3 logging
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tabPageFiles_Click(object sender, EventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -800,7 +788,7 @@ namespace bantam
         /// </summary>
         private async void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
         {
-            filebrowserGoBack();
+            FilebrowserGoBack();
         }
 
         /// <summary>
@@ -888,7 +876,7 @@ namespace bantam
         /// </summary>
         /// <param name="result"></param>
         /// <param name="shellUrl"></param>
-        private async void FileBrowserRender(string result, string shellUrl)
+        private async Task FileBrowserRender(string result, string shellUrl)
         {
             string[] rows = result.Split(new string[] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
@@ -955,7 +943,7 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        private async void StartFileBrowser()
+        private async Task StartFileBrowser()
         {
             if (validTarget() == false) {
                 return;
@@ -985,7 +973,7 @@ namespace bantam
                 }
 
                 if (string.IsNullOrEmpty(result) == false) {
-                    string[] drives = { null };
+                    string[] drives;
                     drives = result.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
 
                     if (drives != null && drives.Length > 0) {
@@ -1026,7 +1014,7 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        private async void filebrowserGoBack()
+        private async Task FilebrowserGoBack()
         {
             if (validTarget() == false) {
                 return;
@@ -1061,11 +1049,6 @@ namespace bantam
                 treeViewFileBrowser.Refresh();
 
                 txtBoxFileBrowserPath.Text = lastPathRemoved;
-
-                //string path = txtBoxFileBrowserPath?.Text;
-                //if (string.IsNullOrEmpty(path)) {
-                //    path = ".";
-                //}
 
                 if (!string.IsNullOrEmpty(response.Result)) {
                     string result = response.Result;
@@ -1105,7 +1088,7 @@ namespace bantam
                 string path = tn.FullPath.Replace('\\', '/');
 
                 if (path.Contains("..")) {
-                    filebrowserGoBack();
+                    FilebrowserGoBack();
                 } else {
                     string fullPath = string.Empty;
                     if (Shells[shellUrl].IsWindows) {
@@ -1321,8 +1304,6 @@ namespace bantam
 
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileNameAndPath();
-            bool encryptResponse = Shells[shellUrl].responseEncryption;
-
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
 
             if (!string.IsNullOrEmpty(newFileName)) {
@@ -1708,32 +1689,6 @@ namespace bantam
         }
 
         #endregion
-
-        private async void testToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = g_SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].responseEncryption;
-            int responseEncryptionMode = Shells[shellUrl].responseEncryptionMode;
-
-            string phpCode = PhpHelper.getBasicCurl("http://boards.4chan.org/hc/", encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
-
-            if (string.IsNullOrEmpty(response.Result) == false) {
-                string result = response.Result;
-
-                if (encryptResponse) {
-                    result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
-
-                    BrowserView browserView = new BrowserView(result, 1000, 1000);
-                    browserView.ShowDialog();
-                }
-            }
-        }
-
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void optionsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
