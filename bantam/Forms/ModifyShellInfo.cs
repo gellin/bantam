@@ -25,7 +25,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> responseEncryptionModes = new List<string> {
+        public static readonly ReadOnlyCollection<string> ResponseEncryptionModes = new List<string> {
              "openssl",
              "mcrypt",
         }.AsReadOnly();
@@ -41,7 +41,7 @@ namespace bantam.Forms
                 comboBoxVarType.Items.Add(item);
             }
 
-            foreach(var item in responseEncryptionModes) {
+            foreach(var item in ResponseEncryptionModes) {
                 comboBoxEncryptionMode.Items.Add(item);
             }
 
@@ -66,7 +66,7 @@ namespace bantam.Forms
                 comboBoxVarType.Items.Add(item);
             }
 
-            foreach (var item in responseEncryptionModes) {
+            foreach (var item in ResponseEncryptionModes) {
                 comboBoxEncryptionMode.Items.Add(item);
             }
 
@@ -76,16 +76,16 @@ namespace bantam.Forms
             txtBoxArgName.Text = varName;
 
             if (BantamMain.Shells.ContainsKey(shellUrl)) {
-                checkBoxGZipRequest.Checked = BantamMain.Shells[shellUrl].gzipRequestData;
-                checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].responseEncryption;
-                comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].responseEncryptionMode;
+                checkBoxGZipRequest.Checked = BantamMain.Shells[shellUrl].GzipRequestData;
+                checkBoxResponseEncryption.Checked = BantamMain.Shells[shellUrl].ResponseEncryption;
+                comboBoxEncryptionMode.SelectedIndex = BantamMain.Shells[shellUrl].ResponseEncryptionMode;
 
-                checkBoxEncryptRequest.Checked = BantamMain.Shells[shellUrl].requestEncryption;
+                checkBoxEncryptRequest.Checked = BantamMain.Shells[shellUrl].RequestEncryption;
                 if (checkBoxEncryptRequest.Checked) {
-                    checkBoxSendIVInRequest.Checked = (string.IsNullOrEmpty(BantamMain.Shells[shellUrl].requestEncryptionIV)) ? true : false;
-                    textBoxEncrpytionIV.Text = BantamMain.Shells[shellUrl].requestEncryptionIV;
-                    textBoxEncrpytionKey.Text = BantamMain.Shells[shellUrl].requestEncryptionKey;
-                    textBoxIVVarName.Text = BantamMain.Shells[shellUrl].requestEncryptionIVRequestVarName;
+                    checkBoxSendIVInRequest.Checked = (string.IsNullOrEmpty(BantamMain.Shells[shellUrl].RequestEncryptionIV)) ? true : false;
+                    textBoxEncrpytionIV.Text = BantamMain.Shells[shellUrl].RequestEncryptionIV;
+                    textBoxEncrpytionKey.Text = BantamMain.Shells[shellUrl].RequestEncryptionKey;
+                    textBoxIVVarName.Text = BantamMain.Shells[shellUrl].RequestEncryptionIVRequestVarName;
                 }
             }
 
@@ -144,44 +144,44 @@ namespace bantam.Forms
             BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
 
             if (comboBoxVarType.Text == "cookie") {
-                BantamMain.Shells[shellURL].sendDataViaCookie = true;
+                BantamMain.Shells[shellURL].SendDataViaCookie = true;
             }
 
             if (checkBoxResponseEncryption.Checked == false) {
-                BantamMain.Shells[shellURL].responseEncryption = false;
+                BantamMain.Shells[shellURL].ResponseEncryption = false;
             } else {
-                BantamMain.Shells[shellURL].responseEncryption = true;
-                BantamMain.Shells[shellURL].responseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
+                BantamMain.Shells[shellURL].ResponseEncryption = true;
+                BantamMain.Shells[shellURL].ResponseEncryptionMode = comboBoxEncryptionMode.SelectedIndex;
             }
 
             if (checkBoxGZipRequest.Checked) {
-                BantamMain.Shells[shellURL].gzipRequestData = true;
+                BantamMain.Shells[shellURL].GzipRequestData = true;
             } else {
-                BantamMain.Shells[shellURL].gzipRequestData = false;
+                BantamMain.Shells[shellURL].GzipRequestData = false;
             }
 
-            bool encryptResponse = BantamMain.Shells[shellURL].responseEncryption;
-            int responseEncryptionMode = BantamMain.Shells[shellURL].responseEncryptionMode;
+            bool encryptResponse = BantamMain.Shells[shellURL].ResponseEncryption;
+            int ResponseEncryptionMode = BantamMain.Shells[shellURL].ResponseEncryptionMode;
 
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
-                BantamMain.Shells[shellURL].requestEncryption = true;
-                BantamMain.Shells[shellURL].requestEncryptionKey = textBoxEncrpytionKey.Text;
+                BantamMain.Shells[shellURL].RequestEncryption = true;
+                BantamMain.Shells[shellURL].RequestEncryptionKey = textBoxEncrpytionKey.Text;
 
                 if (checkBoxSendIVInRequest.Checked) {
-                    BantamMain.Shells[shellURL].sendRequestEncryptionIV = true;
-                    BantamMain.Shells[shellURL].requestEncryptionIV = string.Empty;
-                    BantamMain.Shells[shellURL].requestEncryptionIVRequestVarName = textBoxIVVarName.Text;
+                    BantamMain.Shells[shellURL].SendRequestEncryptionIV = true;
+                    BantamMain.Shells[shellURL].RequestEncryptionIV = string.Empty;
+                    BantamMain.Shells[shellURL].RequestEncryptionIVRequestVarName = textBoxIVVarName.Text;
                 } else {
-                    BantamMain.Shells[shellURL].requestEncryptionIV = textBoxEncrpytionIV.Text;
-                    BantamMain.Shells[shellURL].requestEncryptionIVRequestVarName = string.Empty;
+                    BantamMain.Shells[shellURL].RequestEncryptionIV = textBoxEncrpytionIV.Text;
+                    BantamMain.Shells[shellURL].RequestEncryptionIVRequestVarName = string.Empty;
                 }
             } else {
-                BantamMain.Shells[shellURL].requestEncryption = false;
-                BantamMain.Shells[shellURL].requestEncryptionIVRequestVarName = string.Empty;
-                BantamMain.Shells[shellURL].requestEncryptionIV = string.Empty;
-                BantamMain.Shells[shellURL].requestEncryptionKey = string.Empty;
+                BantamMain.Shells[shellURL].RequestEncryption = false;
+                BantamMain.Shells[shellURL].RequestEncryptionIVRequestVarName = string.Empty;
+                BantamMain.Shells[shellURL].RequestEncryptionIV = string.Empty;
+                BantamMain.Shells[shellURL].RequestEncryptionKey = string.Empty;
             }
 
             string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
@@ -195,7 +195,7 @@ namespace bantam.Forms
             string result = response.Result;
 
             if (encryptResponse) {
-                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, responseEncryptionMode);
+                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
             }
 
             if (string.IsNullOrEmpty(result)) {

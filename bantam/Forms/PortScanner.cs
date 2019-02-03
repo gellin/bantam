@@ -47,8 +47,8 @@ namespace bantam.Forms
             if (BantamMain.Shells.ContainsKey(ShellUrl)) {
                 string portsCode = string.Empty;
 
-                bool encryptResponse = BantamMain.Shells[ShellUrl].responseEncryption;
-                int responseEncryptionMode = BantamMain.Shells[ShellUrl].responseEncryptionMode;
+                bool encryptResponse = BantamMain.Shells[ShellUrl].ResponseEncryption;
+                int ResponseEncryptionMode = BantamMain.Shells[ShellUrl].ResponseEncryptionMode;
 
                 //todo validate this port
                 if (!string.IsNullOrEmpty(textBoxPorts.Text)) {
@@ -70,7 +70,7 @@ namespace bantam.Forms
                 }
 
                 string phpCode = PhpHelper.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
-                BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, responseEncryptionMode);
+                BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, ResponseEncryptionMode);
             }
 
             btnScan.Enabled = true;

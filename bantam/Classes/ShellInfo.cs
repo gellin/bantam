@@ -5,6 +5,7 @@ namespace bantam.Classes
 {
     public class ShellInfo
     {
+
         /// <summary>
         /// 
         /// </summary>
@@ -199,12 +200,23 @@ namespace bantam.Classes
         /// <summary>
         /// Stores the console richtextbox string
         /// </summary>
-        public string consoleText;
+        private string consoleText;
+
+        public string ConsoleText
+        {
+            get { return consoleText; }
+            set { consoleText = value; }
+        }
 
         /// <summary>
         /// Stores the logs richtextbox string
         /// </summary>
-        public string logText;
+        private string logText;
+
+        public string LogText
+        {
+            get { return logText; }
+        }
 
         /// <summary>
         /// 
@@ -219,53 +231,103 @@ namespace bantam.Classes
         /// <summary>
         /// If true the client target/host is DOWN
         /// </summary>
-        public bool down = false;
+        private bool down;
+
+        public bool Down
+        {
+            get { return down; }
+            set { down = value; }
+        }
 
         /// <summary>
         /// If TRUE request's to this target/client will be sent via [GET] using a [COOKIE] to communicate data, if FALSE it will use a [POST] request
         /// </summary>
-        public bool sendDataViaCookie = false;
+        private bool sendDataViaCookie;
+
+        public bool SendDataViaCookie
+        {
+            get { return sendDataViaCookie; }
+            set { sendDataViaCookie = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool responseEncryption = true;
+        private bool responseEncryption = true;
+
+        public bool ResponseEncryption
+        {
+            get { return responseEncryption; }
+            set { responseEncryption = value; }
+        }
+
+        public int ResponseEncryptionMode { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int responseEncryptionMode = 0;
+        private bool requestEncryption;
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool requestEncryption = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string requestEncryptionKey;
+        public bool RequestEncryption
+        {
+            get { return requestEncryption; }
+            set { requestEncryption = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string requestEncryptionIV;
+        private string requestEncryptionKey;
+
+        public string RequestEncryptionKey
+        {
+            get { return requestEncryptionKey; }
+            set { requestEncryptionKey = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool sendRequestEncryptionIV = false;
+        private string requestEncryptionIV;
+
+        public string RequestEncryptionIV
+        {
+            get { return requestEncryptionIV; }
+            set { requestEncryptionIV = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public string requestEncryptionIVRequestVarName;
+        private bool sendRequestEncryptionIV;
+
+        public bool SendRequestEncryptionIV
+        {
+            get { return sendRequestEncryptionIV; }
+            set { sendRequestEncryptionIV = value; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool gzipRequestData = false;
+        private string requestEncryptionIVRequestVarName;
+
+        public string RequestEncryptionIVRequestVarName
+        {
+            get { return requestEncryptionIVRequestVarName; }
+            set { requestEncryptionIVRequestVarName = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool gzipRequestData;
+
+        public bool GzipRequestData
+        {
+            get { return gzipRequestData; }
+            set { gzipRequestData = value; }
+        }
 
         /// <summary>
         /// Name of the cookie or post argument used to send data to target/hostTargets

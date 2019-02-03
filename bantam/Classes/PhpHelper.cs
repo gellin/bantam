@@ -105,11 +105,11 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="responseEncryptionMode"></param>
+        /// <param name="ResponseEncryptionMode"></param>
         /// <param name="encryptionKey">Generated in this function and passed out by reference to use for decryption of the response</param>
         /// <param name="encryptionIV">Generated in this function and passed out by reference to use for decryption of the response</param>
         /// <returns></returns>
-        public static string EncryptPhpVariableAndEcho(int responseEncryptionMode, ref string encryptionKey, ref string encryptionIV)
+        public static string EncryptPhpVariableAndEcho(int ResponseEncryptionMode, ref string encryptionKey, ref string encryptionIV)
         {
             //todo make dynamic/random
             string varName = "$result";
@@ -120,9 +120,9 @@ namespace bantam.Classes
                               + varName + " = base64_encode(" + varName + ");"
                               + RandomPHPComment();
 
-            if (responseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
+            if (ResponseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
                 encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-            } else if (responseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
+            } else if (ResponseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
             } else {
                 //todo global logging

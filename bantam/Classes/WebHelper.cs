@@ -187,21 +187,21 @@ namespace bantam.Classes
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCode)
         {
             bool b64Encoded = false;
-            string responseEncryptionKey = string.Empty,
-                   responseEncryptionIV = string.Empty,
+            string ResponseEncryptionKey = string.Empty,
+                   ResponseEncryptionIV = string.Empty,
                    requestEncryptionIV_VarName = string.Empty,
                    requestEncryptionIV = string.Empty;
 
-            bool sendViaCookie = BantamMain.Shells[url].sendDataViaCookie;
-            bool gzipRequestData = BantamMain.Shells[url].gzipRequestData;
-            bool encryptResponse = BantamMain.Shells[url].responseEncryption;
+            bool sendViaCookie = BantamMain.Shells[url].SendDataViaCookie;
+            bool gzipRequestData = BantamMain.Shells[url].GzipRequestData;
+            bool encryptResponse = BantamMain.Shells[url].ResponseEncryption;
 
-            int responseEncryptionMode = BantamMain.Shells[url].responseEncryptionMode;
+            int ResponseEncryptionMode = BantamMain.Shells[url].ResponseEncryptionMode;
 
             string requestArgsName = BantamMain.Shells[url].requestArgName;
 
-            bool encryptRequest = BantamMain.Shells[url].requestEncryption;
-            bool sendRequestEncryptionIV = BantamMain.Shells[url].sendRequestEncryptionIV;
+            bool encryptRequest = BantamMain.Shells[url].RequestEncryption;
+            bool sendRequestEncryptionIV = BantamMain.Shells[url].SendRequestEncryptionIV;
 
             try {
                 HttpMethod method;
@@ -217,7 +217,7 @@ namespace bantam.Classes
 
                 if (!string.IsNullOrEmpty(phpCode)) {
                     if (encryptResponse) {
-                        phpCode += PhpHelper.EncryptPhpVariableAndEcho(responseEncryptionMode, ref responseEncryptionKey, ref responseEncryptionIV);
+                        phpCode += PhpHelper.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);
                     }
 
                     phpCode = Helper.MinifyCode(phpCode);
@@ -228,16 +228,16 @@ namespace bantam.Classes
                         phpCodeBytes = gzCompress(phpCodeBytes);
 
                         if (encryptRequest) {
-                            string encryptionKey = BantamMain.Shells[url].requestEncryptionKey;
+                            string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
 
                             if (sendRequestEncryptionIV) {
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
-                                requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
+                                requestEncryptionIV_VarName = BantamMain.Shells[url].RequestEncryptionIVRequestVarName;
 
                                 phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
-                                string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
+                                string encryptionIV = BantamMain.Shells[url].RequestEncryptionIV;
 
                                 phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
                                 b64Encoded = true;
@@ -248,16 +248,16 @@ namespace bantam.Classes
                         }
                     } else {
                         if (encryptRequest) {
-                            string encryptionKey = BantamMain.Shells[url].requestEncryptionKey;
+                            string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
 
                             if (sendRequestEncryptionIV) {
                                 requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
-                                requestEncryptionIV_VarName = BantamMain.Shells[url].requestEncryptionIVRequestVarName;
+                                requestEncryptionIV_VarName = BantamMain.Shells[url].RequestEncryptionIVRequestVarName;
 
                                 phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(phpCode), encryptionKey, requestEncryptionIV);
                                 b64Encoded = true;
                             } else {
-                                string encryptionIV = BantamMain.Shells[url].requestEncryptionIV;
+                                string encryptionIV = BantamMain.Shells[url].RequestEncryptionIV;
 
                                 phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(phpCode), encryptionKey, encryptionIV);
                                 b64Encoded = true;
@@ -298,7 +298,7 @@ namespace bantam.Classes
 
                     //GC.Collect();
 
-                    return new ResponseObject(responseString, responseEncryptionKey, responseEncryptionIV);
+                    return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
             } catch (System.Net.Http.HttpRequestException e) {
                 //todo level 2/3 logging
