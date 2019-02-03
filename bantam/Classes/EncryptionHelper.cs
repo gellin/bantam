@@ -124,7 +124,7 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        public static string EncryptByteToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
@@ -136,38 +136,6 @@ namespace bantam.Classes
                         using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
                             cryptoStream.Write(plainText, 0, plainText.Length);
                             cryptoStream.Close();
-                        }
-                        result = Convert.ToBase64String(memoryStream.ToArray());
-                    }
-                } catch (Exception e) {
-                    MessageBox.Show(e.Message, "Failed to encrypt string");
-                } finally {
-                    aes.Clear();
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// Returns a base64 encoded AES256 encrypted string
-        /// </summary>
-        /// <param name="plainText"></param>
-        /// <param name="encryptionKey"></param>
-        /// <param name="encryptionIV"></param>
-        /// <param name="padding"></param>
-        /// <returns></returns>
-        public static string EncryptStringToRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
-        {
-            var result = string.Empty;
-            var Key = Encoding.UTF8.GetBytes(encryptionKey);
-            var IV = Encoding.UTF8.GetBytes(encryptionIV);
-
-            using (var aes = BuildAesMode(Key, IV, padding)) {
-                try {
-                    using (var memoryStream = new MemoryStream()) {
-                        using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write))
-                        using (var streamWriter = new StreamWriter(cryptoStream)) {
-                            streamWriter.Write(plainText);
                         }
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
