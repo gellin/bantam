@@ -58,13 +58,14 @@ namespace bantam
         /// <returns></returns>
         public bool ValidTarget(string shellUrl)
         {
-            if (string.IsNullOrEmpty(shellUrl)) {
-                shellUrl = g_SelectedShellUrl;
+            string targetUrl = shellUrl;
+            if (string.IsNullOrEmpty(targetUrl)) {
+                targetUrl = g_SelectedShellUrl;
             }
 
-            if (string.IsNullOrEmpty(shellUrl) == false
-             && Shells.ContainsKey(shellUrl)
-             && Shells[shellUrl].Down == false) {
+            if (string.IsNullOrEmpty(targetUrl) == false
+             && Shells.ContainsKey(targetUrl)
+             && Shells[targetUrl].Down == false) {
                 return true;
             }
             return false;
@@ -1012,10 +1013,7 @@ namespace bantam
                     //todo level 3 logging
                 }
             }
-
-            if (tabControlMain.SelectedTab != tabPageFiles) {
-                tabControlMain.SelectedTab = tabPageFiles;
-            }
+            tabControlMain.SelectedTab = tabPageFiles;
         }
 
         /// <summary>
@@ -1154,7 +1152,7 @@ namespace bantam
                                         }
                                     }
                                 } else {
-                                    //MessageBox.Show(columns[0]);
+                                    //todo logging?
                                 }
                             }
                             tn.Expand();
@@ -1286,7 +1284,6 @@ namespace bantam
 
             string shellUrl = g_SelectedShellUrl;
             string path = fileBrowserGetFileNameAndPath();
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
 
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete \r\n(" + path + ")", 
                                                         "HOLD ON THERE COWBOY", 
