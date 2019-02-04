@@ -23,11 +23,11 @@ namespace bantam.Classes
             return rdm.Next(1, maxNumber);
         }
 
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="maxLength"></param>
-        /// <param name="matchLength"></param>
+        /// <param name="length"></param>
         /// <returns></returns>
         public static string RandomNumberStringSetLength(int length)
         {
@@ -40,11 +40,11 @@ namespace bantam.Classes
             return result.ToString();
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="maxLength"></param>
-        /// <param name="matchLength"></param>
         /// <returns></returns>
         public static string RandomNumberStringMaxLength(int maxLength)
         {

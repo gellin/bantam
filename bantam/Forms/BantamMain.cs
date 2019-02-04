@@ -27,17 +27,8 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        private static ConcurrentDictionary<String, ShellInfo> shells = new ConcurrentDictionary<String, ShellInfo>();
+        public static ConcurrentDictionary<String, ShellInfo> Shells = new ConcurrentDictionary<String, ShellInfo>();
          
-        /// <summary>
-        /// Shells Accessor
-        /// </summary>
-        public static ConcurrentDictionary<String, ShellInfo>Shells
-        {
-            get { return shells; }
-        }
-
-
         /// <summary>
         ///
         ///
@@ -56,7 +47,7 @@ namespace bantam
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ValidTarget()
+        public static bool ValidTarget()
         {
             return ValidTarget(g_SelectedShellUrl);
         }
@@ -65,7 +56,7 @@ namespace bantam
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ValidTarget(string shellUrl)
+        public static bool ValidTarget(string shellUrl)
         {
             string targetUrl = shellUrl;
             if (string.IsNullOrEmpty(targetUrl)) {
