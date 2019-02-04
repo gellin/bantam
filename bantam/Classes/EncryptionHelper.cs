@@ -108,6 +108,7 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
+                    //todo
                     MessageBox.Show(e.Message, "Failed to decrypt response");
                 } finally {
                     aes.Clear();
@@ -127,8 +128,8 @@ namespace bantam.Classes
         public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
         {
             var result = string.Empty;
-            var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
+            var Key = Encoding.UTF8.GetBytes(encryptionKey);
 
             using (var aes = BuildAesMode(Key, IV, padding)) {
                 try {
@@ -140,6 +141,7 @@ namespace bantam.Classes
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
                 } catch (Exception e) {
+                    //todo
                     MessageBox.Show(e.Message, "Failed to encrypt string");
                 } finally {
                     aes.Clear();

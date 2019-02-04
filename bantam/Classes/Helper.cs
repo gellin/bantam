@@ -197,11 +197,15 @@ namespace bantam.Classes
             int i = 0;
             double bytesOut = bytesIn;
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-            for (; i < suffixes.Length && bytesIn >= 1024; i++) {
+
+            for (; i < suffixes.Length && bytesOut >= 1024; i++) {
                 bytesOut /= 1024;
             }
 
-            return String.Format("{0:0.##} {1}", bytesOut, suffixes[i]);
+            if (i < suffixes.Length) {
+                return String.Format("{0:0.##} {1}", bytesOut, suffixes[i]);
+            }
+            return "0";
         }
 
         /// <summary>
