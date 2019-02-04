@@ -113,7 +113,7 @@ namespace bantam
         /// <param name="ResponseEncryptionMode"></param>
         /// <param name="richTextBox"></param>
         /// <param name="prependText"></param>
-        public static async void ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
+        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
         {
             //todo this doesn't have a timeout
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode));
@@ -149,7 +149,7 @@ namespace bantam
         /// 
         /// </summary>
         /// <param name="shellUrl"></param>
-        public async void InitializeShellData(string shellUrl)
+        public async Task InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
                 string[] data;     
