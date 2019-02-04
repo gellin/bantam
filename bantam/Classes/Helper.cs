@@ -31,13 +31,13 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomNumberStringSetLength(int length)
         {
-            string s = string.Empty;
+            StringBuilder result = new StringBuilder();
 
             for (int i = 0; i < length; i++) {
-                s += rdm.Next(10).ToString();
+                result.Append(rdm.Next(10).ToString());
             }
 
-            return s;
+            return result.ToString();
         }
 
         /// <summary>
