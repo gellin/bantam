@@ -885,8 +885,13 @@ namespace bantam
         /// </summary>
         /// <param name="result"></param>
         /// <param name="shellUrl"></param>
-        private async Task FileBrowserRender(string result, string shellUrl)
+        private async Task FileBrowserRender(string result, string shellUrl, TreeNode baseTn = null)
         {
+            if (shellUrl != g_SelectedShellUrl) {
+                //user has changed shells on the ui, todo update cache instead
+                return;
+            }
+
             string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
             if (rows.Length > 0 && rows != null) {
@@ -898,54 +903,35 @@ namespace bantam
                         string permissionOctal = Convert.ToString(Convert.ToInt32(columns[4]), 8);
                         string perms = permissionOctal.Substring(permissionOctal.Length - 4);
 
-                        if (columns[columns.Length - 2] == "dir") {
-                            //if the user switched targets we do not update the live filebrowser because it is for a different target
-                            if (g_SelectedShellUrl == shellUrl) {
-                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add(string.Empty, columns[0], 0);
-                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                } else {
-                                    lastTn.ToolTipText = perms;
-                                }
-                            } else {
-                                //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add(string.Empty, columns[0], 0);
-                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                } else {
-                                    lastTn.ToolTipText = perms;
-                                }
-                            }
+                        TreeNodeCollection tnCollection;
+                        
+                        if (baseTn != null && baseTn.Nodes != null) {
+                            tnCollection = baseTn.Nodes;
                         } else {
-                            //if the user switched targets we do not update the live filebrowser because it is for a different target
-                            if (g_SelectedShellUrl == shellUrl) {
-                                TreeNode lastTn = treeViewFileBrowser.Nodes.Add(string.Empty, columns[0], 6);
-                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+                            tnCollection = treeViewFileBrowser.Nodes;
+                        }
 
-                                if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                } else {
-                                    lastTn.ToolTipText = perms;
-                                }
+                        if (columns[columns.Length - 2] == "dir") {
+                            TreeNode lastTn = tnCollection.Add(string.Empty, columns[0], 0);
+                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+                            lastTn.ToolTipText = perms;
+                        } else {
+                            TreeNode lastTn = tnCollection.Add(string.Empty, columns[0], 6);
+                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+
+                            if (string.IsNullOrEmpty(columns[2]) == false) {
+                                lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
                             } else {
-                                //the user changed "shellUrl/targets" before the call back so we add it into their client cache instead of the live treeview
-                                TreeNode lastTn = Shells[shellUrl].files.Nodes.Add(string.Empty, columns[0], 6);
-                                lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                if (string.IsNullOrEmpty(columns[2]) == false) {
-                                    lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                } else {
-                                    lastTn.ToolTipText = perms;
-                                }
+                                lastTn.ToolTipText = perms;
                             }
                         }
                     }
                 }
                 treeViewFileBrowser.Sort();
+
+                if (baseTn != null) {
+                    baseTn.Expand();
+                }
             }
         }
 
@@ -1116,49 +1102,7 @@ namespace bantam
                             MessageBox.Show("Error Decoding Response", "Whoops!!!!");
                             return;
                         }
-                        string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
-
-                        if (rows.Length > 0 && rows != null) {
-                            foreach (string row in rows) {
-                                string[] columns = row.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
-
-                                if (columns != null && columns.Length - 2 > 0) {
-
-                                    string permissionOctal = Convert.ToString(Convert.ToInt32(columns[4]), 8);
-                                    string perms = permissionOctal.Substring(permissionOctal.Length - 4);
-
-                                    if (columns[columns.Length - 2] == "dir") {
-                                        if (shellUrl == g_SelectedShellUrl) {
-                                            TreeNode lastTn = tn.Nodes.Add(string.Empty, columns[0], 0);
-                                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
-                                            if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            } else {
-                                                lastTn.ToolTipText = perms;
-                                            }
-                                        } else {
-                                            //TODO update their client cache here user changed clients
-                                        }
-                                    } else {
-                                        if (shellUrl == g_SelectedShellUrl) {
-                                            TreeNode lastTn = tn.Nodes.Add(string.Empty, columns[0], 6);
-                                            if (string.IsNullOrEmpty(columns[2]) == false) {
-                                                lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
-                                            } else {
-                                                lastTn.ToolTipText = perms;
-                                            }
-                                        } else {
-                                            //TODO update their client cache here user changed clients
-                                        }
-                                    }
-                                } else {
-                                    //todo logging?
-                                }
-                            }
-                            tn.Expand();
-                            treeViewFileBrowser.Sort();
-                        }
+                        FileBrowserRender(result, shellUrl, tn);
                     } else {
                         //todo level 3 logging
                     }

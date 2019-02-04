@@ -203,7 +203,7 @@ namespace bantam.Classes
 
             string phpCode = phpCodeIn;
 
-            if (!string.IsNullOrEmpty(phpCode)) {
+            if (string.IsNullOrEmpty(phpCode)) {
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
@@ -266,33 +266,33 @@ namespace bantam.Classes
                             b64Encoded = true;
                         }
                     }
+                }
 
-                    if (!b64Encoded) {
-                        phpCode = Helper.EncodeBase64ToString(phpCode);
+                if (!b64Encoded) {
+                    phpCode = Helper.EncodeBase64ToString(phpCode);
+                }
+
+                phpCode = HttpUtility.UrlEncode(phpCode);
+
+                if (sendViaCookie) {
+                    request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
+
+                    if (encryptRequest && sendRequestEncryptionIV) {
+                        request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
                     }
-
-                    phpCode = HttpUtility.UrlEncode(phpCode);
-
-                    if (sendViaCookie) {
-                        request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
-
-                        if (encryptRequest && sendRequestEncryptionIV) {
-                            request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
-                        }
-                        phpCode = null;
+                    phpCode = null;
+                } else {
+                    string postArgs = string.Empty;
+                    if (encryptRequest && sendRequestEncryptionIV) {
+                        postArgs = string.Format(requestArgsName + "={0}&{1}={2}", phpCode, requestEncryptionIV_VarName, HttpUtility.UrlEncode(requestEncryptionIV));
                     } else {
-                        string postArgs = string.Empty;
-                        if (encryptRequest && sendRequestEncryptionIV) {
-                            postArgs = string.Format(requestArgsName + "={0}&{1}={2}", phpCode, requestEncryptionIV_VarName, HttpUtility.UrlEncode(requestEncryptionIV));
-                        } else {
-                            postArgs = string.Format(requestArgsName + "={0}", phpCode);
-                        }
-
-                        request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
-
-                        phpCode = null;
-                        postArgs = null;
+                        postArgs = string.Format(requestArgsName + "={0}", phpCode);
                     }
+
+                    request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
+
+                    phpCode = null;
+                    postArgs = null;
                 }
 
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
