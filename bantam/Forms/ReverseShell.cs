@@ -192,11 +192,7 @@ namespace bantam.Forms
         {
             string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
 
-            ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
-
-            if (string.IsNullOrEmpty(response.Result) == false) {
-                string result = response.Result;
-            }
+            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
         }
 
         /// <summary>
