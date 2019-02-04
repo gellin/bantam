@@ -8,7 +8,7 @@ namespace bantam.Forms
 {
     public partial class ProxyOptions : Form
     {
-        private static ProxyOptions instance = null;
+        private static ProxyOptions instance;
 
         public enum PROXY_TYPE
         {

@@ -9,7 +9,7 @@ namespace bantam.Classes
     /// </summary>
     public class TextBoxButton : TextBox
     {
-        private Button btnBack = new Button();
+        private readonly Button btnBack = new Button();
 
         /// <summary>
         /// 

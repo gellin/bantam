@@ -164,8 +164,6 @@ namespace bantam.Forms
             int ResponseEncryptionMode = BantamMain.Shells[shellURL].ResponseEncryptionMode;
 
             if (checkBoxEncryptRequest.Checked) {
-                string encryptionKey = textBoxEncrpytionKey.Text;
-
                 BantamMain.Shells[shellURL].RequestEncryption = true;
                 BantamMain.Shells[shellURL].RequestEncryptionKey = textBoxEncrpytionKey.Text;
 

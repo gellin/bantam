@@ -27,7 +27,16 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        public static ConcurrentDictionary<String, ShellInfo> Shells = new ConcurrentDictionary<String, ShellInfo>();
+        private static ConcurrentDictionary<String, ShellInfo> shells = new ConcurrentDictionary<String, ShellInfo>();
+         
+        /// <summary>
+        /// Shells Accessor
+        /// </summary>
+        public static ConcurrentDictionary<String, ShellInfo>Shells
+        {
+            get { return shells; }
+        }
+
 
         /// <summary>
         ///
