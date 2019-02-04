@@ -56,7 +56,7 @@ namespace bantam.Forms
         /// <param name="shellUrl"></param>
         /// <param name="varName"></param>
         /// <param name="varType"></param>
-        public static ModifyShell(string shellUrl, string varName, string varType)
+        public ModifyShell(string shellUrl, string varName, string varType)
         {
             InitializeComponent();
 
@@ -141,7 +141,7 @@ namespace bantam.Forms
             //Add Shell
             BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
 
-            BantamMain.Shells[shellURL].requestArgName = txtBoxArgName.Text;
+            BantamMain.Shells[shellURL].RequestArgName = txtBoxArgName.Text;
 
             if (comboBoxVarType.Text == "cookie") {
                 BantamMain.Shells[shellURL].SendDataViaCookie = true;

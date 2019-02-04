@@ -196,7 +196,7 @@ namespace bantam.Classes
 
             int ResponseEncryptionMode = BantamMain.Shells[url].ResponseEncryptionMode;
 
-            string requestArgsName = BantamMain.Shells[url].requestArgName;
+            string requestArgsName = BantamMain.Shells[url].RequestArgName;
 
             bool encryptRequest = BantamMain.Shells[url].RequestEncryption;
             bool sendRequestEncryptionIV = BantamMain.Shells[url].SendRequestEncryptionIV;

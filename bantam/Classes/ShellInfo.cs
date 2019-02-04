@@ -221,12 +221,23 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public TreeView files;
+        private TreeView files;
+
+        public TreeView Files
+        {
+            get { return files; }
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public Stopwatch pingStopwatch;
+        private Stopwatch pingStopwatch;
+
+        public Stopwatch PingStopwatch
+        {
+            set { pingStopwatch = value; }
+            get { return pingStopwatch; }
+        }
 
         /// <summary>
         /// If true the client target/host is DOWN
@@ -332,6 +343,12 @@ namespace bantam.Classes
         /// <summary>
         /// Name of the cookie or post argument used to send data to target/hostTargets
         /// </summary>
-        public string requestArgName = "command";
+        private string requestArgName = "command";
+
+        public string RequestArgName
+        {
+            get { return requestArgName; }
+            set { requestArgName = value; }
+        }
     }
 }

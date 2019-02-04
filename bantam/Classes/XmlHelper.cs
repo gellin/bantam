@@ -43,7 +43,7 @@ namespace bantam.Classes
                         //todo default this 
                         if (string.IsNullOrEmpty(requestArg) == false
                         && requestArg != "command") {
-                            BantamMain.Shells[hostTarget].requestArgName = requestArg;
+                            BantamMain.Shells[hostTarget].RequestArgName = requestArg;
                         }
 
                         //todo don't default this
@@ -133,7 +133,7 @@ namespace bantam.Classes
                 serverNode.Attributes.Append(hostAttribute);
 
                 XmlAttribute requestArgAttribute = xmlDoc.CreateAttribute("request_arg");
-                requestArgAttribute.Value = shellInfo.requestArgName;
+                requestArgAttribute.Value = shellInfo.RequestArgName;
 
                 serverNode.Attributes.Append(requestArgAttribute);
 

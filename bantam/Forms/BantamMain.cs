@@ -374,11 +374,11 @@ namespace bantam
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
 
             if (lvi != null
-            && (Shells[shellUrl].pingStopwatch == null 
-            || Shells[shellUrl].pingStopwatch.IsRunning == false)) {
+            && (Shells[shellUrl].PingStopwatch == null 
+            || Shells[shellUrl].PingStopwatch.IsRunning == false)) {
 
-                Shells[shellUrl].pingStopwatch = new Stopwatch();
-                Shells[shellUrl].pingStopwatch.Start();
+                Shells[shellUrl].PingStopwatch = new Stopwatch();
+                Shells[shellUrl].PingStopwatch.Start();
 
                 //todo test this when shell has gone away
                 string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
@@ -388,8 +388,8 @@ namespace bantam
                     return;
                 }
 
-                lvi.SubItems[1].Text = Shells[shellUrl].pingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-                Shells[shellUrl].pingStopwatch.Stop();
+                lvi.SubItems[1].Text = Shells[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+                Shells[shellUrl].PingStopwatch.Stop();
             }
         }
 
@@ -432,14 +432,14 @@ namespace bantam
                     if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
 
                         //Clear previously cached treeview to only store 1 copy
-                        if (Shells[g_SelectedShellUrl].files != null
-                         && Shells[g_SelectedShellUrl].files.Nodes != null
-                         && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
-                            Shells[g_SelectedShellUrl].files.Nodes.Clear();
+                        if (Shells[g_SelectedShellUrl].Files != null
+                         && Shells[g_SelectedShellUrl].Files.Nodes != null
+                         && Shells[g_SelectedShellUrl].Files.Nodes.Count > 0) {
+                            Shells[g_SelectedShellUrl].Files.Nodes.Clear();
                         }
 
                         //store current treeview into client and clear
-                        GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].files);
+                        GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[g_SelectedShellUrl].Files);
                         treeViewFileBrowser.Nodes.Clear();
                     }
                 }
@@ -515,9 +515,9 @@ namespace bantam
                 }
 
                 if (tabControlMain.SelectedTab == tabPageFiles) {
-                    if (Shells[g_SelectedShellUrl].files.Nodes != null
-                     && Shells[g_SelectedShellUrl].files.Nodes.Count > 0) {
-                        GuiHelper.CopyNodesFromTreeView(Shells[g_SelectedShellUrl].files, treeViewFileBrowser);
+                    if (Shells[g_SelectedShellUrl].Files.Nodes != null
+                     && Shells[g_SelectedShellUrl].Files.Nodes.Count > 0) {
+                        GuiHelper.CopyNodesFromTreeView(Shells[g_SelectedShellUrl].Files, treeViewFileBrowser);
                         treeViewFileBrowser.Refresh();
                         treeViewFileBrowser.ExpandAll();
 
@@ -545,11 +545,11 @@ namespace bantam
                 //if the gui's treeview is empty and the cached treeview data is not empty
                 if (treeViewFileBrowser.Nodes != null 
                 && treeViewFileBrowser.Nodes.Count == 0
-                && Shells[shellUrl].files.Nodes != null
-                && Shells[shellUrl].files.Nodes.Count > 0) {
+                && Shells[shellUrl].Files.Nodes != null
+                && Shells[shellUrl].Files.Nodes.Count > 0) {
 
                     //populate the treeview from cache
-                    GuiHelper.CopyNodesFromTreeView(Shells[shellUrl].files, treeViewFileBrowser);
+                    GuiHelper.CopyNodesFromTreeView(Shells[shellUrl].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
                     treeViewFileBrowser.ExpandAll();
 
@@ -727,7 +727,7 @@ namespace bantam
         {
             if (string.IsNullOrEmpty(g_SelectedShellUrl) == false) {
                 string shellUrl = g_SelectedShellUrl;
-                string varName = Shells[shellUrl].requestArgName;
+                string varName = Shells[shellUrl].RequestArgName;
                 string varType = (Shells[shellUrl].SendDataViaCookie ? "cookie" : "post");
 
                 ModifyShell updateHostForm = new ModifyShell(shellUrl, varName, varType);
@@ -833,7 +833,7 @@ namespace bantam
             string phpCode = PhpHelper.DirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
-            Shells[shellUrl].files.Nodes.Clear();
+            Shells[shellUrl].Files.Nodes.Clear();
 
             //if user didn't switch targets by the time this callback is triggered clear the live treeview
             if (g_SelectedShellUrl == shellUrl) {
@@ -977,7 +977,7 @@ namespace bantam
             string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, directoryContentsPHPCode, encryptResponse, ResponseEncryptionMode);
 
-            Shells[shellUrl].files.Nodes.Clear();
+            Shells[shellUrl].Files.Nodes.Clear();
 
             if (g_SelectedShellUrl == shellUrl) {
                 treeViewFileBrowser.Nodes.Clear();
@@ -1057,8 +1057,8 @@ namespace bantam
 
             if (treeViewFileBrowser.Nodes != null
              && treeViewFileBrowser.Nodes.Count > 0) {
-                if (Shells[g_SelectedShellUrl].files != null) {
-                    Shells[g_SelectedShellUrl].files.Nodes.Clear();
+                if (Shells[g_SelectedShellUrl].Files != null) {
+                    Shells[g_SelectedShellUrl].Files.Nodes.Clear();
                 }
                 treeViewFileBrowser.Nodes.Clear();
                 treeViewFileBrowser.Refresh();
