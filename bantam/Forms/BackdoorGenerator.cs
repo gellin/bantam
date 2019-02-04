@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 
@@ -161,7 +162,7 @@ namespace bantam.Forms
             string requestEncryptionStart = string.Empty;
             string requestEncryptionEnd = string.Empty;
 
-            varType = varType.ToUpper();
+            varType = varType.ToUpper(CultureInfo.InvariantCulture);
 
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;

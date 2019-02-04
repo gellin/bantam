@@ -149,7 +149,6 @@ namespace bantam.Classes
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 //todo global slevel 2 or level 3 logging cfg
-                //MessageBox.Show(str, "Unable to decode base64! - cleaning it and trying again");
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
@@ -157,6 +156,7 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
+                //todo logging check
                 MessageBox.Show(str, "Unable to decode base64!");
                 return null;
             }
@@ -193,13 +193,16 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public static string FormatBytes(double bytes)
+        public static string FormatBytes(double bytesIn)
         {
             int i = 0;
+            double bytesOut = bytesIn;
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-            for (; i < suffixes.Length && bytes >= 1024; i++, bytes /= 1024) { }
+            for (; i < suffixes.Length && bytesIn >= 1024; i++) {
+                bytesOut /= 1024;
+            }
 
-            return String.Format("{0:0.##} {1}", bytes, suffixes[i]);
+            return String.Format("{0:0.##} {1}", bytesOut, suffixes[i]);
         }
 
         /// <summary>

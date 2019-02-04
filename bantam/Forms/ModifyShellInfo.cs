@@ -56,7 +56,7 @@ namespace bantam.Forms
         /// <param name="shellUrl"></param>
         /// <param name="varName"></param>
         /// <param name="varType"></param>
-        public ModifyShell(string shellUrl, string varName, string varType)
+        public static ModifyShell(string shellUrl, string varName, string varType)
         {
             InitializeComponent();
 

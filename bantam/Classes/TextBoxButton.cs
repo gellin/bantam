@@ -9,12 +9,7 @@ namespace bantam.Classes
     /// </summary>
     public class TextBoxButton : TextBox
     {
-        Button btnBack = new Button();
-
-        public TextBoxButton()
-        {
-            //InitializeComponent();
-        }
+        private Button btnBack = new Button();
 
         /// <summary>
         /// 
