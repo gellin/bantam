@@ -160,7 +160,7 @@ namespace bantam.Forms
                 phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);
             }
 
-            await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode);
+            await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false);
 
             GC.Collect();
             this.Close();

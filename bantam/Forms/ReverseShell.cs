@@ -192,7 +192,7 @@ namespace bantam.Forms
         {
             string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
 
-            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
+            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace bantam.Forms
         /// <param name="phpCode"></param>
         private async Task PopChankroShell(string phpCode)
         {
-            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode));
+            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
         }
 
         /// <summary>

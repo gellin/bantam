@@ -128,6 +128,7 @@ namespace bantam.Classes
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
+                //todo
                 MessageBox.Show(str, "Unable to decode base64!");
                 return string.Empty;
             }

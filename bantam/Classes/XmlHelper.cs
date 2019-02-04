@@ -123,7 +123,7 @@ namespace bantam.Classes
             xmlDoc.AppendChild(rootNode);
 
             foreach (KeyValuePair<String, ShellInfo> host in BantamMain.Shells) {
-                ShellInfo shellInfo = (ShellInfo)host.Value;
+                ShellInfo shellInfo = host.Value;
 
                 XmlNode serverNode = xmlDoc.CreateElement("server");
 

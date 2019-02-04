@@ -35,8 +35,8 @@ namespace bantam.Classes
         {
             this.ping = ping;
             files = new TreeView();
-
-            cwd = pwd = data[(int)INIT_DATA_VARS.CWD];
+            pwd = data[(int)INIT_DATA_VARS.CWD];
+            cwd = pwd;
             freeHDDSpace = data[(int)INIT_DATA_VARS.FREE_SPACE];
             totalHDDSpace = data[(int)INIT_DATA_VARS.TOTAL_SPACE];
             unameRelease = data[(int)INIT_DATA_VARS.RELEASE];

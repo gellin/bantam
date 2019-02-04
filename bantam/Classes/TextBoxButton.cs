@@ -26,7 +26,6 @@ namespace bantam.Classes
             btnBack.Size = new Size(25, textboxHeight + 2);
             btnBack.Location = new Point(1, -1);
             btnBack.Image = global::bantam.Properties.Resources.undo;
-            // btnBack.ImageAlign = ContentAlignment.MiddleLeft;
             btnBack.MouseClick += mouseClickFunction;
             btnBack.TabStop = false;
             btnBack.FlatStyle = FlatStyle.Flat;

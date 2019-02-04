@@ -18,9 +18,7 @@ namespace bantam
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             g_BantamMain = new BantamMain();
-
             Application.Run(g_BantamMain);
         }
     }
