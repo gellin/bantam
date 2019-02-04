@@ -19,27 +19,27 @@ namespace bantam.Forms
 
         private void DefaultOptions()
         {
-
+            //todo
         }
 
         private void Options_Load(object sender, EventArgs e)
         {
-
+            //todo
         }
 
         private void trackBarCommentFrequency_Scroll(object sender, EventArgs e)
         {
-
+            //todo
         }
 
         private void checkBoxRandomPhpVarNames_CheckedChanged(object sender, EventArgs e)
         {
-
+            //todo
         }
 
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
-
+            //todo
         }
 
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
@@ -58,7 +58,7 @@ namespace bantam.Forms
 
         private void checkBoxDisableErrorLogs_CheckedChanged(object sender, EventArgs e)
         {
-
+            //todo
         }
     }
 }
