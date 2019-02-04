@@ -372,7 +372,8 @@ namespace bantam
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
 
             if (lvi != null
-            && (Shells[shellUrl].pingStopwatch == null || Shells[shellUrl].pingStopwatch.IsRunning == false)) {
+            && (Shells[shellUrl].pingStopwatch == null 
+            || Shells[shellUrl].pingStopwatch.IsRunning == false)) {
 
                 Shells[shellUrl].pingStopwatch = new Stopwatch();
                 Shells[shellUrl].pingStopwatch.Start();

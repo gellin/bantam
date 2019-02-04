@@ -51,7 +51,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
-            this.toolTipCommentTracker = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
@@ -94,6 +93,7 @@
             this.textBox1.Size = new System.Drawing.Size(74, 24);
             this.textBox1.TabIndex = 14;
             this.textBox1.Text = "8192";
+            this.toolTip1.SetToolTip(this.textBox1, "Max post size in kibibyte\'s.");
             // 
             // label2
             // 
@@ -103,6 +103,7 @@
             this.label2.Size = new System.Drawing.Size(122, 16);
             this.label2.TabIndex = 13;
             this.label2.Text = "Max Post Size (KiB):";
+            this.toolTip1.SetToolTip(this.label2, "Max post size in kibibyte\'s.");
             // 
             // trackBarLoggingLevel
             // 
@@ -113,6 +114,7 @@
             this.trackBarLoggingLevel.Name = "trackBarLoggingLevel";
             this.trackBarLoggingLevel.Size = new System.Drawing.Size(154, 45);
             this.trackBarLoggingLevel.TabIndex = 12;
+            this.toolTip1.SetToolTip(this.trackBarLoggingLevel, "Controls the amount of logs you want to see.");
             this.trackBarLoggingLevel.Value = 1;
             // 
             // checkBoxEnableLogging
@@ -126,6 +128,7 @@
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(118, 20);
             this.checkBoxEnableLogging.TabIndex = 11;
             this.checkBoxEnableLogging.Text = "Enable Logging";
+            this.toolTip1.SetToolTip(this.checkBoxEnableLogging, "Enables individual shell logging into the logs tab.");
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
             // 
             // checkBoxRandomComments
@@ -174,6 +177,7 @@
             this.label4.Size = new System.Drawing.Size(126, 16);
             this.label4.TabIndex = 17;
             this.label4.Text = "Max Cookie Size (B):";
+            this.toolTip1.SetToolTip(this.label4, "Max cookie size in bytes non-editable.");
             // 
             // textBoxMaxCookieSize
             // 
@@ -184,6 +188,7 @@
             this.textBoxMaxCookieSize.Size = new System.Drawing.Size(74, 24);
             this.textBoxMaxCookieSize.TabIndex = 18;
             this.textBoxMaxCookieSize.Text = "8192";
+            this.toolTip1.SetToolTip(this.textBoxMaxCookieSize, "Max cookie size in bytes non-editable.");
             // 
             // groupBox1
             // 
@@ -206,7 +211,6 @@
             this.groupBox5.Size = new System.Drawing.Size(195, 73);
             this.groupBox5.TabIndex = 18;
             this.groupBox5.TabStop = false;
-            this.toolTipCommentTracker.SetToolTip(this.groupBox5, "asd");
             this.toolTip1.SetToolTip(this.groupBox5, "asd");
             // 
             // textBoxPhpVarNameMaxLen
@@ -289,6 +293,7 @@
             this.checkBoxGlobalLogs.Size = new System.Drawing.Size(140, 20);
             this.checkBoxGlobalLogs.TabIndex = 13;
             this.checkBoxGlobalLogs.Text = "Enable Global Logs";
+            this.toolTip1.SetToolTip(this.checkBoxGlobalLogs, "Enables global logging/message boxes.");
             this.checkBoxGlobalLogs.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -378,7 +383,6 @@
         private System.Windows.Forms.CheckBox checkBoxGlobalLogs;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ToolTip toolTipCommentTracker;
         private System.Windows.Forms.CheckBox checkBoxDisableErrorLogs;
         private System.Windows.Forms.CheckBox checkBoxMaxExecutionTime;
         private System.Windows.Forms.GroupBox groupBox5;
