@@ -48,14 +48,14 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomNumberStringMaxLength(int maxLength)
         {
-            string s = string.Empty;
+            StringBuilder result = new StringBuilder();
             int length = rdm.Next(1, maxLength);
 
             for (int i = 0; i < length; i++) {
-                s += rdm.Next(10).ToString();
+                result.Append(rdm.Next(10).ToString());
             }
 
-            return s;
+            return result.ToString();
         }
 
         /// <summary>
@@ -82,12 +82,12 @@ namespace bantam.Classes
                 charSet += "!#$%&()*+,-.";
             }
 
-            string stringResult = string.Empty;
+            StringBuilder stringResult = new StringBuilder();
 
             for (int i = 0; i < length; i++) {
-                stringResult += charSet[rdm.Next(charSet.Length)];
+                stringResult.Append(charSet[rdm.Next(charSet.Length)]);
             }
-            return stringResult;
+            return stringResult.ToString();
         }
 
 
