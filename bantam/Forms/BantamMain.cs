@@ -113,7 +113,7 @@ namespace bantam
         /// <param name="ResponseEncryptionMode"></param>
         /// <param name="richTextBox"></param>
         /// <param name="prependText"></param>
-        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
+        public static async void ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
         {
             //todo this doesn't have a timeout
             ResponseObject response = await Task.Run(() => WebHelper.ExecuteRemotePHP(url, phpCode));
@@ -149,7 +149,7 @@ namespace bantam
         /// 
         /// </summary>
         /// <param name="shellUrl"></param>
-        public async Task InitializeShellData(string shellUrl)
+        public async void InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
                 string[] data;     
@@ -1259,7 +1259,6 @@ namespace bantam
 
             string shellUrl = g_SelectedShellUrl;
             string fileName = fileBrowserGetFileNameAndPath();
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
 
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Renaming File");
 
