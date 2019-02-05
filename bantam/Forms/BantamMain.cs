@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,6 +40,8 @@ namespace bantam
 
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
+
+            treeViewFileBrowser.TreeViewNodeSorter = new FileBrowserTreeNodeSorter();
         }
 
         #region HELPER_FUNCTIONS
@@ -861,7 +864,7 @@ namespace bantam
 
             string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
 
-            if (rows.Length > 0 && rows != null) {
+            if (rows != null && rows.Length > 0) {
                 foreach (string row in rows) {
                     string[] columns = row.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
 
@@ -880,13 +883,10 @@ namespace bantam
 
                         //todo cleanup index's and image indexs 
                         if (columns[columns.Length - 2] == "dir") {
-                            TreeNode lastTn = tnCollection.Add(string.Empty, columns[0], 0);
-                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
+                            TreeNode lastTn = tnCollection.Add("dir", columns[0], 0);
                             lastTn.ToolTipText = perms;
                         } else {
-                            TreeNode lastTn = tnCollection.Add(string.Empty, columns[0], 6);
-                            lastTn.ForeColor = System.Drawing.Color.FromName(columns[columns.Length - 1]);
-
+                            TreeNode lastTn = tnCollection.Add("file", columns[0], 1);
                             if (string.IsNullOrEmpty(columns[2]) == false) {
                                 lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
                             } else {
@@ -930,7 +930,7 @@ namespace bantam
                     if (drives != null && drives.Length > 0) {
                         treeViewFileBrowser.Nodes.Clear();
                         foreach (string drive in drives) {
-                            treeViewFileBrowser.Nodes.Add(string.Empty, drive, 3);
+                            treeViewFileBrowser.Nodes.Add("drive", drive, 2);
                         }
                     }
                 }
