@@ -70,11 +70,11 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void saveAsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-
-            saveFileDialog1.Filter = "All files (*.*)|*.*|php files (*.php)|*.php";
-            saveFileDialog1.FilterIndex = 2;
-            saveFileDialog1.RestoreDirectory = true;
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog {
+                Filter = "All files (*.*)|*.*|php files (*.php)|*.php",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
 
             if (saveFileDialog1.ShowDialog() == DialogResult.OK) {
                 File.WriteAllText(saveFileDialog1.FileName, richTextBoxBackdoor.Text);

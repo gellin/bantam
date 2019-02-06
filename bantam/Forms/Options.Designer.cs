@@ -30,7 +30,7 @@
             this.components = new System.ComponentModel.Container();
             this.textBoxMaxCommentLength = new System.Windows.Forms.TextBox();
             this.labelStaticMaxLength = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxMaxPostSize = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.trackBarLoggingLevel = new System.Windows.Forms.TrackBar();
             this.checkBoxEnableLogging = new System.Windows.Forms.CheckBox();
@@ -52,6 +52,8 @@
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -63,13 +65,12 @@
             // 
             // textBoxMaxCommentLength
             // 
-            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(108, 119);
+            this.textBoxMaxCommentLength.Location = new System.Drawing.Point(108, 126);
             this.textBoxMaxCommentLength.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxMaxCommentLength.MaxLength = 3;
             this.textBoxMaxCommentLength.Name = "textBoxMaxCommentLength";
             this.textBoxMaxCommentLength.Size = new System.Drawing.Size(35, 24);
             this.textBoxMaxCommentLength.TabIndex = 16;
-            this.textBoxMaxCommentLength.Text = "24";
             this.toolTip1.SetToolTip(this.textBoxMaxCommentLength, "Sets the max length for each comment, a random length less than this value will b" +
         "e selected.");
             this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
@@ -77,7 +78,7 @@
             // labelStaticMaxLength
             // 
             this.labelStaticMaxLength.AutoSize = true;
-            this.labelStaticMaxLength.Location = new System.Drawing.Point(23, 122);
+            this.labelStaticMaxLength.Location = new System.Drawing.Point(23, 129);
             this.labelStaticMaxLength.Name = "labelStaticMaxLength";
             this.labelStaticMaxLength.Size = new System.Drawing.Size(79, 16);
             this.labelStaticMaxLength.TabIndex = 15;
@@ -85,15 +86,14 @@
             this.toolTip1.SetToolTip(this.labelStaticMaxLength, "Sets the max length for each comment, a random length less than this value will b" +
         "e selected.");
             // 
-            // textBox1
+            // textBoxMaxPostSize
             // 
-            this.textBox1.Location = new System.Drawing.Point(338, 21);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(74, 24);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.Text = "8192";
-            this.toolTip1.SetToolTip(this.textBox1, "Max post size in kibibyte\'s.");
+            this.textBoxMaxPostSize.Location = new System.Drawing.Point(338, 21);
+            this.textBoxMaxPostSize.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxMaxPostSize.Name = "textBoxMaxPostSize";
+            this.textBoxMaxPostSize.Size = new System.Drawing.Size(74, 24);
+            this.textBoxMaxPostSize.TabIndex = 14;
+            this.toolTip1.SetToolTip(this.textBoxMaxPostSize, "Max post size in kibibyte\'s.");
             // 
             // label2
             // 
@@ -120,8 +120,6 @@
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
-            this.checkBoxEnableLogging.Checked = true;
-            this.checkBoxEnableLogging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxEnableLogging.Location = new System.Drawing.Point(15, 24);
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
@@ -134,8 +132,6 @@
             // checkBoxRandomComments
             // 
             this.checkBoxRandomComments.AutoSize = true;
-            this.checkBoxRandomComments.Checked = true;
-            this.checkBoxRandomComments.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxRandomComments.Location = new System.Drawing.Point(12, 0);
             this.checkBoxRandomComments.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxRandomComments.Name = "checkBoxRandomComments";
@@ -166,7 +162,7 @@
             this.trackBarCommentFrequency.TabIndex = 8;
             this.toolTip1.SetToolTip(this.trackBarCommentFrequency, "Determines the rate of comment injection (1 = 25%, 4 = 100%) of locations utilize" +
         "d.");
-            this.trackBarCommentFrequency.Value = 2;
+            this.trackBarCommentFrequency.Value = 1;
             this.trackBarCommentFrequency.Scroll += new System.EventHandler(this.trackBarCommentFrequency_Scroll);
             // 
             // label4
@@ -187,7 +183,6 @@
             this.textBoxMaxCookieSize.Name = "textBoxMaxCookieSize";
             this.textBoxMaxCookieSize.Size = new System.Drawing.Size(74, 24);
             this.textBoxMaxCookieSize.TabIndex = 18;
-            this.textBoxMaxCookieSize.Text = "8192";
             this.toolTip1.SetToolTip(this.textBoxMaxCookieSize, "Max cookie size in bytes non-editable.");
             // 
             // groupBox1
@@ -220,7 +215,6 @@
             this.textBoxPhpVarNameMaxLen.Name = "textBoxPhpVarNameMaxLen";
             this.textBoxPhpVarNameMaxLen.Size = new System.Drawing.Size(35, 24);
             this.textBoxPhpVarNameMaxLen.TabIndex = 20;
-            this.textBoxPhpVarNameMaxLen.Text = "16";
             this.toolTip1.SetToolTip(this.textBoxPhpVarNameMaxLen, "Sets the max length for each PHP variable, a random length less than this value w" +
         "ill be selected.");
             this.textBoxPhpVarNameMaxLen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPhpVarNameMaxLen_KeyPress);
@@ -239,8 +233,6 @@
             // checkBoxRandomPhpVarNames
             // 
             this.checkBoxRandomPhpVarNames.AutoSize = true;
-            this.checkBoxRandomPhpVarNames.Checked = true;
-            this.checkBoxRandomPhpVarNames.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxRandomPhpVarNames.Location = new System.Drawing.Point(11, 0);
             this.checkBoxRandomPhpVarNames.Name = "checkBoxRandomPhpVarNames";
             this.checkBoxRandomPhpVarNames.Size = new System.Drawing.Size(172, 20);
@@ -252,6 +244,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.checkBoxRandomComments);
             this.groupBox4.Controls.Add(this.labelStaticMaxLength);
             this.groupBox4.Controls.Add(this.trackBarCommentFrequency);
@@ -301,7 +295,7 @@
             this.groupBox3.Controls.Add(this.checkBoxDisableErrorLogs);
             this.groupBox3.Controls.Add(this.checkBoxMaxExecutionTime);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.textBoxMaxPostSize);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.textBoxMaxCookieSize);
             this.groupBox3.Location = new System.Drawing.Point(12, 153);
@@ -314,8 +308,6 @@
             // checkBoxDisableErrorLogs
             // 
             this.checkBoxDisableErrorLogs.AutoSize = true;
-            this.checkBoxDisableErrorLogs.Checked = true;
-            this.checkBoxDisableErrorLogs.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxDisableErrorLogs.Location = new System.Drawing.Point(15, 61);
             this.checkBoxDisableErrorLogs.Name = "checkBoxDisableErrorLogs";
             this.checkBoxDisableErrorLogs.Size = new System.Drawing.Size(136, 20);
@@ -336,6 +328,24 @@
             this.toolTip1.SetToolTip(this.checkBoxMaxExecutionTime, "Sends php code with request to extend execution time.");
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 93);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 16);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "25%";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(148, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 16);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "100%";
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -346,6 +356,8 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Options";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.Options_Load);
@@ -368,7 +380,7 @@
 
         private System.Windows.Forms.TextBox textBoxMaxCommentLength;
         private System.Windows.Forms.Label labelStaticMaxLength;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxMaxPostSize;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar trackBarLoggingLevel;
         private System.Windows.Forms.CheckBox checkBoxEnableLogging;
@@ -390,5 +402,7 @@
         private System.Windows.Forms.TextBox textBoxPhpVarNameMaxLen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
     }
 }

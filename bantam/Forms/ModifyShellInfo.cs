@@ -182,7 +182,7 @@ namespace bantam.Forms
                 BantamMain.Shells[shellURL].RequestEncryptionKey = string.Empty;
             }
 
-            string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
+            string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
             ResponseObject response = await WebHelper.ExecuteRemotePHP(shellURL, phpCode);
 
             if (string.IsNullOrEmpty(response.Result)) {

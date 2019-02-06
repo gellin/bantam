@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using bantam.Classes;
+
 namespace bantam.Forms
 {
     public partial class Options : Form
@@ -17,14 +19,28 @@ namespace bantam.Forms
             InitializeComponent();
         }
 
-        private void DefaultOptions()
+        private void LoadConfig()
         {
-            //todo
+            checkBoxEnableLogging.Checked = Config.EnableLogging;
+            checkBoxGlobalLogs.Checked = Config.EnableGlobalMessageBoxes;
+            trackBarLoggingLevel.Value = Config.LogLevel;
+
+            checkBoxMaxExecutionTime.Checked = Config.MaxExecutionTime;
+            checkBoxDisableErrorLogs.Checked = Config.DisableErrorLogs;
+            textBoxMaxCookieSize.Text = Config.MaxCookieSizeB.ToString();
+            textBoxMaxPostSize.Text = Config.MaxPostSizeKib.ToString();
+
+            checkBoxRandomComments.Checked = Config.InjectRandomComments;
+            trackBarCommentFrequency.Value = Config.CommentFrequency;
+            textBoxMaxCommentLength.Text = Config.CommentMaxLength.ToString();
+
+            checkBoxRandomPhpVarNames.Checked = Config.RandomizePhpVariableNames;
+            textBoxPhpVarNameMaxLen.Text = Config.PhpVariableNameMaxLength.ToString();
         }
 
         private void Options_Load(object sender, EventArgs e)
         {
-            //todo
+           LoadConfig();
         }
 
         private void trackBarCommentFrequency_Scroll(object sender, EventArgs e)
@@ -34,12 +50,22 @@ namespace bantam.Forms
 
         private void checkBoxRandomPhpVarNames_CheckedChanged(object sender, EventArgs e)
         {
-            //todo
+            if(checkBoxRandomPhpVarNames.Checked) {
+                textBoxPhpVarNameMaxLen.Enabled = true;
+            } else {
+                textBoxPhpVarNameMaxLen.Enabled = false;
+            }
         }
 
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
-            //todo
+            if (checkBoxRandomComments.Checked) {
+                trackBarCommentFrequency.Enabled = true;
+                textBoxMaxCommentLength.Enabled = true;
+            } else {
+                trackBarCommentFrequency.Enabled = false;
+                textBoxMaxCommentLength.Enabled = false;
+            }
         }
 
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)

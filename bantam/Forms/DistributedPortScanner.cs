@@ -91,7 +91,7 @@ namespace bantam.Forms
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
 
                 string responseText = "[" + shellUrl + "] - returned ports (" + scannedRange + ") - \r\n";
-                string phpCode = PhpHelper.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
+                string phpCode = PhpBuilder.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
 
                 BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
 

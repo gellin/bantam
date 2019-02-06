@@ -14,15 +14,14 @@ namespace bantam.Classes
         private static Random rdm = new Random();
 
         /// <summary>
-        /// 
+        /// Max number is included in the results, minimum number is statically 1 and included in results
         /// </summary>
         /// <param name="maxNumber"></param>
         /// <returns></returns>
         public static int RandomNumber(int maxNumber)
         {
-            return rdm.Next(1, maxNumber);
+            return rdm.Next(1, maxNumber+1);
         }
-
 
         /// <summary>
         /// 
@@ -39,7 +38,6 @@ namespace bantam.Classes
 
             return result.ToString();
         }
-
 
         /// <summary>
         /// 

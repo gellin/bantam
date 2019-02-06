@@ -142,7 +142,7 @@ namespace bantam.Forms
                     return;
                 }
 
-                phpCode = PhpHelper.WriteFileVar(PhpHelper.phpServerScriptFileName, phpCode);
+                phpCode = PhpBuilder.WriteFileVar(PhpBuilder.phpServerScriptFileName, phpCode);
             } else {
                 if (!string.IsNullOrEmpty(LocalFileLocation)) {
                     phpCode = Convert.ToBase64String(File.ReadAllBytes(LocalFileLocation));
@@ -157,7 +157,7 @@ namespace bantam.Forms
                 //todo check file size and validate send mode and max send size..
                 //eventually todo chunking
                 string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
-                phpCode = PhpHelper.WriteFile(remoteFileLocation, phpCode);
+                phpCode = PhpBuilder.WriteFile(remoteFileLocation, phpCode);
             }
 
             await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false);

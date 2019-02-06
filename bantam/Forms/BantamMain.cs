@@ -122,7 +122,7 @@ namespace bantam
             string result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
 
             if (string.IsNullOrEmpty(result) == false) {
-                result = result.Replace(PhpHelper.rowSeperator, "\r\n");
+                result = result.Replace(PhpBuilder.rowSeperator, "\r\n");
 
                 if (!string.IsNullOrEmpty(prependText)) {
                     result = prependText + result + "\r\n";
@@ -155,7 +155,7 @@ namespace bantam
                     return;
                 }
 
-                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpHelper.InitShellData(encryptResponse));
+                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpBuilder.InitShellData(encryptResponse));
 
                 //todo add to global config delay
                 if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
@@ -167,7 +167,7 @@ namespace bantam
                             result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
                         }
 
-                        data = result.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
+                        data = result.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
                         
                         var initDataReturnedVarCount = Enum.GetValues(typeof(ShellInfo.INIT_DATA_VARS)).Cast<ShellInfo.INIT_DATA_VARS>().Max();
 
@@ -352,7 +352,7 @@ namespace bantam
                 return;
             }
 
-            string phpCode = PhpHelper.ReadFileFromVar(PhpHelper.phpServerScriptFileName, encryptResponse);
+            string phpCode = PhpBuilder.ReadFileFromVar(PhpBuilder.phpServerScriptFileName, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
             UploadFile u = new UploadFile(shellUrl, result, true);
@@ -384,7 +384,7 @@ namespace bantam
                 Shells[shellUrl].PingStopwatch.Start();
 
                 //todo test this when shell has gone away
-                string phpCode = PhpHelper.PhpTestExecutionWithEcho1(encryptResponse);
+                string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
                 string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
                 if (string.IsNullOrEmpty(result)) {
@@ -411,7 +411,7 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string result = await ExecutePHPCode(shellUrl, PhpHelper.PhpInfo(encryptResponse), encryptResponse, ResponseEncryptionMode);
+            string result = await ExecutePHPCode(shellUrl, PhpBuilder.PhpInfo(encryptResponse), encryptResponse, ResponseEncryptionMode);
 
             if (string.IsNullOrEmpty(result) == false) {
                 BrowserView broView = new BrowserView(result, 1000, 1000);
@@ -833,7 +833,7 @@ namespace bantam
                 return;
             }
 
-            string phpCode = PhpHelper.DirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
+            string phpCode = PhpBuilder.DirectoryEnumerationCode(txtBoxFileBrowserPath.Text, phpVersion, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
             Shells[shellUrl].Files.Nodes.Clear();
@@ -862,11 +862,11 @@ namespace bantam
                 return;
             }
 
-            string[] rows = result.Split(new [] { PhpHelper.rowSeperator }, StringSplitOptions.None);
+            string[] rows = result.Split(new [] { PhpBuilder.rowSeperator }, StringSplitOptions.None);
 
             if (rows != null && rows.Length > 0) {
                 foreach (string row in rows) {
-                    string[] columns = row.Split(new [] { PhpHelper.g_delimiter }, StringSplitOptions.None);
+                    string[] columns = row.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
 
                     //todo clean up len check
                     if (columns != null && columns.Length - 2 > 0) {
@@ -921,7 +921,7 @@ namespace bantam
             if (Shells[shellUrl].IsWindows) {
                 txtBoxFileBrowserPath.Text = string.Empty;
 
-                string phpCode = PhpHelper.GetHardDriveLettersPhp(encryptResponse);
+                string phpCode = PhpBuilder.GetHardDriveLettersPhp(encryptResponse);
                 string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
                 if (string.IsNullOrEmpty(result) == false) {
@@ -936,7 +936,7 @@ namespace bantam
                 }
             } else {
                 string phpVersion = Shells[shellUrl].PHP_VERSION;
-                string phpCode = PhpHelper.DirectoryEnumerationCode(".", phpVersion, encryptResponse);
+                string phpCode = PhpBuilder.DirectoryEnumerationCode(".", phpVersion, encryptResponse);
                 string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
                 if (!string.IsNullOrEmpty(result)) {
@@ -974,7 +974,7 @@ namespace bantam
                 lastPathRemoved = "/";
             }
 
-            string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
+            string directoryContentsPHPCode = PhpBuilder.DirectoryEnumerationCode(lastPathRemoved, phpVersion, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, directoryContentsPHPCode, encryptResponse, ResponseEncryptionMode);
 
             Shells[shellUrl].Files.Nodes.Clear();
@@ -1022,7 +1022,7 @@ namespace bantam
                         fullPath = txtBoxFileBrowserPath.Text + "/" + path;
                     }
 
-                    string directoryContentsPHPCode = PhpHelper.DirectoryEnumerationCode(fullPath, phpVersion, encryptResponse);
+                    string directoryContentsPHPCode = PhpBuilder.DirectoryEnumerationCode(fullPath, phpVersion, encryptResponse);
                     string result = await ExecutePHPCode(shellUrl, directoryContentsPHPCode, encryptResponse, ResponseEncryptionMode);
 
                     if (string.IsNullOrEmpty(result) == false) {
@@ -1110,7 +1110,7 @@ namespace bantam
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             string name = fileBrowserGetFileNameAndPath();
-            string phpCode = PhpHelper.ReadFile(name, encrypt);
+            string phpCode = PhpBuilder.ReadFile(name, encrypt);
         
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Viewing File -" + name, encrypt, ResponseEncryptionMode);
         }
@@ -1236,7 +1236,7 @@ namespace bantam
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             string cmd = textBoxConsoleInput.Text;
-            string phpCode = PhpHelper.ExecuteSystemCode(textBoxConsoleInput.Text, encryptResponse);
+            string phpCode = PhpBuilder.ExecuteSystemCode(textBoxConsoleInput.Text, encryptResponse);
 
             string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
@@ -1329,8 +1329,8 @@ namespace bantam
             bool encrypt = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string cmd = PhpHelper.TaskListFunction(isWin);
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string cmd = PhpBuilder.TaskListFunction(isWin);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
         }
@@ -1343,9 +1343,9 @@ namespace bantam
         private void windowsNetuserMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.windowsOS_NetUser;
+            string cmd = PhpBuilder.windowsOS_NetUser;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
@@ -1359,9 +1359,9 @@ namespace bantam
         private void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.windowsOS_NetAccounts;
+            string cmd = PhpBuilder.windowsOS_NetAccounts;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
@@ -1375,9 +1375,9 @@ namespace bantam
         private void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.windowsOS_Ipconfig;
+            string cmd = PhpBuilder.windowsOS_Ipconfig;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
@@ -1391,9 +1391,9 @@ namespace bantam
         private void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.windowsOS_Ver;
+            string cmd = PhpBuilder.windowsOS_Ver;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
@@ -1409,8 +1409,8 @@ namespace bantam
             string shellUrl = g_SelectedShellUrl;
             ShellInfo shell = Shells[shellUrl];
 
-            string cmd = PhpHelper.posixOS_Whoami;
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, shell.ResponseEncryption);
+            string cmd = PhpBuilder.posixOS_Whoami;
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, shell.ResponseEncryption);
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, shell.ResponseEncryption, shell.ResponseEncryptionMode);
         }
@@ -1423,11 +1423,11 @@ namespace bantam
         private void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = g_SelectedShellUrl;
-            string cmd = PhpHelper.linuxOS_Ifconfig;
+            string cmd = PhpBuilder.linuxOS_Ifconfig;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ExecuteSystemCode(cmd, encrypt);
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
         }
@@ -1446,9 +1446,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.windowsFS_hostTargets, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.windowsFS_hostTargets, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.windowsFS_hostTargets, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.windowsFS_hostTargets, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1462,9 +1462,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_NetworkInterfaces, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_NetworkInterfaces, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1478,9 +1478,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ProcVersion, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_ProcVersion, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ProcVersion, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ProcVersion, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1494,9 +1494,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_hostTargetsFile, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_hostTargetsFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_hostTargetsFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_hostTargetsFile, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1510,9 +1510,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_IssueFile, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_IssueFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_IssueFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_IssueFile, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1526,9 +1526,9 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_ShadowFile, encryptResponse);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_ShadowFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_ShadowFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ShadowFile, encryptResponse, ResponseEncryptionMode);
         }
 
         /// <summary>
@@ -1540,10 +1540,10 @@ namespace bantam
         {
             string shellUrl = g_SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpHelper.ReadFile(PhpHelper.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
+            string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpHelper.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode);
         }
 
         #endregion

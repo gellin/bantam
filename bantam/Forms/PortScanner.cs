@@ -57,19 +57,19 @@ namespace bantam.Forms
                 } else {
                     if (comboBoxCommonPorts.SelectedIndex != 0) {
                         if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
-                            portsCode = PhpHelper.PortsScannerPorts1To1024();
+                            portsCode = PhpBuilder.PortsScannerPorts1To1024();
                             labelDynStatus.Text = "** May fail unless on local IP";
                         } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
                             labelDynStatus.Text = "** May fail unless on local IP";
-                            portsCode = PhpHelper.PortScannerPortsCommon();
+                            portsCode = PhpBuilder.PortScannerPortsCommon();
                         } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
-                            portsCode = PhpHelper.PortScannerPortsAll();
+                            portsCode = PhpBuilder.PortScannerPortsAll();
                             labelDynStatus.Text = "** May fail unless on local IP";
                         }
                     }
                 }
 
-                string phpCode = PhpHelper.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
+                string phpCode = PhpBuilder.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
                 BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, ResponseEncryptionMode);
             }
 

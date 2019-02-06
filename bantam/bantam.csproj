@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Config.cs" />
     <Compile Include="Classes\EncryptionHelper.cs" />
     <Compile Include="Classes\FileBrowserTreeNodeSorter.cs" />
     <Compile Include="Classes\Helper.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Forms\BackdoorGenerator.Designer.cs">
       <DependentUpon>BackdoorGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\PhpHelper.cs" />
+    <Compile Include="Classes\PhpBuilder.cs" />
     <Compile Include="Forms\BrowserView.cs">
       <SubType>Form</SubType>
     </Compile>

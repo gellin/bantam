@@ -190,7 +190,7 @@ namespace bantam.Forms
         /// <param name="shellCode"></param>
         private async Task PopReverseShell(string shellCode)
         {
-            string phpCode = PhpHelper.ExecuteSystemCode(shellCode, false);
+            string phpCode = PhpBuilder.ExecuteSystemCode(shellCode, false);
 
             await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
         }
