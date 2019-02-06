@@ -93,16 +93,19 @@ namespace bantam.Forms
 
         private void textBoxMaxCommentLength_TextChanged(object sender, EventArgs e)
         {
+            //todo tryparse
             Config.CommentMaxLength = Convert.ToInt32(textBoxMaxCommentLength.Text);
         }
 
         private void textBoxPhpVarNameMaxLen_TextChanged(object sender, EventArgs e)
         {
+            //todo tryparse
             Config.PhpVariableNameMaxLength = Convert.ToInt32(textBoxPhpVarNameMaxLen.Text);
         }
 
         private void textBoxMaxPostSize_TextChanged(object sender, EventArgs e)
         {
+            //todo tryparse
             Config.MaxPostSizeKib = Convert.ToInt32(textBoxMaxPostSize.Text);
         }
 

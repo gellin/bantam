@@ -130,7 +130,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string MaxExecutionTime()
         {
-            return "@ini_set('max_execution_time', 0);" + RandomPHPComment(); ;
+            return "@ini_set('max_execution_time', 0);" + RandomPHPComment();
         }
 
         /// <summary>
@@ -423,7 +423,6 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string PhpTestExecutionWithEcho1(bool encryptReponse)
         {
-            string phpTestExecutionWithEcho = string.Empty;
             if (encryptReponse) {
                 return RandomPHPComment()
                      + "$result = '1';"
