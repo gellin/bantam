@@ -58,14 +58,13 @@ namespace bantam.Classes
                             }
                         }
 
-                        if (string.IsNullOrEmpty(requestEncryption) == false 
-                        && requestEncryption == "1") {
+                        if (string.IsNullOrEmpty(requestEncryption) == false && requestEncryption == "1") {
                             BantamMain.Shells[hostTarget].RequestEncryption = true;
 
                             if (string.IsNullOrEmpty(requestEncryptionKey) == false) {
                                 BantamMain.Shells[hostTarget].RequestEncryptionKey = requestEncryptionKey;
                             } else {
-                                //todo global logging
+                                //todo shell may be gimped, invalid settings
                             }
 
                             if (string.IsNullOrEmpty(requestEncryptionIV) == false) {
@@ -78,7 +77,7 @@ namespace bantam.Classes
                                     BantamMain.Shells[hostTarget].RequestEncryptionIV = string.Empty;
                                     BantamMain.Shells[hostTarget].RequestEncryptionIVRequestVarName = requestEncryptionIVVarName;
                                 } else {
-                                    //todo global logging
+                                    //todo shell may be gimped, invalid settings
                                 }
                             }
                         }
@@ -89,6 +88,8 @@ namespace bantam.Classes
                             } else {
                                 BantamMain.Shells[hostTarget].GzipRequestData = false;
                             }
+                        } else {
+                            BantamMain.Shells[hostTarget].GzipRequestData = false;
                         }
 
                         if (string.IsNullOrEmpty(ResponseEncryptionMode) == false) {
@@ -97,19 +98,19 @@ namespace bantam.Classes
                             } else if (ResponseEncryptionMode == EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
                                 BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
                             } else {
-                                //todo level 3 log failed check
+                                //todo shell may be gimped, invalid settings
                             }
                         }
 
                         try {
-                            BantamMain.instance.InitializeShellData(hostTarget);
-                        } catch (Exception) {
-                            //todo logging
+                            BantamMain.Instance.InitializeShellData(hostTarget);
+                        } catch (Exception e) {
+                            LogHelper.AddGlobalLog("Exception caught in XmlHelper.LoadShells ( " + e.Message + " )", "XML Load file Exception", 3);
                         }
                     }
                 }
             } else {
-                MessageBox.Show("Config file (" + configFile + ") is missing.", "Oh... Shied..");
+                LogHelper.AddGlobalLog("Config file (" + configFile + ") is missing.", "Failed to located XML File", 1);
             }
         }
 

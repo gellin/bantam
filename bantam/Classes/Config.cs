@@ -25,6 +25,18 @@ namespace bantam.Classes
             commentMaxLength = 24;
 
             phpVaribleNameMaxLength = 16;
+
+            defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static string defaultUserAgent;
+        public static string DefaultUserAgent
+        {
+            get { return defaultUserAgent; }
+            set { defaultUserAgent = value; }
         }
 
         /// <summary>

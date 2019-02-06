@@ -150,7 +150,7 @@
             // labelStaticCommentFrequency
             // 
             this.labelStaticCommentFrequency.AutoSize = true;
-            this.labelStaticCommentFrequency.Location = new System.Drawing.Point(39, 44);
+            this.labelStaticCommentFrequency.Location = new System.Drawing.Point(39, 38);
             this.labelStaticCommentFrequency.Name = "labelStaticCommentFrequency";
             this.labelStaticCommentFrequency.Size = new System.Drawing.Size(127, 16);
             this.labelStaticCommentFrequency.TabIndex = 10;
@@ -158,7 +158,7 @@
             // 
             // trackBarCommentFrequency
             // 
-            this.trackBarCommentFrequency.Location = new System.Drawing.Point(21, 64);
+            this.trackBarCommentFrequency.Location = new System.Drawing.Point(21, 58);
             this.trackBarCommentFrequency.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trackBarCommentFrequency.Maximum = 4;
             this.trackBarCommentFrequency.Minimum = 1;
@@ -266,7 +266,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 93);
+            this.label5.Location = new System.Drawing.Point(148, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 16);
             this.label5.TabIndex = 20;
@@ -275,7 +275,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 93);
+            this.label3.Location = new System.Drawing.Point(18, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 16);
             this.label3.TabIndex = 19;

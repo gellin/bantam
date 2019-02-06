@@ -11,6 +11,16 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
+        public const int IV_Length = 16;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int KEY_Length = 32;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public enum RESPONSE_ENCRYPTION_TYPES
         {
             OPENSSL = 0,
@@ -22,8 +32,7 @@ namespace bantam.Classes
         /// </summary>
         public static string GetRandomEncryptionKey()
         {
-            int ivLength = 32;
-            return Helper.RandomString(ivLength, true, true, true);
+            return Helper.RandomString(KEY_Length, true, true, true);
         }
 
         /// <summary>
@@ -32,8 +41,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string GetRandomEncryptionIV()
         {
-            int keyLength = 16;
-            return Helper.RandomString(keyLength, true, true, true);
+            return Helper.RandomString(IV_Length, true, true, true);
         }
 
         /// <summary>
@@ -108,8 +116,7 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
-                    //todo
-                    MessageBox.Show(e.Message, "Failed to decrypt response");
+                    LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", 2);
                 } finally {
                     aes.Clear();
                 }
@@ -141,8 +148,7 @@ namespace bantam.Classes
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
                 } catch (Exception e) {
-                    //todo
-                    MessageBox.Show(e.Message, "Failed to encrypt string");
+                    LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", 2);
                 } finally {
                     aes.Clear();
                 }

@@ -18,7 +18,12 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        public static BantamMain instance;
+        private static BantamMain instance;
+
+        public static BantamMain Instance
+        {
+            get { return instance; }
+        }
 
         /// <summary>
         /// Full path and name of xml file if a file has opened (used for saving)
@@ -256,11 +261,11 @@ namespace bantam
         /// <param name="e"></param>
         private async void userAgentSwitcherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string userAgent = "User Agent: " + WebHelper.g_CurrentUserAgent;
+            string userAgent = "User Agent: " + Config.DefaultUserAgent;
             string newUserAgent = GuiHelper.UserAgentSwitcher(userAgent, "Change User Agent");
 
             if (!string.IsNullOrEmpty(newUserAgent)) {
-                WebHelper.g_CurrentUserAgent = newUserAgent;
+                Config.DefaultUserAgent = newUserAgent;
             }
         }
 
@@ -550,8 +555,10 @@ namespace bantam
                     if (Shells[g_SelectedShellUrl].Files.Nodes != null
                      && Shells[g_SelectedShellUrl].Files.Nodes.Count > 0) {
                         GuiHelper.CopyNodesFromTreeView(Shells[g_SelectedShellUrl].Files, treeViewFileBrowser);
-                        treeViewFileBrowser.Refresh();
+
                         treeViewFileBrowser.ExpandAll();
+                        treeViewFileBrowser.Sort();
+                        treeViewFileBrowser.Refresh();
 
                         txtBoxFileBrowserPath.Text = Shells[g_SelectedShellUrl].Pwd;
                     } else {

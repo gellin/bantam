@@ -214,14 +214,16 @@ namespace bantam.Forms
             string shellCode = string.Empty;
             string ipv4 = Helper.MinifyCode(textBoxIP.Text);
 
-            //todo gui things, ipv4 & port validation
-            if (string.IsNullOrEmpty(ipv4)) {
+            if (string.IsNullOrEmpty(ipv4)
+            || !Helper.IsValidIP(ipv4)) {
+
                 return;
             }
 
             string port = textBoxPort.Text;
 
             if (string.IsNullOrEmpty(port)) {
+
                 return;
             }
 

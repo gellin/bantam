@@ -248,7 +248,8 @@ namespace bantam.Classes
             if (source != null && dest != null) {
                 foreach (TreeNode tn in source.Nodes) {
                     TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
-                        ForeColor = tn.ForeColor
+                        ForeColor = tn.ForeColor,
+                        Name = tn.Name
                     };
                     CopyChildrenFromTreeViewNode(newTn, tn);
                     dest.Nodes.Add(newTn);
@@ -265,7 +266,8 @@ namespace bantam.Classes
         {
             foreach (TreeNode tn in willCopied.Nodes) {
                 TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
-                    ForeColor = tn.ForeColor
+                    ForeColor = tn.ForeColor,
+                    Name = tn.Name
                 };
                 CopyChildrenFromTreeViewNode(newTn, tn);
                 parent.Nodes.Add(newTn);

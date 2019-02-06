@@ -15,11 +15,6 @@ namespace bantam.Classes
     static class WebHelper
     {
         /// <summary>
-        /// todo replace this useragent into a defaults config of sorts
-        /// </summary>
-        public static string g_CurrentUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
-
-        /// <summary>
         /// 
         /// </summary>
         public static readonly Dictionary<int, string> commonUseragents = new Dictionary<int, string> {
@@ -138,7 +133,7 @@ namespace bantam.Classes
                 HttpMethod method = HttpMethod.Get;
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
                 var response       = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -163,7 +158,7 @@ namespace bantam.Classes
                 HttpMethod method = HttpMethod.Post;
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
                 var response = await client.SendAsync(request);
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -222,7 +217,7 @@ namespace bantam.Classes
                 }
 
                 var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", g_CurrentUserAgent);
+                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
                 if (encryptResponse) {
                     phpCode += PhpBuilder.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);

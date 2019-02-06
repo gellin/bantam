@@ -35,6 +35,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblStaticPath = new System.Windows.Forms.Label();
             this.lblDynPath = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.vectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linEnumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // richTextBox1
@@ -43,10 +47,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.richTextBox1.Location = new System.Drawing.Point(16, 15);
+            this.richTextBox1.Location = new System.Drawing.Point(16, 28);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(591, 379);
+            this.richTextBox1.Size = new System.Drawing.Size(591, 366);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -125,6 +129,31 @@
             this.lblDynPath.Size = new System.Drawing.Size(0, 15);
             this.lblDynPath.TabIndex = 6;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.vectorsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(620, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // vectorsToolStripMenuItem
+            // 
+            this.vectorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linEnumToolStripMenuItem});
+            this.vectorsToolStripMenuItem.Name = "vectorsToolStripMenuItem";
+            this.vectorsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.vectorsToolStripMenuItem.Text = "Vectors";
+            // 
+            // linEnumToolStripMenuItem
+            // 
+            this.linEnumToolStripMenuItem.Name = "linEnumToolStripMenuItem";
+            this.linEnumToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linEnumToolStripMenuItem.Text = "LinEnum";
+            this.linEnumToolStripMenuItem.Click += new System.EventHandler(this.linEnumToolStripMenuItem_Click);
+            // 
             // UploadFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -137,13 +166,17 @@
             this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "UploadFile";
             this.ShowIcon = false;
             this.Text = "Upload File";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,5 +192,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblStaticPath;
         private System.Windows.Forms.Label lblDynPath;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem vectorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linEnumToolStripMenuItem;
     }
 }

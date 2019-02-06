@@ -154,12 +154,11 @@ namespace bantam.Forms
                     return;
                 }
 
-                //eventually todo chunking
                 string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
                 phpCode = PhpBuilder.WriteFile(remoteFileLocation, phpCode);
             }
 
-            await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false);
+            await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode);
 
             btnUpload.Enabled = true;
             btnBrowse.Enabled = true;
@@ -180,6 +179,11 @@ namespace bantam.Forms
             } else {
                 btnUpload.Enabled = true;
             }
+        }
+
+        private async void linEnumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = await WebHelper.GetRequest("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh");
         }
     }
 }

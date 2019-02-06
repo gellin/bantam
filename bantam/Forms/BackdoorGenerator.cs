@@ -167,41 +167,29 @@ namespace bantam.Forms
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
-                //todo set as var?
-                if (encryptionKey.Length == 32) {
+                if (encryptionKey.Length == EncryptionHelper.KEY_Length) {
                     if (checkBoxSendIVInRequest.Checked) {
                         string encryptionIVVarName = textBoxIVVarName.Text;
-                        if (string.IsNullOrEmpty(encryptionIVVarName)) {
-                            //todo fail must set IV Varname
-                        } else {
-                            //success!! magic things happen now
-
+                        if (!string.IsNullOrEmpty(encryptionIVVarName)) {
                             if (comboBoxRequestEncryptionType.Text == "openssl") {
                                 requestEncryptionStart = "@openssl_decrypt(";
                                 requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, $_" + requestMethod + "['" + encryptionIVVarName + "'])";
                             } else if (comboBoxRequestEncryptionType.Text == "mcrypt") {
                                 requestEncryptionStart = "rtrim(@mcrypt_decrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', ";
                                 requestEncryptionEnd = ", MCRYPT_MODE_CBC, $_" + requestMethod + "['" + encryptionIVVarName + "']), \"\0\")";
-                            } else {
-                                //todo fail
                             }
                         }
                     } else {
                         string encryptionIV = textBoxEncrpytionIV.Text;
 
-                        if (!string.IsNullOrEmpty(encryptionIV) && encryptionIV.Length == 16) {
+                        if (!string.IsNullOrEmpty(encryptionIV) && encryptionIV.Length == EncryptionHelper.IV_Length) {
                             if (comboBoxRequestEncryptionType.Text == "openssl") {
                                 requestEncryptionStart = "@openssl_decrypt(";
                                 requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, '" + encryptionIV + "')";
                             } else if (comboBoxRequestEncryptionType.Text == "mcrypt") {
                                 requestEncryptionStart = "rtrim(@mcrypt_decrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', ";
                                 requestEncryptionEnd = ", MCRYPT_MODE_CBC, '" + encryptionIV + "'), \"\0\")";
-                            } else {
-                                //todo fail
                             }
-                        } else {
-                            //fail todo
-                            //encryption IV must be 16 charectors
                         }
                     }
                 }
@@ -302,6 +290,11 @@ namespace bantam.Forms
         private void textBoxIVVarName_TextChanged(object sender, EventArgs e)
         {
             UpdateForm();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Encryption Key Must be 32 charectors\r\nEncryption IV Must be 16 charectors or sent via request.", "INFO");
         }
     }
 }

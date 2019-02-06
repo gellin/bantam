@@ -374,7 +374,7 @@ namespace bantam.Classes
                 "curl_setopt_array(" + curlVar + ", array(" +
                     "CURLOPT_SSL_VERIFYPEER => false," +
                     "CURLOPT_FOLLOWLOCATION => true," +
-                    "CURLOPT_USERAGENT => '" + WebHelper.g_CurrentUserAgent  + "'," +
+                    "CURLOPT_USERAGENT => '" + Config.DefaultUserAgent  + "'," +
                     "CURLOPT_RETURNTRANSFER => 1," +
                     "CURLOPT_URL => '" + url + "'," +
                 "));",

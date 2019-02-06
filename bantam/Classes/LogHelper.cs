@@ -32,7 +32,7 @@ namespace bantam.Classes
             //}
 
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
-            BantamMain.instance.AppendToRichTextBoxLogs("[" + timestamp + "] - " + log + "\r\n\r\n");
+            BantamMain.Instance.AppendToRichTextBoxLogs("[" + timestamp + "] - " + log + "\r\n\r\n");
         }
 
         /// <summary>

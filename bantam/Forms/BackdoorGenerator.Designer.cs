@@ -27,6 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.chkbxDisableLogging = new System.Windows.Forms.CheckBox();
             this.richTextBoxBackdoor = new System.Windows.Forms.RichTextBox();
             this.comboBoxMethod = new System.Windows.Forms.ComboBox();
@@ -53,6 +54,8 @@
             this.checkBoxEncryptRequest = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxRequestEncryptionType = new System.Windows.Forms.ComboBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +64,7 @@
             this.chkbxDisableLogging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxDisableLogging.AutoSize = true;
             this.chkbxDisableLogging.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxDisableLogging.Location = new System.Drawing.Point(451, 417);
+            this.chkbxDisableLogging.Location = new System.Drawing.Point(451, 413);
             this.chkbxDisableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxDisableLogging.Name = "chkbxDisableLogging";
             this.chkbxDisableLogging.Size = new System.Drawing.Size(156, 20);
@@ -78,7 +81,7 @@
             this.richTextBoxBackdoor.Location = new System.Drawing.Point(14, 34);
             this.richTextBoxBackdoor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.richTextBoxBackdoor.Name = "richTextBoxBackdoor";
-            this.richTextBoxBackdoor.Size = new System.Drawing.Size(627, 369);
+            this.richTextBoxBackdoor.Size = new System.Drawing.Size(627, 365);
             this.richTextBoxBackdoor.TabIndex = 2;
             this.richTextBoxBackdoor.Text = "";
             // 
@@ -92,7 +95,7 @@
             "create_function",
             "tmp include",
             "preg_replace"});
-            this.comboBoxMethod.Location = new System.Drawing.Point(86, 413);
+            this.comboBoxMethod.Location = new System.Drawing.Point(86, 409);
             this.comboBoxMethod.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxMethod.Name = "comboBoxMethod";
             this.comboBoxMethod.Size = new System.Drawing.Size(143, 24);
@@ -104,7 +107,7 @@
             this.lblMethod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMethod.AutoSize = true;
             this.lblMethod.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMethod.Location = new System.Drawing.Point(10, 417);
+            this.lblMethod.Location = new System.Drawing.Point(10, 413);
             this.lblMethod.Name = "lblMethod";
             this.lblMethod.Size = new System.Drawing.Size(57, 16);
             this.lblMethod.TabIndex = 4;
@@ -115,7 +118,7 @@
             this.lblRequestVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblRequestVarName.AutoSize = true;
             this.lblRequestVarName.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRequestVarName.Location = new System.Drawing.Point(10, 487);
+            this.lblRequestVarName.Location = new System.Drawing.Point(10, 483);
             this.lblRequestVarName.Name = "lblRequestVarName";
             this.lblRequestVarName.Size = new System.Drawing.Size(70, 16);
             this.lblRequestVarName.TabIndex = 5;
@@ -124,7 +127,7 @@
             // txtBoxVarName
             // 
             this.txtBoxVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBoxVarName.Location = new System.Drawing.Point(86, 482);
+            this.txtBoxVarName.Location = new System.Drawing.Point(86, 478);
             this.txtBoxVarName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBoxVarName.Name = "txtBoxVarName";
             this.txtBoxVarName.Size = new System.Drawing.Size(143, 24);
@@ -137,7 +140,7 @@
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
             this.chkbxMinifyCode.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(451, 450);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(451, 446);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(97, 20);
@@ -151,7 +154,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 450);
+            this.label1.Location = new System.Drawing.Point(10, 446);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 16);
             this.label1.TabIndex = 8;
@@ -165,7 +168,7 @@
             "cookie",
             "post",
             "request"});
-            this.comboBoxVarType.Location = new System.Drawing.Point(86, 448);
+            this.comboBoxVarType.Location = new System.Drawing.Point(86, 444);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxVarType.Name = "comboBoxVarType";
             this.comboBoxVarType.Size = new System.Drawing.Size(143, 24);
@@ -188,7 +191,8 @@
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem1});
+            this.saveAsToolStripMenuItem1,
+            this.helpToolStripMenuItem});
             this.saveAsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -205,7 +209,7 @@
             // 
             this.chckbxGzipDecodeRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chckbxGzipDecodeRequest.AutoSize = true;
-            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(451, 482);
+            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(451, 478);
             this.chckbxGzipDecodeRequest.Name = "chckbxGzipDecodeRequest";
             this.chckbxGzipDecodeRequest.Size = new System.Drawing.Size(159, 20);
             this.chckbxGzipDecodeRequest.TabIndex = 11;
@@ -283,6 +287,7 @@
             this.label6.Size = new System.Drawing.Size(97, 16);
             this.label6.TabIndex = 31;
             this.label6.Text = "Encryption Key:";
+            this.toolTip1.SetToolTip(this.label6, "Must be 32 charectors long.");
             // 
             // textBoxEncrpytionIV
             // 
@@ -292,6 +297,7 @@
             this.textBoxEncrpytionIV.Name = "textBoxEncrpytionIV";
             this.textBoxEncrpytionIV.Size = new System.Drawing.Size(163, 24);
             this.textBoxEncrpytionIV.TabIndex = 30;
+            this.toolTip1.SetToolTip(this.textBoxEncrpytionIV, "Must be 16 charectors long.");
             this.textBoxEncrpytionIV.TextChanged += new System.EventHandler(this.textBoxEncrpytionIV_TextChanged);
             // 
             // label2
@@ -302,6 +308,7 @@
             this.label2.Size = new System.Drawing.Size(87, 16);
             this.label2.TabIndex = 29;
             this.label2.Text = "Encryption IV:";
+            this.toolTip1.SetToolTip(this.label2, "Must be 16 charectors long.");
             // 
             // textBoxEncrpytionKey
             // 
@@ -311,6 +318,7 @@
             this.textBoxEncrpytionKey.Name = "textBoxEncrpytionKey";
             this.textBoxEncrpytionKey.Size = new System.Drawing.Size(278, 24);
             this.textBoxEncrpytionKey.TabIndex = 28;
+            this.toolTip1.SetToolTip(this.textBoxEncrpytionKey, "Must be 32 charectors long.");
             this.textBoxEncrpytionKey.TextChanged += new System.EventHandler(this.textBoxEncrpytionKey_TextChanged);
             // 
             // checkBoxEncryptRequest
@@ -343,11 +351,18 @@
             this.comboBoxRequestEncryptionType.TabIndex = 39;
             this.comboBoxRequestEncryptionType.SelectedIndexChanged += new System.EventHandler(this.comboBoxRequestEncryptionType_SelectedIndexChanged);
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
             // BackdoorGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 711);
+            this.ClientSize = new System.Drawing.Size(656, 707);
             this.Controls.Add(this.comboBoxRequestEncryptionType);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.labelOr);
@@ -415,5 +430,7 @@
         private System.Windows.Forms.CheckBox checkBoxEncryptRequest;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBoxRequestEncryptionType;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }

@@ -71,7 +71,6 @@ namespace bantam.Forms
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();
-
                             } else {
                                 MessageBox.Show("Your IP Is : " + task.Result, "Connection Success");
                                 buttonConnect.Enabled = true;

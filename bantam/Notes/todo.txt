@@ -1,6 +1,4 @@
-﻿* 3 - auto deploy upload features such as ysm, privenum
-
-* 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
+﻿* 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
 * 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
 * 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
 * 1 - audit should include encryption function checks & find suid/gid files !
@@ -25,6 +23,7 @@
   * ? - fix windows caveats
   * ? - make row and col seperator random
   * ? - sql feature
+  * ? - add chunking into requests specifically file uploader
   * ? - password feature / require useragent feature
   * ? - make disable error reporting a cfg/xml loaded var/ changable in the ("settings") to appernd error reporting onto every request, same for execution time?
   * ? - global cfg option to enable disable error suppression via @ to see more debug data
@@ -41,9 +40,12 @@
   * ? - bypass disabled_functions with mod_cgi and .htaccess
   * ? - consider converting to (System.Security.Cryptography.SymmetricAlgorithm.GenerateIV() && System.Security.Cryptography.SymmetricAlgorithm.GenerateKey())
   * ? - recolor files in browser based on perms - possibly as a feature to send the code to run on server side
-  * ? - Option to send Key as random post/cookie arg for encryption everytime 0.o ?
   * ? - getting previous function caller name will require stacktrace, and more resources so make it an option in the UI not a default
-  
+  * ? - tarball/gzip directories :D:D:
+  * ? - remove a line from file containing X string via sed "clear log"
+
+  //pcntl_exec 
+
 /// <summary>
 /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
 /// </summary>

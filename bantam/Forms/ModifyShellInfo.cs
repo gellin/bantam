@@ -116,7 +116,6 @@ namespace bantam.Forms
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
-                //todo set as var?
                 if (encryptionKey.Length != 32) {
                     labelDynAddHostsStatus.Text = "Encryption key length must be 32 charectors... Try again.";
                     return;
@@ -134,7 +133,7 @@ namespace bantam.Forms
 
             //Remove Shell
             if (BantamMain.Shells.ContainsKey(shellURL)) {
-                BantamMain.instance.GuiCallbackRemoveShellURL(shellURL);
+                BantamMain.Instance.GuiCallbackRemoveShellURL(shellURL);
                 BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut);
             }
 
@@ -201,7 +200,7 @@ namespace bantam.Forms
                 return;
             }
 
-            BantamMain.instance.InitializeShellData(shellURL);
+            BantamMain.Instance.InitializeShellData(shellURL);
 
             this.Close();
         }
