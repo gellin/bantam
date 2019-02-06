@@ -216,6 +216,7 @@ namespace bantam.Classes
         public string LogText
         {
             get { return logText; }
+            set { logText = value; }
         }
 
         /// <summary>

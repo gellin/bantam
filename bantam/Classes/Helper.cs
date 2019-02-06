@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -118,15 +120,14 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                //todo global level 2 or 3 logging cfg
+                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", 3);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
-                //todo
-                MessageBox.Show(str, "Unable to decode base64!");
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 ("+ str + ")", "Base64 Decode failure", 2);
                 return string.Empty;
             }
         }
@@ -145,7 +146,7 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                //todo global slevel 2 or level 3 logging cfg
+                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", 3);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
@@ -153,8 +154,7 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
-                //todo logging check
-                MessageBox.Show(str, "Unable to decode base64!");
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", 2);
                 return null;
             }
         }
@@ -232,6 +232,24 @@ namespace bantam.Classes
         {
             bool uriResult = Uri.TryCreate(uri, UriKind.Absolute, out Uri tempUri);
             return uriResult && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps);
+        }
+
+        /// <summary>
+        /// A function that very crudly validates an IP address
+        /// </summary>
+        /// <param name="ipaddr"></param>
+        /// <returns></returns>
+        public static bool IsValidIP(string ipaddr)
+        {
+            if (string.IsNullOrEmpty(ipaddr)) {
+                return false;
+            }
+
+            if (ipaddr.Count(needle => needle == '.') != 3) {
+                return false;
+            }
+
+            return(IPAddress.TryParse(ipaddr, out IPAddress result));
         }
     }
 }

@@ -144,8 +144,10 @@ namespace bantam.Classes
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 return responseString;
-            } catch (System.Net.Http.HttpRequestException) {
-                //todo level 3 logging
+            } catch (System.Net.Http.HttpRequestException e) {
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", 1);
+            } catch (Exception e) {
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", 1);
             }
             return string.Empty;
         }
@@ -170,8 +172,10 @@ namespace bantam.Classes
                 request.Content = content;
 
                 return responseString;
-            } catch (System.Net.Http.HttpRequestException) {
-                //todo level 3 logging
+            } catch (System.Net.Http.HttpRequestException e) {
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", 1);
+            } catch (Exception e) {
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", 1);
             }
             return string.Empty;
         }
@@ -204,7 +208,7 @@ namespace bantam.Classes
             string phpCode = phpCodeIn;
 
             if (string.IsNullOrEmpty(phpCode)) {
-                //todo level 3 logging
+                LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", 2);
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
@@ -285,7 +289,7 @@ namespace bantam.Classes
 
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
-                        //todo global logging
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", 1);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -305,7 +309,7 @@ namespace bantam.Classes
 
                     int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
                     if (postArgs.Length > maxPostSizeBytes) {
-                        //todo global logging
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", 1);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -317,13 +321,12 @@ namespace bantam.Classes
 
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
                     var responseString = await response.Content.ReadAsStringAsync();
-
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
             } catch (System.Net.Http.HttpRequestException e) {
-                //todo level 2/3 logging
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", 1);
             } catch (Exception e) {
-                //todo level 2/3 logging
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", 1);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }

@@ -93,20 +93,23 @@ namespace bantam.Forms
 
         private void textBoxMaxCommentLength_TextChanged(object sender, EventArgs e)
         {
-            //todo tryparse
-            Config.CommentMaxLength = Convert.ToInt32(textBoxMaxCommentLength.Text);
+            if (int.TryParse(textBoxMaxCommentLength.Text, out int commentMaxLen)) {
+                Config.CommentMaxLength = commentMaxLen;
+            }
         }
 
         private void textBoxPhpVarNameMaxLen_TextChanged(object sender, EventArgs e)
         {
-            //todo tryparse
-            Config.PhpVariableNameMaxLength = Convert.ToInt32(textBoxPhpVarNameMaxLen.Text);
+            if (int.TryParse(textBoxPhpVarNameMaxLen.Text, out int phpVarNameMaxLen)) {
+                Config.PhpVariableNameMaxLength = phpVarNameMaxLen;
+            }
         }
 
         private void textBoxMaxPostSize_TextChanged(object sender, EventArgs e)
         {
-            //todo tryparse
-            Config.MaxPostSizeKib = Convert.ToInt32(textBoxMaxPostSize.Text);
+            if (int.TryParse(textBoxMaxPostSize.Text, out int postSize)) {
+                Config.MaxPostSizeKib = postSize;
+            }
         }
 
         private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)

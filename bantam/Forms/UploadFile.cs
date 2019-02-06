@@ -137,7 +137,7 @@ namespace bantam.Forms
                if (!string.IsNullOrEmpty(richTextBox1.Text)) {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
                 } else {
-                    //todo level 3 logging
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data to self...", 3);
                     btnUpload.Enabled = true;
                     return;
                 }
@@ -149,12 +149,11 @@ namespace bantam.Forms
                 } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
                 } else {
-                    //todo level 3 logging
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data...", 3);
                     btnUpload.Enabled = true;
                     return;
                 }
 
-                //todo check file size and validate send mode and max send size..
                 //eventually todo chunking
                 string remoteFileLocation = ServerPath + "/" + txtBoxFileName.Text;
                 phpCode = PhpBuilder.WriteFile(remoteFileLocation, phpCode);
@@ -162,12 +161,11 @@ namespace bantam.Forms
 
             await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false);
 
-            GC.Collect();
-            this.Close();
-
             btnUpload.Enabled = true;
             btnBrowse.Enabled = true;
             richTextBox1.Enabled = true;
+
+            this.Close();
         }
 
         /// <summary>

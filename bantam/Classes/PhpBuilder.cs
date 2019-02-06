@@ -175,7 +175,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string EncryptPhpVariableAndEcho(int ResponseEncryptionMode, ref string encryptionKey, ref string encryptionIV)
         {
-            //todo make dynamic/random
+            //todo make dynamic/random into config loaded once???
             string varName = "$result";
             encryptionIV = EncryptionHelper.GetRandomEncryptionIV();
             encryptionKey = EncryptionHelper.GetRandomEncryptionKey();
@@ -189,7 +189,8 @@ namespace bantam.Classes
             } else if (ResponseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
             } else {
-                //todo global logging
+                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", 1);
+                return string.Empty;
             }
 
             encryption += RandomPHPComment();
@@ -443,9 +444,8 @@ namespace bantam.Classes
         public static string GetHardDriveLettersPhp(bool encryptResponse)
         {
             StringBuilder result = new StringBuilder();
-            string getHardDriveLetters = string.Empty;
-            string driveVar = RandomPHPVar();
 
+            string driveVar = RandomPHPVar();
             string responseCode = string.Empty;
 
             if (encryptResponse) {
@@ -567,6 +567,7 @@ namespace bantam.Classes
         public static string DirectoryEnumerationCode(string location, string phpVersion, bool encryptResponse)
         {
             StringBuilder result = new StringBuilder();
+
             string varItem = RandomPHPVar();
             string responseCode = string.Empty;
 

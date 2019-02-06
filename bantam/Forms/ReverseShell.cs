@@ -246,7 +246,7 @@ namespace bantam.Forms
                     break;
                 case "barrage":
                     if (checkBoxDisabledFunctionsBypass.Checked) {
-                        //todo logging
+                        //todo UI thing?
                         MessageBox.Show("Sorry barrage is not supported with chankro...", "Ooops!!");
                         return;
                     }

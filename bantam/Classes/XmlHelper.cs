@@ -40,13 +40,11 @@ namespace bantam.Classes
                             BantamMain.Shells.TryAdd(hostTarget, new ShellInfo());
                         }
 
-                        //todo default this 
                         if (string.IsNullOrEmpty(requestArg) == false
                         && requestArg != "command") {
                             BantamMain.Shells[hostTarget].RequestArgName = requestArg;
                         }
 
-                        //todo don't default this
                         if (string.IsNullOrEmpty(requestMethod) == false
                          && requestMethod == "cookie") {
                             BantamMain.Shells[hostTarget].SendDataViaCookie = true;
@@ -104,7 +102,7 @@ namespace bantam.Classes
                         }
 
                         try {
-                            Program.g_BantamMain.InitializeShellData(hostTarget);
+                            BantamMain.instance.InitializeShellData(hostTarget);
                         } catch (Exception) {
                             //todo logging
                         }

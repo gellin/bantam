@@ -33,7 +33,6 @@
             this.listViewShells = new System.Windows.Forms.ListView();
             this.pingColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.phpinfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.evalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +59,7 @@
             this.softwareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testConnectionStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemReverseShell = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyShellURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -120,7 +120,7 @@
             this.textBoxConsoleInput = new System.Windows.Forms.TextBox();
             this.richTextBoxConsoleOutput = new System.Windows.Forms.RichTextBox();
             this.tabPageLogging = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBoxLogs = new System.Windows.Forms.RichTextBox();
             this.downloadFileAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             shellColHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listviewClientsContextMenu.SuspendLayout();
@@ -189,14 +189,6 @@
             this.listviewClientsContextMenu.Size = new System.Drawing.Size(203, 212);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
-            this.editToolStripMenuItem.Text = "Edit Settings";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
             // phpToolStripMenuItem
             // 
             this.phpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -214,7 +206,7 @@
             this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.phpinfoToolStripMenuItem.Text = "PhpInfo";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -222,7 +214,7 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.evalToolStripMenuItem.Text = "Eval";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
@@ -230,7 +222,7 @@
             // 
             this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
-            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.portScannerToolStripMenuItem.Text = "Port Scanner";
             this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
             // 
@@ -238,7 +230,7 @@
             // 
             this.editPHPCodeToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
             this.editPHPCodeToolStripMenuItem.Name = "editPHPCodeToolStripMenuItem";
-            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.editPHPCodeToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
             this.editPHPCodeToolStripMenuItem.Text = "Edit Bantam PHP";
             this.editPHPCodeToolStripMenuItem.Click += new System.EventHandler(this.editPHPCodeToolStripMenuItem_Click);
             // 
@@ -265,41 +257,41 @@
             this.windowsVerToolStripMenuItem});
             this.windowsToolStripMenuItem.Image = global::bantam.Properties.Resources.social_windows_outline;
             this.windowsToolStripMenuItem.Name = "windowsToolStripMenuItem";
-            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.windowsToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.windowsToolStripMenuItem.Text = "Windows";
             // 
             // windowsNetuserMenuItem
             // 
             this.windowsNetuserMenuItem.Name = "windowsNetuserMenuItem";
-            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowsNetuserMenuItem.Size = new System.Drawing.Size(149, 22);
             this.windowsNetuserMenuItem.Text = "net user";
             this.windowsNetuserMenuItem.Click += new System.EventHandler(this.windowsNetuserMenuItem_Click);
             // 
             // windowsNetaccountsMenuItem
             // 
             this.windowsNetaccountsMenuItem.Name = "windowsNetaccountsMenuItem";
-            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowsNetaccountsMenuItem.Size = new System.Drawing.Size(149, 22);
             this.windowsNetaccountsMenuItem.Text = "net accounts";
             this.windowsNetaccountsMenuItem.Click += new System.EventHandler(this.windowsNetaccountsMenuItem_Click);
             // 
             // windowsIpconfigMenuItem
             // 
             this.windowsIpconfigMenuItem.Name = "windowsIpconfigMenuItem";
-            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowsIpconfigMenuItem.Size = new System.Drawing.Size(149, 22);
             this.windowsIpconfigMenuItem.Text = "ipconfig";
             this.windowsIpconfigMenuItem.Click += new System.EventHandler(this.windowsIpconfigMenuItem_Click);
             // 
             // windowshostTargetsMenuItem
             // 
             this.windowshostTargetsMenuItem.Name = "windowshostTargetsMenuItem";
-            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowshostTargetsMenuItem.Size = new System.Drawing.Size(149, 22);
             this.windowshostTargetsMenuItem.Text = "hosts";
             this.windowshostTargetsMenuItem.Click += new System.EventHandler(this.windowsTargetsMenuItem_Click);
             // 
             // windowsVerToolStripMenuItem
             // 
             this.windowsVerToolStripMenuItem.Name = "windowsVerToolStripMenuItem";
-            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.windowsVerToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.windowsVerToolStripMenuItem.Text = "ver";
             this.windowsVerToolStripMenuItem.Click += new System.EventHandler(this.windowsVerToolStripMenuItem_Click);
             // 
@@ -315,55 +307,55 @@
             this.shadowToolStripMenuItem});
             this.linuxToolStripMenuItem.Image = global::bantam.Properties.Resources.linux_16x16;
             this.linuxToolStripMenuItem.Name = "linuxToolStripMenuItem";
-            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.linuxToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.linuxToolStripMenuItem.Text = "Linux";
             // 
             // linuxIfconfigMenuItem
             // 
             this.linuxIfconfigMenuItem.Name = "linuxIfconfigMenuItem";
-            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linuxIfconfigMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxIfconfigMenuItem.Text = "ifconfig";
             this.linuxIfconfigMenuItem.Click += new System.EventHandler(this.linuxIfconfigMenuItem_Click);
             // 
             // linuxInterfacesMenuItem
             // 
             this.linuxInterfacesMenuItem.Name = "linuxInterfacesMenuItem";
-            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linuxInterfacesMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxInterfacesMenuItem.Text = "interfaces";
             this.linuxInterfacesMenuItem.Click += new System.EventHandler(this.linuxInterfacesMenuItem_Click);
             // 
             // linusVersionMenuItem
             // 
             this.linusVersionMenuItem.Name = "linusVersionMenuItem";
-            this.linusVersionMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linusVersionMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linusVersionMenuItem.Text = "version";
             this.linusVersionMenuItem.Click += new System.EventHandler(this.linusVersionMenuItem_Click);
             // 
             // linuxhostTargetsMenuItem
             // 
             this.linuxhostTargetsMenuItem.Name = "linuxhostTargetsMenuItem";
-            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linuxhostTargetsMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxhostTargetsMenuItem.Text = "hosts";
             this.linuxhostTargetsMenuItem.Click += new System.EventHandler(this.linuxhostsMenuItem_Click);
             // 
             // linuxIssuenetMenuItem
             // 
             this.linuxIssuenetMenuItem.Name = "linuxIssuenetMenuItem";
-            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.linuxIssuenetMenuItem.Size = new System.Drawing.Size(132, 22);
             this.linuxIssuenetMenuItem.Text = "issue.net";
             this.linuxIssuenetMenuItem.Click += new System.EventHandler(this.linuxIssuenetMenuItem_Click);
             // 
             // passwdToolStripMenuItem
             // 
             this.passwdToolStripMenuItem.Name = "passwdToolStripMenuItem";
-            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.passwdToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.passwdToolStripMenuItem.Text = "passwd";
             this.passwdToolStripMenuItem.Click += new System.EventHandler(this.passwdToolStripMenuItem_Click);
             // 
             // shadowToolStripMenuItem
             // 
             this.shadowToolStripMenuItem.Name = "shadowToolStripMenuItem";
-            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shadowToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.shadowToolStripMenuItem.Text = "shadow";
             this.shadowToolStripMenuItem.Click += new System.EventHandler(this.shadowToolStripMenuItem_Click);
             // 
@@ -371,21 +363,21 @@
             // 
             this.psAuxToolStripMenuItem.Image = global::bantam.Properties.Resources.gear_16x16;
             this.psAuxToolStripMenuItem.Name = "psAuxToolStripMenuItem";
-            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.psAuxToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.psAuxToolStripMenuItem.Text = "process list";
             this.psAuxToolStripMenuItem.Click += new System.EventHandler(this.psAuxToolStripMenuItem_Click);
             // 
             // pingToolStripMenuItem
             // 
             this.pingToolStripMenuItem.Name = "pingToolStripMenuItem";
-            this.pingToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.pingToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.pingToolStripMenuItem.Text = "ping";
             this.pingToolStripMenuItem.Click += new System.EventHandler(this.pingToolStripMenuItem_Click);
             // 
             // whoamiToolStripMenuItem
             // 
             this.whoamiToolStripMenuItem.Name = "whoamiToolStripMenuItem";
-            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.whoamiToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
             this.whoamiToolStripMenuItem.Text = "whoami";
             this.whoamiToolStripMenuItem.Click += new System.EventHandler(this.whoamiToolStripMenuItem_Click);
             // 
@@ -411,6 +403,14 @@
             this.toolStripMenuItemReverseShell.Size = new System.Drawing.Size(202, 26);
             this.toolStripMenuItemReverseShell.Text = "Pop Reverse Shell";
             this.toolStripMenuItemReverseShell.Click += new System.EventHandler(this.toolStripMenuItemReverseShell_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Image = global::bantam.Properties.Resources.edit_16x16;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
+            this.editToolStripMenuItem.Text = "Edit Settings";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // copyShellURLToolStripMenuItem
             // 
@@ -1052,7 +1052,7 @@
             // 
             // tabPageLogging
             // 
-            this.tabPageLogging.Controls.Add(this.richTextBox1);
+            this.tabPageLogging.Controls.Add(this.richTextBoxLogs);
             this.tabPageLogging.Location = new System.Drawing.Point(4, 28);
             this.tabPageLogging.Name = "tabPageLogging";
             this.tabPageLogging.Padding = new System.Windows.Forms.Padding(3);
@@ -1061,15 +1061,15 @@
             this.tabPageLogging.Text = "Logs";
             this.tabPageLogging.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // richTextBoxLogs
             // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(6, 6);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(610, 529);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.richTextBoxLogs.Enabled = false;
+            this.richTextBoxLogs.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBoxLogs.Location = new System.Drawing.Point(6, 6);
+            this.richTextBoxLogs.Name = "richTextBoxLogs";
+            this.richTextBoxLogs.Size = new System.Drawing.Size(610, 529);
+            this.richTextBoxLogs.TabIndex = 0;
+            this.richTextBoxLogs.Text = "";
             // 
             // downloadFileAsToolStripMenuItem
             // 
@@ -1200,7 +1200,7 @@
         private System.Windows.Forms.TextBox textBoxConsoleInput;
         private System.Windows.Forms.RichTextBox richTextBoxConsoleOutput;
         private System.Windows.Forms.TabPage tabPageLogging;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBoxLogs;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemReverseShell;
         private System.Windows.Forms.TextBox textBoxFreeSpace;
         private System.Windows.Forms.TextBox textBoxGroup;

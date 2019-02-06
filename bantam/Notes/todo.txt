@@ -6,6 +6,8 @@
 * 1 - audit should include encryption function checks & find suid/gid files !
 * 1 - shows all users and their groups
 
+* 1 - global timeout, connection timeout in options form
+
 * 1 - remember last 10-20 commands in the console and use up arrow to access them
 * 3 - Advanced options to edit code execution type to change from system to exec, etc (global)
 
@@ -40,6 +42,7 @@
   * ? - consider converting to (System.Security.Cryptography.SymmetricAlgorithm.GenerateIV() && System.Security.Cryptography.SymmetricAlgorithm.GenerateKey())
   * ? - recolor files in browser based on perms - possibly as a feature to send the code to run on server side
   * ? - Option to send Key as random post/cookie arg for encryption everytime 0.o ?
+  * ? - getting previous function caller name will require stacktrace, and more resources so make it an option in the UI not a default
   
 /// <summary>
 /// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method

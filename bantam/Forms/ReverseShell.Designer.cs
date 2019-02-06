@@ -153,7 +153,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 248);
+            this.ClientSize = new System.Drawing.Size(415, 264);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxArch);
             this.Controls.Add(this.checkBoxDisabledFunctionsBypass);

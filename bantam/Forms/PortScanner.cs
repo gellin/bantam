@@ -50,29 +50,28 @@ namespace bantam.Forms
                 bool encryptResponse = BantamMain.Shells[ShellUrl].ResponseEncryption;
                 int ResponseEncryptionMode = BantamMain.Shells[ShellUrl].ResponseEncryptionMode;
 
-                //todo validate this port
-                if (!string.IsNullOrEmpty(textBoxPorts.Text)) {
-                    portsCode = "$ports = array('" + textBoxPorts.Text + "');";
-                    labelDynStatus.Text = "";
-                } else {
-                    if (comboBoxCommonPorts.SelectedIndex != 0) {
-                        if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
-                            portsCode = PhpBuilder.PortsScannerPorts1To1024();
-                            labelDynStatus.Text = "** May fail unless on local IP";
-                        } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
-                            labelDynStatus.Text = "** May fail unless on local IP";
-                            portsCode = PhpBuilder.PortScannerPortsCommon();
-                        } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
-                            portsCode = PhpBuilder.PortScannerPortsAll();
-                            labelDynStatus.Text = "** May fail unless on local IP";
+                if (int.TryParse(textBoxPorts.Text, out int outVal)) {
+                    if (!string.IsNullOrEmpty(textBoxPorts.Text)) {
+                        portsCode = "$ports = array('" + textBoxPorts.Text + "');";
+                        labelDynStatus.Text = "";
+                    } else {
+                        if (comboBoxCommonPorts.SelectedIndex != 0) {
+                            if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
+                                portsCode = PhpBuilder.PortsScannerPorts1To1024();
+                                labelDynStatus.Text = "** May fail unless on local IP";
+                            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
+                                labelDynStatus.Text = "** May fail unless on local IP";
+                                portsCode = PhpBuilder.PortScannerPortsCommon();
+                            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
+                                portsCode = PhpBuilder.PortScannerPortsAll();
+                                labelDynStatus.Text = "** May fail unless on local IP";
+                            }
                         }
                     }
+                    string phpCode = PhpBuilder.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
+                    BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, ResponseEncryptionMode);
                 }
-
-                string phpCode = PhpBuilder.PortScanner(textBoxHost.Text, portsCode, encryptResponse);
-                BantamMain.ExecutePHPCodeDisplayInRichTextBox(ShellUrl, phpCode, "Opened Ports - " + textBoxHost.Text, encryptResponse, ResponseEncryptionMode);
             }
-
             btnScan.Enabled = true;
         }
 

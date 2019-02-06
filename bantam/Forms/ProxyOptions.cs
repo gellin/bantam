@@ -53,7 +53,6 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void buttonConnect_Click(object sender, EventArgs e)
         {
-            //todo verify url
             buttonConnect.Enabled = false;
             if (!string.IsNullOrEmpty(txtBoxProxyUrl.Text)) {
                 if (int.TryParse(txtBoxProxyPort.Text, out int port)) {
