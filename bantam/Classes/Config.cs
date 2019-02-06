@@ -142,6 +142,7 @@ namespace bantam.Classes
         public static int PhpVariableNameMaxLength
         {
             get { return phpVaribleNameMaxLength; }
+            set { phpVaribleNameMaxLength = value;  }
         }
     }
 }

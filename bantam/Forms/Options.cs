@@ -43,20 +43,6 @@ namespace bantam.Forms
            LoadConfig();
         }
 
-        private void trackBarCommentFrequency_Scroll(object sender, EventArgs e)
-        {
-            //todo
-        }
-
-        private void checkBoxRandomPhpVarNames_CheckedChanged(object sender, EventArgs e)
-        {
-            if(checkBoxRandomPhpVarNames.Checked) {
-                textBoxPhpVarNameMaxLen.Enabled = true;
-            } else {
-                textBoxPhpVarNameMaxLen.Enabled = false;
-            }
-        }
-
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxRandomComments.Checked) {
@@ -66,6 +52,7 @@ namespace bantam.Forms
                 trackBarCommentFrequency.Enabled = false;
                 textBoxMaxCommentLength.Enabled = false;
             }
+            Config.InjectRandomComments = checkBoxRandomComments.Checked;
         }
 
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
@@ -82,9 +69,56 @@ namespace bantam.Forms
             }
         }
 
+        private void textBoxMaxPostSize_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
         private void checkBoxDisableErrorLogs_CheckedChanged(object sender, EventArgs e)
         {
-            //todo
+            Config.DisableErrorLogs = checkBoxDisableErrorLogs.Checked;
+        }
+
+        private void trackBarLoggingLevel_ValueChanged(object sender, EventArgs e)
+        {
+            Config.LogLevel = trackBarLoggingLevel.Value;
+        }
+
+        private void trackBarCommentFrequency_ValueChanged(object sender, EventArgs e)
+        {
+            Config.CommentFrequency = trackBarCommentFrequency.Value;
+        }
+
+        private void textBoxMaxCommentLength_TextChanged(object sender, EventArgs e)
+        {
+            Config.CommentMaxLength = Convert.ToInt32(textBoxMaxCommentLength.Text);
+        }
+
+        private void textBoxPhpVarNameMaxLen_TextChanged(object sender, EventArgs e)
+        {
+            Config.PhpVariableNameMaxLength = Convert.ToInt32(textBoxPhpVarNameMaxLen.Text);
+        }
+
+        private void textBoxMaxPostSize_TextChanged(object sender, EventArgs e)
+        {
+            Config.MaxPostSizeKib = Convert.ToInt32(textBoxMaxPostSize.Text);
+        }
+
+        private void checkBoxEnableLogging_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.EnableLogging = checkBoxEnableLogging.Checked;
+        }
+
+        private void checkBoxMaxExecutionTime_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.MaxExecutionTime = checkBoxMaxExecutionTime.Checked;
+        }
+
+        private void checkBoxGlobalLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            Config.EnableGlobalMessageBoxes = checkBoxGlobalLogs.Checked;
         }
     }
 }

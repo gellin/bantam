@@ -45,6 +45,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxRandomPhpVarNames = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelStaticLogLevel = new System.Windows.Forms.Label();
             this.checkBoxGlobalLogs = new System.Windows.Forms.CheckBox();
@@ -52,8 +54,6 @@
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -73,6 +73,7 @@
             this.textBoxMaxCommentLength.TabIndex = 16;
             this.toolTip1.SetToolTip(this.textBoxMaxCommentLength, "Sets the max length for each comment, a random length less than this value will b" +
         "e selected.");
+            this.textBoxMaxCommentLength.TextChanged += new System.EventHandler(this.textBoxMaxCommentLength_TextChanged);
             this.textBoxMaxCommentLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxCommentLength_KeyPress);
             // 
             // labelStaticMaxLength
@@ -94,6 +95,8 @@
             this.textBoxMaxPostSize.Size = new System.Drawing.Size(74, 24);
             this.textBoxMaxPostSize.TabIndex = 14;
             this.toolTip1.SetToolTip(this.textBoxMaxPostSize, "Max post size in kibibyte\'s.");
+            this.textBoxMaxPostSize.TextChanged += new System.EventHandler(this.textBoxMaxPostSize_TextChanged);
+            this.textBoxMaxPostSize.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMaxPostSize_KeyPress);
             // 
             // label2
             // 
@@ -116,11 +119,12 @@
             this.trackBarLoggingLevel.TabIndex = 12;
             this.toolTip1.SetToolTip(this.trackBarLoggingLevel, "Controls the amount of logs you want to see.");
             this.trackBarLoggingLevel.Value = 1;
+            this.trackBarLoggingLevel.ValueChanged += new System.EventHandler(this.trackBarLoggingLevel_ValueChanged);
             // 
             // checkBoxEnableLogging
             // 
             this.checkBoxEnableLogging.AutoSize = true;
-            this.checkBoxEnableLogging.Location = new System.Drawing.Point(15, 24);
+            this.checkBoxEnableLogging.Location = new System.Drawing.Point(15, 30);
             this.checkBoxEnableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxEnableLogging.Name = "checkBoxEnableLogging";
             this.checkBoxEnableLogging.Size = new System.Drawing.Size(118, 20);
@@ -128,6 +132,7 @@
             this.checkBoxEnableLogging.Text = "Enable Logging";
             this.toolTip1.SetToolTip(this.checkBoxEnableLogging, "Enables individual shell logging into the logs tab.");
             this.checkBoxEnableLogging.UseVisualStyleBackColor = true;
+            this.checkBoxEnableLogging.CheckedChanged += new System.EventHandler(this.checkBoxEnableLogging_CheckedChanged);
             // 
             // checkBoxRandomComments
             // 
@@ -163,7 +168,7 @@
             this.toolTip1.SetToolTip(this.trackBarCommentFrequency, "Determines the rate of comment injection (1 = 25%, 4 = 100%) of locations utilize" +
         "d.");
             this.trackBarCommentFrequency.Value = 1;
-            this.trackBarCommentFrequency.Scroll += new System.EventHandler(this.trackBarCommentFrequency_Scroll);
+            this.trackBarCommentFrequency.ValueChanged += new System.EventHandler(this.trackBarCommentFrequency_ValueChanged);
             // 
             // label4
             // 
@@ -217,6 +222,7 @@
             this.textBoxPhpVarNameMaxLen.TabIndex = 20;
             this.toolTip1.SetToolTip(this.textBoxPhpVarNameMaxLen, "Sets the max length for each PHP variable, a random length less than this value w" +
         "ill be selected.");
+            this.textBoxPhpVarNameMaxLen.TextChanged += new System.EventHandler(this.textBoxPhpVarNameMaxLen_TextChanged);
             this.textBoxPhpVarNameMaxLen.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPhpVarNameMaxLen_KeyPress);
             // 
             // label1
@@ -233,6 +239,7 @@
             // checkBoxRandomPhpVarNames
             // 
             this.checkBoxRandomPhpVarNames.AutoSize = true;
+            this.checkBoxRandomPhpVarNames.Enabled = false;
             this.checkBoxRandomPhpVarNames.Location = new System.Drawing.Point(11, 0);
             this.checkBoxRandomPhpVarNames.Name = "checkBoxRandomPhpVarNames";
             this.checkBoxRandomPhpVarNames.Size = new System.Drawing.Size(172, 20);
@@ -240,7 +247,6 @@
             this.checkBoxRandomPhpVarNames.Text = "Random PHP Var Names";
             this.toolTip1.SetToolTip(this.checkBoxRandomPhpVarNames, "Creates random variable names for send PHP code (always on).");
             this.checkBoxRandomPhpVarNames.UseVisualStyleBackColor = true;
-            this.checkBoxRandomPhpVarNames.CheckedChanged += new System.EventHandler(this.checkBoxRandomPhpVarNames_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -257,6 +263,24 @@
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(148, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 16);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "100%";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 93);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(33, 16);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "25%";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelStaticLogLevel);
@@ -265,7 +289,7 @@
             this.groupBox2.Controls.Add(this.checkBoxEnableLogging);
             this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(435, 126);
+            this.groupBox2.Size = new System.Drawing.Size(435, 114);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Logging";
@@ -289,6 +313,7 @@
             this.checkBoxGlobalLogs.Text = "Enable Global Logs";
             this.toolTip1.SetToolTip(this.checkBoxGlobalLogs, "Enables global logging/message boxes.");
             this.checkBoxGlobalLogs.UseVisualStyleBackColor = true;
+            this.checkBoxGlobalLogs.CheckedChanged += new System.EventHandler(this.checkBoxGlobalLogs_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -298,7 +323,7 @@
             this.groupBox3.Controls.Add(this.textBoxMaxPostSize);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.textBoxMaxCookieSize);
-            this.groupBox3.Location = new System.Drawing.Point(12, 153);
+            this.groupBox3.Location = new System.Drawing.Point(12, 143);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(435, 106);
             this.groupBox3.TabIndex = 21;
@@ -320,37 +345,20 @@
             // checkBoxMaxExecutionTime
             // 
             this.checkBoxMaxExecutionTime.AutoSize = true;
-            this.checkBoxMaxExecutionTime.Location = new System.Drawing.Point(15, 23);
+            this.checkBoxMaxExecutionTime.Location = new System.Drawing.Point(15, 25);
             this.checkBoxMaxExecutionTime.Name = "checkBoxMaxExecutionTime";
             this.checkBoxMaxExecutionTime.Size = new System.Drawing.Size(143, 20);
             this.checkBoxMaxExecutionTime.TabIndex = 19;
             this.checkBoxMaxExecutionTime.Text = "Max Execution Time";
             this.toolTip1.SetToolTip(this.checkBoxMaxExecutionTime, "Sends php code with request to extend execution time.");
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 16);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "25%";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(148, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 16);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "100%";
+            this.checkBoxMaxExecutionTime.CheckedChanged += new System.EventHandler(this.checkBoxMaxExecutionTime_CheckedChanged);
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 475);
+            this.ClientSize = new System.Drawing.Size(462, 474);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
