@@ -5,17 +5,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public string Result { get; set; }
+        public readonly string Result;
 
         /// <summary>
         /// 
         /// </summary>
-        public string EncryptionKey { get; set; }
+        public readonly string EncryptionKey;
 
         /// <summary>
         /// 
         /// </summary>
-        public string EncryptionIV { get; set; }
+        public readonly string EncryptionIV;
 
         /// <summary>
         /// 

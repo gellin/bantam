@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace bantam.Classes
 {
-    public class FileBrowserTreeNodeSorter  : IComparer
+    public class FileBrowserTreeNodeSorter : IComparer
     {
         /// <summary>
         /// 

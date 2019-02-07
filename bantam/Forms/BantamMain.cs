@@ -18,13 +18,8 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        private static BantamMain instance;
-
-        public static BantamMain Instance
-        {
-            get { return instance; }
-        }
-
+        public static BantamMain Instance{ get; private set;}
+        
         /// <summary>
         /// Full path and name of xml file if a file has opened (used for saving)
         /// </summary>
@@ -47,7 +42,7 @@ namespace bantam
         public BantamMain()
         {
             //Store instance ref accessable statically
-            instance = this;
+            Instance = this;
 
             //Default UI Component Initialization
             InitializeComponent();

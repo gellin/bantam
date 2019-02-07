@@ -12,22 +12,22 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public string LocalFileLocation { get; set; }
+        private string LocalFileLocation;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly bool EditingSelf;
 
         /// <summary>
         /// //
         /// </summary>
-        public string ServerPath { get; set; }
+        private readonly string ServerPath;
 
         /// <summary>
         /// 
         /// </summary>
-        public string ShellUrl { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool EditingSelf { get; set; }
+        private readonly string ShellUrl;
 
         /// <summary>
         /// Normal Upload file constructor, sets full url to Shell, and Full path of upload directory
@@ -184,6 +184,11 @@ namespace bantam.Forms
         private async void linEnumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = await WebHelper.GetRequest("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh");
+        }
+
+        private async void linuxPrivCheckerpyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = await WebHelper.GetRequest("https://www.securitysift.com/download/linuxprivchecker.py");
         }
     }
 }

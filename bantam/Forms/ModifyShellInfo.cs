@@ -17,7 +17,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> requestTypes = new List<string> {
+        private static readonly ReadOnlyCollection<string> requestTypes = new List<string> {
             "cookie",
             "post",
         }.AsReadOnly();
@@ -25,7 +25,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> ResponseEncryptionModes = new List<string> {
+        private static readonly ReadOnlyCollection<string> ResponseEncryptionModes = new List<string> {
              "openssl",
              "mcrypt",
         }.AsReadOnly();

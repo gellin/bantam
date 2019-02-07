@@ -10,7 +10,7 @@ namespace bantam.Forms
     {
         private static ProxyOptions instance;
 
-        public enum PROXY_TYPE
+        private enum PROXY_TYPE
         {
             socks = 0,
             http = 1

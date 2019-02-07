@@ -10,7 +10,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public string ShellUrl { get; set; }
+        private readonly string ShellUrl;
 
         /// <summary>
         /// 

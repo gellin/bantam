@@ -38,6 +38,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.vectorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linEnumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linuxPrivCheckerpyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,7 +143,8 @@
             // vectorsToolStripMenuItem
             // 
             this.vectorsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.linEnumToolStripMenuItem});
+            this.linEnumToolStripMenuItem,
+            this.linuxPrivCheckerpyToolStripMenuItem});
             this.vectorsToolStripMenuItem.Name = "vectorsToolStripMenuItem";
             this.vectorsToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.vectorsToolStripMenuItem.Text = "Vectors";
@@ -150,9 +152,16 @@
             // linEnumToolStripMenuItem
             // 
             this.linEnumToolStripMenuItem.Name = "linEnumToolStripMenuItem";
-            this.linEnumToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.linEnumToolStripMenuItem.Text = "LinEnum";
+            this.linEnumToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.linEnumToolStripMenuItem.Text = "LinEnum.sh";
             this.linEnumToolStripMenuItem.Click += new System.EventHandler(this.linEnumToolStripMenuItem_Click);
+            // 
+            // linuxPrivCheckerpyToolStripMenuItem
+            // 
+            this.linuxPrivCheckerpyToolStripMenuItem.Name = "linuxPrivCheckerpyToolStripMenuItem";
+            this.linuxPrivCheckerpyToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.linuxPrivCheckerpyToolStripMenuItem.Text = "LinuxPrivChecker.py";
+            this.linuxPrivCheckerpyToolStripMenuItem.Click += new System.EventHandler(this.linuxPrivCheckerpyToolStripMenuItem_Click);
             // 
             // UploadFile
             // 
@@ -195,5 +204,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem vectorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linEnumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linuxPrivCheckerpyToolStripMenuItem;
     }
 }

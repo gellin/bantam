@@ -13,12 +13,12 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public string ShellUrl { get; set; }
+        private string ShellUrl;
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly ReadOnlyCollection<string> shellVectors = new List<string> {
+        private static readonly ReadOnlyCollection<string> shellVectors = new List<string> {
              "perl",
              "netcat",
              "netcat with pipe",

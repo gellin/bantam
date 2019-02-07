@@ -22,7 +22,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        public enum BackdoorTypes
+        private enum BackdoorTypes
         {
             EVAL = 0,
             ASSERT,
