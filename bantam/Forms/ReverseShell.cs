@@ -216,14 +216,14 @@ namespace bantam.Forms
 
             if (string.IsNullOrEmpty(ipv4)
             || !Helper.IsValidIP(ipv4)) {
-
+                lblStatus.Text = "Invalid ipv4...";
                 return;
             }
 
             string port = textBoxPort.Text;
 
             if (string.IsNullOrEmpty(port)) {
-
+                lblStatus.Text = "Invalid port...";
                 return;
             }
 
@@ -248,12 +248,10 @@ namespace bantam.Forms
                     break;
                 case "barrage":
                     if (checkBoxDisabledFunctionsBypass.Checked) {
-                        //todo UI thing?
-                        MessageBox.Show("Sorry barrage is not supported with chankro...", "Ooops!!");
+                        lblStatus.Text = "Barrage is not supported with chankro...";
                         return;
                     }
 
-                    //todo would be cool to detect if the shell pop'd and stop further shell poping attempts
                     shellCode = PerlShell(ipv4, port);
                     PopReverseShell(shellCode);
 
@@ -273,8 +271,7 @@ namespace bantam.Forms
                     PopReverseShell(shellCode);
                 return;
                 default:
-                    //todo logging lvl 3
-                    MessageBox.Show("Unknwon shell vector selection", "GUI Error");
+                    lblStatus.Text = "Unknown shell vector, GUI Error";
                 break;
             }
 
@@ -285,7 +282,7 @@ namespace bantam.Forms
                 } else if(comboBoxArch.Text == "x64") {
                     PopChankroShell(Chankro64BitShell(shellCode));
                 } else {
-                    MessageBox.Show("Failed to find correct architecture comboBox selection", "Ooops!!");
+                    lblStatus.Text = "Unknown chankro architecture vector, GUI Error";
                 }
             } else {
                 PopReverseShell(shellCode);
@@ -304,7 +301,7 @@ namespace bantam.Forms
             //Todo tie this timeout in as a configureable option
             if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
                 if (string.IsNullOrEmpty(task.Result)) {
-                    MessageBox.Show("Unable to ubtain IP Address", "Connection Failed");
+                    MessageBox.Show("Unable to get IP Address", "Connection Failed");
                 } else {
                     textBoxIP.Text = task.Result;
                 }

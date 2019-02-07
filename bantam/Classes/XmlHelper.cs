@@ -63,8 +63,6 @@ namespace bantam.Classes
 
                             if (string.IsNullOrEmpty(requestEncryptionKey) == false) {
                                 BantamMain.Shells[hostTarget].RequestEncryptionKey = requestEncryptionKey;
-                            } else {
-                                //todo shell may be gimped, invalid settings
                             }
 
                             if (string.IsNullOrEmpty(requestEncryptionIV) == false) {
@@ -76,8 +74,6 @@ namespace bantam.Classes
                                     BantamMain.Shells[hostTarget].SendRequestEncryptionIV = true;
                                     BantamMain.Shells[hostTarget].RequestEncryptionIV = string.Empty;
                                     BantamMain.Shells[hostTarget].RequestEncryptionIVRequestVarName = requestEncryptionIVVarName;
-                                } else {
-                                    //todo shell may be gimped, invalid settings
                                 }
                             }
                         }
@@ -97,8 +93,6 @@ namespace bantam.Classes
                                 BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
                             } else if (ResponseEncryptionMode == EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
                                 BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
-                            } else {
-                                //todo shell may be gimped, invalid settings
                             }
                         }
 

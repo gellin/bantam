@@ -38,6 +38,7 @@
             this.checkBoxDisabledFunctionsBypass = new System.Windows.Forms.CheckBox();
             this.comboBoxArch = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelIP
@@ -149,11 +150,20 @@
             this.label7.Size = new System.Drawing.Size(391, 1);
             this.label7.TabIndex = 23;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(12, 245);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 16);
+            this.lblStatus.TabIndex = 24;
+            // 
             // ReverseShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 264);
+            this.ClientSize = new System.Drawing.Size(415, 266);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxArch);
             this.Controls.Add(this.checkBoxDisabledFunctionsBypass);
@@ -190,5 +200,6 @@
         private System.Windows.Forms.CheckBox checkBoxDisabledFunctionsBypass;
         private System.Windows.Forms.ComboBox comboBoxArch;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
