@@ -16,20 +16,18 @@ namespace bantam.Classes
         private static Random rdm = new Random();
 
         /// <summary>
-        /// Max number is included in the results, minimum number is statically 1 and included in results
+        /// Gets a random number between 1 and maxnumber (min & max included)
         /// </summary>
         /// <param name="maxNumber"></param>
-        /// <returns></returns>
         public static int RandomNumber(int maxNumber)
         {
             return rdm.Next(1, maxNumber+1);
         }
 
         /// <summary>
-        /// 
+        /// Gets a random number as a string with a set "length" of charectors
         /// </summary>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <param name="length">The number of charectors the number string will have</param>
         public static string RandomNumberStringSetLength(int length)
         {
             StringBuilder result = new StringBuilder();
@@ -42,10 +40,9 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Gets a random number as a string with a "maxLength" of charectors
         /// </summary>
-        /// <param name="maxLength"></param>
-        /// <returns></returns>
+        /// <param name="maxLength">The maximum number of charectors the number string can have</param>
         public static string RandomNumberStringMaxLength(int maxLength)
         {
             StringBuilder result = new StringBuilder();
@@ -92,10 +89,9 @@ namespace bantam.Classes
 
 
         /// <summary>
-        /// 
+        /// Converts a standard string into a base64 string
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
+        /// <param name="str">The input string to be converted to base64</param>
         public static string EncodeBase64ToString(string str)
         {
             if (string.IsNullOrEmpty(str)) {
@@ -120,14 +116,14 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", 3);
+                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.info);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
-                LogHelper.AddGlobalLog("Unable to decode input string with base64 ("+ str + ")", "Base64 Decode failure", 2);
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 ("+ str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.warning);
                 return string.Empty;
             }
         }
@@ -146,7 +142,7 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", 3);
+                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.info);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
@@ -154,7 +150,7 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
-                LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", 2);
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.warning);
                 return null;
             }
         }
@@ -179,7 +175,7 @@ namespace bantam.Classes
         /// <typeparam name="TValue"></typeparam>
         /// <param name="dict"></param>
         /// <returns></returns>
-        public static TKey RandomDicionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
+        public static TKey RandomDictionaryValue<TKey, TValue>(Dictionary<TKey, TValue> dict)
         {
             List<TKey> keyList = new List<TKey>(dict.Keys);
             return keyList[rdm.Next(keyList.Count)];
@@ -193,15 +189,15 @@ namespace bantam.Classes
         public static string FormatBytes(double bytesIn)
         {
             int i = 0;
-            double bytesOut = bytesIn;
+            double resultBytes = bytesIn;
             string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
 
-            for (; i < suffixes.Length && bytesOut >= 1024; i++) {
-                bytesOut /= 1024;
+            for (; i < suffixes.Length && resultBytes >= 1024; i++) {
+                resultBytes /= 1024;
             }
 
             if (i < suffixes.Length) {
-                return String.Format("{0:0.##} {1}", bytesOut, suffixes[i]);
+                return String.Format("{0:0.##} {1}", resultBytes, suffixes[i]);
             }
             return "0";
         }
@@ -235,11 +231,11 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// A function that very crudly validates an IP address
+        /// A function that very attempts validates an IPv4 address
         /// </summary>
         /// <param name="ipaddr"></param>
         /// <returns></returns>
-        public static bool IsValidIP(string ipaddr)
+        public static bool IsValidIPv4(string ipaddr)
         {
             if (string.IsNullOrEmpty(ipaddr)) {
                 return false;

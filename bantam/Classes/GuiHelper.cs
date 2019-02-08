@@ -73,7 +73,7 @@ namespace bantam.Classes
             };
 
             randomize.Click += (sender, e) => {
-                textBox.Text = WebHelper.commonUseragents[Helper.RandomDicionaryValue(WebHelper.commonUseragents)];
+                textBox.Text = WebHelper.commonUseragents[Helper.RandomDictionaryValue(WebHelper.commonUseragents)];
             };
 
             cancel.Click += (sender, e) => { prompt.Close(); };

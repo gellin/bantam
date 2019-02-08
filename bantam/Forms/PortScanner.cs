@@ -25,7 +25,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="shellUrl"></param>
+        /// <param name="shellUrl">The selected Shell URL to use as the Server to do the port scanning</param>
         public PortScanner(string shellUrl)
         {
             InitializeComponent();

@@ -23,7 +23,7 @@ namespace bantam.Forms
         {
             checkBoxEnableLogging.Checked = Config.EnableLogging;
             checkBoxGlobalLogs.Checked = Config.EnableGlobalMessageBoxes;
-            trackBarLoggingLevel.Value = Config.LogLevel;
+            trackBarLoggingLevel.Value = (int)Config.LogLevel;
 
             checkBoxMaxExecutionTime.Checked = Config.MaxExecutionTime;
             checkBoxDisableErrorLogs.Checked = Config.DisableErrorLogs;
@@ -76,6 +76,13 @@ namespace bantam.Forms
             }
         }
 
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
         private void checkBoxDisableErrorLogs_CheckedChanged(object sender, EventArgs e)
         {
             Config.DisableErrorLogs = checkBoxDisableErrorLogs.Checked;
@@ -83,7 +90,7 @@ namespace bantam.Forms
 
         private void trackBarLoggingLevel_ValueChanged(object sender, EventArgs e)
         {
-            Config.LogLevel = trackBarLoggingLevel.Value;
+            Config.LogLevel = (LogHelper.LOG_LEVEL)trackBarLoggingLevel.Value;
         }
 
         private void trackBarCommentFrequency_ValueChanged(object sender, EventArgs e)
@@ -109,6 +116,13 @@ namespace bantam.Forms
         {
             if (int.TryParse(textBoxMaxPostSize.Text, out int postSize)) {
                 Config.MaxPostSizeKib = postSize;
+            }
+        }
+
+        private void textBoxTimeout_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(textBoxTimeout.Text, out int timeoutMS)) {
+                Config.TimeoutMS = timeoutMS;
             }
         }
 

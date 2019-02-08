@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace bantam.Classes
 {
-    static class EncryptionHelper
+    static class CryptoHelper
     {
         /// <summary>
         /// 
@@ -81,10 +81,10 @@ namespace bantam.Classes
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
         /// <returns></returns>
-        public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV, PaddingMode padding)
+        public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV)
         {
             var aes = new RijndaelManaged {
-                Padding = padding,
+                Padding = PaddingMode.PKCS7,
                 Mode = CipherMode.CBC,
                 KeySize = 256,
                 BlockSize = 128,
@@ -96,19 +96,19 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Decrypts an encrypted array of bytes to a string, using AES-256 / "Rijndael"-256
         /// </summary>
         /// <param name="cipherText"></param>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
         /// <returns></returns>
-        public static String DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        public static string DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV)
         {
             var result = string.Empty;
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
 
-            using (var aes = BuildAesMode(Key, IV, padding)) {
+            using (var aes = BuildAesMode(Key, IV)) {
                 try {
                     using (var memoryStream = new MemoryStream(cipherText))
                     using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
@@ -116,7 +116,7 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
-                    LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", 2);
+                    LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", LogHelper.LOG_LEVEL.warning);
                 } finally {
                     aes.Clear();
                 }
@@ -125,20 +125,20 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Returns a base64 encoded AES256 encrypted string
+        /// Encrypts an array of plaintext bytes using AES-256 / "Rijndael"-256
         /// </summary>
         /// <param name="plainText"></param>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
         /// <param name="padding"></param>
-        /// <returns></returns>
-        public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV, PaddingMode padding = PaddingMode.PKCS7)
+        /// <returns>Base64 encoded string, of encrypted bytes</returns>
+        public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV)
         {
             var result = string.Empty;
             var IV = Encoding.UTF8.GetBytes(encryptionIV);
             var Key = Encoding.UTF8.GetBytes(encryptionKey);
 
-            using (var aes = BuildAesMode(Key, IV, padding)) {
+            using (var aes = BuildAesMode(Key, IV)) {
                 try {
                     using (var memoryStream = new MemoryStream()) {
                         using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
@@ -148,12 +148,25 @@ namespace bantam.Classes
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
                 } catch (Exception e) {
-                    LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", 2);
+                    LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", LogHelper.LOG_LEVEL.warning);
                 } finally {
                     aes.Clear();
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// Overloaded to accept a string as plaintext
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
+        /// <param name="padding"></param>
+        /// <returns>Base64 encoded string, of encrypted bytes</returns>
+        public static string EncryptBytesToRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV)
+        {
+            return EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(plainText), encryptionKey, encryptionIV);
         }
     }
 }

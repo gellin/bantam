@@ -73,7 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Config.cs" />
-    <Compile Include="Classes\EncryptionHelper.cs" />
+    <Compile Include="Classes\CryptoHelper.cs" />
     <Compile Include="Classes\FileBrowserTreeNodeSorter.cs" />
     <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\LogHelper.cs" />

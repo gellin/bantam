@@ -39,6 +39,7 @@
             this.comboBoxArch = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.checkBoxLogShellCode = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // labelIP
@@ -158,11 +159,22 @@
             this.lblStatus.Size = new System.Drawing.Size(0, 16);
             this.lblStatus.TabIndex = 24;
             // 
+            // checkBoxLogShellCode
+            // 
+            this.checkBoxLogShellCode.AutoSize = true;
+            this.checkBoxLogShellCode.Location = new System.Drawing.Point(14, 219);
+            this.checkBoxLogShellCode.Name = "checkBoxLogShellCode";
+            this.checkBoxLogShellCode.Size = new System.Drawing.Size(115, 20);
+            this.checkBoxLogShellCode.TabIndex = 25;
+            this.checkBoxLogShellCode.Text = "Log Shell Code";
+            this.checkBoxLogShellCode.UseVisualStyleBackColor = true;
+            // 
             // ReverseShell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(415, 266);
+            this.Controls.Add(this.checkBoxLogShellCode);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxArch);
@@ -201,5 +213,6 @@
         private System.Windows.Forms.ComboBox comboBoxArch;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.CheckBox checkBoxLogShellCode;
     }
 }

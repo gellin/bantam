@@ -19,16 +19,16 @@ namespace bantam.Classes
 
                 if (itemNodes.Count > 0) {
                     foreach (XmlNode itemNode in itemNodes) {
-                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes?["host"].Value : string.Empty;
-                        string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes?["request_arg"].Value : string.Empty;
-                        string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes?["request_method"].Value : string.Empty;
-                        string ResponseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes?["response_encryption"].Value : string.Empty;
-                        string ResponseEncryptionMode = (itemNode.Attributes?["response_encryption_mode"] != null) ? itemNode.Attributes?["response_encryption_mode"].Value : string.Empty;
-                        string gzipRequest = (itemNode.Attributes?["gzip_request"] != null) ? itemNode.Attributes?["gzip_request"].Value : string.Empty;
-                        string requestEncryption = (itemNode.Attributes?["request_encryption"] != null) ? itemNode.Attributes?["request_encryption"].Value : string.Empty;
-                        string requestEncryptionKey = (itemNode.Attributes?["request_encryption_key"] != null) ? itemNode.Attributes?["request_encryption_key"].Value : string.Empty;
-                        string requestEncryptionIV = (itemNode.Attributes?["request_encryption_iv"] != null) ? itemNode.Attributes?["request_encryption_iv"].Value : string.Empty;
-                        string requestEncryptionIVVarName = (itemNode.Attributes?["request_encryption_iv_var_name"] != null) ? itemNode.Attributes?["request_encryption_iv_var_name"].Value : string.Empty;
+                        string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes["host"].Value : string.Empty;
+                        string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes["request_arg"].Value : string.Empty;
+                        string requestMethod = (itemNode.Attributes?["request_method"] != null) ? itemNode.Attributes["request_method"].Value : string.Empty;
+                        string ResponseEncryption = (itemNode.Attributes?["response_encryption"] != null) ? itemNode.Attributes["response_encryption"].Value : string.Empty;
+                        string ResponseEncryptionMode = (itemNode.Attributes?["response_encryption_mode"] != null) ? itemNode.Attributes["response_encryption_mode"].Value : string.Empty;
+                        string gzipRequest = (itemNode.Attributes?["gzip_request"] != null) ? itemNode.Attributes["gzip_request"].Value : string.Empty;
+                        string requestEncryption = (itemNode.Attributes?["request_encryption"] != null) ? itemNode.Attributes["request_encryption"].Value : string.Empty;
+                        string requestEncryptionKey = (itemNode.Attributes?["request_encryption_key"] != null) ? itemNode.Attributes["request_encryption_key"].Value : string.Empty;
+                        string requestEncryptionIV = (itemNode.Attributes?["request_encryption_iv"] != null) ? itemNode.Attributes["request_encryption_iv"].Value : string.Empty;
+                        string requestEncryptionIVVarName = (itemNode.Attributes?["request_encryption_iv_var_name"] != null) ? itemNode.Attributes["request_encryption_iv_var_name"].Value : string.Empty;
                         
                         if (string.IsNullOrEmpty(hostTarget)) {
                             continue;
@@ -37,7 +37,10 @@ namespace bantam.Classes
                         if (BantamMain.Shells.ContainsKey(hostTarget)) {
                             continue;
                         } else {
-                            BantamMain.Shells.TryAdd(hostTarget, new ShellInfo());
+                            if (!BantamMain.Shells.TryAdd(hostTarget, new ShellInfo())) {
+                                LogHelper.AddGlobalLog("Unable to add (" + hostTarget + ") to shells from XML", "LoadShells failure", LogHelper.LOG_LEVEL.error);
+                                continue;
+                            }
                         }
 
                         if (string.IsNullOrEmpty(requestArg) == false
@@ -89,22 +92,22 @@ namespace bantam.Classes
                         }
 
                         if (string.IsNullOrEmpty(ResponseEncryptionMode) == false) {
-                            if (ResponseEncryptionMode == (EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL).ToString("D")) {
-                                BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
-                            } else if (ResponseEncryptionMode == EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
-                                BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
+                            if (ResponseEncryptionMode == (CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL).ToString("D")) {
+                                BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL;
+                            } else if (ResponseEncryptionMode == CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT.ToString("D")) {
+                                BantamMain.Shells[hostTarget].ResponseEncryptionMode = (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT;
                             }
                         }
 
                         try {
                             BantamMain.Instance.InitializeShellData(hostTarget);
                         } catch (Exception e) {
-                            LogHelper.AddGlobalLog("Exception caught in XmlHelper.LoadShells ( " + e.Message + " )", "XML Load file Exception", 3);
+                            LogHelper.AddGlobalLog("Exception caught in XmlHelper.LoadShells ( " + e.Message + " )", "XML Load file Exception", LogHelper.LOG_LEVEL.info);
                         }
                     }
                 }
             } else {
-                LogHelper.AddGlobalLog("Config file (" + configFile + ") is missing.", "Failed to located XML File", 1);
+                LogHelper.AddGlobalLog("Config file (" + configFile + ") is missing.", "Failed to located XML File", LogHelper.LOG_LEVEL.error);
             }
         }
 

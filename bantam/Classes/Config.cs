@@ -13,7 +13,7 @@ namespace bantam.Classes
             //todo this should be in our global xml file
             enableLogging = true;
             enableGlobalMessageBoxes = true;
-            logLevel = 1;
+            logLevel = LogHelper.LOG_LEVEL.error;
 
             maxExecutionTime = false;
             disableErrorLogs = true;
@@ -21,10 +21,12 @@ namespace bantam.Classes
             maxPostSizeKiB = 8192;
 
             injectRandomComments = true;
-            commentFrequency = 2;
+            commentFrequency = 50;
             commentMaxLength = 24;
 
             phpVaribleNameMaxLength = 16;
+
+            timeoutMS = 10000; //10 sec
 
             defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
         }
@@ -62,8 +64,8 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        private static int logLevel;
-        public static int LogLevel
+        private static LogHelper.LOG_LEVEL logLevel;
+        public static LogHelper.LOG_LEVEL LogLevel
         {
             get { return logLevel; }
             set { logLevel = value; }
@@ -155,6 +157,17 @@ namespace bantam.Classes
         {
             get { return phpVaribleNameMaxLength; }
             set { phpVaribleNameMaxLength = value;  }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int timeoutMS;
+        public static int TimeoutMS
+        {
+            get { return timeoutMS; }
+            set { timeoutMS = value; }
         }
     }
 }

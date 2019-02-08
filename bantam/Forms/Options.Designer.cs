@@ -54,6 +54,8 @@
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxTimeout = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -160,14 +162,14 @@
             // 
             this.trackBarCommentFrequency.Location = new System.Drawing.Point(21, 58);
             this.trackBarCommentFrequency.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.trackBarCommentFrequency.Maximum = 4;
+            this.trackBarCommentFrequency.Maximum = 100;
             this.trackBarCommentFrequency.Minimum = 1;
             this.trackBarCommentFrequency.Name = "trackBarCommentFrequency";
             this.trackBarCommentFrequency.Size = new System.Drawing.Size(162, 45);
             this.trackBarCommentFrequency.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.trackBarCommentFrequency, "Determines the rate of comment injection (1 = 25%, 4 = 100%) of locations utilize" +
-        "d.");
-            this.trackBarCommentFrequency.Value = 1;
+            this.trackBarCommentFrequency.TickFrequency = 25;
+            this.toolTip1.SetToolTip(this.trackBarCommentFrequency, "Determines the rate of comment injection.");
+            this.trackBarCommentFrequency.Value = 50;
             this.trackBarCommentFrequency.ValueChanged += new System.EventHandler(this.trackBarCommentFrequency_ValueChanged);
             // 
             // label4
@@ -194,7 +196,7 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 265);
+            this.groupBox1.Location = new System.Drawing.Point(12, 290);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(435, 201);
             this.groupBox1.TabIndex = 19;
@@ -277,9 +279,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 87);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 16);
+            this.label3.Size = new System.Drawing.Size(26, 16);
             this.label3.TabIndex = 19;
-            this.label3.Text = "25%";
+            this.label3.Text = "1%";
             // 
             // groupBox2
             // 
@@ -306,7 +308,7 @@
             // checkBoxGlobalLogs
             // 
             this.checkBoxGlobalLogs.AutoSize = true;
-            this.checkBoxGlobalLogs.Location = new System.Drawing.Point(15, 74);
+            this.checkBoxGlobalLogs.Location = new System.Drawing.Point(15, 72);
             this.checkBoxGlobalLogs.Name = "checkBoxGlobalLogs";
             this.checkBoxGlobalLogs.Size = new System.Drawing.Size(140, 20);
             this.checkBoxGlobalLogs.TabIndex = 13;
@@ -317,6 +319,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.textBoxTimeout);
+            this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.checkBoxDisableErrorLogs);
             this.groupBox3.Controls.Add(this.checkBoxMaxExecutionTime);
             this.groupBox3.Controls.Add(this.label2);
@@ -325,7 +329,7 @@
             this.groupBox3.Controls.Add(this.textBoxMaxCookieSize);
             this.groupBox3.Location = new System.Drawing.Point(12, 143);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(435, 106);
+            this.groupBox3.Size = new System.Drawing.Size(435, 141);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Request Settings";
@@ -354,11 +358,29 @@
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             this.checkBoxMaxExecutionTime.CheckedChanged += new System.EventHandler(this.checkBoxMaxExecutionTime_CheckedChanged);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 16);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Timeout (ms):";
+            // 
+            // textBoxTimeout
+            // 
+            this.textBoxTimeout.Location = new System.Drawing.Point(105, 98);
+            this.textBoxTimeout.Name = "textBoxTimeout";
+            this.textBoxTimeout.Size = new System.Drawing.Size(100, 24);
+            this.textBoxTimeout.TabIndex = 22;
+            this.textBoxTimeout.TextChanged += new System.EventHandler(this.textBoxTimeout_TextChanged);
+            this.textBoxTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 474);
+            this.ClientSize = new System.Drawing.Size(462, 506);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -412,5 +434,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxTimeout;
+        private System.Windows.Forms.Label label6;
     }
 }

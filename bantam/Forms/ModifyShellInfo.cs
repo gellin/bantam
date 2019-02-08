@@ -134,11 +134,18 @@ namespace bantam.Forms
             //Remove Shell
             if (BantamMain.Shells.ContainsKey(shellURL)) {
                 BantamMain.Instance.GuiCallbackRemoveShellURL(shellURL);
-                BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut);
+
+                if (!BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut)) {
+                    LogHelper.AddGlobalLog("Unable to remove (" + shellURL + ") from shells", "AddShell failure", LogHelper.LOG_LEVEL.error);
+                    return;
+                }
             }
 
             //Add Shell
-            BantamMain.Shells.TryAdd(shellURL, new ShellInfo());
+            if (!BantamMain.Shells.TryAdd(shellURL, new ShellInfo())) {
+                LogHelper.AddGlobalLog("Unable to add (" + shellURL + ") to shells", "AddShell failure", LogHelper.LOG_LEVEL.error);
+                return;
+            }
 
             BantamMain.Shells[shellURL].RequestArgName = txtBoxArgName.Text;
 
@@ -192,7 +199,7 @@ namespace bantam.Forms
             string result = response.Result;
 
             if (encryptResponse) {
-                result = EncryptionHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
+                result = CryptoHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
             }
 
             if (string.IsNullOrEmpty(result)) {
@@ -236,7 +243,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void buttonRandomIV_Click(object sender, EventArgs e)
         {
-            textBoxEncrpytionIV.Text = EncryptionHelper.GetRandomEncryptionIV();
+            textBoxEncrpytionIV.Text = CryptoHelper.GetRandomEncryptionIV();
         }
 
         /// <summary>
@@ -246,7 +253,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void buttonRandomKey_Click(object sender, EventArgs e)
         {
-            textBoxEncrpytionKey.Text = EncryptionHelper.GetRandomEncryptionKey();
+            textBoxEncrpytionKey.Text = CryptoHelper.GetRandomEncryptionKey();
         }
 
         /// <summary>

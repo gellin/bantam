@@ -1029,6 +1029,8 @@
             // 
             this.textBoxConsoleInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxConsoleInput.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxConsoleInput.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxConsoleInput.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
             this.textBoxConsoleInput.Location = new System.Drawing.Point(6, 512);
             this.textBoxConsoleInput.Name = "textBoxConsoleInput";

