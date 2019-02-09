@@ -15,10 +15,10 @@ namespace bantam.Classes
         /// </summary>
         public enum LOG_LEVEL
         {
-            requested = 0, //this log was requested to be shown and should bypass any level checks
-            error = 1,
-            warning = 2,
-            info = 3
+            REQUESTED = 0, //this log was requested to be shown and should bypass any level checks
+            ERROR,
+            WARNING,
+            INFO 
         }
 
         /// <summary>

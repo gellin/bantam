@@ -33,10 +33,9 @@ namespace bantam.Classes
         /// <param name="data"></param>
         public void Update(long ping, string[] data)
         {
-            this.ping = ping;
+            Ping = ping;
             files = new TreeView();
             pwd = data[(int)INIT_DATA_VARS.CWD];
-            cwd = pwd;
             freeHDDSpace = data[(int)INIT_DATA_VARS.FREE_SPACE];
             totalHDDSpace = data[(int)INIT_DATA_VARS.TOTAL_SPACE];
             unameRelease = data[(int)INIT_DATA_VARS.RELEASE];
@@ -49,12 +48,13 @@ namespace bantam.Classes
             group = data[(int)INIT_DATA_VARS.GROUP];
             PHP_Version = data[(int)INIT_DATA_VARS.PHP_VERSION];
             isWindows = (data[(int)INIT_DATA_VARS.OS] == "win") ? true : false;
+            cwd = pwd;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private long ping { get; set; }
+        private long Ping { get; set; }
 
         /// <summary>
         /// 

@@ -136,14 +136,14 @@ namespace bantam.Forms
                 BantamMain.Instance.GuiCallbackRemoveShellURL(shellURL);
 
                 if (!BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut)) {
-                    LogHelper.AddGlobalLog("Unable to remove (" + shellURL + ") from shells", "AddShell failure", LogHelper.LOG_LEVEL.error);
+                    LogHelper.AddGlobalLog("Unable to remove (" + shellURL + ") from shells", "AddShell failure", LogHelper.LOG_LEVEL.ERROR);
                     return;
                 }
             }
 
             //Add Shell
             if (!BantamMain.Shells.TryAdd(shellURL, new ShellInfo())) {
-                LogHelper.AddGlobalLog("Unable to add (" + shellURL + ") to shells", "AddShell failure", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddGlobalLog("Unable to add (" + shellURL + ") to shells", "AddShell failure", LogHelper.LOG_LEVEL.ERROR);
                 return;
             }
 

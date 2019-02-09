@@ -2,22 +2,20 @@
 {
     public class ResponseObject
     {
-        //I would use readonly properties here, as it IMO provides the same level of protection cleaner, but SONAR is currently complaining about that, todo
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly string Result;
 
         /// <summary>
         /// 
         /// </summary>
-        public string Result { get; private set; }
+        public readonly string EncryptionKey;
 
         /// <summary>
         /// 
         /// </summary>
-        public string EncryptionKey { get; private set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string EncryptionIV { get; private set; }
+        public readonly string EncryptionIV;
 
         /// <summary>
         /// 

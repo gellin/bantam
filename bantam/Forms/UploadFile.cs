@@ -137,7 +137,7 @@ namespace bantam.Forms
                if (!string.IsNullOrEmpty(richTextBox1.Text)) {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
                 } else {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data to self...", LogHelper.LOG_LEVEL.info);
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data to self...", LogHelper.LOG_LEVEL.INFO);
                     btnUpload.Enabled = true;
                     return;
                 }
@@ -149,7 +149,7 @@ namespace bantam.Forms
                 } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
                 } else {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data...", LogHelper.LOG_LEVEL.info);
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data...", LogHelper.LOG_LEVEL.INFO);
                     btnUpload.Enabled = true;
                     return;
                 }

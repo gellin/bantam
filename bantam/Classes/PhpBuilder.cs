@@ -178,7 +178,7 @@ namespace bantam.Classes
             } else if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
             } else {
-                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.ERROR);
                 return string.Empty;
             }
 
@@ -336,7 +336,7 @@ namespace bantam.Classes
                      + "if (empty($result)) { $result = 'None'; }";
             } else {
                 return RandomPHPComment()
-                     + hasResVar + " = 0;"
+                     + hasResVar + "=0;"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
                      + "foreach ($ports as " + portVar + ") {"

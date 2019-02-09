@@ -12,8 +12,8 @@ namespace bantam.Forms
 
         private enum PROXY_TYPE
         {
-            socks = 0,
-            http = 1
+            SOCKS = 0,
+            HTTP = 1
         }
 
         public ProxyOptions()
@@ -56,9 +56,9 @@ namespace bantam.Forms
             buttonConnect.Enabled = false;
             if (!string.IsNullOrEmpty(txtBoxProxyUrl.Text)) {
                 if (int.TryParse(txtBoxProxyPort.Text, out int port)) {
-                    if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.http) {
+                    if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.HTTP) {
                         WebHelper.AddHttpProxy(txtBoxProxyUrl.Text, txtBoxProxyPort.Text);
-                    } else if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.socks) {
+                    } else if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.SOCKS) {
                         WebHelper.AddSocksProxy(txtBoxProxyUrl.Text, port);
                     }
                            

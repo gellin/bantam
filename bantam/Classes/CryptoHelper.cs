@@ -116,7 +116,7 @@ namespace bantam.Classes
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
-                    LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", LogHelper.LOG_LEVEL.warning);
+                    LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", LogHelper.LOG_LEVEL.WARNING);
                 } finally {
                     aes.Clear();
                 }
@@ -148,7 +148,7 @@ namespace bantam.Classes
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
                 } catch (Exception e) {
-                    LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", LogHelper.LOG_LEVEL.warning);
+                    LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", LogHelper.LOG_LEVEL.WARNING);
                 } finally {
                     aes.Clear();
                 }

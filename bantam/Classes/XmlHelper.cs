@@ -38,7 +38,7 @@ namespace bantam.Classes
                             continue;
                         } else {
                             if (!BantamMain.Shells.TryAdd(hostTarget, new ShellInfo())) {
-                                LogHelper.AddGlobalLog("Unable to add (" + hostTarget + ") to shells from XML", "LoadShells failure", LogHelper.LOG_LEVEL.error);
+                                LogHelper.AddGlobalLog("Unable to add (" + hostTarget + ") to shells from XML", "LoadShells failure", LogHelper.LOG_LEVEL.ERROR);
                                 continue;
                             }
                         }
@@ -102,12 +102,12 @@ namespace bantam.Classes
                         try {
                             BantamMain.Instance.InitializeShellData(hostTarget);
                         } catch (Exception e) {
-                            LogHelper.AddGlobalLog("Exception caught in XmlHelper.LoadShells ( " + e.Message + " )", "XML Load file Exception", LogHelper.LOG_LEVEL.info);
+                            LogHelper.AddGlobalLog("Exception caught in XmlHelper.LoadShells ( " + e.Message + " )", "XML Load file Exception", LogHelper.LOG_LEVEL.INFO);
                         }
                     }
                 }
             } else {
-                LogHelper.AddGlobalLog("Config file (" + configFile + ") is missing.", "Failed to located XML File", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddGlobalLog("Config file (" + configFile + ") is missing.", "Failed to located XML File", LogHelper.LOG_LEVEL.ERROR);
             }
         }
 

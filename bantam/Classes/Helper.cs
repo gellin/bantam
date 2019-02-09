@@ -116,14 +116,14 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.info);
+                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.INFO);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
             try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             } catch (Exception) {
-                LogHelper.AddGlobalLog("Unable to decode input string with base64 ("+ str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.warning);
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 ("+ str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.WARNING);
                 return string.Empty;
             }
         }
@@ -142,7 +142,7 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.info);
+                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.INFO);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
@@ -150,7 +150,7 @@ namespace bantam.Classes
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             } catch (Exception) {
-                LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.warning);
+                LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.WARNING);
                 return null;
             }
         }

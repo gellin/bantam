@@ -13,7 +13,7 @@ namespace bantam.Classes
             //todo this should be in our global xml file
             enableLogging = true;
             enableGlobalMessageBoxes = true;
-            logLevel = LogHelper.LOG_LEVEL.error;
+            logLevel = LogHelper.LOG_LEVEL.ERROR;
 
             maxExecutionTime = false;
             disableErrorLogs = true;

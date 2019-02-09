@@ -140,9 +140,9 @@ namespace bantam.Classes
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return string.Empty;
         }
@@ -168,9 +168,9 @@ namespace bantam.Classes
 
                 return responseString;
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return string.Empty;
         }
@@ -203,7 +203,7 @@ namespace bantam.Classes
             string phpCode = phpCodeIn;
 
             if (string.IsNullOrEmpty(phpCode)) {
-                LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", LogHelper.LOG_LEVEL.warning);
+                LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", LogHelper.LOG_LEVEL.WARNING);
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
@@ -284,7 +284,7 @@ namespace bantam.Classes
 
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
-                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", LogHelper.LOG_LEVEL.error);
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -304,7 +304,7 @@ namespace bantam.Classes
 
                     int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
                     if (postArgs.Length > maxPostSizeBytes) {
-                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", LogHelper.LOG_LEVEL.error);
+                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -319,9 +319,9 @@ namespace bantam.Classes
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
             } catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             } catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.error);
+                LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);
         }

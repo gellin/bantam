@@ -242,7 +242,7 @@ namespace bantam
             if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                 ResponseObject response = task.Result;
                 if (string.IsNullOrEmpty(response.Result)) {
-                    LogHelper.AddShellLog(shellUrl, "Empty response from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
+                    LogHelper.AddShellLog(shellUrl, "Empty response from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.INFO);
                     return string.Empty;
                 }
 
@@ -253,7 +253,7 @@ namespace bantam
                 }
 
                 if (string.IsNullOrEmpty(result)) {
-                    LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
+                    LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.INFO);
                     return string.Empty;
                 }
             }
@@ -309,7 +309,7 @@ namespace bantam
                     await WebHelper.ExecuteRemotePHP(shellUrl, code);
                 }
             } else {
-                LogHelper.AddShellLog(shellUrl, "Attempted to eval empty code.", LogHelper.LOG_LEVEL.info);
+                LogHelper.AddShellLog(shellUrl, "Attempted to eval empty code.", LogHelper.LOG_LEVEL.INFO);
             }
         }
 
@@ -466,35 +466,28 @@ namespace bantam
             if (lvi != null) {
                 if (!string.IsNullOrEmpty(SelectedShellUrl) && Shells.ContainsKey(SelectedShellUrl)) {
 
-                    //copy a backup of the current file tree view into clients
                     if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
-
-                        //Clear previously cached treeview to only store 1 copy
                         if (Shells[SelectedShellUrl].Files != null
                          && Shells[SelectedShellUrl].Files.Nodes != null
                          && Shells[SelectedShellUrl].Files.Nodes.Count > 0) {
                             Shells[SelectedShellUrl].Files.Nodes.Clear();
                         }
 
-                        //store current treeview into client and clear
                         GuiHelper.CopyNodesFromTreeView(treeViewFileBrowser, Shells[SelectedShellUrl].Files);
                         treeViewFileBrowser.Nodes.Clear();
                     }
-                }
-                
-                if (!string.IsNullOrEmpty(SelectedShellUrl)
-                 && Shells.ContainsKey(SelectedShellUrl)
-                 && !string.IsNullOrEmpty(Shells[SelectedShellUrl].Pwd)
-                 && !string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
-                    Shells[SelectedShellUrl].Pwd = txtBoxFileBrowserPath.Text;
-                }
 
-                if (!string.IsNullOrEmpty(richTextBoxConsoleOutput.Text)) {
-                    Shells[SelectedShellUrl].ConsoleText = richTextBoxConsoleOutput.Text;
-                }
+                    if (!string.IsNullOrEmpty(txtBoxFileBrowserPath.Text)) {
+                        Shells[SelectedShellUrl].Pwd = txtBoxFileBrowserPath.Text;
+                    }
 
-                if (!string.IsNullOrEmpty(richTextBoxLogs.Text)) {
-                    Shells[SelectedShellUrl].LogText = richTextBoxLogs.Text;
+                    if (!string.IsNullOrEmpty(richTextBoxConsoleOutput.Text)) {
+                        Shells[SelectedShellUrl].ConsoleText = richTextBoxConsoleOutput.Text;
+                    }
+
+                    if (!string.IsNullOrEmpty(richTextBoxLogs.Text)) {
+                        Shells[SelectedShellUrl].LogText = richTextBoxLogs.Text;
+                    }
                 }
 
                 SelectedShellUrl = lvi.SubItems[0].Text;
@@ -515,10 +508,12 @@ namespace bantam
                     btnUpload.Enabled = false;
                     btnFileBrowserGo.Enabled = false;
                     txtBoxFileBrowserPath.Enabled = false;
+                    contextMenuStripFileBrowser.Enabled = false;
                 } else {
                     btnUpload.Enabled = true;
                     btnFileBrowserGo.Enabled = true;
                     txtBoxFileBrowserPath.Enabled = true;
+                    contextMenuStripFileBrowser.Enabled = true;
                 }
 
                 foreach (ListViewItem lvClients in listViewShells.Items) {
@@ -681,7 +676,7 @@ namespace bantam
                 if (Shells.ContainsKey(SelectedShellUrl)) {
 
                     if (!Shells.TryRemove(SelectedShellUrl, out ShellInfo outShellInfo)) {
-                        LogHelper.AddShellLog(SelectedShellUrl, "Attempted to remove shell and operation failed.", LogHelper.LOG_LEVEL.warning);
+                        LogHelper.AddShellLog(SelectedShellUrl, "Attempted to remove shell and operation failed.", LogHelper.LOG_LEVEL.WARNING);
                     }
                 }
             }
@@ -904,7 +899,7 @@ namespace bantam
         private async Task FileBrowserRender(string result, string shellUrl, TreeNode baseTn = null)
         {
             if (shellUrl != SelectedShellUrl) {
-                LogHelper.AddShellLog(SelectedShellUrl+"/"+ shellUrl, "Detected shell change before filebrowser rendered.", LogHelper.LOG_LEVEL.warning);
+                LogHelper.AddShellLog(SelectedShellUrl+"/"+ shellUrl, "Detected shell change before filebrowser rendered.", LogHelper.LOG_LEVEL.WARNING);
                 return;
             }
 

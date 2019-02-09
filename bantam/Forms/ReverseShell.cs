@@ -297,7 +297,7 @@ namespace bantam.Forms
                 shellCode = Helper.EncodeBase64ToString(shellCode);
 
                 if (checkBoxLogShellCode.Checked) {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.requested);
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
                 }
 
                 if (comboBoxArch.Text == "x86") {
@@ -309,7 +309,7 @@ namespace bantam.Forms
                 }
             } else {
                 if (checkBoxLogShellCode.Checked) {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.requested);
+                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
                 }
 
                 PopReverseShell(shellCode);
