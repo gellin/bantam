@@ -65,8 +65,7 @@ namespace bantam.Forms
                     try {
                         var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
 
-                        //Todo timeout configureable option, maybe make message boxes a label
-                        if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
+                        if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
                                 WebHelper.ResetHttpClient();

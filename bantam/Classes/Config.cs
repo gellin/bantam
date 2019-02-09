@@ -28,6 +28,8 @@ namespace bantam.Classes
 
             timeoutMS = 10000; //10 sec
 
+            phpShellCodeExectionValue = 0;
+
             defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
         }
 
@@ -159,7 +161,6 @@ namespace bantam.Classes
             set { phpVaribleNameMaxLength = value;  }
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -168,6 +169,16 @@ namespace bantam.Classes
         {
             get { return timeoutMS; }
             set { timeoutMS = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static int phpShellCodeExectionValue;
+        public static int PhpShellCodeExectionVectorValue
+        {
+            get { return phpShellCodeExectionValue; }
+            set { phpShellCodeExectionValue = value; }
         }
     }
 }

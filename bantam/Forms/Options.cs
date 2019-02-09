@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -14,11 +15,41 @@ namespace bantam.Forms
 {
     public partial class Options : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        private static readonly ReadOnlyCollection<string> phpShellCodeExecutionVectors = new List<string> {
+             "system",
+             "exec",
+             "shell_exec",
+             "passthru",
+             "popen",
+             "backticks"
+        }.AsReadOnly();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum PHP_SHELL_CODE_VECTORS
+        {
+            SYSTEM = 0,
+            EXEC,
+            SHELL_EXEC,
+            PASSTHRU,
+            POPEN,
+            BACKTICKS
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public Options()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void LoadConfig()
         {
             checkBoxEnableLogging.Checked = Config.EnableLogging;
@@ -36,13 +67,31 @@ namespace bantam.Forms
 
             checkBoxRandomPhpVarNames.Checked = Config.RandomizePhpVariableNames;
             textBoxPhpVarNameMaxLen.Text = Config.PhpVariableNameMaxLength.ToString();
+
+            comboBoxShellCodeExVectors.SelectedIndex = Config.PhpShellCodeExectionVectorValue;
+
+            textBoxTimeout.Text = Config.TimeoutMS.ToString();  
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Options_Load(object sender, EventArgs e)
         {
-           LoadConfig();
+            foreach(var shellCodeExecVec in phpShellCodeExecutionVectors) {
+                comboBoxShellCodeExVectors.Items.Add(shellCodeExecVec);
+            }
+
+            LoadConfig();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxRandomComments.Checked) {
@@ -55,6 +104,7 @@ namespace bantam.Forms
             Config.InjectRandomComments = checkBoxRandomComments.Checked;
         }
 
+        ///
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
@@ -139,6 +189,11 @@ namespace bantam.Forms
         private void checkBoxGlobalLogs_CheckedChanged(object sender, EventArgs e)
         {
             Config.EnableGlobalMessageBoxes = checkBoxGlobalLogs.Checked;
+        }
+
+        private void comboBoxShellCodeExVectors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Config.PhpShellCodeExectionVectorValue = comboBoxShellCodeExVectors.SelectedIndex;
         }
     }
 }

@@ -1,19 +1,6 @@
-﻿* 3 - linux info, "cmd" - mount, && cat /etc/fstab && ls -la /etc/cron && ls -aRl /etc/cron* (writeable/we will display color green/red/grey etc when showing), 
-* 2 - find writeable files and folders?- https://github.com/epinna/weevely3/blob/master/modules/audit/filesystem.py
-* 2 - audit php configuration - https://github.com/epinna/weevely3/blob/master/modules/audit/phpconf.py
-* 1 - audit should include encryption function checks & find suid/gid files !
-* 1 - shows all users and their groups
-
-* 1 - global timeout, connection timeout in options for
-
-* 3 - Advanced options to edit code execution type to change from system to exec, etc (global)
-
-* 1 - touch feature
-* 1 - passwd bypass
-
-  ICE BOX
+﻿ICE BOX
   * ? - stager stuff in session to reduce request size / encryption - should have option to send as stager or already be uploaded
-  * ? - windows shell / console via power shell
+  * ? - windows reverse shell / console via power shell & perl
   * ? - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
   * ? - fix windows caveats
   * ? - make row and col seperator random
@@ -23,6 +10,7 @@
   * ? - global cfg option to enable disable error suppression via @ to see more debug data
   * ? - read file size limit check & mime check/show pictures in picture control
   * ? - proxy support credentials
+  * ? - bantam mini deployment for persistance / eventuallly tracking and communication with it?
   * ? - consider making display_errors ini_set Off a stager option or options
   * ? - allowable charector check on var name of backdoor generator
   * ? - timeout on the fsock side of the port scanner (make as a controllable option/var)
@@ -30,37 +18,14 @@
   * ? - chankro implementation needs more testing on servers it's known to work with
   * ? - global XML for proxy settings so it saves?
   * ? - bypass disabled_functions with mod_cgi and .htaccess
+  * ? - add custom $_SERVER http_verb as vector for sending data
   * ? - consider converting to (System.Security.Cryptography.SymmetricAlgorithm.GenerateIV() && System.Security.Cryptography.SymmetricAlgorithm.GenerateKey())
   * ? - recolor files in browser based on perms - possibly as a feature to send the code to run on server side
   * ? - getting previous function caller name will require stacktrace, and more resources so make it an option in the UI not a default
   * ? - tarball/gzip directories :D:D:
   * ? - remove a line from file containing X string via sed "clear log"
   * ? - ensure calls needing a timeout have one
-
-  //pcntl_exec 
-
-/// <summary>
-/// Todo make a user controlled feature as to which function to use, but also use this and call it the something something method
-/// </summary>
-/// <param name="code"></param>
-/// <returns></returns>
-//    public static string executeSystemCode(string code)
-//    {
-//  return @"
-//        if (function_exists('exec')) {
-//            @exec($in, $out);
-//   echo @out;
-//        } elseif(function_exists('passthru')) {
-//            @passthru($in);
-//        } elseif(function_exists('system')) {
-//            @system($in);;
-//        } elseif(function_exists('shell_exec')) {
-//   echo @shell_exec($in);
-//        } elseif(is_resource($f = @popen($in, 'r'))) {
-//   $out = "";
-//            while (!@feof($f))
-//$out .= fread($f, 1024);
-//            pclose($f);
-//            echo $out;
-//        }";
-//    }
+  * ? - distributed fucking, dirbuster
+  * ? - find 7.0x+ caveates and put in logging or message's / ui alerts that it
+  * ? - touch feature
+  * ? - passwd bypass

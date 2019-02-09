@@ -51,11 +51,13 @@
             this.labelStaticLogLevel = new System.Windows.Forms.Label();
             this.checkBoxGlobalLogs = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBoxTimeout = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxTimeout = new System.Windows.Forms.TextBox();
+            this.comboBoxShellCodeExVectors = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -319,6 +321,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.comboBoxShellCodeExVectors);
             this.groupBox3.Controls.Add(this.textBoxTimeout);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.checkBoxDisableErrorLogs);
@@ -333,6 +337,24 @@
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Request Settings";
+            // 
+            // textBoxTimeout
+            // 
+            this.textBoxTimeout.Location = new System.Drawing.Point(105, 98);
+            this.textBoxTimeout.Name = "textBoxTimeout";
+            this.textBoxTimeout.Size = new System.Drawing.Size(76, 24);
+            this.textBoxTimeout.TabIndex = 22;
+            this.textBoxTimeout.TextChanged += new System.EventHandler(this.textBoxTimeout_TextChanged);
+            this.textBoxTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 16);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Timeout (ms):";
             // 
             // checkBoxDisableErrorLogs
             // 
@@ -358,23 +380,23 @@
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             this.checkBoxMaxExecutionTime.CheckedChanged += new System.EventHandler(this.checkBoxMaxExecutionTime_CheckedChanged);
             // 
-            // label6
+            // comboBoxShellCodeExVectors
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 101);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(87, 16);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "Timeout (ms):";
+            this.comboBoxShellCodeExVectors.FormattingEnabled = true;
+            this.comboBoxShellCodeExVectors.Location = new System.Drawing.Point(309, 98);
+            this.comboBoxShellCodeExVectors.Name = "comboBoxShellCodeExVectors";
+            this.comboBoxShellCodeExVectors.Size = new System.Drawing.Size(103, 24);
+            this.comboBoxShellCodeExVectors.TabIndex = 23;
+            this.comboBoxShellCodeExVectors.SelectedIndexChanged += new System.EventHandler(this.comboBoxShellCodeExVectors_SelectedIndexChanged);
             // 
-            // textBoxTimeout
+            // label7
             // 
-            this.textBoxTimeout.Location = new System.Drawing.Point(105, 98);
-            this.textBoxTimeout.Name = "textBoxTimeout";
-            this.textBoxTimeout.Size = new System.Drawing.Size(100, 24);
-            this.textBoxTimeout.TabIndex = 22;
-            this.textBoxTimeout.TextChanged += new System.EventHandler(this.textBoxTimeout_TextChanged);
-            this.textBoxTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(191, 106);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 16);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Shell Code Vector";
             // 
             // Options
             // 
@@ -436,5 +458,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxTimeout;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBoxShellCodeExVectors;
     }
 }

