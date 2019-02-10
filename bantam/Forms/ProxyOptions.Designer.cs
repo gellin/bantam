@@ -50,20 +50,20 @@
             // 
             // txtBoxProxyUrl
             // 
-            this.txtBoxProxyUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.txtBoxProxyUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.txtBoxProxyUrl.Location = new System.Drawing.Point(16, 37);
             this.txtBoxProxyUrl.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxProxyUrl.Name = "txtBoxProxyUrl";
-            this.txtBoxProxyUrl.Size = new System.Drawing.Size(350, 21);
+            this.txtBoxProxyUrl.Size = new System.Drawing.Size(350, 22);
             this.txtBoxProxyUrl.TabIndex = 2;
             // 
             // txtBoxProxyPort
             // 
-            this.txtBoxProxyPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.txtBoxProxyPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.txtBoxProxyPort.Location = new System.Drawing.Point(402, 37);
             this.txtBoxProxyPort.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxProxyPort.Name = "txtBoxProxyPort";
-            this.txtBoxProxyPort.Size = new System.Drawing.Size(115, 21);
+            this.txtBoxProxyPort.Size = new System.Drawing.Size(115, 22);
             this.txtBoxProxyPort.TabIndex = 3;
             this.txtBoxProxyPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProxyPort_KeyPress);
             // 
@@ -89,7 +89,7 @@
             // 
             // comboBoxProxyType
             // 
-            this.comboBoxProxyType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.comboBoxProxyType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.comboBoxProxyType.FormattingEnabled = true;
             this.comboBoxProxyType.Items.AddRange(new object[] {
             "socks",
@@ -97,7 +97,7 @@
             this.comboBoxProxyType.Location = new System.Drawing.Point(16, 100);
             this.comboBoxProxyType.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxProxyType.Name = "comboBoxProxyType";
-            this.comboBoxProxyType.Size = new System.Drawing.Size(144, 23);
+            this.comboBoxProxyType.Size = new System.Drawing.Size(144, 24);
             this.comboBoxProxyType.TabIndex = 6;
             // 
             // label3
@@ -113,9 +113,9 @@
             // buttonResetProxy
             // 
             this.buttonResetProxy.Enabled = false;
-            this.buttonResetProxy.Location = new System.Drawing.Point(324, 90);
+            this.buttonResetProxy.Location = new System.Drawing.Point(295, 90);
             this.buttonResetProxy.Name = "buttonResetProxy";
-            this.buttonResetProxy.Size = new System.Drawing.Size(71, 33);
+            this.buttonResetProxy.Size = new System.Drawing.Size(100, 33);
             this.buttonResetProxy.TabIndex = 8;
             this.buttonResetProxy.Text = "Reset";
             this.buttonResetProxy.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 134);
+            this.ClientSize = new System.Drawing.Size(530, 138);
             this.Controls.Add(this.buttonResetProxy);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxProxyType);

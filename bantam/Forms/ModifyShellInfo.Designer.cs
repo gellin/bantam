@@ -67,11 +67,11 @@
             // 
             // txtBoxShellUrl
             // 
-            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.txtBoxShellUrl.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.txtBoxShellUrl.Location = new System.Drawing.Point(22, 34);
             this.txtBoxShellUrl.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxShellUrl.Name = "txtBoxShellUrl";
-            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 23);
+            this.txtBoxShellUrl.Size = new System.Drawing.Size(461, 24);
             this.txtBoxShellUrl.TabIndex = 2;
             // 
             // label3
@@ -87,11 +87,11 @@
             // 
             // txtBoxArgName
             // 
-            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.txtBoxArgName.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.txtBoxArgName.Location = new System.Drawing.Point(134, 135);
             this.txtBoxArgName.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.txtBoxArgName.Name = "txtBoxArgName";
-            this.txtBoxArgName.Size = new System.Drawing.Size(129, 23);
+            this.txtBoxArgName.Size = new System.Drawing.Size(129, 24);
             this.txtBoxArgName.TabIndex = 4;
             this.txtBoxArgName.Text = "command";
             // 
@@ -110,7 +110,7 @@
             // 
             // comboBoxVarType
             // 
-            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.comboBoxVarType.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.comboBoxVarType.FormattingEnabled = true;
             this.comboBoxVarType.Location = new System.Drawing.Point(134, 95);
             this.comboBoxVarType.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -166,7 +166,7 @@
             // 
             // comboBoxEncryptionMode
             // 
-            this.comboBoxEncryptionMode.Font = new System.Drawing.Font("Microsoft Tai Le", 9F);
+            this.comboBoxEncryptionMode.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.comboBoxEncryptionMode.FormattingEnabled = true;
             this.comboBoxEncryptionMode.Location = new System.Drawing.Point(163, 172);
             this.comboBoxEncryptionMode.Name = "comboBoxEncryptionMode";

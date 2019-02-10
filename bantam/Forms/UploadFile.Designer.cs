@@ -47,11 +47,11 @@
             this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.richTextBox1.Location = new System.Drawing.Point(16, 28);
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.richTextBox1.Location = new System.Drawing.Point(14, 28);
             this.richTextBox1.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(591, 366);
+            this.richTextBox1.Size = new System.Drawing.Size(518, 366);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
@@ -63,10 +63,10 @@
             // btnBrowse
             // 
             this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnBrowse.Location = new System.Drawing.Point(13, 474);
+            this.btnBrowse.Location = new System.Drawing.Point(11, 474);
             this.btnBrowse.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(116, 35);
+            this.btnBrowse.Size = new System.Drawing.Size(102, 35);
             this.btnBrowse.TabIndex = 1;
             this.btnBrowse.Text = "Browse";
             this.btnBrowse.UseVisualStyleBackColor = true;
@@ -77,10 +77,10 @@
             this.btnUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpload.Enabled = false;
             this.btnUpload.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnUpload.Location = new System.Drawing.Point(480, 469);
+            this.btnUpload.Location = new System.Drawing.Point(420, 469);
             this.btnUpload.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(127, 40);
+            this.btnUpload.Size = new System.Drawing.Size(111, 40);
             this.btnUpload.TabIndex = 2;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
@@ -90,21 +90,21 @@
             // 
             this.txtBoxFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBoxFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.txtBoxFileName.Location = new System.Drawing.Point(94, 408);
+            this.txtBoxFileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.txtBoxFileName.Location = new System.Drawing.Point(82, 408);
             this.txtBoxFileName.Margin = new System.Windows.Forms.Padding(4);
             this.txtBoxFileName.Name = "txtBoxFileName";
-            this.txtBoxFileName.Size = new System.Drawing.Size(513, 21);
+            this.txtBoxFileName.Size = new System.Drawing.Size(449, 22);
             this.txtBoxFileName.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 413);
+            this.label1.Location = new System.Drawing.Point(11, 413);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 16);
+            this.label1.Size = new System.Drawing.Size(69, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "File Name:";
             // 
@@ -112,10 +112,10 @@
             // 
             this.lblStaticPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblStaticPath.AutoSize = true;
-            this.lblStaticPath.Location = new System.Drawing.Point(13, 446);
+            this.lblStaticPath.Location = new System.Drawing.Point(11, 446);
             this.lblStaticPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStaticPath.Name = "lblStaticPath";
-            this.lblStaticPath.Size = new System.Drawing.Size(38, 16);
+            this.lblStaticPath.Size = new System.Drawing.Size(36, 16);
             this.lblStaticPath.TabIndex = 5;
             this.lblStaticPath.Text = "Path:";
             // 
@@ -124,7 +124,7 @@
             this.lblDynPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDynPath.AutoSize = true;
             this.lblDynPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblDynPath.Location = new System.Drawing.Point(59, 447);
+            this.lblDynPath.Location = new System.Drawing.Point(52, 447);
             this.lblDynPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDynPath.Name = "lblDynPath";
             this.lblDynPath.Size = new System.Drawing.Size(0, 15);
@@ -136,7 +136,8 @@
             this.vectorsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(620, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(542, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,9 +166,9 @@
             // 
             // UploadFile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 518);
+            this.ClientSize = new System.Drawing.Size(542, 518);
             this.Controls.Add(this.lblDynPath);
             this.Controls.Add(this.lblStaticPath);
             this.Controls.Add(this.label1);
@@ -176,7 +177,7 @@
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;

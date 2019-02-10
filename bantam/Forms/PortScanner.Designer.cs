@@ -109,7 +109,7 @@
             // labelDynStatus
             // 
             this.labelDynStatus.AutoSize = true;
-            this.labelDynStatus.Location = new System.Drawing.Point(13, 143);
+            this.labelDynStatus.Location = new System.Drawing.Point(12, 127);
             this.labelDynStatus.Name = "labelDynStatus";
             this.labelDynStatus.Size = new System.Drawing.Size(0, 16);
             this.labelDynStatus.TabIndex = 8;
@@ -118,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 152);
+            this.ClientSize = new System.Drawing.Size(411, 150);
             this.Controls.Add(this.labelDynStatus);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnScan);

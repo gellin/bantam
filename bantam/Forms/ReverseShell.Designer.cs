@@ -154,15 +154,16 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(12, 245);
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Tai Le", 8F);
+            this.lblStatus.Location = new System.Drawing.Point(12, 223);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 16);
+            this.lblStatus.Size = new System.Drawing.Size(0, 14);
             this.lblStatus.TabIndex = 24;
             // 
             // checkBoxLogShellCode
             // 
             this.checkBoxLogShellCode.AutoSize = true;
-            this.checkBoxLogShellCode.Location = new System.Drawing.Point(14, 219);
+            this.checkBoxLogShellCode.Location = new System.Drawing.Point(284, 91);
             this.checkBoxLogShellCode.Name = "checkBoxLogShellCode";
             this.checkBoxLogShellCode.Size = new System.Drawing.Size(115, 20);
             this.checkBoxLogShellCode.TabIndex = 25;
@@ -173,7 +174,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 266);
+            this.ClientSize = new System.Drawing.Size(415, 248);
             this.Controls.Add(this.checkBoxLogShellCode);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.label7);

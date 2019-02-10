@@ -51,13 +51,13 @@
             this.labelStaticLogLevel = new System.Windows.Forms.Label();
             this.checkBoxGlobalLogs = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxShellCodeExVectors = new System.Windows.Forms.ComboBox();
             this.textBoxTimeout = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxDisableErrorLogs = new System.Windows.Forms.CheckBox();
             this.checkBoxMaxExecutionTime = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBoxShellCodeExVectors = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -198,9 +198,9 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 290);
+            this.groupBox1.Location = new System.Drawing.Point(12, 304);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 201);
+            this.groupBox1.Size = new System.Drawing.Size(435, 216);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Request Obfuscation";
@@ -263,7 +263,7 @@
             this.groupBox4.Controls.Add(this.labelStaticCommentFrequency);
             this.groupBox4.Location = new System.Drawing.Point(15, 26);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(194, 164);
+            this.groupBox4.Size = new System.Drawing.Size(194, 172);
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             // 
@@ -331,12 +331,30 @@
             this.groupBox3.Controls.Add(this.textBoxMaxPostSize);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.textBoxMaxCookieSize);
-            this.groupBox3.Location = new System.Drawing.Point(12, 143);
+            this.groupBox3.Location = new System.Drawing.Point(12, 141);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(435, 141);
+            this.groupBox3.Size = new System.Drawing.Size(435, 143);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Request Settings";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(191, 106);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(112, 16);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "Shell Code Vector";
+            // 
+            // comboBoxShellCodeExVectors
+            // 
+            this.comboBoxShellCodeExVectors.FormattingEnabled = true;
+            this.comboBoxShellCodeExVectors.Location = new System.Drawing.Point(309, 98);
+            this.comboBoxShellCodeExVectors.Name = "comboBoxShellCodeExVectors";
+            this.comboBoxShellCodeExVectors.Size = new System.Drawing.Size(103, 24);
+            this.comboBoxShellCodeExVectors.TabIndex = 23;
+            this.comboBoxShellCodeExVectors.SelectedIndexChanged += new System.EventHandler(this.comboBoxShellCodeExVectors_SelectedIndexChanged);
             // 
             // textBoxTimeout
             // 
@@ -380,29 +398,11 @@
             this.checkBoxMaxExecutionTime.UseVisualStyleBackColor = true;
             this.checkBoxMaxExecutionTime.CheckedChanged += new System.EventHandler(this.checkBoxMaxExecutionTime_CheckedChanged);
             // 
-            // comboBoxShellCodeExVectors
-            // 
-            this.comboBoxShellCodeExVectors.FormattingEnabled = true;
-            this.comboBoxShellCodeExVectors.Location = new System.Drawing.Point(309, 98);
-            this.comboBoxShellCodeExVectors.Name = "comboBoxShellCodeExVectors";
-            this.comboBoxShellCodeExVectors.Size = new System.Drawing.Size(103, 24);
-            this.comboBoxShellCodeExVectors.TabIndex = 23;
-            this.comboBoxShellCodeExVectors.SelectedIndexChanged += new System.EventHandler(this.comboBoxShellCodeExVectors_SelectedIndexChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(191, 106);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 16);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "Shell Code Vector";
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(462, 506);
+            this.ClientSize = new System.Drawing.Size(462, 528);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

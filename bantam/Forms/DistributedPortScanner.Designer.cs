@@ -50,6 +50,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxShells.ContextMenuStrip = this.contextMenuStripOptions;
+            this.checkedListBoxShells.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.checkedListBoxShells.FormattingEnabled = true;
             this.checkedListBoxShells.Location = new System.Drawing.Point(14, 38);
             this.checkedListBoxShells.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -109,7 +110,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 482);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 18);
+            this.label2.Size = new System.Drawing.Size(49, 16);
             this.label2.TabIndex = 4;
             this.label2.Text = "Target:";
             // 
@@ -130,7 +131,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(15, 526);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 18);
+            this.label3.Size = new System.Drawing.Size(35, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Port:";
             // 
@@ -140,7 +141,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(176, 526);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(14, 18);
+            this.label4.Size = new System.Drawing.Size(13, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "-";
             // 
@@ -158,9 +159,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 16);
+            this.label1.Location = new System.Drawing.Point(12, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 18);
+            this.label1.Size = new System.Drawing.Size(41, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "Hosts";
             // 
@@ -169,7 +170,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Location = new System.Drawing.Point(18, 554);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 18);
+            this.lblStatus.Size = new System.Drawing.Size(0, 16);
             this.lblStatus.TabIndex = 9;
             // 
             // DistributedPortScanner
@@ -187,7 +188,7 @@
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.checkedListBoxShells);
-            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.85F);
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;

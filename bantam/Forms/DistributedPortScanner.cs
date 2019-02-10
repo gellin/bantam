@@ -47,7 +47,7 @@ namespace bantam.Forms
             string target = textBoxTarget.Text;
 
             if (!Helper.IsValidIPv4(target)
-            || !Helper.IsValidUri(target)) {
+            && !Helper.IsValidUri(target)) {
                 lblStatus.Text = "Invalid IP/Url.";
                 return;
             }
