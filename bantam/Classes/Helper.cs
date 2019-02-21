@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace bantam.Classes
 {
@@ -226,8 +225,8 @@ namespace bantam.Classes
         /// <returns></returns>
         public static bool IsValidUri(string uri)
         {
-            bool uriResult = Uri.TryCreate(uri, UriKind.Absolute, out Uri tempUri);
-            return uriResult && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps);
+            bool uriResult = Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out Uri tempUri);
+            return uriResult/* && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps)*/;
         }
 
         /// <summary>

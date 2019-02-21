@@ -18,6 +18,10 @@ namespace bantam.Classes
         /// <param name="textboxHeight"></param>
         public void Initialize(MouseEventHandler mouseClickFunction, int textboxHeight)
         {
+            this.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TabIndex = 1;
+
             btnBack.Size = new Size(25, textboxHeight + 2);
             btnBack.Location = new Point(1, -1);
             btnBack.Image = global::bantam.Properties.Resources.undo;

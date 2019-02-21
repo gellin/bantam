@@ -45,6 +45,12 @@ namespace bantam.Forms
         public Options()
         {
             InitializeComponent();
+
+            foreach (var shellCodeExecVec in phpShellCodeExecutionVectors) {
+                comboBoxShellCodeExVectors.Items.Add(shellCodeExecVec);
+            }
+
+            LoadConfig();
         }
 
         /// <summary>
@@ -73,25 +79,6 @@ namespace bantam.Forms
             textBoxTimeout.Text = Config.TimeoutMS.ToString();  
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Options_Load(object sender, EventArgs e)
-        {
-            foreach(var shellCodeExecVec in phpShellCodeExecutionVectors) {
-                comboBoxShellCodeExVectors.Items.Add(shellCodeExecVec);
-            }
-
-            LoadConfig();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxRandomComments.Checked) {
@@ -104,7 +91,6 @@ namespace bantam.Forms
             Config.InjectRandomComments = checkBoxRandomComments.Checked;
         }
 
-        ///
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {

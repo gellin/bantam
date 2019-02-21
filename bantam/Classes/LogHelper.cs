@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using bantam.Forms;
 
 namespace bantam.Classes
 {
@@ -46,7 +43,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Creates a messagebox with a global log on it
+        /// Creates a messagebox for "global" logs/errors 
         /// </summary>
         /// <param name="logMessage"></param>
         /// <param name="windowTitle">The title of the window in the messagebox</param>

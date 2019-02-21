@@ -5,7 +5,6 @@ namespace bantam.Classes
 {
     public class ShellInfo
     {
-
         /// <summary>
         /// 
         /// </summary>

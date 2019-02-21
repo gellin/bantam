@@ -40,6 +40,12 @@ namespace bantam
         /// </summary>
         private static readonly AutoCompleteStringCollection consoleTextboxAutoComplete = new AutoCompleteStringCollection();
 
+        // 
+        // txtBoxFileBrowserPath
+        // 
+        private bantam.Classes.TextBoxButton txtBoxFileBrowserPath;
+
+
         /// <summary>
         ///
         ///
@@ -60,6 +66,23 @@ namespace bantam
 
             //setup console input's auto complete source
             textBoxConsoleInput.AutoCompleteCustomSource = consoleTextboxAutoComplete;
+
+            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
+            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
+
+
+
+            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
+            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
+
+            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+
+            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
+
+
+            
+
+            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
         }
 
         #region HELPER_FUNCTIONS
@@ -256,6 +279,9 @@ namespace bantam
                     LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.INFO);
                     return string.Empty;
                 }
+            } else {
+                LogHelper.AddShellLog(shellUrl, "Empty response decrypted from code ( " + phpCode + " )", LogHelper.LOG_LEVEL.INFO);
+                return string.Empty;
             }
 
             return result;
@@ -804,6 +830,7 @@ namespace bantam
             if (e.KeyCode == Keys.Enter)
             {
                 btnFileBrowserGo_Click(sender, e);
+
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
@@ -854,6 +881,10 @@ namespace bantam
         /// <param name="e"></param>
         private async void btnFileBrowserGo_Click(object sender, EventArgs e)
         {
+            if (btnFileBrowserGo.Enabled == false) {
+                return;
+            }
+
             btnFileBrowserGo.Enabled = false;
 
             if (ValidTarget() == false) {

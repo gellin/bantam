@@ -47,6 +47,7 @@ namespace bantam.Forms
 
             comboBoxVarType.SelectedIndex = 0;
             comboBoxEncryptionMode.SelectedIndex = 0;
+
             labelDynAddHostsStatus.Text = "";
         }
 

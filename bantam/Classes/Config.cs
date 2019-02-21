@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace bantam.Classes
+﻿namespace bantam.Classes
 {
     static class Config
     {
@@ -26,7 +20,7 @@ namespace bantam.Classes
 
             phpVaribleNameMaxLength = 16;
 
-            timeoutMS = 10000; //10 sec
+            timeoutMS = 20000; //20 sec
 
             phpShellCodeExectionValue = 0;
 

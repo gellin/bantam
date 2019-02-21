@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows.Forms;
 
 namespace bantam.Classes

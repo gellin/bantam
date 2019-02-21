@@ -44,6 +44,8 @@ namespace bantam.Forms
         {
             btnScan.Enabled = false;
 
+            //todo ip/uri checking
+
             if (BantamMain.Shells.ContainsKey(ShellUrl)) {
                 string portsCode = string.Empty;
 

@@ -30,3 +30,4 @@
   * ? - find 7.0x+ caveates and put in logging or message's / ui alerts that it
   * ? - touch feature
   * ? - passwd bypass
+  * ? - Add Logs when an operation times out

@@ -87,7 +87,7 @@
             this.btnScan.Location = new System.Drawing.Point(386, 515);
             this.btnScan.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(129, 39);
+            this.btnScan.Size = new System.Drawing.Size(129, 32);
             this.btnScan.TabIndex = 2;
             this.btnScan.Text = "Scan";
             this.btnScan.UseVisualStyleBackColor = true;

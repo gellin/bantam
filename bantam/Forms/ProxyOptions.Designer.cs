@@ -39,7 +39,7 @@
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(402, 90);
+            this.buttonConnect.Location = new System.Drawing.Point(402, 91);
             this.buttonConnect.Margin = new System.Windows.Forms.Padding(4);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(115, 33);
@@ -113,7 +113,7 @@
             // buttonResetProxy
             // 
             this.buttonResetProxy.Enabled = false;
-            this.buttonResetProxy.Location = new System.Drawing.Point(295, 90);
+            this.buttonResetProxy.Location = new System.Drawing.Point(295, 91);
             this.buttonResetProxy.Name = "buttonResetProxy";
             this.buttonResetProxy.Size = new System.Drawing.Size(100, 33);
             this.buttonResetProxy.TabIndex = 8;

@@ -1,11 +1,60 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace bantam.Classes
 {
     static class GuiHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lv"></param>
+        /// <returns></returns>
+        public static ListViewItem GetFirstSelectedListview(ListView lv)
+        {
+            if (lv.SelectedItems.Count > 0) {
+                foreach (ListViewItem lvi in lv.SelectedItems) {
+                    return lvi;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="dest"></param>
+        public static void CopyNodesFromTreeView(TreeView source, TreeView dest)
+        {
+            if (source != null && dest != null) {
+                foreach (TreeNode tn in source.Nodes) {
+                    TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
+                        ForeColor = tn.ForeColor,
+                        Name = tn.Name
+                    };
+                    CopyChildrenFromTreeViewNode(newTn, tn);
+                    dest.Nodes.Add(newTn);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="willCopied"></param>
+        public static void CopyChildrenFromTreeViewNode(TreeNode parent, TreeNode willCopied)
+        {
+            foreach (TreeNode tn in willCopied.Nodes) {
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
+                    ForeColor = tn.ForeColor,
+                    Name = tn.Name
+                };
+                CopyChildrenFromTreeViewNode(newTn, tn);
+                parent.Nodes.Add(newTn);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -221,57 +270,6 @@ namespace bantam.Classes
             showResponse = chkboxResult;
 
             return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lv"></param>
-        /// <returns></returns>
-        public static ListViewItem GetFirstSelectedListview(ListView lv)
-        {
-            if (lv.SelectedItems.Count > 0) {
-                foreach (ListViewItem lvi in lv.SelectedItems) {
-                    return lvi;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="dest"></param>
-        public static void CopyNodesFromTreeView(TreeView source, TreeView dest)
-        {
-            if (source != null && dest != null) {
-                foreach (TreeNode tn in source.Nodes) {
-                    TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
-                        ForeColor = tn.ForeColor,
-                        Name = tn.Name
-                    };
-                    CopyChildrenFromTreeViewNode(newTn, tn);
-                    dest.Nodes.Add(newTn);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="willCopied"></param>
-        public static void CopyChildrenFromTreeViewNode(TreeNode parent, TreeNode willCopied)
-        {
-            foreach (TreeNode tn in willCopied.Nodes) {
-                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
-                    ForeColor = tn.ForeColor,
-                    Name = tn.Name
-                };
-                CopyChildrenFromTreeViewNode(newTn, tn);
-                parent.Nodes.Add(newTn);
-            }
         }
     }
 }

@@ -412,7 +412,6 @@
             this.MinimizeBox = false;
             this.Name = "Options";
             this.Text = "Options";
-            this.Load += new System.EventHandler(this.Options_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLoggingLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarCommentFrequency)).EndInit();
             this.groupBox1.ResumeLayout(false);
