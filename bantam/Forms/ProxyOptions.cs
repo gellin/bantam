@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,15 +12,24 @@ namespace bantam.Forms
     {
         private static ProxyOptions instance;
 
-        private enum PROXY_TYPE
-        {
-            SOCKS = 0,
-            HTTP = 1
-        }
+        /// <summary>
+        /// Proxy Types to be populated in the combo box
+        /// </summary>
+        private static readonly ReadOnlyCollection<string> proxyTypes = new List<string> {
+            "socks",
+            "http"
+        }.AsReadOnly();
 
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public ProxyOptions()
         {
             InitializeComponent();
+
+            foreach (var proxyType in proxyTypes) {
+                comboBoxProxyType.Items.Add(proxyType);
+            }
 
             comboBoxProxyType.SelectedIndex = 0;
         }
@@ -47,7 +58,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main routine for testing and connecting to a proxy
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -56,9 +67,9 @@ namespace bantam.Forms
             buttonConnect.Enabled = false;
             if (!string.IsNullOrEmpty(txtBoxProxyUrl.Text)) {
                 if (int.TryParse(txtBoxProxyPort.Text, out int port)) {
-                    if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.HTTP) {
+                    if (comboBoxProxyType.Text == "http") {
                         WebHelper.AddHttpProxy(txtBoxProxyUrl.Text, txtBoxProxyPort.Text);
-                    } else if (comboBoxProxyType.SelectedIndex == (int)PROXY_TYPE.SOCKS) {
+                    } else if (comboBoxProxyType.Text == "socks") {
                         WebHelper.AddSocksProxy(txtBoxProxyUrl.Text, port);
                     }
                            
@@ -91,17 +102,22 @@ namespace bantam.Forms
             buttonConnect.Enabled = true;
         }
 
+        /// <summary>
+        /// Resets / Drops Proxy connection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonResetProxy_Click(object sender, EventArgs e)
+        {
+            WebHelper.ResetHttpClient();
+            buttonResetProxy.Enabled = false;
+        }
+
         private void txtBoxProxyPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
-        }
-
-        private void buttonResetProxy_Click(object sender, EventArgs e)
-        {
-            WebHelper.ResetHttpClient();
-            buttonResetProxy.Enabled = false;
         }
     }
 }

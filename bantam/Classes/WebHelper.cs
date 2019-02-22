@@ -194,12 +194,11 @@ namespace bantam.Classes
             bool encryptResponse = BantamMain.Shells[url].ResponseEncryption;
 
             int ResponseEncryptionMode = BantamMain.Shells[url].ResponseEncryptionMode;
-
-            string requestArgsName = BantamMain.Shells[url].RequestArgName;
-
+            
             bool encryptRequest = BantamMain.Shells[url].RequestEncryption;
             bool sendRequestEncryptionIV = BantamMain.Shells[url].SendRequestEncryptionIV;
 
+            string requestArgsName = BantamMain.Shells[url].RequestArgName;
             string phpCode = PhpBuilder.RandomPHPComment() + phpCodeIn + PhpBuilder.RandomPHPComment();
 
             if (string.IsNullOrEmpty(phpCode)) {

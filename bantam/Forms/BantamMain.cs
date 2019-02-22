@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -40,15 +38,13 @@ namespace bantam
         /// </summary>
         private static readonly AutoCompleteStringCollection consoleTextboxAutoComplete = new AutoCompleteStringCollection();
 
-        // 
-        // txtBoxFileBrowserPath
-        // 
-        private bantam.Classes.TextBoxButton txtBoxFileBrowserPath;
-
+        /// <summary>
+        /// Custom TextBox Control with button on left side to act as a back button
+        /// </summary>
+        private readonly TextBoxButton txtBoxFileBrowserPath = new TextBoxButton();
 
         /// <summary>
-        ///
-        ///
+        /// Default constructor
         /// </summary>
         public BantamMain()
         {
@@ -59,30 +55,16 @@ namespace bantam
             InitializeComponent();
 
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
-            txtBoxFileBrowserPath.Initialize(btnFileBrowserBack_MouseClick, 21);
+            txtBoxFileBrowserPath.Initialize(6, 511, 522, 23, "txtBoxFileBrowserPath", this.txtBoxFileBrowserPath_KeyDown, btnFileBrowserBack_MouseClick, 21);
+
+            //manually add the custom control to the tab page
+            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
 
             //setup custom sorter for filebrowser
             treeViewFileBrowser.TreeViewNodeSorter = new FileBrowserTreeNodeSorter();
 
             //setup console input's auto complete source
             textBoxConsoleInput.AutoCompleteCustomSource = consoleTextboxAutoComplete;
-
-            this.txtBoxFileBrowserPath = new bantam.Classes.TextBoxButton();
-            this.tabPageFiles.Controls.Add(this.txtBoxFileBrowserPath);
-
-
-
-            this.txtBoxFileBrowserPath.Location = new System.Drawing.Point(6, 511);
-            this.txtBoxFileBrowserPath.Size = new System.Drawing.Size(522, 23);
-
-            this.txtBoxFileBrowserPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-
-            this.txtBoxFileBrowserPath.Name = "txtBoxFileBrowserPath";
-
-
-            
-
-            this.txtBoxFileBrowserPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxFileBrowserPath_KeyDown);
         }
 
         #region HELPER_FUNCTIONS
@@ -118,7 +100,7 @@ namespace bantam
 
 
         /// <summary>
-        /// 
+        /// A thread safe function for adding logs to the logs tab's richtextbox control
         /// </summary>
         /// <param name="log"></param>
         public delegate void AppendToRichTextBoxLogsDelegate(string log);
@@ -132,7 +114,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// TODO clean this up and make a success / fail function
+        /// Adds a shell to the listview
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="pingMS"></param>
@@ -142,17 +124,25 @@ namespace bantam
                 Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0)
             };
             listViewShells.Items.Add(lvi);
-
-            if (pingMS == "-") {
-                int lastIndex = listViewShells.Items.Count - 1;
-                listViewShells.Items[lastIndex].BackColor = System.Drawing.Color.Red;
-
-                Shells[shellUrl].Down = true;
-            }
         }
 
         /// <summary>
-        /// 
+        /// Adds a shell that is Down to the listview with RED background color
+        /// </summary>
+        /// <param name="shellUrl"></param>
+        public void AddDownShellToListView(string shellUrl)
+        {
+            ListViewItem lvi = new ListViewItem(new[] { shellUrl, "-" + " ms" }) {
+                Font = new System.Drawing.Font("Microsoft Tai Le", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, (byte)0),
+                BackColor = System.Drawing.Color.Red
+            };
+
+            listViewShells.Items.Add(lvi);
+            Shells[shellUrl].Down = true;
+        }
+
+        /// <summary>
+        /// Removes a shell from listviewShells with the given "shellURL"
         /// </summary>
         /// <param name="shellURL"></param>
         public void GuiCallbackRemoveShellURL(string shellURL)
@@ -164,7 +154,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// A Wrapper for executing php code and displaying the result into a richtextbox
         /// </summary>
         /// <param name="url"></param>
         /// <param name="phpCode"></param>
@@ -211,7 +201,7 @@ namespace bantam
                 pingWatch.Start();
 
                 if (!Helper.IsValidUri(shellUrl)) {
-                    AddShellToListView(shellUrl, "-");
+                    AddDownShellToListView(shellUrl);
                     return;
                 }
 
@@ -237,20 +227,20 @@ namespace bantam
                             Shells[shellUrl].Down = false;
 
                         } else {
-                            AddShellToListView(shellUrl, "-");
+                            AddDownShellToListView(shellUrl);
                         }
                     } else {
-                        AddShellToListView(shellUrl, "-");
+                        AddDownShellToListView(shellUrl);
                     }
                     pingWatch.Stop();
                 } else {
-                    AddShellToListView(shellUrl, "-");
+                    AddDownShellToListView(shellUrl);
                 }
             }
         }
 
         /// <summary>
-        /// 
+        /// Main wrapper / handler for executing php code on a given shellUrl
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="phpCode"></param>
@@ -490,6 +480,7 @@ namespace bantam
             ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
 
             if (lvi != null) {
+                treeViewFileBrowser.BeginUpdate();
                 if (!string.IsNullOrEmpty(SelectedShellUrl) && Shells.ContainsKey(SelectedShellUrl)) {
 
                     if (treeViewFileBrowser.Nodes != null && treeViewFileBrowser.Nodes.Count > 0) {
@@ -596,6 +587,7 @@ namespace bantam
                         StartFileBrowser();
                     }
                 }
+                treeViewFileBrowser.EndUpdate();
             }
         }
 
@@ -937,6 +929,7 @@ namespace bantam
             string[] rows = result.Split(new [] { PhpBuilder.rowSeperator }, StringSplitOptions.None);
 
             if (rows != null && rows.Length > 0) {
+                treeViewFileBrowser.BeginUpdate();
                 foreach (string row in rows) {
                     string[] columns = row.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
 
@@ -968,6 +961,7 @@ namespace bantam
                     }
                 }
                 treeViewFileBrowser.Sort();
+                treeViewFileBrowser.EndUpdate();
 
                 if (baseTn != null) {
                     baseTn.Expand();

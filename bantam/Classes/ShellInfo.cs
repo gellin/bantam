@@ -330,7 +330,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// If true the request data is gzcompressed, the bantam shell it is communicating with must decompress the data
         /// </summary>
         private bool gzipRequestData;
 

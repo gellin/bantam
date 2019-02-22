@@ -16,7 +16,7 @@ namespace bantam.Forms
     public partial class Options : Form
     {
         /// <summary>
-        /// 
+        /// Php Shell Code execution vectors
         /// </summary>
         private static readonly ReadOnlyCollection<string> phpShellCodeExecutionVectors = new List<string> {
              "system",
@@ -28,7 +28,7 @@ namespace bantam.Forms
         }.AsReadOnly();
 
         /// <summary>
-        /// 
+        /// Php Shell Code execution vectors, must represent what is within "phpShellCodeExecutionVectors"
         /// </summary>
         public enum PHP_SHELL_CODE_VECTORS
         {
@@ -54,7 +54,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Default constructor
         /// </summary>
         private void LoadConfig()
         {

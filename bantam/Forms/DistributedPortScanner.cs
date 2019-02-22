@@ -8,12 +8,12 @@ namespace bantam.Forms
     public partial class DistributedPortScanner : Form
     {
         /// <summary>
-        /// 
+        /// Max number of TCP ports
         /// </summary>
         private const int PORT_MAX = 65535;
 
         /// <summary>
-        /// 
+        /// Default constructor
         /// </summary>
         public DistributedPortScanner()
         {

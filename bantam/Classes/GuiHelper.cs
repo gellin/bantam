@@ -5,7 +5,7 @@ namespace bantam.Classes
     static class GuiHelper
     {
         /// <summary>
-        /// 
+        /// Gets the first selected item from the specified ListView
         /// </summary>
         /// <param name="lv"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Recursivly copyies all the Treeview Nodes from the source to the dest
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dest"></param>
@@ -39,7 +39,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Recursivly copies Treeview Child Nodes
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="willCopied"></param>

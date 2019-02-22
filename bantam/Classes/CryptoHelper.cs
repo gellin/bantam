@@ -8,12 +8,12 @@ namespace bantam.Classes
     static class CryptoHelper
     {
         /// <summary>
-        /// 
+        /// IV length in bytes, for AES-256 in CBC
         /// </summary>
         public const int IV_Length = 16;
 
         /// <summary>
-        /// 
+        /// Key length in bytes, for AES-256 in CBC
         /// </summary>
         public const int KEY_Length = 32;
 
@@ -44,7 +44,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Double base64 encoded because encrpytion or strlen was having issues encrypting non base64 encrypted data
+        /// Generic wrapper/handler for decrypting a response from a shell
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
@@ -74,7 +74,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Intializes and returns an "RijndaelManaged" instance that contains our AES crypto settings, currently using AES-256 in CBC mode.
         /// </summary>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>

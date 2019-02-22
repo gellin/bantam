@@ -20,15 +20,13 @@ namespace bantam.Forms
         }.AsReadOnly();
 
         /// <summary>
-        /// 
+        /// Backdoor types matches combobox (todo)
         /// </summary>
         public enum BackdoorTypes
         {
             EVAL = 0,
             CREATE_FUNCTION,
             TMP_INCLUDE,
-            //ASSERT,
-            //PREG_REPLACE
         }
 
         /// <summary>

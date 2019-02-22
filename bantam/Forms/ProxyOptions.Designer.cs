@@ -91,9 +91,6 @@
             // 
             this.comboBoxProxyType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.comboBoxProxyType.FormattingEnabled = true;
-            this.comboBoxProxyType.Items.AddRange(new object[] {
-            "socks",
-            "http"});
             this.comboBoxProxyType.Location = new System.Drawing.Point(16, 100);
             this.comboBoxProxyType.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxProxyType.Name = "comboBoxProxyType";

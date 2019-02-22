@@ -8,6 +8,11 @@ namespace bantam.Classes
 {
     static class XmlHelper
     {
+        /// <summary>
+        /// Loads Shells into the UI from an XML file
+        /// </summary>
+        /// <param name="configFile"></param>
+        /// <returns></returns>
         public async static Task LoadShells(string configFile)
         {
             if (File.Exists(configFile)) {
@@ -110,6 +115,10 @@ namespace bantam.Classes
             }
         }
 
+        /// <summary>
+        /// Saves Shells from the UI into an XML file
+        /// </summary>
+        /// <param name="configFile"></param>
         public static void SaveShells(string configFile)
         {
             XmlDocument xmlDoc = new XmlDocument();

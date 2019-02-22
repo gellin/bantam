@@ -66,7 +66,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Browse for local file routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -105,6 +105,7 @@ namespace bantam.Forms
 
                     string ext = Path.GetExtension(LocalFileLocation);
 
+                    //show file contents in richtextbox if it's a text file
                     if (displayableFileExtensions.Contains(ext)) {
                         string text = string.Empty;
                         using (StreamReader sr = new StreamReader(LocalFileLocation)) {
@@ -121,7 +122,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main upload routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -181,6 +182,7 @@ namespace bantam.Forms
             }
         }
 
+        //todo store this URL elsewhere?
         private async void linEnumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = await WebHelper.GetRequest("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh");

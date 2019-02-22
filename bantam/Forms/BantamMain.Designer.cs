@@ -554,7 +554,7 @@
             // 
             this.evalToolStripMenuItem1.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem1.Name = "evalToolStripMenuItem1";
-            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.evalToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
             this.evalToolStripMenuItem1.Text = "Eval";
             this.evalToolStripMenuItem1.Click += new System.EventHandler(this.evalToolStripMenuItem1_Click);
             // 
@@ -562,7 +562,7 @@
             // 
             this.portScannerToolStripMenuItem1.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem1.Name = "portScannerToolStripMenuItem1";
-            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.portScannerToolStripMenuItem1.Size = new System.Drawing.Size(184, 26);
             this.portScannerToolStripMenuItem1.Text = "Port Scanner";
             this.portScannerToolStripMenuItem1.Click += new System.EventHandler(this.portScannerToolStripMenuItem1_Click);
             // 
@@ -1052,6 +1052,9 @@
             // 
             // richTextBoxLogs
             // 
+            this.richTextBoxLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBoxLogs.Enabled = false;
             this.richTextBoxLogs.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBoxLogs.Location = new System.Drawing.Point(6, 6);

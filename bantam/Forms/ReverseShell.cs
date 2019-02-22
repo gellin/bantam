@@ -11,12 +11,12 @@ namespace bantam.Forms
     public partial class ReverseShell : Form
     {
         /// <summary>
-        /// 
+        /// The ShellUrl which we are poping a shell on, set in the default constructor
         /// </summary>
         private string ShellUrl;
 
         /// <summary>
-        /// 
+        /// Different vectors for poping shells, to be populated into the combobox
         /// </summary>
         private static readonly ReadOnlyCollection<string> shellVectors = new List<string> {
              "perl",
@@ -30,7 +30,7 @@ namespace bantam.Forms
         }.AsReadOnly();
 
         /// <summary>
-        /// 
+        /// Default Constructor
         /// </summary>
         public ReverseShell(string shellUrl)
         {
@@ -68,7 +68,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Pops a reverse shell using netcat
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -79,7 +79,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Caveat /tmp must be writeable
+        /// Pops a reverse shell using netcat & a pipe for when "GAPING_SECURITY_HOLE" is disabled, Caveat /tmp must be writeable
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -91,7 +91,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Caveat /tmp must be writeable
+        /// Pops a reverse shell using telnet, Caveat /tmp must be writeable
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -103,7 +103,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Pops a shell using php
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -118,7 +118,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Pops a reverse shell using bash
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -130,7 +130,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Pops a reverse shell using python
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
@@ -147,7 +147,6 @@ namespace bantam.Forms
 
             return pythonShell;
         }
-
 
         /// <summary>
         /// Generate Chankro64 bit payload - https://bugs.php.net/bug.php?id=46741 | https://github.com/TarlogicSecurity/Chankro/

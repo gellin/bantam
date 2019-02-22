@@ -168,7 +168,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Gets a random value from a given dictionary
         /// </summary>
         /// <typeparam name="TKey"></typeparam>
         /// <typeparam name="TValue"></typeparam>
@@ -181,7 +181,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Takes a number of bytes and returns a formatted human readable form
         /// </summary>
         /// <param name="bytes"></param>
         /// <returns></returns>
@@ -189,7 +189,7 @@ namespace bantam.Classes
         {
             int i = 0;
             double resultBytes = bytesIn;
-            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+            string[] suffixes = { "B", "KiB", "MiB", "GiB", "TiB" };
 
             for (; i < suffixes.Length && resultBytes >= 1024; i++) {
                 resultBytes /= 1024;
@@ -202,7 +202,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Shuffles a given list
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -219,18 +219,22 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Validates a given URI
         /// </summary>
         /// <param name="uri"></param>
         /// <returns></returns>
         public static bool IsValidUri(string uri)
         {
+            if (string.IsNullOrEmpty(uri)) {
+                return false;
+            }
+
             bool uriResult = Uri.TryCreate(uri, UriKind.RelativeOrAbsolute, out Uri tempUri);
-            return uriResult/* && (tempUri.Scheme == Uri.UriSchemeHttp || tempUri.Scheme == Uri.UriSchemeHttps)*/;
+            return uriResult;
         }
 
         /// <summary>
-        /// A function that very attempts validates an IPv4 address
+        /// Validates an IPv4 address
         /// </summary>
         /// <param name="ipaddr"></param>
         /// <returns></returns>

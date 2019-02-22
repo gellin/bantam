@@ -16,11 +16,16 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="mouseClickFunction"></param>
         /// <param name="textboxHeight"></param>
-        public void Initialize(MouseEventHandler mouseClickFunction, int textboxHeight)
+        public void Initialize(int x, int y, int w, int h, string name, KeyEventHandler keyEventHandler, MouseEventHandler mouseClickFunction, int textboxHeight)
         {
+            this.Name = name;
+            this.TabIndex = 1;
+            this.Size = new System.Drawing.Size(w, h);
+            this.Location = new System.Drawing.Point(x, y);
             this.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TabIndex = 1;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.KeyDown += keyEventHandler;
 
             btnBack.Size = new Size(25, textboxHeight + 2);
             btnBack.Location = new Point(1, -1);

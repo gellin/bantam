@@ -8,12 +8,12 @@ namespace bantam.Forms
     public partial class PortScanner : Form
     {
         /// <summary>
-        /// 
+        /// The ShellUrl that is going to perform the port scan, set in default constructor
         /// </summary>
         private readonly string ShellUrl;
 
         /// <summary>
-        /// 
+        /// Preset port scanning options matches whats in the combo box (todo)
         /// </summary>
         public enum PORTS_OPTIONS
         {
@@ -23,7 +23,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Default constructor
         /// </summary>
         /// <param name="shellUrl">The selected Shell URL to use as the Server to do the port scanning</param>
         public PortScanner(string shellUrl)
@@ -36,15 +36,26 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main port scan routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            btnScan.Enabled = false;
+            if (btnScan.Enabled == false) {
+                return;
+            }
 
-            //todo ip/uri checking
+            string target = textBoxHost.Text;
+
+            if (string.IsNullOrEmpty(target)
+            && !Helper.IsValidIPv4(target)
+            && !Helper.IsValidUri(target)) {
+                labelDynStatus.Text = "Invalid IP/Url.";
+                return;
+            }
+
+            btnScan.Enabled = false;
 
             if (BantamMain.Shells.ContainsKey(ShellUrl)) {
                 string portsCode = string.Empty;
