@@ -66,7 +66,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Browse for local file routine
+        /// Browse for local file to upload
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -159,7 +159,7 @@ namespace bantam.Forms
                 phpCode = PhpBuilder.WriteFile(remoteFileLocation, phpCode);
             }
 
-            await WebHelper.ExecuteRemotePHP(ShellUrl, phpCode);
+            await WebRequestHelper.ExecuteRemotePHP(ShellUrl, phpCode);
 
             btnUpload.Enabled = true;
             btnBrowse.Enabled = true;
@@ -169,7 +169,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// If we get content within the richtextboxContent, enable upload button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -185,12 +185,12 @@ namespace bantam.Forms
         //todo store this URL elsewhere?
         private async void linEnumToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = await WebHelper.GetRequest("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh");
+            richTextBox1.Text = await WebRequestHelper.GetRequest("https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh");
         }
 
         private async void linuxPrivCheckerpyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            richTextBox1.Text = await WebHelper.GetRequest("https://www.securitysift.com/download/linuxprivchecker.py");
+            richTextBox1.Text = await WebRequestHelper.GetRequest("https://www.securitysift.com/download/linuxprivchecker.py");
         }
     }
 }

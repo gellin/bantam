@@ -363,7 +363,7 @@
             this.textBoxTimeout.Size = new System.Drawing.Size(76, 24);
             this.textBoxTimeout.TabIndex = 22;
             this.textBoxTimeout.TextChanged += new System.EventHandler(this.textBoxTimeout_TextChanged);
-            this.textBoxTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBoxTimeout.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTimeout_keyPress);
             // 
             // label6
             // 

@@ -6,7 +6,7 @@ namespace bantam.Classes
     public class ShellInfo
     {
         /// <summary>
-        /// 
+        /// Default data vars that are sent on connection success in the order they are parsed
         /// </summary>
         public enum INIT_DATA_VARS
         {
@@ -30,7 +30,7 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="ping"></param>
         /// <param name="data"></param>
-        public void Update(long ping, string[] data)
+        public void InitializeShellData(long ping, string[] data)
         {
             Ping = ping;
             files = new TreeView();

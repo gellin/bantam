@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -18,13 +20,21 @@ namespace bantam.Classes
         public const int KEY_Length = 32;
 
         /// <summary>
-        /// 
+        /// The different php methods that can be included to do AES-256 crypto operations
         /// </summary>
         public enum RESPONSE_ENCRYPTION_TYPES
         {
             OPENSSL = 0,
             MCRYPT
         }
+
+        /// <summary>
+        /// A string representation of "enum RESPONSE_ENCRYPTION_TYPES"
+        /// </summary>
+        public static readonly ReadOnlyCollection<string> encryptoModeStrings = new List<string> {
+             "openssl",
+             "mcrypt",
+        }.AsReadOnly();
 
         /// <summary>
         /// 
@@ -37,7 +47,6 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
         public static string GetRandomEncryptionIV()
         {
             return Helper.RandomString(IV_Length, true, true, true);
@@ -54,7 +63,7 @@ namespace bantam.Classes
                 return string.Empty;
             }
 
-            var encryptedResult = Helper.DecodeBase64(response);
+            byte[] encryptedResult = Helper.DecodeBase64(response);
 
             if (encryptedResult == null) {
                 return string.Empty;
@@ -68,7 +77,7 @@ namespace bantam.Classes
                 return string.Empty;
             }
 
-            var finalResult = Helper.DecodeBase64ToString(decryptedResult);
+            string finalResult = Helper.DecodeBase64ToString(decryptedResult);
 
             return finalResult;
         }
@@ -82,7 +91,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV)
         {
-            var aes = new RijndaelManaged {
+            RijndaelManaged aes = new RijndaelManaged {
                 Padding = PaddingMode.PKCS7,
                 Mode = CipherMode.CBC,
                 KeySize = 256,
@@ -103,15 +112,15 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string DecryptRJ256(byte[] cipherText, string encryptionKey, string encryptionIV)
         {
-            var result = string.Empty;
-            var Key = Encoding.UTF8.GetBytes(encryptionKey);
-            var IV = Encoding.UTF8.GetBytes(encryptionIV);
+            string result = string.Empty;
+            byte[] Key = Encoding.UTF8.GetBytes(encryptionKey);
+            byte[] IV = Encoding.UTF8.GetBytes(encryptionIV);
 
-            using (var aes = BuildAesMode(Key, IV)) {
+            using (RijndaelManaged aes = BuildAesMode(Key, IV)) {
                 try {
-                    using (var memoryStream = new MemoryStream(cipherText))
-                    using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
-                    using (var streamReader = new StreamReader(cryptoStream)) {
+                    using (MemoryStream memoryStream = new MemoryStream(cipherText))
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
+                    using (StreamReader streamReader = new StreamReader(cryptoStream)) {
                         result = streamReader.ReadToEnd();
                     }
                 } catch (Exception e) {
@@ -133,14 +142,14 @@ namespace bantam.Classes
         /// <returns>Base64 encoded string, of encrypted bytes</returns>
         public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV)
         {
-            var result = string.Empty;
-            var IV = Encoding.UTF8.GetBytes(encryptionIV);
-            var Key = Encoding.UTF8.GetBytes(encryptionKey);
+            string result = string.Empty;
+            byte[] IV = Encoding.UTF8.GetBytes(encryptionIV);
+            byte[] Key = Encoding.UTF8.GetBytes(encryptionKey);
 
-            using (var aes = BuildAesMode(Key, IV)) {
+            using (RijndaelManaged aes = BuildAesMode(Key, IV)) {
                 try {
-                    using (var memoryStream = new MemoryStream()) {
-                        using (var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
+                    using (MemoryStream memoryStream = new MemoryStream()) {
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
                             cryptoStream.Write(plainText, 0, plainText.Length);
                             cryptoStream.Close();
                         }

@@ -55,7 +55,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Build a randon string of a charectors at a fixed length, with or without numbers and a few special chars
+        /// Build a random string of a charectors at a fixed length, with or without numbers and a few special chars
         /// </summary>
         /// <param name="length"></param>
         /// <param name="capitals"></param>
@@ -102,7 +102,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Decodes a base64 string to a string after validating and attempting to clean it
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -128,7 +128,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Decodes a base64 string to a byte array+ after validating and attempting to clean it
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>

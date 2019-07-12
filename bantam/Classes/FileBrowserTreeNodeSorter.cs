@@ -6,7 +6,7 @@ namespace bantam.Classes
     public class FileBrowserTreeNodeSorter : IComparer
     {
         /// <summary>
-        /// 
+        /// Custom sorter for FileBrowser
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>

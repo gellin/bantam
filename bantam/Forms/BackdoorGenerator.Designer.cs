@@ -28,7 +28,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.chkbxDisableLogging = new System.Windows.Forms.CheckBox();
             this.richTextBoxBackdoor = new System.Windows.Forms.RichTextBox();
             this.comboBoxMethod = new System.Windows.Forms.ComboBox();
             this.lblMethod = new System.Windows.Forms.Label();
@@ -39,6 +38,7 @@
             this.comboBoxVarType = new System.Windows.Forms.ComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addClientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.chckbxGzipDecodeRequest = new System.Windows.Forms.CheckBox();
@@ -58,20 +58,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chkbxDisableLogging
-            // 
-            this.chkbxDisableLogging.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkbxDisableLogging.AutoSize = true;
-            this.chkbxDisableLogging.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxDisableLogging.Location = new System.Drawing.Point(451, 413);
-            this.chkbxDisableLogging.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkbxDisableLogging.Name = "chkbxDisableLogging";
-            this.chkbxDisableLogging.Size = new System.Drawing.Size(156, 20);
-            this.chkbxDisableLogging.TabIndex = 0;
-            this.chkbxDisableLogging.Text = "Disable Error Logging";
-            this.chkbxDisableLogging.UseVisualStyleBackColor = true;
-            this.chkbxDisableLogging.CheckStateChanged += new System.EventHandler(this.chkbxDisableLogging_CheckStateChanged);
             // 
             // richTextBoxBackdoor
             // 
@@ -138,7 +124,7 @@
             this.chkbxMinifyCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkbxMinifyCode.AutoSize = true;
             this.chkbxMinifyCode.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
-            this.chkbxMinifyCode.Location = new System.Drawing.Point(451, 446);
+            this.chkbxMinifyCode.Location = new System.Drawing.Point(448, 413);
             this.chkbxMinifyCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkbxMinifyCode.Name = "chkbxMinifyCode";
             this.chkbxMinifyCode.Size = new System.Drawing.Size(97, 20);
@@ -190,16 +176,24 @@
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addClientToolStripMenuItem,
             this.saveAsToolStripMenuItem1});
             this.saveAsToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.saveAsToolStripMenuItem.Text = "File";
             // 
+            // addClientToolStripMenuItem
+            // 
+            this.addClientToolStripMenuItem.Name = "addClientToolStripMenuItem";
+            this.addClientToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addClientToolStripMenuItem.Text = "Add Shell";
+            this.addClientToolStripMenuItem.Click += new System.EventHandler(this.addClientToolStripMenuItem_Click);
+            // 
             // saveAsToolStripMenuItem1
             // 
             this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(121, 22);
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem1.Text = "Save As";
             this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.saveAsToolStripMenuItem1_Click);
             // 
@@ -214,7 +208,7 @@
             // 
             this.chckbxGzipDecodeRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chckbxGzipDecodeRequest.AutoSize = true;
-            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(451, 478);
+            this.chckbxGzipDecodeRequest.Location = new System.Drawing.Point(448, 445);
             this.chckbxGzipDecodeRequest.Name = "chckbxGzipDecodeRequest";
             this.chckbxGzipDecodeRequest.Size = new System.Drawing.Size(159, 20);
             this.chckbxGzipDecodeRequest.TabIndex = 11;
@@ -224,6 +218,7 @@
             // 
             // labelOr
             // 
+            this.labelOr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelOr.AutoSize = true;
             this.labelOr.Location = new System.Drawing.Point(189, 645);
             this.labelOr.Name = "labelOr";
@@ -233,6 +228,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(10, 668);
             this.label8.Name = "label8";
@@ -242,6 +238,7 @@
             // 
             // textBoxIVVarName
             // 
+            this.textBoxIVVarName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxIVVarName.Enabled = false;
             this.textBoxIVVarName.Location = new System.Drawing.Point(118, 665);
             this.textBoxIVVarName.MaxLength = 16;
@@ -252,6 +249,7 @@
             // 
             // checkBoxSendIVInRequest
             // 
+            this.checkBoxSendIVInRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSendIVInRequest.AutoSize = true;
             this.checkBoxSendIVInRequest.Enabled = false;
             this.checkBoxSendIVInRequest.Location = new System.Drawing.Point(145, 541);
@@ -264,6 +262,7 @@
             // 
             // buttonRandomIV
             // 
+            this.buttonRandomIV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRandomIV.Enabled = false;
             this.buttonRandomIV.Image = global::bantam.Properties.Resources.generate_16x16;
             this.buttonRandomIV.Location = new System.Drawing.Point(287, 617);
@@ -275,6 +274,7 @@
             // 
             // buttonRandomKey
             // 
+            this.buttonRandomKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRandomKey.Enabled = false;
             this.buttonRandomKey.Image = global::bantam.Properties.Resources.generate_16x16;
             this.buttonRandomKey.Location = new System.Drawing.Point(402, 578);
@@ -286,6 +286,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(10, 578);
             this.label6.Name = "label6";
@@ -296,6 +297,7 @@
             // 
             // textBoxEncrpytionIV
             // 
+            this.textBoxEncrpytionIV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxEncrpytionIV.Enabled = false;
             this.textBoxEncrpytionIV.Location = new System.Drawing.Point(118, 617);
             this.textBoxEncrpytionIV.MaxLength = 16;
@@ -307,6 +309,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 625);
             this.label2.Name = "label2";
@@ -317,6 +320,7 @@
             // 
             // textBoxEncrpytionKey
             // 
+            this.textBoxEncrpytionKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxEncrpytionKey.Enabled = false;
             this.textBoxEncrpytionKey.Location = new System.Drawing.Point(118, 578);
             this.textBoxEncrpytionKey.MaxLength = 32;
@@ -328,6 +332,7 @@
             // 
             // checkBoxEncryptRequest
             // 
+            this.checkBoxEncryptRequest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxEncryptRequest.AutoSize = true;
             this.checkBoxEncryptRequest.Location = new System.Drawing.Point(14, 541);
             this.checkBoxEncryptRequest.Name = "checkBoxEncryptRequest";
@@ -339,6 +344,7 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label7.Location = new System.Drawing.Point(13, 528);
             this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -348,6 +354,7 @@
             // 
             // comboBoxRequestEncryptionType
             // 
+            this.comboBoxRequestEncryptionType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxRequestEncryptionType.Enabled = false;
             this.comboBoxRequestEncryptionType.FormattingEnabled = true;
             this.comboBoxRequestEncryptionType.Location = new System.Drawing.Point(287, 539);
@@ -383,7 +390,6 @@
             this.Controls.Add(this.lblMethod);
             this.Controls.Add(this.comboBoxMethod);
             this.Controls.Add(this.richTextBoxBackdoor);
-            this.Controls.Add(this.chkbxDisableLogging);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.MainMenuStrip = this.menuStrip1;
@@ -401,8 +407,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox chkbxDisableLogging;
         private System.Windows.Forms.RichTextBox richTextBoxBackdoor;
         private System.Windows.Forms.ComboBox comboBoxMethod;
         private System.Windows.Forms.Label lblMethod;
@@ -430,5 +434,6 @@
         private System.Windows.Forms.ComboBox comboBoxRequestEncryptionType;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addClientToolStripMenuItem;
     }
 }

@@ -10,6 +10,9 @@ namespace bantam.Forms
 {
     public partial class ProxyOptions : Form
     {
+        /// <summary>
+        /// Singleton instance
+        /// </summary>
         private static ProxyOptions instance;
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Singleton accessor for spawning a single instance of this form
         /// </summary>
         /// <returns></returns>
         public static ProxyOptions getInstance()
@@ -47,7 +50,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Once opened, the single instance of this form is kept alive to keep settings
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -68,18 +71,18 @@ namespace bantam.Forms
             if (!string.IsNullOrEmpty(txtBoxProxyUrl.Text)) {
                 if (int.TryParse(txtBoxProxyPort.Text, out int port)) {
                     if (comboBoxProxyType.Text == "http") {
-                        WebHelper.AddHttpProxy(txtBoxProxyUrl.Text, txtBoxProxyPort.Text);
+                        WebRequestHelper.AddHttpProxy(txtBoxProxyUrl.Text, txtBoxProxyPort.Text);
                     } else if (comboBoxProxyType.Text == "socks") {
-                        WebHelper.AddSocksProxy(txtBoxProxyUrl.Text, port);
+                        WebRequestHelper.AddSocksProxy(txtBoxProxyUrl.Text, port);
                     }
                            
                     try {
-                        var task = WebHelper.GetRequest("http://ipv4.icanhazip.com/");
+                        var task = WebRequestHelper.GetRequest("http://ipv4.icanhazip.com/");
 
                         if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                             if (string.IsNullOrEmpty(task.Result)) {
                                 MessageBox.Show("Unable to connect to proxy try again...", "Connection Failed");
-                                WebHelper.ResetHttpClient();
+                                WebRequestHelper.ResetHttpClient();
                             } else {
                                 MessageBox.Show("Your IP Is : " + task.Result, "Connection Success");
                                 buttonConnect.Enabled = true;
@@ -88,13 +91,13 @@ namespace bantam.Forms
                             }
                         } else {
                             MessageBox.Show("Unable to connect to proxy try again...");
-                            WebHelper.ResetHttpClient();
+                            WebRequestHelper.ResetHttpClient();
                             buttonResetProxy.Enabled = false;
                         }
                     }
                     catch(Exception) {
                         MessageBox.Show("Unable to connect to proxy try again...");
-                        WebHelper.ResetHttpClient();
+                        WebRequestHelper.ResetHttpClient();
                         buttonResetProxy.Enabled = false;
                     }
                 }
@@ -109,7 +112,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void buttonResetProxy_Click(object sender, EventArgs e)
         {
-            WebHelper.ResetHttpClient();
+            WebRequestHelper.ResetHttpClient();
             buttonResetProxy.Enabled = false;
         }
 

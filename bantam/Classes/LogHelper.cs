@@ -58,7 +58,7 @@ namespace bantam.Classes
                 return;
             }
 
-            MessageBox.Show(logMessage, windowTitle);
+            MessageBox.Show(logMessage, "ERROR at - " + windowTitle);
         }
     }
 }

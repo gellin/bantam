@@ -39,6 +39,7 @@ namespace bantam.Forms
             POPEN,
             BACKTICKS
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -91,6 +92,11 @@ namespace bantam.Forms
             Config.InjectRandomComments = checkBoxRandomComments.Checked;
         }
 
+        /// <summary>
+        /// Prevent anything other than digits from being entered into the "textBoxMaxCommentLength"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
@@ -98,6 +104,11 @@ namespace bantam.Forms
             }
         }
 
+        /// <summary>
+        /// Prevent anything other than digits from being entered into the "textBoxPhpVarNameMaxLen"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxPhpVarNameMaxLen_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
@@ -105,6 +116,11 @@ namespace bantam.Forms
             }
         }
 
+        /// <summary>
+        /// Prevent anything other than digits from being entered into the "textBoxMaxPostSize"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxMaxPostSize_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
@@ -112,7 +128,12 @@ namespace bantam.Forms
             }
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        /// <summary>
+        /// Prevent anything other than digits from being entered into the "textBoxTimeout"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxTimeout_keyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;

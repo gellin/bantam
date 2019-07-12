@@ -1,7 +1,13 @@
 ﻿namespace bantam.Classes
 {
+    /// <summary>
+    /// Config Class, Holds default and global config / option variables
+    /// </summary>
     static class Config
     {
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         static Config()
         {
             //todo this should be in our global xml file

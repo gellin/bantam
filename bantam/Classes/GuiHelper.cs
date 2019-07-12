@@ -20,7 +20,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Recursivly copyies all the Treeview Nodes from the source to the dest
+        /// Recursively copyies all the Treeview Nodes from the source to the dest
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dest"></param>
@@ -39,7 +39,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Recursivly copies Treeview Child Nodes
+        /// Recursively copies Treeview Child Nodes
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="willCopied"></param>
@@ -122,7 +122,7 @@ namespace bantam.Classes
             };
 
             randomize.Click += (sender, e) => {
-                textBox.Text = WebHelper.commonUseragents[Helper.RandomDictionaryValue(WebHelper.commonUseragents)];
+                textBox.Text = WebRequestHelper.commonUseragents[Helper.RandomDictionaryValue(WebRequestHelper.commonUseragents)];
             };
 
             cancel.Click += (sender, e) => { prompt.Close(); };

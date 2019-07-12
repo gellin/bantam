@@ -10,7 +10,7 @@ namespace bantam.Forms
     public partial class ModifyShell : Form
     {
         /// <summary>
-        /// 
+        /// The url of the shell that promted the modify shell form to be opened
         /// </summary>
         private static string g_CallingShellUrl = string.Empty;
 
@@ -21,14 +21,20 @@ namespace bantam.Forms
             "cookie",
             "post",
         }.AsReadOnly();
-
+     
         /// <summary>
         /// 
         /// </summary>
-        private static readonly ReadOnlyCollection<string> ResponseEncryptionModes = new List<string> {
-             "openssl",
-             "mcrypt",
-        }.AsReadOnly();
+        public void IntitalizeFormControls()
+        {
+            foreach (var item in requestTypes) {
+                comboBoxVarType.Items.Add(item);
+            }
+
+            foreach (var item in CryptoHelper.encryptoModeStrings) {
+                comboBoxEncryptionMode.Items.Add(item);
+            }
+        }
 
         /// <summary>
         /// Add shell constructor
@@ -37,13 +43,7 @@ namespace bantam.Forms
         {
             InitializeComponent();
 
-            foreach(var item in requestTypes) {
-                comboBoxVarType.Items.Add(item);
-            }
-
-            foreach(var item in ResponseEncryptionModes) {
-                comboBoxEncryptionMode.Items.Add(item);
-            }
+            IntitalizeFormControls();
 
             comboBoxVarType.SelectedIndex = 0;
             comboBoxEncryptionMode.SelectedIndex = 0;
@@ -61,15 +61,9 @@ namespace bantam.Forms
         {
             InitializeComponent();
 
+            IntitalizeFormControls();
+
             Text = "Update Shell";
-
-            foreach (var item in requestTypes) {
-                comboBoxVarType.Items.Add(item);
-            }
-
-            foreach (var item in ResponseEncryptionModes) {
-                comboBoxEncryptionMode.Items.Add(item);
-            }
 
             g_CallingShellUrl = shellUrl;
             txtBoxShellUrl.Text = shellUrl;
@@ -90,6 +84,7 @@ namespace bantam.Forms
                 }
             }
 
+            //todo should default to post?
             if (requestTypes.Contains(varType)) {
                 comboBoxVarType.SelectedIndex = requestTypes.IndexOf(varType);
             } else {
@@ -98,6 +93,64 @@ namespace bantam.Forms
 
             btnAddShell.Visible = false;
             btnUpdateShell.Visible = true;
+            labelDynAddHostsStatus.Text = "";
+        }
+
+        /// <summary>
+        /// Constructor called from backdoor generator
+        /// </summary>
+        /// <param name="shellUrl"></param>
+        /// <param name="varName"></param>
+        /// <param name="varType"></param>
+        /// <param name="gzipRequestData"></param>
+        /// <param name="encryptResponse"></param>
+        /// <param name="responseEncryptionMode"></param>
+        /// <param name="encryptRequest"></param>
+        /// <param name="requestEncryptionIV"></param>
+        /// <param name="requestEncryptionKey"></param>
+        /// <param name="requestEncryptionIvVarName"></param>
+        public ModifyShell(string varName, string varType, bool gzipRequestData, bool encryptRequest, 
+                           string requestEncryptionIV, string requestEncryptionKey, string requestEncryptionIvVarName, bool tcheckBoxSendIVInRequest, string encryptionType)
+        {
+            InitializeComponent();
+            IntitalizeFormControls();
+
+            txtBoxArgName.Text = varName;
+            checkBoxGZipRequest.Checked = gzipRequestData;
+
+            //checkBoxResponseEncryption.Checked = encryptResponse;
+            //comboBoxEncryptionMode.SelectedIndex = responseEncryptionMode;
+
+            checkBoxEncryptRequest.Checked = encryptRequest;
+            if (checkBoxEncryptRequest.Checked) {
+                checkBoxSendIVInRequest.Checked = tcheckBoxSendIVInRequest;
+
+                if (!checkBoxSendIVInRequest.Checked) {
+                    textBoxEncrpytionIV.Enabled = true;
+                    textBoxIVVarName.Enabled = false;
+                } else {
+                    textBoxEncrpytionIV.Enabled = false;
+                    textBoxIVVarName.Enabled = true;
+                }
+
+                textBoxEncrpytionIV.Text = requestEncryptionIV;
+                textBoxEncrpytionKey.Text = requestEncryptionKey;
+                textBoxIVVarName.Text = requestEncryptionIvVarName;
+            }
+
+            //todo should default to post?
+            if (requestTypes.Contains(varType)) {
+                comboBoxVarType.SelectedIndex = requestTypes.IndexOf(varType);
+            } else {
+                comboBoxVarType.SelectedIndex = 0;
+            }
+
+            if (CryptoHelper.encryptoModeStrings.Contains(encryptionType)) {
+                comboBoxEncryptionMode.SelectedIndex = CryptoHelper.encryptoModeStrings.IndexOf(encryptionType);
+            } else {
+                comboBoxEncryptionMode.SelectedIndex = 0;
+            }
+
             labelDynAddHostsStatus.Text = "";
         }
 
@@ -190,7 +243,7 @@ namespace bantam.Forms
             }
 
             string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
-            ResponseObject response = await WebHelper.ExecuteRemotePHP(shellURL, phpCode);
+            ResponseObject response = await WebRequestHelper.ExecuteRemotePHP(shellURL, phpCode);
 
             if (string.IsNullOrEmpty(response.Result)) {
                 labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";

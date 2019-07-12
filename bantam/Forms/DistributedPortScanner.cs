@@ -33,7 +33,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main Distributed scanning routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

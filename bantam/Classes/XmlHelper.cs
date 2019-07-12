@@ -16,12 +16,13 @@ namespace bantam.Classes
         public async static Task LoadShells(string configFile)
         {
             if (File.Exists(configFile)) {
+
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(configFile);
 
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//servers/server");
 
-                if (itemNodes.Count > 0) {
+                if (itemNodes != null && itemNodes.Count > 0) {
                     foreach (XmlNode itemNode in itemNodes) {
                         string hostTarget = (itemNode.Attributes?["host"] != null) ? itemNode.Attributes["host"].Value : string.Empty;
                         string requestArg = (itemNode.Attributes?["request_arg"] != null) ? itemNode.Attributes["request_arg"].Value : string.Empty;
@@ -40,11 +41,11 @@ namespace bantam.Classes
 
                         if (BantamMain.Shells.ContainsKey(hostTarget)) {
                             continue;
-                        } else {
-                            if (!BantamMain.Shells.TryAdd(hostTarget, new ShellInfo())) {
-                                LogHelper.AddGlobalLog("Unable to add (" + hostTarget + ") to shells from XML", "LoadShells failure", LogHelper.LOG_LEVEL.ERROR);
-                                continue;
-                            }
+                        }
+
+                        if (!BantamMain.Shells.TryAdd(hostTarget, new ShellInfo())) {
+                            LogHelper.AddGlobalLog("Unable to add (" + hostTarget + ") to shells from XML", "LoadShells failure", LogHelper.LOG_LEVEL.ERROR);
+                            continue;
                         }
 
                         if (string.IsNullOrEmpty(requestArg) == false

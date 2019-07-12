@@ -82,7 +82,7 @@
     <Compile Include="Classes\TextBoxButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\WebHelper.cs" />
+    <Compile Include="Classes\WebRequestHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
     <Compile Include="Forms\BackdoorGenerator.cs">
       <SubType>Form</SubType>

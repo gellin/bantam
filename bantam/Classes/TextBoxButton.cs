@@ -5,10 +5,13 @@ using System.Windows.Forms;
 namespace bantam.Classes
 {
     /// <summary>
-    /// 
+    /// This is a custom Textbox control that contains a button in the left side that can trigger an action via (MouseEventHandler) and a custom KeyEventHandler
     /// </summary>
     public class TextBoxButton : TextBox
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly Button btnBack = new Button();
 
         /// <summary>
