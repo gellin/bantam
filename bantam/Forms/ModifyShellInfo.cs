@@ -155,7 +155,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main add shell/host To GUI routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -315,7 +315,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Gets your IPv4 address for you
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

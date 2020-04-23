@@ -8,6 +8,47 @@ namespace bantam.Classes
 {
     static class XmlHelper
     {
+
+        /// <summary>
+        /// Load Our File Options Dynamically
+        /// </summary>
+        /// <param name="settingsFile"></param>
+        /// <returns></returns>
+        public async static Task LoadSettings(string settingsFile)
+        {
+            if (File.Exists(settingsFile))
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(settingsFile);
+
+                XmlNodeList fileNodes = xmlDoc.SelectNodes("//settings/files/file");
+                if (fileNodes != null && fileNodes.Count > 0)
+                {
+                    foreach (XmlNode itemNode in fileNodes)
+                    {
+                        string text = (itemNode.Attributes?["text"] != null) ? itemNode.Attributes["text"].Value : string.Empty;
+                        string file = (itemNode.Attributes?["loc"] != null) ? itemNode.Attributes["loc"].Value : string.Empty;
+                        bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
+
+                        BantamMain.Instance.AddReadFileOptionFromXML(file, text, isWindowsFile);
+                    }
+                }
+
+                XmlNodeList commandNodes = xmlDoc.SelectNodes("//settings/commands/command");
+                if (commandNodes != null && commandNodes.Count > 0)
+                {
+                    foreach (XmlNode itemNode in commandNodes)
+                    {
+                        string text = (itemNode.Attributes?["text"] != null) ? itemNode.Attributes["text"].Value : string.Empty;
+                        string command = (itemNode.Attributes?["cmd"] != null) ? itemNode.Attributes["cmd"].Value : string.Empty;
+                        bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
+
+                        BantamMain.Instance.AddOsCommandOptionFromXML(command, text, isWindowsFile);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Loads Shells into the UI from an XML file
         /// </summary>

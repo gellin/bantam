@@ -232,7 +232,6 @@
     <None Include="Art\generate_16x16.png" />
     <None Include="Art\add_16x16.png" />
     <Content Include="Dependencies\SocksSharp.dll" />
-    <Content Include="Dependencies\SocksSharp.pdb" />
     <Content Include="Notes\todo.txt" />
   </ItemGroup>
   <ItemGroup>

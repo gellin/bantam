@@ -67,7 +67,7 @@ namespace bantam.Classes
             client = new HttpClient(new HttpClientHandler {
                 UseProxy = true,
                 UseCookies = false,
-                Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false)
+                Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false),
             });
         }
 
@@ -179,6 +179,60 @@ namespace bantam.Classes
         /// 
         /// </summary>
         /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> testGetRequest(string url)
+        {
+            WebRequest request = WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+
+            string responseFromServer = reader.ReadToEnd();
+            return responseFromServer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public static async Task<string> testPostRequest(string url, Dictionary<string, string> values)
+        {
+            WebRequest request = WebRequest.Create(url);
+
+            request.Method = "POST";
+
+            string postData = "HELLO :D:D";
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
+
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = byteArray.Length;
+
+            Stream dataStream = request.GetRequestStream();
+
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            dataStream.Close();
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            string responseFromServer = "";
+            using (dataStream = response.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(dataStream);
+                responseFromServer += reader.ReadToEnd();
+            }
+
+            response.Close();
+
+            return responseFromServer;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
         /// <param name="phpCode"></param>
         /// <returns></returns>
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCodeIn, bool disableEncryption = false)
@@ -206,17 +260,6 @@ namespace bantam.Classes
             }
 
             try {
-                HttpMethod method;
-
-                if (sendViaCookie) {
-                    method = HttpMethod.Get;
-                } else {
-                    method = HttpMethod.Post;
-                }
-
-                var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
-
                 if (encryptResponse && !disableEncryption) {
                     phpCode += PhpBuilder.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);
                 }
@@ -253,6 +296,20 @@ namespace bantam.Classes
                 } else {
                     phpCode = Convert.ToBase64String(phpCodeBytes);
                 }
+
+                HttpMethod method;
+
+                if (sendViaCookie)
+                {
+                    method = HttpMethod.Get;
+                }
+                else
+                {
+                    method = HttpMethod.Post;
+                }
+
+                var request = new HttpRequestMessage(method, url);
+                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
                 phpCodeBytes = null;
                 phpCode = HttpUtility.UrlEncode(phpCode);

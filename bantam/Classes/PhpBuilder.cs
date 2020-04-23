@@ -49,10 +49,10 @@ namespace bantam.Classes
         public const string posixOS_Whoami          = "whoami";
 
         public static readonly string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
-        public static readonly string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
+        public static readonly string phpOb_End   = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
         /// <summary>
-        /// 
+        /// Generates a "randomly" named php variable for use/reference within code
         /// </summary>
         /// <param name="maxNum"></param>
         /// <returns></returns>
@@ -177,7 +177,7 @@ namespace bantam.Classes
             } else if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
             } else {
-                LogHelper.AddGlobalLog("Unkown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.ERROR);
+                LogHelper.AddGlobalLog("Unknown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.ERROR);
                 return string.Empty;
             }
 

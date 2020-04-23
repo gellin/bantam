@@ -80,6 +80,11 @@ namespace bantam.Forms
             textBoxTimeout.Text = Config.TimeoutMS.ToString();  
         }
 
+        /// <summary>
+        /// Enable random commends toggle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxRandomComments.Checked) {
