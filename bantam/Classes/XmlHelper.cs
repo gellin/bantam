@@ -8,9 +8,9 @@ namespace bantam.Classes
 {
     static class XmlHelper
     {
-
         /// <summary>
         /// Load settings, and features dynamically
+        /// Loads dynamic OS Command, and ReadFile execution vectors from XML settings file
         /// </summary>
         /// <param name="settingsFile"></param>
         /// <returns></returns>
@@ -27,11 +27,13 @@ namespace bantam.Classes
                     foreach (XmlNode itemNode in fileNodes)
                     {
                         string text = (itemNode.Attributes?["text"] != null) ? itemNode.Attributes["text"].Value : string.Empty;
-                        string file = (itemNode.Attributes?["loc"] != null) ? itemNode.Attributes["loc"].Value : string.Empty;
-                        bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
+                        string file = (itemNode.Attributes?["location"] != null) ? itemNode.Attributes["location"].Value : string.Empty;
+                        bool isWindowsFile = (itemNode.Attributes?["is_windows"] != null) ? true : false;
 
                         BantamMain.Instance.AddReadFileOptionToGUIFromXML(file, text, isWindowsFile);
                     }
+                } else {
+                    LogHelper.AddGlobalLog("Could not find read file functions in settings file...", "SETTINGS FILE ERROR", LogHelper.LOG_LEVEL.ERROR);
                 }
 
                 XmlNodeList commandNodes = xmlDoc.SelectNodes("//settings/commands/command");
@@ -40,12 +42,16 @@ namespace bantam.Classes
                     foreach (XmlNode itemNode in commandNodes)
                     {
                         string text = (itemNode.Attributes?["text"] != null) ? itemNode.Attributes["text"].Value : string.Empty;
-                        string command = (itemNode.Attributes?["cmd"] != null) ? itemNode.Attributes["cmd"].Value : string.Empty;
-                        bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
+                        string command = (itemNode.Attributes?["command"] != null) ? itemNode.Attributes["command"].Value : string.Empty;
+                        bool isWindowsFile = (itemNode.Attributes?["is_windows"] != null) ? true : false;
 
                         BantamMain.Instance.AddOsCommandOptionToGUIFromXML(command, text, isWindowsFile);
                     }
+                } else {
+                    LogHelper.AddGlobalLog("Could not find os commands in settings file...", "SETTINGS FILE ERROR", LogHelper.LOG_LEVEL.ERROR);
                 }
+            } else {
+                LogHelper.AddGlobalLog("Could not find settings file, features will be missing...", "SETTINGS FILE ERROR", LogHelper.LOG_LEVEL.ERROR);
             }
         }
 

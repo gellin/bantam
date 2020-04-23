@@ -115,7 +115,6 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected (" + str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.INFO);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
@@ -141,7 +140,6 @@ namespace bantam.Classes
             string cleanB64 = str;
 
             if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
-                LogHelper.AddGlobalLog("Dirty Base64 Detected ("+ str + "), attempting to clean string", "Base64 Decode failure", LogHelper.LOG_LEVEL.INFO);
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 

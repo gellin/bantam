@@ -153,8 +153,6 @@
             // 
             this.checkBoxResponseEncryption.AutoSize = true;
             this.checkBoxResponseEncryption.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxResponseEncryption.Checked = true;
-            this.checkBoxResponseEncryption.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxResponseEncryption.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.checkBoxResponseEncryption.Location = new System.Drawing.Point(22, 176);
             this.checkBoxResponseEncryption.Name = "checkBoxResponseEncryption";

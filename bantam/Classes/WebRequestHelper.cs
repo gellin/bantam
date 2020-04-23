@@ -297,22 +297,20 @@ namespace bantam.Classes
                     phpCode = Convert.ToBase64String(phpCodeBytes);
                 }
 
+                phpCodeBytes = null;
+                phpCode = HttpUtility.UrlEncode(phpCode);
+
+
                 HttpMethod method;
 
-                if (sendViaCookie)
-                {
+                if (sendViaCookie) {
                     method = HttpMethod.Get;
-                }
-                else
-                {
+                } else {
                     method = HttpMethod.Post;
                 }
 
                 var request = new HttpRequestMessage(method, url);
                 request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
-
-                phpCodeBytes = null;
-                phpCode = HttpUtility.UrlEncode(phpCode);
 
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
@@ -320,11 +318,14 @@ namespace bantam.Classes
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
+                    ////////////////////////////////////////////////////////////////////
                     request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
 
                     if (encryptRequest && sendRequestEncryptionIV) {
                         request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
                     }
+                    /////////////////////////////////////////////////////////////////////
+                    
                 } else {
                     string postArgs = string.Empty;
 
@@ -341,13 +342,17 @@ namespace bantam.Classes
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
+                    /////////////////////////////////////////////////////////////////////
                     request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
+                    /////////////////////////////////////////////////////////////////////
                 }
 
+                /////////////////////////////////////////////////////////////////////
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
                     var responseString = await response.Content.ReadAsStringAsync();
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
+                /////////////////////////////////////////////////////////////////////
             } catch (System.Net.Http.HttpRequestException e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             } catch (Exception e) {

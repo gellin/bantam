@@ -20,7 +20,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Recursively copyies all the Treeview Nodes from the source to the dest
+        /// Recursively copies all the Treeview Nodes from the source to the dest
         /// </summary>
         /// <param name="source"></param>
         /// <param name="dest"></param>
