@@ -10,7 +10,7 @@ namespace bantam.Classes
     {
 
         /// <summary>
-        /// Load Our File Options Dynamically
+        /// Load settings, and features dynamically
         /// </summary>
         /// <param name="settingsFile"></param>
         /// <returns></returns>
@@ -30,7 +30,7 @@ namespace bantam.Classes
                         string file = (itemNode.Attributes?["loc"] != null) ? itemNode.Attributes["loc"].Value : string.Empty;
                         bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
 
-                        BantamMain.Instance.AddReadFileOptionFromXML(file, text, isWindowsFile);
+                        BantamMain.Instance.AddReadFileOptionToGUIFromXML(file, text, isWindowsFile);
                     }
                 }
 
@@ -43,7 +43,7 @@ namespace bantam.Classes
                         string command = (itemNode.Attributes?["cmd"] != null) ? itemNode.Attributes["cmd"].Value : string.Empty;
                         bool isWindowsFile = (itemNode.Attributes?["is_win"] != null) ? true : false;
 
-                        BantamMain.Instance.AddOsCommandOptionFromXML(command, text, isWindowsFile);
+                        BantamMain.Instance.AddOsCommandOptionToGUIFromXML(command, text, isWindowsFile);
                     }
                 }
             }

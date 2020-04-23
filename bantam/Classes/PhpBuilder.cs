@@ -21,33 +21,6 @@ namespace bantam.Classes
         /// </summary>
         public const string phpServerScriptFileName = "$_SERVER['SCRIPT_FILENAME']";
 
-        /// <summary>
-        /// Linux File Locations
-        /// </summary>
-        public const string linuxFS_ShadowFile          = "/etc/shadow";
-        public const string linuxFS_PasswdFile          = "/etc/passwd";
-        public const string linuxFS_IssueFile           = "/etc/issue.net";
-        public const string linuxFS_hostTargetsFile     = "/etc/hosts";
-        public const string linuxFS_ProcVersion         = "/proc/version";
-        public const string linuxFS_NetworkInterfaces   = "/etc/network/interfaces";
-
-        /// <summary>
-        /// Windows File Locations
-        /// </summary>
-        public const string windowsFS_hostTargets = "C:\\Windows\\System32\\drivers\\etc\\hosts";
-
-        /// <summary>
-        /// OS Commands
-        /// </summary>
-        public const string linuxOS_PsAux           = "ps aux";
-        public const string linuxOS_Ifconfig        = "ifconfig";
-        public const string windowsOS_Ipconfig      = "ipconfig";
-        public const string windowsOS_TaskList      = "tasklist";
-        public const string windowsOS_NetUser       = "net user";
-        public const string windowsOS_NetAccounts   = "net accounts";
-        public const string windowsOS_Ver           = "ver";
-        public const string posixOS_Whoami          = "whoami";
-
         public static readonly string phpOb_Start = RandomPHPComment() + "@ob_start();" + RandomPHPComment();
         public static readonly string phpOb_End   = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
@@ -593,16 +566,6 @@ namespace bantam.Classes
                 result.Append(line);
             }
             return result.ToString();
-        }
-
-        /// <summary>
-        /// Returns the appropriate console command for getting running process
-        /// </summary>
-        /// <param name="windowsOS"></param>
-        /// <returns></returns>
-        public static string TaskListFunction(bool windowsOS = true)
-        {
-            return (windowsOS) ? windowsOS_TaskList : linuxOS_PsAux;
         }
     }
 }

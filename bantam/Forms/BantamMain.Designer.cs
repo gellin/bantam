@@ -170,7 +170,7 @@
             this.removeToolStripMenuItem,
             this.testConnectionToolStripMenuItem});
             this.listviewClientsContextMenu.Name = "listViewContextMenuStrip";
-            this.listviewClientsContextMenu.Size = new System.Drawing.Size(185, 234);
+            this.listviewClientsContextMenu.Size = new System.Drawing.Size(185, 212);
             this.listviewClientsContextMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.listviewClientsContextMenu_Paint);
             // 
             // phpToolStripMenuItem
@@ -190,7 +190,7 @@
             this.phpinfoToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.phpinfoToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("phpinfoToolStripMenuItem.Image")));
             this.phpinfoToolStripMenuItem.Name = "phpinfoToolStripMenuItem";
-            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.phpinfoToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
             this.phpinfoToolStripMenuItem.Text = "PHP Info";
             this.phpinfoToolStripMenuItem.Click += new System.EventHandler(this.phpinfoToolStripMenuItem_Click);
             // 
@@ -198,16 +198,16 @@
             // 
             this.evalToolStripMenuItem.Image = global::bantam.Properties.Resources.eval_16x16;
             this.evalToolStripMenuItem.Name = "evalToolStripMenuItem";
-            this.evalToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.evalToolStripMenuItem.Text = "Eval";
+            this.evalToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.evalToolStripMenuItem.Text = "Eval Editor";
             this.evalToolStripMenuItem.Click += new System.EventHandler(this.evalToolStripMenuItem_Click);
             // 
             // portScannerToolStripMenuItem
             // 
             this.portScannerToolStripMenuItem.Image = global::bantam.Properties.Resources.ports_16x16;
             this.portScannerToolStripMenuItem.Name = "portScannerToolStripMenuItem";
-            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.portScannerToolStripMenuItem.Text = "Port Scanner";
+            this.portScannerToolStripMenuItem.Size = new System.Drawing.Size(203, 26);
+            this.portScannerToolStripMenuItem.Text = "Remote Port Scanner";
             this.portScannerToolStripMenuItem.Click += new System.EventHandler(this.portScannerToolStripMenuItem_Click);
             // 
             // editPHPCodeToolStripMenuItem

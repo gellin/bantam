@@ -828,6 +828,45 @@ namespace bantam
         }
 
         /// <summary>
+        /// Retests the ping of the selected shell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void testConnectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ValidTarget() == false)
+            {
+                return;
+            }
+
+            string shellUrl = SelectedShellUrl;
+            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
+            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
+
+            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
+
+            if (lvi != null
+            && (Shells[shellUrl].PingStopwatch == null
+            || Shells[shellUrl].PingStopwatch.IsRunning == false))
+            {
+
+                Shells[shellUrl].PingStopwatch = new Stopwatch();
+                Shells[shellUrl].PingStopwatch.Start();
+
+                string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
+                string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
+
+                if (string.IsNullOrEmpty(result))
+                {
+                    return;
+                }
+
+                lvi.SubItems[1].Text = Shells[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
+                Shells[shellUrl].PingStopwatch.Stop();
+            }
+        }
+
+        /// <summary>
         /// Opens the modify shell dialog with existing shell/connection data
         /// </summary>
         /// <param name="sender"></param>
@@ -919,45 +958,6 @@ namespace bantam
         {
             Options optionsForm = new Options();
             optionsForm.ShowDialog();
-        }
-
-        /// <summary>
-        /// Retests the ping of the selected shell
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void testConnectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (ValidTarget() == false)
-            {
-                return;
-            }
-
-            string shellUrl = SelectedShellUrl;
-            bool encryptResponse = Shells[shellUrl].ResponseEncryption;
-            int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
-
-            ListViewItem lvi = GuiHelper.GetFirstSelectedListview(listViewShells);
-
-            if (lvi != null
-            && (Shells[shellUrl].PingStopwatch == null
-            || Shells[shellUrl].PingStopwatch.IsRunning == false))
-            {
-
-                Shells[shellUrl].PingStopwatch = new Stopwatch();
-                Shells[shellUrl].PingStopwatch.Start();
-
-                string phpCode = PhpBuilder.PhpTestExecutionWithEcho1(encryptResponse);
-                string result = await ExecutePHPCode(shellUrl, phpCode, encryptResponse, ResponseEncryptionMode);
-
-                if (string.IsNullOrEmpty(result))
-                {
-                    return;
-                }
-
-                lvi.SubItems[1].Text = Shells[shellUrl].PingStopwatch.ElapsedMilliseconds.ToString() + " ms";
-                Shells[shellUrl].PingStopwatch.Stop();
-            }
         }
 
         #endregion
@@ -1423,12 +1423,12 @@ namespace bantam
         #region OS_COMMANDS
 
         /// <summary>
-        /// 
+        /// Creates a new OS command into the GUI/toolstrip menu
         /// </summary>
         /// <param name="command"></param>
         /// <param name="text"></param>
         /// <param name="is_windows"></param>
-        public void AddOsCommandOptionFromXML(string command, string text, bool is_windows)
+        public void AddOsCommandOptionToGUIFromXML(string command, string text, bool is_windows)
         {
             ToolStripItem toolStripItem;
 
@@ -1439,14 +1439,20 @@ namespace bantam
             }
             
             toolStripItem.Tag = command;
-            toolStripItem.Click += new EventHandler(this.OsCommandCallback);
+            toolStripItem.Click += new EventHandler(this.OsCommandClickHandler);
         }
 
-        private void OsCommandCallback(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the click events for the dynamically created OSCommand functions, builds and runs code, displays result
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OsCommandClickHandler(object sender, EventArgs e)
         {
+            //Obtain the command sent through the "tag" property of the Item
             ToolStripItem item = (ToolStripItem)sender;
-
             string command = (string)item.Tag;
+
             string shellUrl = SelectedShellUrl;
             bool encrypt = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
@@ -1454,18 +1460,18 @@ namespace bantam
 
             ExecutePHPCodeDisplayInRichTextBox(shellUrl, phpCode, command, encrypt, ResponseEncryptionMode);
         }
-       
+
         #endregion
 
         #region READ_COMMON_FILES
 
         /// <summary>
-        /// 
+        /// Creates a readfile command into the GUI/toolstrip menu
         /// </summary>
         /// <param name="file"></param>
         /// <param name="text"></param>
         /// <param name="is_windows"></param>
-        public void AddReadFileOptionFromXML(string file, string text, bool is_windows)
+        public void AddReadFileOptionToGUIFromXML(string file, string text, bool is_windows)
         {
             ToolStripItem toolStripItem;
 
@@ -1475,17 +1481,19 @@ namespace bantam
                 toolStripItem = this.linuxToolStripMenuItem.DropDownItems.Add(text);
             }
 
+            //Filename to read is passed through the elements "tag" property
             toolStripItem.Tag = file;
-            toolStripItem.Click += new EventHandler(this.ReadFileOptionCallback);
+            toolStripItem.Click += new EventHandler(this.ReadFileOptionClickHandler);
         }
 
         /// <summary>
-        /// 
+        /// Handles the click events for the dynamically created read file functions, builds code, reads file, displays result
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ReadFileOptionCallback(object sender, EventArgs e)
+        private void ReadFileOptionClickHandler(object sender, EventArgs e)
         {
+            //Obtain the filename sent through the "tag" property of the Item
             ToolStripItem item = (ToolStripItem)sender;
             string file = (string)item.Tag;
 

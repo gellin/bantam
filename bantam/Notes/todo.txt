@@ -1,10 +1,13 @@
 ﻿ICE BOX
+  * ? - sql feature  
+  * ? - global XML for proxy settings so it saves?
+  * ? - distributed fucking, dirbuster
+  * ? - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
+
   * ? - stager stuff in session to reduce request size / encryption - should have option to send as stager or already be uploaded
   * ? - windows reverse shell / console via power shell & perl
-  * ? - tunnel feature, right click a client set them as the tunnel, all traffic will go through them first, have an icon to display who's the tunnel, unset tunnel, test communication etc
   * ? - fix windows caveats
   * ? - make row and col seperator random
-  * ? - sql feature
   * ? - add chunking into requests specifically file uploader
   * ? - password feature / require useragent feature
   * ? - global cfg option to enable disable error suppression via @ to see more debug data
@@ -16,7 +19,6 @@
   * ? - timeout on the fsock side of the port scanner (make as a controllable option/var)
   * ? - strerev payload or parts of the payload and put it back together / payload b64 letter swapping XD / rot13
   * ? - chankro implementation needs more testing on servers it's known to work with
-  * ? - global XML for proxy settings so it saves?
   * ? - bypass disabled_functions with mod_cgi and .htaccess
   * ? - add custom $_SERVER http_verb as vector for sending data
   * ? - add a save settings feature to reverse shell form
@@ -28,7 +30,6 @@
   * ? - remove a line from file containing X string via sed "clear log"
   * ? - ensure calls needing a timeout have one
   * ? - system code execution should support a barrage method
-  * ? - distributed fucking, dirbuster
   * ? - find 7.0x+ caveates and put in logging or message's / ui alerts that it
   * ? - option to show php payloads in the logs
   * ? - touch feature
