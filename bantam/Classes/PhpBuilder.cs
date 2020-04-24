@@ -255,7 +255,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Grabs a screenshot of the Desktop of the current user and echo's the result into an html image tag - Windows Only
         /// </summary>
         /// <returns></returns>
         public static string WindowsDesktopScreenShot()

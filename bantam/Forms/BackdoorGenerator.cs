@@ -40,7 +40,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// Called everytime a UI element is changed that modifys the backdoor code to update the richtextbox text.
+        /// Called everytime a UI element is changed that modifys the backdoor code to update the richtextbox/output text
         /// </summary>
         public void UpdateForm()
         {
@@ -164,7 +164,7 @@ namespace bantam.Forms
         }
 
         /// <summary>
-        /// 
+        /// Main backdoor "generation" code that forms the backdoor code based on the options
         /// </summary>
         /// <param name="varName"></param>
         /// <param name="method"></param>

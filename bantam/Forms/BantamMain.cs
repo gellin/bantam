@@ -68,6 +68,7 @@ namespace bantam
             //setup console input's auto complete source
             textBoxConsoleInput.AutoCompleteCustomSource = consoleTextboxAutoComplete;
 
+            //Loads the mandatory settings file
             XmlHelper.LoadSettings(AppDomain.CurrentDomain.BaseDirectory + "/settings.xml");
         }
 
@@ -302,7 +303,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Eval execution editor and execution routine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -335,7 +336,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Eval execution wrapper for handling mass eval executions
         /// </summary>
         /// <param name="shellUrl"></param>
         /// <param name="code"></param>
@@ -360,7 +361,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// Mass Eval!  
+        /// Mass eval routine handler and loop
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -416,16 +417,6 @@ namespace bantam
 
             UploadFile u = new UploadFile(shellUrl, result, true);
             u.ShowDialog();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private async void pingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -573,7 +564,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Creates a screenshot of a Windows server desktop and displays the result in a browser viewer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -597,7 +588,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Tab Control Selected Index Changed event handler, for saving gui states and settings etc
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -650,7 +641,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Listview Clients Paint event hook, to disable / enable features dynamically. I.E - Window/Linux
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -674,7 +665,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Removes a shell/client from the listview
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -692,7 +683,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Removes the client, re-adds it and tests the connection
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -715,7 +706,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Saves the current shell/client list to an XML file specified in the savefile dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -733,7 +724,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the current shell/clients from the specified XML list
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -760,7 +751,7 @@ namespace bantam
         }
         
         /// <summary>
-        /// Enter Keydown Hadler for console input
+        /// Console Input Keydown handler for intercepting enterkeypress and triggering the event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -774,7 +765,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// Enter Keydown handler for filebrowser path
+        /// Filebrowser Input Keydown handler for intercepting enterkeypress and triggering the event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -812,7 +803,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Copys the full shell url to the clipboard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -822,7 +813,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Runs the console command input into the textbox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -980,7 +971,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Opens the options dialog
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -995,7 +986,7 @@ namespace bantam
         #region FILE_BROWSER_EVENTS
 
         /// <summary>
-        /// 
+        /// Triggers the goback event in the file browser to navigate back a directory
         /// </summary>
         private async void btnFileBrowserBack_MouseClick(object sender, EventArgs e)
         {
@@ -1003,7 +994,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Upload File routine within filebrowser
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1077,7 +1068,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Main Filebrowser render / view update routine, triggered when change directories, on refresh
         /// </summary>
         /// <param name="result"></param>
         /// <param name="shellUrl"></param>
@@ -1137,7 +1128,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Filebrowser startup routine, fired on first showing or filebrowser refresh
         /// </summary>
         private async Task StartFileBrowser()
         {
@@ -1311,7 +1302,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Returns the selected name of the file from the filebrowser
         /// </summary>
         /// <returns></returns>
         private string fileBrowserGetFileName()
@@ -1320,7 +1311,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Returns the full path and file name from the filebrowser
         /// </summary>
         /// <returns></returns>
         private string fileBrowserGetFileNameAndPath()
