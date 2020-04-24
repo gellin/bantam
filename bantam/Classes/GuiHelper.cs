@@ -11,10 +11,8 @@ namespace bantam.Classes
         /// <returns></returns>
         public static ListViewItem GetFirstSelectedListview(ListView lv)
         {
-            if (lv.SelectedItems.Count > 0)
-            {
-                foreach (ListViewItem lvi in lv.SelectedItems)
-                {
+            if (lv.SelectedItems.Count > 0) {
+                foreach (ListViewItem lvi in lv.SelectedItems) {
                     return lvi;
                 }
             }
@@ -28,12 +26,9 @@ namespace bantam.Classes
         /// <param name="dest"></param>
         public static void CopyNodesFromTreeView(TreeView source, TreeView dest)
         {
-            if (source != null && dest != null)
-            {
-                foreach (TreeNode tn in source.Nodes)
-                {
-                    TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
-                    {
+            if (source != null && dest != null) {
+                foreach (TreeNode tn in source.Nodes) {
+                    TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
                         ForeColor = tn.ForeColor,
                         Name = tn.Name
                     };
@@ -50,10 +45,8 @@ namespace bantam.Classes
         /// <param name="willCopied"></param>
         public static void CopyChildrenFromTreeViewNode(TreeNode parent, TreeNode willCopied)
         {
-            foreach (TreeNode tn in willCopied.Nodes)
-            {
-                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex)
-                {
+            foreach (TreeNode tn in willCopied.Nodes) {
+                TreeNode newTn = new TreeNode(tn.Text, tn.ImageIndex, tn.ImageIndex) {
                     ForeColor = tn.ForeColor,
                     Name = tn.Name
                 };
@@ -71,8 +64,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static Form BuildForm(string title, int width, int height)
         {
-            Form prompt = new Form
-            {
+            Form prompt = new Form {
                 Width = width,
                 Height = height,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
@@ -93,23 +85,20 @@ namespace bantam.Classes
         {
             Form prompt = BuildForm(windowTitle, 500, 150);
 
-            Label textLabel = new Label
-            {
+            Label textLabel = new Label {
                 Left = 17,
                 Top = 20,
                 Text = currentUserAgent,
                 Width = 450
             };
 
-            TextBox textBox = new TextBox
-            {
+            TextBox textBox = new TextBox {
                 Left = 17,
                 Top = 50,
                 Width = 450
             };
 
-            Button cancel = new Button
-            {
+            Button cancel = new Button {
                 Text = "Cancel",
                 Left = 200,
                 Width = 100,
@@ -117,16 +106,14 @@ namespace bantam.Classes
                 DialogResult = DialogResult.Cancel
             };
 
-            Button randomize = new Button
-            {
+            Button randomize = new Button {
                 Text = "Random",
                 Left = 300,
                 Width = 100,
                 Top = 80,
             };
 
-            Button confirmation = new Button
-            {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
@@ -162,23 +149,20 @@ namespace bantam.Classes
         {
             Form prompt = BuildForm(windowTitle, 500, 150);
 
-            Label textLabel = new Label
-            {
+            Label textLabel = new Label {
                 Left = 50,
                 Top = 20,
                 Text = oldFileName,
                 Width = 400
             };
 
-            TextBox textBox = new TextBox
-            {
+            TextBox textBox = new TextBox {
                 Left = 50,
                 Top = 50,
                 Width = 400
             };
 
-            Button cancel = new Button
-            {
+            Button cancel = new Button {
                 Text = "Cancel",
                 Left = 300,
                 Width = 100,
@@ -186,8 +170,7 @@ namespace bantam.Classes
                 DialogResult = DialogResult.Cancel
             };
 
-            Button confirmation = new Button
-            {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 400,
                 Width = 50,
@@ -216,8 +199,7 @@ namespace bantam.Classes
         {
             Form prompt = BuildForm(windowTitle, 500, 500);
 
-            RichTextBox richTextBox = new RichTextBox
-            {
+            RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -246,8 +228,7 @@ namespace bantam.Classes
         {
             Form prompt = BuildForm(windowTitle, 500, 520);
 
-            RichTextBox richTextBox = new RichTextBox
-            {
+            RichTextBox richTextBox = new RichTextBox {
                 Left = 10,
                 Top = 10,
                 Width = 470,
@@ -255,8 +236,7 @@ namespace bantam.Classes
                 Text = text
             };
 
-            Button confirmation = new Button
-            {
+            Button confirmation = new Button {
                 Text = "Ok",
                 Left = 380,
                 Width = 100,
@@ -265,8 +245,7 @@ namespace bantam.Classes
                 Anchor = AnchorStyles.Right | AnchorStyles.Bottom
             };
 
-            CheckBox chkbxShowResponse = new CheckBox
-            {
+            CheckBox chkbxShowResponse = new CheckBox {
                 Text = "Show Response",
                 Left = 25,
                 Top = 455,

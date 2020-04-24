@@ -59,15 +59,13 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string DecryptShellResponse(string response, string encryptionKey, string encryptionIV, int encryptResponseMode)
         {
-            if (string.IsNullOrEmpty(response))
-            {
+            if (string.IsNullOrEmpty(response)) {
                 return string.Empty;
             }
 
             byte[] encryptedResult = Helper.DecodeBase64(response);
 
-            if (encryptedResult == null)
-            {
+            if (encryptedResult == null) {
                 return string.Empty;
             }
 
@@ -75,8 +73,7 @@ namespace bantam.Classes
 
             decryptedResult = DecryptRJ256(encryptedResult, encryptionKey, encryptionIV);
 
-            if (string.IsNullOrEmpty(decryptedResult))
-            {
+            if (string.IsNullOrEmpty(decryptedResult)) {
                 return string.Empty;
             }
 
@@ -94,8 +91,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV)
         {
-            RijndaelManaged aes = new RijndaelManaged
-            {
+            RijndaelManaged aes = new RijndaelManaged {
                 Padding = PaddingMode.PKCS7,
                 Mode = CipherMode.CBC,
                 KeySize = 256,
@@ -120,23 +116,18 @@ namespace bantam.Classes
             byte[] Key = Encoding.UTF8.GetBytes(encryptionKey);
             byte[] IV = Encoding.UTF8.GetBytes(encryptionIV);
 
-            using (RijndaelManaged aes = BuildAesMode(Key, IV))
-            {
-                try
-                {
+            using (RijndaelManaged aes = BuildAesMode(Key, IV)) {
+                try {
                     using (MemoryStream memoryStream = new MemoryStream(cipherText))
                     using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(Key, IV), CryptoStreamMode.Read))
-                    using (StreamReader streamReader = new StreamReader(cryptoStream))
-                    {
+                    using (StreamReader streamReader = new StreamReader(cryptoStream)) {
                         result = streamReader.ReadToEnd();
                     }
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     LogHelper.AddGlobalLog("Failed to decrypt cipherText - ( " + e.Message + " )", "Decryption routine failure", LogHelper.LOG_LEVEL.WARNING);
                 }
-                finally
-                {
+                finally {
                     aes.Clear();
                 }
             }
@@ -157,26 +148,20 @@ namespace bantam.Classes
             byte[] IV = Encoding.UTF8.GetBytes(encryptionIV);
             byte[] Key = Encoding.UTF8.GetBytes(encryptionKey);
 
-            using (RijndaelManaged aes = BuildAesMode(Key, IV))
-            {
-                try
-                {
-                    using (MemoryStream memoryStream = new MemoryStream())
-                    {
-                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write))
-                        {
+            using (RijndaelManaged aes = BuildAesMode(Key, IV)) {
+                try {
+                    using (MemoryStream memoryStream = new MemoryStream()) {
+                        using (CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(Key, IV), CryptoStreamMode.Write)) {
                             cryptoStream.Write(plainText, 0, plainText.Length);
                             cryptoStream.Close();
                         }
                         result = Convert.ToBase64String(memoryStream.ToArray());
                     }
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     LogHelper.AddGlobalLog("Failed to encrypt string - ( " + e.Message + " )", "Encryption routine failure", LogHelper.LOG_LEVEL.WARNING);
                 }
-                finally
-                {
+                finally {
                     aes.Clear();
                 }
             }

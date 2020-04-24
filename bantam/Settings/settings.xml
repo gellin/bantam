@@ -31,7 +31,7 @@
 	
 	<!--Plugins-->
 	<plugins>
-		<plugin name="mass_test" mass_execute="1" show_result="1" />
-		<plugin name="single_test" mass_execute="0" show_result="1" />
+		<plugin name="mass_example" mass_execute="1" show_result="1" />
+		<plugin name="single_example" mass_execute="0" show_result="1" />
 	</plugins>
 </settings>

@@ -27,8 +27,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void DistributedScanner_Load(object sender, EventArgs e)
         {
-            foreach (var shell in BantamMain.Shells)
-            {
+            foreach (var shell in BantamMain.Shells) {
                 checkedListBoxShells.Items.Add(shell.Key);
             }
         }
@@ -40,8 +39,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxTarget.Text))
-            {
+            if (string.IsNullOrEmpty(textBoxTarget.Text)) {
                 lblStatus.Text = "Invalid IP/Url.";
                 return;
             }
@@ -49,15 +47,13 @@ namespace bantam.Forms
             string target = textBoxTarget.Text;
 
             if (!Helper.IsValidIPv4(target)
-            && !Helper.IsValidUri(target))
-            {
+            && !Helper.IsValidUri(target)) {
                 lblStatus.Text = "Invalid IP/Url.";
                 return;
             }
 
             if (string.IsNullOrEmpty(textBoxStartPort.Text)
-             || string.IsNullOrEmpty(textBoxEndPort.Text))
-            {
+             || string.IsNullOrEmpty(textBoxEndPort.Text)) {
                 lblStatus.Text = "Invalid port.";
                 return;
             }
@@ -67,8 +63,7 @@ namespace bantam.Forms
 
             if (startPort > endPort
              || endPort <= 0 || startPort <= 0
-             || startPort > PORT_MAX || endPort > PORT_MAX)
-            {
+             || startPort > PORT_MAX || endPort > PORT_MAX) {
                 lblStatus.Text = "Invalid port.";
                 return;
             }
@@ -82,32 +77,22 @@ namespace bantam.Forms
             int portsPerShell = ((endPort - startPort) / shellsCount);
 
             int iter = 1;
-            foreach (var checkedItem in checkedListBoxShells.CheckedItems)
-            {
+            foreach (var checkedItem in checkedListBoxShells.CheckedItems) {
                 string portsCode = string.Empty;
                 string scannedRange = string.Empty;
-                if (iter == shellsCount)
-                {
-                    if (iter == 1)
-                    {
+                if (iter == shellsCount) {
+                    if (iter == 1) {
                         scannedRange = startPort.ToString() + ", " + (endPort).ToString();
                         portsCode = "$ports = range(" + scannedRange + ");";
-                    }
-                    else
-                    {
+                    } else {
                         scannedRange = (((iter - 1) * portsPerShell) + 1).ToString() + ", " + (endPort).ToString();
                         portsCode = "$ports = range(" + scannedRange + ");";
                     }
-                }
-                else
-                {
-                    if (iter == 1)
-                    {
+                } else {
+                    if (iter == 1) {
                         scannedRange = startPort.ToString() + ", " + (iter * portsPerShell).ToString();
                         portsCode = "$ports = range(" + scannedRange + ");";
-                    }
-                    else
-                    {
+                    } else {
                         scannedRange = (((iter - 1) * portsPerShell) + 1).ToString() + ", " + (iter * portsPerShell).ToString();
                         portsCode = "$ports = range(" + scannedRange + ");";
                     }
@@ -130,44 +115,37 @@ namespace bantam.Forms
 
         private void textBoxStartPort_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
 
         private void textBoxEndPort_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
 
         private void textBoxTarget_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxTarget.Text))
-            {
+            if (string.IsNullOrEmpty(textBoxTarget.Text)) {
                 btnScan.Enabled = false;
-            }
-            else
-            {
+            } else {
                 btnScan.Enabled = true;
             }
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < checkedListBoxShells.Items.Count; i++)
-            {
+            for (int i = 0; i < checkedListBoxShells.Items.Count; i++) {
                 checkedListBoxShells.SetItemCheckState(i, CheckState.Checked);
             }
         }
 
         private void deSelectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < checkedListBoxShells.Items.Count; i++)
-            {
+            for (int i = 0; i < checkedListBoxShells.Items.Count; i++) {
                 checkedListBoxShells.SetItemCheckState(i, CheckState.Unchecked);
             }
         }

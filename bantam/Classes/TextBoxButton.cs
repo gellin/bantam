@@ -50,8 +50,7 @@ namespace bantam.Classes
         {
             base.WndProc(ref msg);
 
-            if (msg.Msg == 0x30)
-            {
+            if (msg.Msg == 0x30) {
                 SendMessage(this.Handle, 0xd3, (IntPtr)1, (IntPtr)btnBack.Width);
             }
         }

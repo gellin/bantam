@@ -26,18 +26,15 @@ namespace bantam.Classes
         /// <param name="logLevel">The level/intensity of the issue being logged, checks the current Config Loglevel to see if the message should be displayed</param>
         public static void AddShellLog(string url, string logMessage, LOG_LEVEL logLevel)
         {
-            if (!Config.EnableLogging)
-            {
+            if (!Config.EnableLogging) {
                 return;
             }
 
-            if (!BantamMain.ValidTarget())
-            {
+            if (!BantamMain.ValidTarget()) {
                 return;
             }
 
-            if (logLevel > Config.LogLevel)
-            {
+            if (logLevel > Config.LogLevel) {
                 return;
             }
 
@@ -53,13 +50,11 @@ namespace bantam.Classes
         /// <param name="logLevel">The level/intensity of the issue being logged, checks the current Config Loglevel to see if the message should be displayed</param>
         public static void AddGlobalLog(string logMessage, string windowTitle, LOG_LEVEL logLevel)
         {
-            if (!Config.EnableGlobalMessageBoxes)
-            {
+            if (!Config.EnableGlobalMessageBoxes) {
                 return;
             }
 
-            if (logLevel > Config.LogLevel)
-            {
+            if (logLevel > Config.LogLevel) {
                 return;
             }
 

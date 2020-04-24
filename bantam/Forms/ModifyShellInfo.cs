@@ -21,7 +21,7 @@ namespace bantam.Forms
             "cookie",
             "post",
         }.AsReadOnly();
-     
+
         /// <summary>
         /// 
         /// </summary>
@@ -109,7 +109,7 @@ namespace bantam.Forms
         /// <param name="requestEncryptionIV"></param>
         /// <param name="requestEncryptionKey"></param>
         /// <param name="requestEncryptionIvVarName"></param>
-        public ModifyShell(string varName, string varType, bool gzipRequestData, bool encryptRequest, 
+        public ModifyShell(string varName, string varType, bool gzipRequestData, bool encryptRequest,
                            string requestEncryptionIV, string requestEncryptionKey, string requestEncryptionIvVarName, bool tcheckBoxSendIVInRequest, string encryptionType)
         {
             InitializeComponent();

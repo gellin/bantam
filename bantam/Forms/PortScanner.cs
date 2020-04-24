@@ -42,8 +42,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private async void btnScan_Click(object sender, EventArgs e)
         {
-            if (btnScan.Enabled == false)
-            {
+            if (btnScan.Enabled == false) {
                 return;
             }
 
@@ -51,44 +50,32 @@ namespace bantam.Forms
 
             if (string.IsNullOrEmpty(target)
             && !Helper.IsValidIPv4(target)
-            && !Helper.IsValidUri(target))
-            {
+            && !Helper.IsValidUri(target)) {
                 labelDynStatus.Text = "Invalid IP/Url.";
                 return;
             }
 
             btnScan.Enabled = false;
 
-            if (BantamMain.Shells.ContainsKey(ShellUrl))
-            {
+            if (BantamMain.Shells.ContainsKey(ShellUrl)) {
                 string portsCode = string.Empty;
 
                 bool encryptResponse = BantamMain.Shells[ShellUrl].ResponseEncryption;
                 int ResponseEncryptionMode = BantamMain.Shells[ShellUrl].ResponseEncryptionMode;
 
-                if (int.TryParse(textBoxPorts.Text, out int outVal))
-                {
-                    if (!string.IsNullOrEmpty(textBoxPorts.Text))
-                    {
+                if (int.TryParse(textBoxPorts.Text, out int outVal)) {
+                    if (!string.IsNullOrEmpty(textBoxPorts.Text)) {
                         portsCode = "$ports = array('" + textBoxPorts.Text + "');";
                         labelDynStatus.Text = "";
-                    }
-                    else
-                    {
-                        if (comboBoxCommonPorts.SelectedIndex != 0)
-                        {
-                            if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024)
-                            {
+                    } else {
+                        if (comboBoxCommonPorts.SelectedIndex != 0) {
+                            if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ONE_TO_1024) {
                                 portsCode = PhpBuilder.PortsScannerPorts1To1024();
                                 labelDynStatus.Text = "** May fail unless on local IP";
-                            }
-                            else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS)
-                            {
+                            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.COMMON_PORTS) {
                                 labelDynStatus.Text = "** May fail unless on local IP";
                                 portsCode = PhpBuilder.PortScannerPortsCommon();
-                            }
-                            else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS)
-                            {
+                            } else if (comboBoxCommonPorts.SelectedIndex == (int)PORTS_OPTIONS.ALL_PORTS) {
                                 portsCode = PhpBuilder.PortScannerPortsAll();
                                 labelDynStatus.Text = "** May fail unless on local IP";
                             }
@@ -109,8 +96,7 @@ namespace bantam.Forms
         private void comboBoxCommonPorts_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnScan.Enabled = true;
-            if (comboBoxCommonPorts.SelectedIndex != 0)
-            {
+            if (comboBoxCommonPorts.SelectedIndex != 0) {
                 textBoxPorts.Text = "";
             }
         }
@@ -133,8 +119,7 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxPorts_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
                 e.Handled = true;
             }
         }

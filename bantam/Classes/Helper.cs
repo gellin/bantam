@@ -31,8 +31,7 @@ namespace bantam.Classes
         {
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < length; i++)
-            {
+            for (int i = 0; i < length; i++) {
                 result.Append(rdm.Next(10).ToString());
             }
 
@@ -48,8 +47,7 @@ namespace bantam.Classes
             StringBuilder result = new StringBuilder();
             int length = rdm.Next(1, maxLength);
 
-            for (int i = 0; i < length; i++)
-            {
+            for (int i = 0; i < length; i++) {
                 result.Append(rdm.Next(10).ToString());
             }
 
@@ -68,25 +66,21 @@ namespace bantam.Classes
         {
             var charSet = "abcdefghijklmnopqrstuvwxyz";
 
-            if (capitals)
-            {
+            if (capitals) {
                 charSet += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             }
 
-            if (numbers)
-            {
+            if (numbers) {
                 charSet += "0123456789";
             }
 
-            if (special)
-            {
+            if (special) {
                 charSet += "!#$%&()*+,-.";
             }
 
             StringBuilder stringResult = new StringBuilder();
 
-            for (int i = 0; i < length; i++)
-            {
+            for (int i = 0; i < length; i++) {
                 stringResult.Append(charSet[rdm.Next(charSet.Length)]);
             }
             return stringResult.ToString();
@@ -99,8 +93,7 @@ namespace bantam.Classes
         /// <param name="str">The input string to be converted to base64</param>
         public static string EncodeBase64ToString(string str)
         {
-            if (string.IsNullOrEmpty(str))
-            {
+            if (string.IsNullOrEmpty(str)) {
                 return String.Empty;
             }
 
@@ -115,24 +108,20 @@ namespace bantam.Classes
         /// <returns></returns>
         public static string DecodeBase64ToString(string str)
         {
-            if (string.IsNullOrEmpty(str))
-            {
+            if (string.IsNullOrEmpty(str)) {
                 return string.Empty;
             }
 
             string cleanB64 = str;
 
-            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$"))
-            {
+            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
-            try
-            {
+            try {
                 return Encoding.UTF8.GetString(Convert.FromBase64String(cleanB64));
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.WARNING);
                 return string.Empty;
             }
@@ -145,25 +134,21 @@ namespace bantam.Classes
         /// <returns></returns>
         public static byte[] DecodeBase64(string str)
         {
-            if (string.IsNullOrEmpty(str))
-            {
+            if (string.IsNullOrEmpty(str)) {
                 return null;
             }
 
             string cleanB64 = str;
 
-            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$"))
-            {
+            if (!Regex.IsMatch(str, @"^[a-zA-Z0-9\+/]*={0,2}$")) {
                 cleanB64 = Regex.Replace(str, "[^a-zA-Z0-9+=/]", string.Empty);
             }
 
-            try
-            {
+            try {
                 var decbuff = Convert.FromBase64String(cleanB64);
                 return decbuff;
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 LogHelper.AddGlobalLog("Unable to decode input string with base64 (" + str + ")", "Base64 Decode failure", LogHelper.LOG_LEVEL.WARNING);
                 return null;
             }
@@ -206,13 +191,11 @@ namespace bantam.Classes
             double resultBytes = bytesIn;
             string[] suffixes = { "B", "KiB", "MiB", "GiB", "TiB" };
 
-            for (; i < suffixes.Length && resultBytes >= 1024; i++)
-            {
+            for (; i < suffixes.Length && resultBytes >= 1024; i++) {
                 resultBytes /= 1024;
             }
 
-            if (i < suffixes.Length)
-            {
+            if (i < suffixes.Length) {
                 return String.Format("{0:0.##} {1}", resultBytes, suffixes[i]);
             }
             return "0";
@@ -226,8 +209,7 @@ namespace bantam.Classes
         public static void ShuffleList<T>(IList<T> list)
         {
             int count = list.Count;
-            for (int i = count - 1; i > 1; i--)
-            {
+            for (int i = count - 1; i > 1; i--) {
                 int rnd = rdm.Next(i + 1);
 
                 T val = list[rnd];
@@ -243,8 +225,7 @@ namespace bantam.Classes
         /// <returns></returns>
         public static bool IsValidUri(string uri)
         {
-            if (string.IsNullOrEmpty(uri))
-            {
+            if (string.IsNullOrEmpty(uri)) {
                 return false;
             }
 
@@ -259,13 +240,11 @@ namespace bantam.Classes
         /// <returns></returns>
         public static bool IsValidIPv4(string ipaddr)
         {
-            if (string.IsNullOrEmpty(ipaddr))
-            {
+            if (string.IsNullOrEmpty(ipaddr)) {
                 return false;
             }
 
-            if (ipaddr.Count(needle => needle == '.') != 3)
-            {
+            if (ipaddr.Count(needle => needle == '.') != 3) {
                 return false;
             }
 

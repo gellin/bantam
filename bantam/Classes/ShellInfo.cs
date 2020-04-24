@@ -53,16 +53,19 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
-        private long Ping { get; set; }
+        private long Ping {
+            get; set;
+        }
 
         /// <summary>
         /// 
         /// </summary>
         private bool isWindows;
 
-        public bool IsWindows
-        {
-            get { return isWindows; }
+        public bool IsWindows {
+            get {
+                return isWindows;
+            }
         }
 
         /// <summary>
@@ -70,9 +73,10 @@ namespace bantam.Classes
         /// </summary>
         private string cwd;
 
-        public string Cwd
-        {
-            get { return cwd; }
+        public string Cwd {
+            get {
+                return cwd;
+            }
         }
 
         /// <summary>
@@ -80,10 +84,13 @@ namespace bantam.Classes
         /// </summary>
         private string pwd;
 
-        public string Pwd
-        {
-            get { return pwd; }
-            set { pwd = value; }
+        public string Pwd {
+            get {
+                return pwd;
+            }
+            set {
+                pwd = value;
+            }
         }
 
         /// <summary>
@@ -91,9 +98,10 @@ namespace bantam.Classes
         /// </summary>
         private string freeHDDSpace;
 
-        public string FreeHDDSpace
-        {
-            get { return freeHDDSpace; }
+        public string FreeHDDSpace {
+            get {
+                return freeHDDSpace;
+            }
         }
 
         /// <summary>
@@ -101,9 +109,10 @@ namespace bantam.Classes
         /// </summary>
         private string totalHDDSpace;
 
-        public string TotalHDDSpace
-        {
-            get { return totalHDDSpace; }
+        public string TotalHDDSpace {
+            get {
+                return totalHDDSpace;
+            }
         }
 
         /// <summary>
@@ -111,9 +120,10 @@ namespace bantam.Classes
         /// </summary>
         private string unameRelease;
 
-        public string UnameRelease
-        {
-            get { return unameRelease; }
+        public string UnameRelease {
+            get {
+                return unameRelease;
+            }
         }
 
         /// <summary>
@@ -121,9 +131,10 @@ namespace bantam.Classes
         /// </summary>
         private string unameKernel;
 
-        public string UnameKernel
-        {
-            get { return unameKernel; }
+        public string UnameKernel {
+            get {
+                return unameKernel;
+            }
         }
 
         /// <summary>
@@ -131,9 +142,10 @@ namespace bantam.Classes
         /// </summary>
         private string ip;
 
-        public string Ip
-        {
-            get { return ip; }
+        public string Ip {
+            get {
+                return ip;
+            }
         }
 
         /// <summary>
@@ -141,9 +153,10 @@ namespace bantam.Classes
         /// </summary>
         private string serverSoftware;
 
-        public string ServerSoftware
-        {
-            get { return serverSoftware; }
+        public string ServerSoftware {
+            get {
+                return serverSoftware;
+            }
         }
 
         /// <summary>
@@ -151,9 +164,10 @@ namespace bantam.Classes
         /// </summary>
         private string user;
 
-        public string User
-        {
-            get { return user; }
+        public string User {
+            get {
+                return user;
+            }
         }
 
         /// <summary>
@@ -161,9 +175,10 @@ namespace bantam.Classes
         /// </summary>
         private string uid;
 
-        public string Uid
-        {
-            get { return uid; }
+        public string Uid {
+            get {
+                return uid;
+            }
         }
 
         /// <summary>
@@ -171,9 +186,10 @@ namespace bantam.Classes
         /// </summary>
         private string gid;
 
-        public string Gid
-        {
-            get { return gid; }
+        public string Gid {
+            get {
+                return gid;
+            }
         }
 
         /// <summary>
@@ -181,9 +197,10 @@ namespace bantam.Classes
         /// </summary>
         private string group;
 
-        public string Group
-        {
-            get { return group; }
+        public string Group {
+            get {
+                return group;
+            }
         }
 
         /// <summary>
@@ -191,9 +208,10 @@ namespace bantam.Classes
         /// </summary>
         private string PHP_Version;
 
-        public string PHP_VERSION
-        {
-            get { return PHP_Version; }
+        public string PHP_VERSION {
+            get {
+                return PHP_Version;
+            }
         }
 
         /// <summary>
@@ -201,10 +219,13 @@ namespace bantam.Classes
         /// </summary>
         private string consoleText;
 
-        public string ConsoleText
-        {
-            get { return consoleText; }
-            set { consoleText = value; }
+        public string ConsoleText {
+            get {
+                return consoleText;
+            }
+            set {
+                consoleText = value;
+            }
         }
 
         /// <summary>
@@ -212,10 +233,13 @@ namespace bantam.Classes
         /// </summary>
         private string logText;
 
-        public string LogText
-        {
-            get { return logText; }
-            set { logText = value; }
+        public string LogText {
+            get {
+                return logText;
+            }
+            set {
+                logText = value;
+            }
         }
 
         /// <summary>
@@ -223,9 +247,10 @@ namespace bantam.Classes
         /// </summary>
         private TreeView files;
 
-        public TreeView Files
-        {
-            get { return files; }
+        public TreeView Files {
+            get {
+                return files;
+            }
         }
 
         /// <summary>
@@ -233,10 +258,13 @@ namespace bantam.Classes
         /// </summary>
         private Stopwatch pingStopwatch;
 
-        public Stopwatch PingStopwatch
-        {
-            set { pingStopwatch = value; }
-            get { return pingStopwatch; }
+        public Stopwatch PingStopwatch {
+            set {
+                pingStopwatch = value;
+            }
+            get {
+                return pingStopwatch;
+            }
         }
 
         /// <summary>
@@ -244,10 +272,13 @@ namespace bantam.Classes
         /// </summary>
         private bool down;
 
-        public bool Down
-        {
-            get { return down; }
-            set { down = value; }
+        public bool Down {
+            get {
+                return down;
+            }
+            set {
+                down = value;
+            }
         }
 
         /// <summary>
@@ -255,10 +286,13 @@ namespace bantam.Classes
         /// </summary>
         private bool sendDataViaCookie;
 
-        public bool SendDataViaCookie
-        {
-            get { return sendDataViaCookie; }
-            set { sendDataViaCookie = value; }
+        public bool SendDataViaCookie {
+            get {
+                return sendDataViaCookie;
+            }
+            set {
+                sendDataViaCookie = value;
+            }
         }
 
         /// <summary>
@@ -266,23 +300,31 @@ namespace bantam.Classes
         /// </summary>
         private bool responseEncryption = true;
 
-        public bool ResponseEncryption
-        {
-            get { return responseEncryption; }
-            set { responseEncryption = value; }
+        public bool ResponseEncryption {
+            get {
+                return responseEncryption;
+            }
+            set {
+                responseEncryption = value;
+            }
         }
 
-        public int ResponseEncryptionMode { get; set; }
+        public int ResponseEncryptionMode {
+            get; set;
+        }
 
         /// <summary>
         /// 
         /// </summary>
         private bool requestEncryption;
 
-        public bool RequestEncryption
-        {
-            get { return requestEncryption; }
-            set { requestEncryption = value; }
+        public bool RequestEncryption {
+            get {
+                return requestEncryption;
+            }
+            set {
+                requestEncryption = value;
+            }
         }
 
         /// <summary>
@@ -290,10 +332,13 @@ namespace bantam.Classes
         /// </summary>
         private string requestEncryptionKey;
 
-        public string RequestEncryptionKey
-        {
-            get { return requestEncryptionKey; }
-            set { requestEncryptionKey = value; }
+        public string RequestEncryptionKey {
+            get {
+                return requestEncryptionKey;
+            }
+            set {
+                requestEncryptionKey = value;
+            }
         }
 
         /// <summary>
@@ -301,10 +346,13 @@ namespace bantam.Classes
         /// </summary>
         private string requestEncryptionIV;
 
-        public string RequestEncryptionIV
-        {
-            get { return requestEncryptionIV; }
-            set { requestEncryptionIV = value; }
+        public string RequestEncryptionIV {
+            get {
+                return requestEncryptionIV;
+            }
+            set {
+                requestEncryptionIV = value;
+            }
         }
 
         /// <summary>
@@ -312,10 +360,13 @@ namespace bantam.Classes
         /// </summary>
         private bool sendRequestEncryptionIV;
 
-        public bool SendRequestEncryptionIV
-        {
-            get { return sendRequestEncryptionIV; }
-            set { sendRequestEncryptionIV = value; }
+        public bool SendRequestEncryptionIV {
+            get {
+                return sendRequestEncryptionIV;
+            }
+            set {
+                sendRequestEncryptionIV = value;
+            }
         }
 
         /// <summary>
@@ -323,10 +374,13 @@ namespace bantam.Classes
         /// </summary>
         private string requestEncryptionIVRequestVarName;
 
-        public string RequestEncryptionIVRequestVarName
-        {
-            get { return requestEncryptionIVRequestVarName; }
-            set { requestEncryptionIVRequestVarName = value; }
+        public string RequestEncryptionIVRequestVarName {
+            get {
+                return requestEncryptionIVRequestVarName;
+            }
+            set {
+                requestEncryptionIVRequestVarName = value;
+            }
         }
 
         /// <summary>
@@ -334,10 +388,13 @@ namespace bantam.Classes
         /// </summary>
         private bool gzipRequestData;
 
-        public bool GzipRequestData
-        {
-            get { return gzipRequestData; }
-            set { gzipRequestData = value; }
+        public bool GzipRequestData {
+            get {
+                return gzipRequestData;
+            }
+            set {
+                gzipRequestData = value;
+            }
         }
 
         /// <summary>
@@ -345,10 +402,13 @@ namespace bantam.Classes
         /// </summary>
         private string requestArgName = "command";
 
-        public string RequestArgName
-        {
-            get { return requestArgName; }
-            set { requestArgName = value; }
+        public string RequestArgName {
+            get {
+                return requestArgName;
+            }
+            set {
+                requestArgName = value;
+            }
         }
     }
 }
