@@ -82,7 +82,7 @@ namespace bantam.Classes
 
         public string Pwd
         {
-            get{ return pwd; }
+            get { return pwd; }
             set { pwd = value; }
         }
 
@@ -193,7 +193,7 @@ namespace bantam.Classes
 
         public string PHP_VERSION
         {
-            get { return PHP_Version;  }
+            get { return PHP_Version; }
         }
 
         /// <summary>

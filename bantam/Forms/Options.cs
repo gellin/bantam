@@ -47,7 +47,8 @@ namespace bantam.Forms
         {
             InitializeComponent();
 
-            foreach (var shellCodeExecVec in phpShellCodeExecutionVectors) {
+            foreach (var shellCodeExecVec in phpShellCodeExecutionVectors)
+            {
                 comboBoxShellCodeExVectors.Items.Add(shellCodeExecVec);
             }
 
@@ -77,7 +78,7 @@ namespace bantam.Forms
 
             comboBoxShellCodeExVectors.SelectedIndex = Config.PhpShellCodeExectionVectorValue;
 
-            textBoxTimeout.Text = Config.TimeoutMS.ToString();  
+            textBoxTimeout.Text = Config.TimeoutMS.ToString();
         }
 
         /// <summary>
@@ -87,10 +88,13 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void checkBoxRandomComments_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxRandomComments.Checked) {
+            if (checkBoxRandomComments.Checked)
+            {
                 trackBarCommentFrequency.Enabled = true;
                 textBoxMaxCommentLength.Enabled = true;
-            } else {
+            }
+            else
+            {
                 trackBarCommentFrequency.Enabled = false;
                 textBoxMaxCommentLength.Enabled = false;
             }
@@ -104,7 +108,8 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxMaxCommentLength_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }
@@ -116,7 +121,8 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxPhpVarNameMaxLen_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }
@@ -128,7 +134,8 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxMaxPostSize_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }
@@ -140,7 +147,8 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void textBoxTimeout_keyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
                 e.Handled = true;
             }
         }
@@ -162,28 +170,32 @@ namespace bantam.Forms
 
         private void textBoxMaxCommentLength_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(textBoxMaxCommentLength.Text, out int commentMaxLen)) {
+            if (int.TryParse(textBoxMaxCommentLength.Text, out int commentMaxLen))
+            {
                 Config.CommentMaxLength = commentMaxLen;
             }
         }
 
         private void textBoxPhpVarNameMaxLen_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(textBoxPhpVarNameMaxLen.Text, out int phpVarNameMaxLen)) {
+            if (int.TryParse(textBoxPhpVarNameMaxLen.Text, out int phpVarNameMaxLen))
+            {
                 Config.PhpVariableNameMaxLength = phpVarNameMaxLen;
             }
         }
 
         private void textBoxMaxPostSize_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(textBoxMaxPostSize.Text, out int postSize)) {
+            if (int.TryParse(textBoxMaxPostSize.Text, out int postSize))
+            {
                 Config.MaxPostSizeKib = postSize;
             }
         }
 
         private void textBoxTimeout_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(textBoxTimeout.Text, out int timeoutMS)) {
+            if (int.TryParse(textBoxTimeout.Text, out int timeoutMS))
+            {
                 Config.TimeoutMS = timeoutMS;
             }
         }

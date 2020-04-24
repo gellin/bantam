@@ -25,7 +25,7 @@
             maxExecutionTime = false;
             disableErrorLogs = true;
             injectRandomComments = true;
-            
+
             defaultUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0";
         }
 
@@ -95,7 +95,7 @@
         private static int maxPostSizeKiB;
         public static int MaxPostSizeKib
         {
-            get { return maxPostSizeKiB;  }
+            get { return maxPostSizeKiB; }
             set { maxPostSizeKiB = value; }
         }
 
@@ -154,7 +154,7 @@
         public static int PhpVariableNameMaxLength
         {
             get { return phpVaribleNameMaxLength; }
-            set { phpVaribleNameMaxLength = value;  }
+            set { phpVaribleNameMaxLength = value; }
         }
 
         /// <summary>

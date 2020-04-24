@@ -28,4 +28,10 @@
 		<command text="net user" command="net user" is_windows="1" />
 		<command text="net accounts" command="net accounts" is_windows="1" />
 	</commands>
+	
+	<!--Plugins-->
+	<plugins>
+		<plugin name="mass_test" mass_execute="1" show_result="1" />
+		<plugin name="single_test" mass_execute="0" show_result="1" />
+	</plugins>
 </settings>

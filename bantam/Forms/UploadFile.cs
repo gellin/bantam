@@ -72,8 +72,9 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            using (var openShellXMLDialog = new OpenFileDialog {
-                Filter = "All files (*.*)|*.*|" 
+            using (var openShellXMLDialog = new OpenFileDialog
+            {
+                Filter = "All files (*.*)|*.*|"
                        + "PHP files (*.php)|*.php|"
                        + "Text files (*.txt)|*.txt|"
                        + "SH files (*.sh)|*.sh|"
@@ -82,8 +83,10 @@ namespace bantam.Forms
                        + "C files (*.c|*.c",
                 FilterIndex = 1,
                 RestoreDirectory = false
-            }) {
-                if (openShellXMLDialog.ShowDialog() == DialogResult.OK) {
+            })
+            {
+                if (openShellXMLDialog.ShowDialog() == DialogResult.OK)
+                {
                     LocalFileLocation = openShellXMLDialog.FileName;
 
                     List<string> displayableFileExtensions = new List<string> {
@@ -106,14 +109,18 @@ namespace bantam.Forms
                     string ext = Path.GetExtension(LocalFileLocation);
 
                     //show file contents in richtextbox if it's a text file
-                    if (displayableFileExtensions.Contains(ext)) {
+                    if (displayableFileExtensions.Contains(ext))
+                    {
                         string text = string.Empty;
-                        using (StreamReader sr = new StreamReader(LocalFileLocation)) {
+                        using (StreamReader sr = new StreamReader(LocalFileLocation))
+                        {
                             text = sr.ReadToEnd();
                         }
 
                         richTextBox1.Text = text;
-                    } else {
+                    }
+                    else
+                    {
                         richTextBox1.Text = "Cannot diplay that files contents...";
                     }
                     btnUpload.Enabled = true;
@@ -133,23 +140,34 @@ namespace bantam.Forms
             btnBrowse.Enabled = false;
             btnUpload.Enabled = false;
             richTextBox1.Enabled = false;
-            
-            if (EditingSelf) {
-               if (!string.IsNullOrEmpty(richTextBox1.Text)) {
+
+            if (EditingSelf)
+            {
+                if (!string.IsNullOrEmpty(richTextBox1.Text))
+                {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
-                } else {
+                }
+                else
+                {
                     LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data to self...", LogHelper.LOG_LEVEL.INFO);
                     btnUpload.Enabled = true;
                     return;
                 }
 
                 phpCode = PhpBuilder.WriteFileVar(PhpBuilder.phpServerScriptFileName, phpCode);
-            } else {
-                if (!string.IsNullOrEmpty(LocalFileLocation)) {
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(LocalFileLocation))
+                {
                     phpCode = Convert.ToBase64String(File.ReadAllBytes(LocalFileLocation));
-                } else if (!string.IsNullOrEmpty(richTextBox1.Text)) {
+                }
+                else if (!string.IsNullOrEmpty(richTextBox1.Text))
+                {
                     phpCode = Helper.EncodeBase64ToString(richTextBox1.Text);
-                } else {
+                }
+                else
+                {
                     LogHelper.AddShellLog(ShellUrl, "Attempted to upload empty file/data...", LogHelper.LOG_LEVEL.INFO);
                     btnUpload.Enabled = true;
                     return;
@@ -175,9 +193,12 @@ namespace bantam.Forms
         /// <param name="e"></param>
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(richTextBox1.Text)) {
+            if (string.IsNullOrEmpty(richTextBox1.Text))
+            {
                 btnUpload.Enabled = false;
-            } else {
+            }
+            else
+            {
                 btnUpload.Enabled = true;
             }
         }

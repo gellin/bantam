@@ -17,12 +17,14 @@ namespace bantam.Classes
             TreeNode ty = y as TreeNode;
 
             if ((string)tx.Name == "dir"
-             && (string)ty.Name == "file") {
+             && (string)ty.Name == "file")
+            {
                 return -1;
             }
 
             if ((string)tx.Name == "file"
-             && (string)ty.Name == "dir") {
+             && (string)ty.Name == "dir")
+            {
                 return 1;
             }
 
