@@ -48,7 +48,8 @@ namespace bantam.Forms
         /// Constructor for editing bantams self php code
         /// </summary>
         /// <param name="shellUrl"></param>
-        /// <param name="serverPath"></param>
+        /// <param name="content"></param>
+        /// <param name="editingBantamPhpCode"></param>
         public UploadFile(string shellUrl, string content, bool editingBantamPhpCode)
         {
             InitializeComponent();

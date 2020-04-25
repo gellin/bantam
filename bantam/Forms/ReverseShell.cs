@@ -32,6 +32,7 @@ namespace bantam.Forms
         /// <summary>
         /// Default Constructor
         /// </summary>
+        /// <param name="shellUrl"></param>
         public ReverseShell(string shellUrl)
         {
             InitializeComponent();

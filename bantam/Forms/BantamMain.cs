@@ -57,7 +57,7 @@ namespace bantam
             //Default UI Component Initialization
             InitializeComponent();
 
-            //todo abstract
+            //todo abstract and base size off w/h
             //has to be initialized with parameters manually because, constructor with params breaks design mode...
             txtBoxFileBrowserPath.Initialize(6, 511, 522, 23, "txtBoxFileBrowserPath", this.txtBoxFileBrowserPath_KeyDown, btnFileBrowserBack_MouseClick, 21);
 
@@ -723,7 +723,6 @@ namespace bantam
         public void AddSingleExecPluginOptionToGUIFromXML(string name, bool showResult)
         {
             ToolStripItem toolStripItem = this.pluginsToolStripMenuItem.DropDownItems.Add(name);
-            ;
 
             toolStripItem.Tag = showResult;
             toolStripItem.Click += new EventHandler(this.SingleExecPluginOptionClickHandler);
@@ -774,7 +773,6 @@ namespace bantam
         public void AddMassExecPluginOptionToGUIFromXML(string name, bool showResult)
         {
             ToolStripItem toolStripItem = this.pluginsToolStripMenuItemMain.DropDownItems.Add(name);
-            ;
 
             toolStripItem.Tag = showResult;
             toolStripItem.Click += new EventHandler(this.MassExecPluginOptionClickHandler);
@@ -1212,7 +1210,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// FileBrowser "GO" action, that is triggered when navigating to a new location within the filebrowser
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1363,7 +1361,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// File Browser "Go Back" action, triggered when navigating back a directory
         /// </summary>
         private async Task FilebrowserGoBack()
         {
@@ -1587,7 +1585,6 @@ namespace bantam
             if (ValidTarget() == false) {
                 return;
             }
-
 
             string shellUrl = SelectedShellUrl;
             string fileName = fileBrowserGetFileNameAndPath();

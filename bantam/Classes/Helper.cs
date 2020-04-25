@@ -183,7 +183,7 @@ namespace bantam.Classes
         /// <summary>
         /// Takes a number of bytes and returns a formatted human readable form
         /// </summary>
-        /// <param name="bytes"></param>
+        /// <param name="bytesIn"></param>
         /// <returns></returns>
         public static string FormatBytes(double bytesIn)
         {

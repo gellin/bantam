@@ -221,9 +221,10 @@ namespace bantam.Classes
         /// <summary>
         /// Returns a string of PHP code
         /// </summary>
-        /// 
         /// <param name="windowTitle"></param>
         /// <param name="text"></param>
+        /// <param name="showResponse"></param>
+        /// <returns></returns>
         public static string RichTextBoxEvalEditor(string windowTitle, string text, ref bool showResponse)
         {
             Form prompt = BuildForm(windowTitle, 500, 520);

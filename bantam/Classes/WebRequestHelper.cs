@@ -153,7 +153,8 @@ namespace bantam.Classes
         /// Creates a Task that executes a basic POST request (todo) - expand
         /// </summary>
         /// <param name="url"></param>
-        /// <returns>string result</returns>
+        /// <param name="values"></param>
+        /// <returns></returns>
         public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
         {
             try {
@@ -184,9 +185,18 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<string> testGetRequest(string url)
+        public static async Task<string> testGetRequest(string url, Dictionary<string, string> cookies, string userAgent)
         {
-            WebRequest request = WebRequest.Create(url);
+            string cookieStr = "";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            foreach (var cookie in cookies) {
+                cookieStr += cookie.Key + "=" + cookie.Value;
+            }
+
+            request.Headers["Cookie"] = cookieStr;
+            request.UserAgent = userAgent;
+
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
@@ -206,7 +216,6 @@ namespace bantam.Classes
             WebRequest request = WebRequest.Create(url);
 
             request.Method = "POST";
-
             string postData = "HELLO :D:D";
 
             byte[] byteArray = Encoding.UTF8.GetBytes(postData);
@@ -236,7 +245,8 @@ namespace bantam.Classes
         /// 
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="phpCode"></param>
+        /// <param name="phpCodeIn"></param>
+        /// <param name="disableEncryption"></param>
         /// <returns></returns>
         public static async Task<ResponseObject> ExecuteRemotePHP(string url, string phpCodeIn, bool disableEncryption = false)
         {
@@ -303,7 +313,8 @@ namespace bantam.Classes
                 phpCodeBytes = null;
                 phpCode = HttpUtility.UrlEncode(phpCode);
 
-
+                //////////
+                
                 HttpMethod method;
 
                 if (sendViaCookie) {
@@ -314,7 +325,8 @@ namespace bantam.Classes
 
                 var request = new HttpRequestMessage(method, url);
                 request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
-
+                ////////////////
+                
                 if (sendViaCookie) {
                     if (phpCode.Length > Config.MaxCookieSizeB) {
                         LogHelper.AddShellLog(url, "Attempted to execute a request larger than Max Cookie Size...", LogHelper.LOG_LEVEL.ERROR);

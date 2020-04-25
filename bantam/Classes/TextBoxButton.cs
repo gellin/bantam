@@ -17,6 +17,12 @@ namespace bantam.Classes
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="w"></param>
+        /// <param name="h"></param>
+        /// <param name="name"></param>
+        /// <param name="keyEventHandler"></param>
         /// <param name="mouseClickFunction"></param>
         /// <param name="textboxHeight"></param>
         public void Initialize(int x, int y, int w, int h, string name, KeyEventHandler keyEventHandler, MouseEventHandler mouseClickFunction, int textboxHeight)

@@ -56,6 +56,9 @@ namespace bantam.Classes
         /// Generic wrapper/handler for decrypting a response from a shell
         /// </summary>
         /// <param name="response"></param>
+        /// <param name="encryptionKey"></param>
+        /// <param name="encryptionIV"></param>
+        /// <param name="encryptResponseMode"></param>
         /// <returns></returns>
         public static string DecryptShellResponse(string response, string encryptionKey, string encryptionIV, int encryptResponseMode)
         {
@@ -87,7 +90,6 @@ namespace bantam.Classes
         /// </summary>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
-        /// <param name="padding"></param>
         /// <returns></returns>
         public static RijndaelManaged BuildAesMode(byte[] encryptionKey, byte[] encryptionIV)
         {
@@ -140,8 +142,7 @@ namespace bantam.Classes
         /// <param name="plainText"></param>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
-        /// <param name="padding"></param>
-        /// <returns>Base64 encoded string, of encrypted bytes</returns>
+        /// <returns></returns>
         public static string EncryptBytesToRJ256ToBase64(byte[] plainText, string encryptionKey, string encryptionIV)
         {
             string result = string.Empty;
@@ -174,8 +175,7 @@ namespace bantam.Classes
         /// <param name="plainText"></param>
         /// <param name="encryptionKey"></param>
         /// <param name="encryptionIV"></param>
-        /// <param name="padding"></param>
-        /// <returns>Base64 encoded string, of encrypted bytes</returns>
+        /// <returns></returns>
         public static string EncryptBytesToRJ256ToBase64(string plainText, string encryptionKey, string encryptionIV)
         {
             return EncryptBytesToRJ256ToBase64(Encoding.UTF8.GetBytes(plainText), encryptionKey, encryptionIV);
