@@ -150,98 +150,6 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// Creates a Task that executes a basic POST request (todo) - expand
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static async Task<string> PostRequest(string url, Dictionary<string, string> values)
-        {
-            try {
-                HttpMethod method = HttpMethod.Post;
-
-                var request = new HttpRequestMessage(method, url);
-                request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
-
-                var response = await client.SendAsync(request);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                var content = new FormUrlEncodedContent(values);
-                request.Content = content;
-
-                return responseString;
-            }
-            catch (System.Net.Http.HttpRequestException e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
-            }
-            catch (Exception e) {
-                LogHelper.AddShellLog(url, "Exception caught while executing post request. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);
-            }
-            return string.Empty;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static async Task<string> testGetRequest(string url, Dictionary<string, string> cookies, string userAgent)
-        {
-            string cookieStr = "";
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-
-            foreach (var cookie in cookies) {
-                cookieStr += cookie.Key + "=" + cookie.Value;
-            }
-
-            request.Headers["Cookie"] = cookieStr;
-            request.UserAgent = userAgent;
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-
-            string responseFromServer = reader.ReadToEnd();
-            return responseFromServer;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static async Task<string> testPostRequest(string url, Dictionary<string, string> values)
-        {
-            WebRequest request = WebRequest.Create(url);
-
-            request.Method = "POST";
-            string postData = "HELLO :D:D";
-
-            byte[] byteArray = Encoding.UTF8.GetBytes(postData);
-
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = byteArray.Length;
-
-            Stream dataStream = request.GetRequestStream();
-
-            dataStream.Write(byteArray, 0, byteArray.Length);
-            dataStream.Close();
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            string responseFromServer = "";
-            using (dataStream = response.GetResponseStream()) {
-                StreamReader reader = new StreamReader(dataStream);
-                responseFromServer += reader.ReadToEnd();
-            }
-
-            response.Close();
-
-            return responseFromServer;
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="url"></param>
@@ -310,38 +218,28 @@ namespace bantam.Classes
                     phpCode = Convert.ToBase64String(phpCodeBytes);
                 }
 
-                phpCodeBytes = null;
                 phpCode = HttpUtility.UrlEncode(phpCode);
 
-                //////////
-                
-                HttpMethod method;
+                var request = new HttpRequestMessage();
 
-                if (sendViaCookie) {
-                    method = HttpMethod.Get;
-                } else {
-                    method = HttpMethod.Post;
-                }
-
-                var request = new HttpRequestMessage(method, url);
+                request.RequestUri = new Uri(url);
                 request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
-                ////////////////
-                
+
                 if (sendViaCookie) {
+                    request.Method = HttpMethod.Get;
                     if (phpCode.Length > Config.MaxCookieSizeB) {
                         LogHelper.AddShellLog(url, "Attempted to execute a request larger than Max Cookie Size...", LogHelper.LOG_LEVEL.ERROR);
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
-                    ////////////////////////////////////////////////////////////////////
                     request.Headers.TryAddWithoutValidation("Cookie", requestArgsName + "=" + phpCode);
 
                     if (encryptRequest && sendRequestEncryptionIV) {
-                        request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
+                       request.Headers.TryAddWithoutValidation("Cookie,", requestEncryptionIV_VarName + "=" + HttpUtility.UrlEncode(requestEncryptionIV));
                     }
-                    /////////////////////////////////////////////////////////////////////
-
                 } else {
+                    request.Method = HttpMethod.Post;
+
                     string postArgs = string.Empty;
 
                     if (encryptRequest && sendRequestEncryptionIV) {
@@ -357,17 +255,13 @@ namespace bantam.Classes
                         return new ResponseObject(string.Empty, string.Empty, string.Empty);
                     }
 
-                    /////////////////////////////////////////////////////////////////////
                     request.Content = new StringContent(postArgs, Encoding.UTF8, "application/x-www-form-urlencoded");
-                    /////////////////////////////////////////////////////////////////////
                 }
 
-                /////////////////////////////////////////////////////////////////////
                 using (HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead)) {
                     var responseString = await response.Content.ReadAsStringAsync();
                     return new ResponseObject(responseString, ResponseEncryptionKey, ResponseEncryptionIV);
                 }
-                /////////////////////////////////////////////////////////////////////
             }
             catch (System.Net.Http.HttpRequestException e) {
                 LogHelper.AddShellLog(url, "Exception caught while executing php. [" + e.Message + "]", LogHelper.LOG_LEVEL.ERROR);

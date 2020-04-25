@@ -202,7 +202,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Settings\settings.xml" />
+    <Content Include="settings\settings.xml" />
     <None Include="Art\download.png" />
     <None Include="Art\arrow-back.png" />
     <None Include="Art\play_2.png" />
@@ -243,6 +243,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(ProjectDir)settings\*" "$(ProjectDir)$(OutDir)"
+mkdir "$(ProjectDir)$(OutDir)\plugins"
+copy "$(ProjectDir)plugins\" "$(ProjectDir)$(OutDir)\plugins\*"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
