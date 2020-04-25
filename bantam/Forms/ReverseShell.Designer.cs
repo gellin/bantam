@@ -124,9 +124,9 @@
             this.checkBoxDisabledFunctionsBypass.Location = new System.Drawing.Point(15, 144);
             this.checkBoxDisabledFunctionsBypass.Name = "checkBoxDisabledFunctionsBypass";
             this.checkBoxDisabledFunctionsBypass.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkBoxDisabledFunctionsBypass.Size = new System.Drawing.Size(263, 20);
+            this.checkBoxDisabledFunctionsBypass.Size = new System.Drawing.Size(262, 20);
             this.checkBoxDisabledFunctionsBypass.TabIndex = 8;
-            this.checkBoxDisabledFunctionsBypass.Text = "disable_functions / open_basedir bypass";
+            this.checkBoxDisabledFunctionsBypass.Text = "Bypass disable_functions / open_basedir";
             this.checkBoxDisabledFunctionsBypass.UseVisualStyleBackColor = true;
             this.checkBoxDisabledFunctionsBypass.CheckedChanged += new System.EventHandler(this.checkBoxDisabledFunctionsBypass_CheckedChanged);
             // 

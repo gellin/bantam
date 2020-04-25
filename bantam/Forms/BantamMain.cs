@@ -1296,6 +1296,11 @@ namespace bantam
                             tnCollection = treeViewFileBrowser.Nodes;
                         }
 
+                        //exclude link to current directory
+                        if (columns[0] == ".") {
+                            continue;
+                        }
+
                         //todo cleanup index's and image indexs 
                         if (columns[columns.Length - 2] == "dir") {
                             System.Windows.Forms.TreeNode lastTn = tnCollection.Add("dir", columns[0], 0);
@@ -1408,7 +1413,7 @@ namespace bantam
         }
 
         /// <summary>
-        /// 
+        /// Filebrowser Treeview double click mouse event handler, expands the "node" and displays its contents if its a directory
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

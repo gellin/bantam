@@ -164,6 +164,7 @@
             // 
             // comboBoxEncryptionMode
             // 
+            this.comboBoxEncryptionMode.Enabled = false;
             this.comboBoxEncryptionMode.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F);
             this.comboBoxEncryptionMode.FormattingEnabled = true;
             this.comboBoxEncryptionMode.Location = new System.Drawing.Point(163, 172);

@@ -38,3 +38,7 @@
   * ? - todo make upload vectors from URL dynamic and load from CFG
   * ? - make linux & windows console command vectors dynamic and load from CFG
   * ? - make global timeout override for port scanning but inherit the global timeout to use as the default timeout
+  * ? - show response codes in mass eval / other excution response showings
+  * ? - save as plugin feature from mass eval?
+  * ? - add select file to mass eval
+  * ? - COOKIE RESPONSE BACK?
