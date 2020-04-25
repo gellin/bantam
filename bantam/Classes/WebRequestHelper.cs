@@ -150,7 +150,7 @@ namespace bantam.Classes
         }
 
         /// <summary>
-        /// 
+        /// Main PHP execution routine, builds and executes php
         /// </summary>
         /// <param name="url"></param>
         /// <param name="phpCodeIn"></param>
