@@ -220,9 +220,9 @@ namespace bantam.Classes
 
                 phpCode = HttpUtility.UrlEncode(phpCode);
 
-                var request = new HttpRequestMessage();
-
-                request.RequestUri = new Uri(url);
+                var request = new HttpRequestMessage {
+                    RequestUri = new Uri(url)
+                };
                 request.Headers.TryAddWithoutValidation("User-Agent", Config.DefaultUserAgent);
 
                 if (sendViaCookie) {

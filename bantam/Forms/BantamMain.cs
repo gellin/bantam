@@ -170,7 +170,8 @@ namespace bantam
         /// <param name="ResponseEncryptionMode"></param>
         /// <param name="richTextBox"></param>
         /// <param name="prependText"></param>
-        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, bool base64DecodeResponse = false, RichTextBox richTextBox = null, string prependText = "")
+        public static async Task ExecutePHPCodeDisplayInRichTextBox(string url, string phpCode, string title, bool encryptResponse, int ResponseEncryptionMode, 
+                                                                    bool base64DecodeResponse = false, RichTextBox richTextBox = null, string prependText = "")
         {
             String result = await ExecutePHPCode(url, phpCode, encryptResponse, ResponseEncryptionMode);
 

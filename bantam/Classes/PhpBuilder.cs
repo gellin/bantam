@@ -25,7 +25,7 @@ namespace bantam.Classes
         public static readonly string phpOb_End = RandomPHPComment() + "$result = @ob_get_contents(); " + RandomPHPComment() + "@ob_end_clean();" + RandomPHPComment();
 
         /// <summary>
-        /// Generates a "randomly" named php variable for use/reference within code
+        /// Generates a "randomly" named php variable for use/reference within code to obscure the code signatures a bit
         /// </summary>
         /// <param name="maxNum"></param>
         /// <returns></returns>

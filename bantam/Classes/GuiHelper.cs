@@ -123,7 +123,8 @@ namespace bantam.Classes
 
             randomize.Click += (sender, e) =>
             {
-                textBox.Text = WebRequestHelper.commonUseragents[Helper.RandomDictionaryValue(WebRequestHelper.commonUseragents)];
+                int randomUserAgentDictIndex = Helper.RandomDictionaryValue(WebRequestHelper.commonUseragents);
+                textBox.Text = WebRequestHelper.commonUseragents[randomUserAgentDictIndex];
             };
 
             cancel.Click += (sender, e) => { prompt.Close(); };
