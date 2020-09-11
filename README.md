@@ -12,8 +12,8 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 - Remote port scanner - Uses the bantam server to scan remote ports
 - PHPInfo viewer - Opens the phpinfo page in an html window
 - Self Editor - Edit the Bantam code stored on the server
-- System->Linux - Helpful cmds and files. Dynamically included into the ui from settings.xml (passwd, ps aux, ifconfig, ..etc) 
-- System->Wndows - Helpful cmds and files. Dynamically included into the ui from from settings.xml (net user, hosts, ipconfig, ..etc)
+- Linux - Helpful cmds and files. Dynamically included from settings.xml (passwd, ps aux, ifconfig, ..etc) 
+- Wndows - Helpful cmds and files. Dynamically included from settings.xml (net user, hosts, ipconfig, ..etc)
 - Windows Screenshot Grabber - Grabs a screenshot of the current screen
 - Plugins - Dynamically include a php payload into the ui to be executed by setting up a plugin into the settings.xml
 - Reset connection - Removes the current shell and session info from ui, re-adds the shell and tests the connection
@@ -26,7 +26,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 #### Reverse Shell - [preview](documentation/forms/reverse_shell.png)
 - Spawns a reverse shell to the indicated IP/Port
 - Methods supported - perl, netcat, netcat with pipe, telnet with pipe, php, bash, python, barrage(all)
-- Bypass disabled_functions & open_basedir with chankro - (credit)[https://github.com/TarlogicSecurity/Chankro/]
+- Bypass disabled_functions & open_basedir with chankro - [credit](https://github.com/TarlogicSecurity/Chankro/)
 #### Backdoor generator - [preview](documentation/forms/backdoor_gen.png)
 - Generates a php backdoor payload tailored for your settings
 #### User Agent Switcher 
