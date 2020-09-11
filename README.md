@@ -5,6 +5,10 @@
 An advanced PHP backdoor management tool, with a lightweight server footprint, multi-threaded communication, and an advanced payload generation and obfuscation tool.
 
 ## Features
+#### End to end request & response encryption - [encryption flow](documentation/encryption.png)
+- AES-256 bit encryption on request & response data using openssl or mcrypt
+- Response encryption keys are newly generated and embedded into the request payload for every request making every response unique, preventing detection from WAF and IDS systems
+- Request encryption keys can be embedded using a pre-shared key/iv, or use a pre-shared key with a randomly generated IV that is passed through a known request variable making every request signature unique
 #### Main form - [preview](documentation/forms/main.png)
 
 - Get Shell Information - [preview](documentation/forms/main.png)
@@ -27,7 +31,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 #### Reverse Shell - [preview](documentation/forms/reverse_shell.png)
 - Spawns a reverse shell to the indicated IP/Port
 - Methods supported - perl, netcat, netcat with pipe, telnet with pipe, php, bash, python, barrage(all)
-- Bypass disabled_functions & open_basedir with chankro - [credit](https://github.com/TarlogicSecurity/Chankro/)
+- Bypass disabled_functions & open_basedir with [chankro](https://github.com/TarlogicSecurity/Chankro/)
 #### Backdoor generator - [preview](documentation/forms/backdoor_gen.png)
 - Generates a php backdoor payload tailored for your settings
 #### User Agent Switcher 
