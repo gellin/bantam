@@ -12,8 +12,8 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 - Remote port scanner - Uses the bantam server to scan remote ports
 - PHPInfo viewer - Opens the phpinfo page in an html window
 - Self Editor - Edit the Bantam code stored on the server
-- System->Linux - Helpful cmds and files. They are read dynamically from settings.xml and included into gui. (passwd, ps aux, ifconfig, ..etc) 
-- System->Wndows - Helpful cmds and files. They are read dynamically from settings.xml and included into gui. (net user, hosts, ipconfig, ..etc)
+- System->Linux - Helpful cmds and files. Dynamically included into the ui from settings.xml (passwd, ps aux, ifconfig, ..etc) 
+- System->Wndows - Helpful cmds and files. Dynamically included into the ui from from settings.xml (net user, hosts, ipconfig, ..etc)
 - Windows Screenshot Grabber - Grabs a screenshot of the current screen
 - Plugins - Dynamically include a custom payload into the GUI to be executed by setting up a plugin into the settings.xml
 - Reset connection - Removes the current shell and session info from ui, re-adds the shell and tests the connection
