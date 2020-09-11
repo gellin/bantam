@@ -15,7 +15,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 - System->Linux - Helpful cmds and files. Dynamically included into the ui from settings.xml (passwd, ps aux, ifconfig, ..etc) 
 - System->Wndows - Helpful cmds and files. Dynamically included into the ui from from settings.xml (net user, hosts, ipconfig, ..etc)
 - Windows Screenshot Grabber - Grabs a screenshot of the current screen
-- Plugins - Dynamically include a custom payload into the GUI to be executed by setting up a plugin into the settings.xml
+- Plugins - Dynamically include a php payload into the ui to be executed by setting up a plugin into the settings.xml
 - Reset connection - Removes the current shell and session info from ui, re-adds the shell and tests the connection
 - Update ping - Updates the ping to the selected shell
 - Edit settings - Opens the current shell settings into the ui to modify
@@ -26,7 +26,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 #### Reverse Shell - [preview](documentation/forms/reverse_shell.png)
 - Spawns a reverse shell to the indicated IP/Port
 - Methods supported - perl, netcat, netcat with pipe, telnet with pipe, php, bash, python, barrage(all)
-- Bypass disabled_functions & open_basedir with chankro(link)
+- Bypass disabled_functions & open_basedir with chankro - (credit)[https://github.com/TarlogicSecurity/Chankro/]
 #### Backdoor generator - [preview](documentation/forms/backdoor_gen.png)
 - Generates a php backdoor payload tailored for your settings
 #### User Agent Switcher 
@@ -35,7 +35,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 - Supports Socks and HTTP proxies
 #### Mass Execute 
 - Executes php payloads on all servers
-- Port Scanner - A distributed port scanner that splits the work between selected servers and port scans a remote host 
+- Port Scanner - Distributed port scanner that splits the work between selected servers and port scans a remote host 
 - Plugins - Dynamically include a custom payload from the settings.xml into the gui to be mass executed
 #### File Browser - [preview](documentation/forms/filebrowser.png)
 - Transverses file directories, and saves directory tree during current session
@@ -55,7 +55,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 - Request settings
   - Max execution time - allows requests to run for max php execution time
   - Disable error logs - disables error logging for requests
-  - Shell code Vector - Determines the method used when executing shell code (system/exec/shell_exec/passthru/popen/backticks)
+  - Shell code vector - Shell code execution method (system/exec/shell_exec/passthru/popen/backticks)
   - Timeout (milliseconds) - Default request timeout
   - Max Post size (KiB) - Default max post size
   - Max Cookie size (B) - Locked to 8192 bytes
