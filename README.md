@@ -61,7 +61,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
   - Max Cookie size (B) - Locked to 8192 bytes
 - Request Obfuscation
   - Inject Random Comments - Injects comments with random text into the php payloads
-  - Comment frequency - Determines how many locations to inject comments into
-  - Max Length - Determines the max length of the comments
+    - Comment frequency - Determines how many locations to inject comments into
+    - Max Length - Determines the max length of the comments
   - Randomize PHP Var Names - Randomizes variable names in php payloads, Always on
-  - Max length - Determines the max length of the random php varnames
+    - Max length - Determines the max length of the random php varnames
