@@ -123,7 +123,7 @@
         /// <summary>
         /// 
         /// </summary>
-        private const int maxCookieSizeB = 8192;
+        private const int maxCookieSizeB = 4096;
         public static int MaxCookieSizeB {
             get {
                 return maxCookieSizeB;

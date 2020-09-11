@@ -58,7 +58,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
   - Shell code vector - Shell code execution method (system/exec/shell_exec/passthru/popen/backticks)
   - Timeout (milliseconds) - Default request timeout
   - Max Post size (KiB) - Default max post size
-  - Max Cookie size (B) - Locked to 8192 bytes
+  - Max Cookie size (B) - Locked to 4096 bytes
 - Request Obfuscation
   - Inject Random Comments - Injects comments with random text into the php payloads
     - Comment frequency - Determines how many locations to inject comments into
