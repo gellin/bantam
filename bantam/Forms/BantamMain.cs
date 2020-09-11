@@ -586,12 +586,21 @@ namespace bantam
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
+            bool previousMaxExecutionTime = Config.MaxExecutionTime;
+            int previousTimeoutMS = Config.TimeoutMS;
+
+            //Temporarily increase timeouts because screenshotting is very slow on some systems
+            Config.MaxExecutionTime = true;
+            Config.TimeoutMS = 30000;
+
             string result = await ExecutePHPCode(shellUrl, PhpBuilder.WindowsDesktopScreenShot(), encryptResponse, ResponseEncryptionMode);
 
             if (string.IsNullOrEmpty(result) == false) {
                 BrowserView broView = new BrowserView(result, 1000, 1000);
                 broView.Show();
             }
+            Config.TimeoutMS = previousTimeoutMS;
+            Config.MaxExecutionTime = previousMaxExecutionTime;
         }
 
         /// <summary>
@@ -827,7 +836,9 @@ namespace bantam
         /// <param name="e"></param>
         private void saveClientsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XmlHelper.SaveShells(OpenFileName);
+            if (Shells.Count > 0) {
+                XmlHelper.SaveShells(OpenFileName);
+            }
         }
 
         /// <summary>
@@ -907,8 +918,10 @@ namespace bantam
                 RestoreDirectory = true
             };
 
-            if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK) {
-                XmlHelper.SaveShells(saveShellsXMLDialog.FileName);
+            if (Shells.Count > 0) {
+                if (saveShellsXMLDialog.ShowDialog() == DialogResult.OK) {
+                    XmlHelper.SaveShells(saveShellsXMLDialog.FileName);
+                }
             }
         }
 

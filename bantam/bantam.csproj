@@ -51,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>1998, 4014</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>bantam.Program</StartupObject>

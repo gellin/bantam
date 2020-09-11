@@ -171,7 +171,7 @@ namespace bantam.Forms
                 string encryptionKey = textBoxEncrpytionKey.Text;
 
                 if (encryptionKey.Length != 32) {
-                    labelDynAddHostsStatus.Text = "Encryption key length must be 32 charectors... Try again.";
+                    labelDynAddHostsStatus.Text = "Encryption key length must be 32 chars... Try again.";
                     return;
                 }
 
@@ -179,7 +179,7 @@ namespace bantam.Forms
                     string encryptionIV = textBoxEncrpytionIV.Text;
 
                     if (string.IsNullOrEmpty(encryptionIV) || encryptionIV.Length != 16) {
-                        labelDynAddHostsStatus.Text = "Encryption IV length must be 16 charectors... Try again.";
+                        labelDynAddHostsStatus.Text = "Encryption IV length must be 16 chars... Try again.";
                         return;
                     }
                 }
@@ -247,6 +247,7 @@ namespace bantam.Forms
 
             if (string.IsNullOrEmpty(response.Result)) {
                 labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
+                BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut);
                 return;
             }
 
@@ -256,8 +257,9 @@ namespace bantam.Forms
                 result = CryptoHelper.DecryptShellResponse(response.Result, response.EncryptionKey, response.EncryptionIV, ResponseEncryptionMode);
             }
 
-            if (string.IsNullOrEmpty(result)) {
+            if (string.IsNullOrEmpty(result) || result != "1") {
                 labelDynAddHostsStatus.Text = "Unable to connect, check your settings and try again.";
+                BantamMain.Shells.TryRemove(shellURL, out ShellInfo shellInfoOut);
                 return;
             }
 

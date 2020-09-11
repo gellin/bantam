@@ -30,7 +30,6 @@
   * ? - remove a line from file containing X string via sed "clear log"
   * ? - ensure calls needing a timeout have one
   * ? - system code execution should support a barrage method
-  * ? - find 7.0x+ caveates and put in logging or message's / ui alerts that it
   * ? - option to show php payloads in the logs
   * ? - touch feature
   * ? - passwd bypass
