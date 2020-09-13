@@ -6,7 +6,7 @@ An advanced PHP backdoor management tool, with a lightweight server footprint, m
 payload randomization and obfuscation techniques to help prevent detection when encryption is not possible. Bantam is an ideal tool for linux PHP post exploitation privesc making it a breeze to upload enumeration scripts. Bantam also has a plugin system making it easy to add scripts and features to the ui. 
 It is programmed in C# and runs on windows, and Linux using wine.
 
-![](documentation/forms/main_small.png)
+![](documentation/forms/main.png)
 
 ## Features
 #### End to end request & response encryption - [encryption flow](documentation/encryption.png)
