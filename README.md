@@ -1,7 +1,7 @@
 [![License](http://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc36189ec3a047a1b8b1ccbff7438726)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gellin/bantam&amp;utm_campaign=Badge_Grade)
 
-# bantam
+# Bantam
 An advanced PHP backdoor management tool, with a lightweight server footprint, multi-threaded communication, and an advanced payload generation and obfuscation tool. Features end to end encryption with request unique encryption keys designed to bypass WAF and IDS systems. It incorporates several 
 payload randomization and obfuscation techniques to help prevent detection when encryption is not possible. Bantam is an ideal tool for linux PHP post exploitation privesc making it a breeze to upload enumeration scripts. Bantam also has a plugin system making it easy to add scripts and features to the ui. 
 It is programmed in C# and runs on windows, and Linux using wine.
@@ -77,3 +77,7 @@ It is programmed in C# and runs on windows, and Linux using wine.
   - Randomize PHP Var Names
     - Randomizes variable names in php payloads, Always on
     - Max length - Determines the max length of the random php varnames
+
+## Credits
+- [Socks Sharp](https://github.com/extremecodetv/SocksSharp) - Socks proxy handler for HttpClient
+- [Chankro](https://github.com/TarlogicSecurity/Chankro/) - Disabled functions / Open Base Dir bypass
