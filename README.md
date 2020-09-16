@@ -2,7 +2,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/cc36189ec3a047a1b8b1ccbff7438726)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=gellin/bantam&amp;utm_campaign=Badge_Grade)
 
 # Bantam
-An advanced PHP backdoor management tool, with a lightweight server footprint, multi-threaded communication, payload streaming, and an advanced payload generation and obfuscation tool. Features end to end encryption with request unique encryption keys designed to bypass WAF and IDS systems. It incorporates several 
+An advanced PHP backdoor management tool, with a lightweight server footprint, multi-threaded communication, payload streaming, and an advanced payload generation and obfuscation tool. With bantam none of the payload features or exploitation code is stored on the server, upon use each feature is streamed to the server as an encrypted request variable. 
+
+Features end to end encryption with request unique encryption keys designed to bypass WAF, IDS, and SIEM systems. It incorporates several 
 payload randomization and obfuscation techniques to help prevent detection when encryption is not possible. Bantam is an ideal tool for linux PHP post exploitation privesc making it a breeze to upload enumeration scripts. Bantam also has a plugin system making it easy to add scripts and features to the ui. 
 It is programmed in C# and runs on windows, and Linux using wine.
 
