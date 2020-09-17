@@ -1,0 +1,37 @@
+<settings>
+	<configs>
+
+	</configs>
+	
+	<!--Read Files-->
+	<files>
+		<file text="shadow" location="/etc/shadow" />
+		<file text="passwd" location="/etc/passwd" />
+		<file text="issue.net" location="/etc/issue.net" />
+		<file text="hosts" location="/etc/hosts" />
+		<file text="version" location="/proc/version" />
+		<file text="interfaces" location="/etc/network/interfaces" />
+		
+		<file text="hosts" location="C:\\Windows\\System32\\drivers\\etc\\hosts" is_windows="1" />
+	</files>
+	
+	<!--OS Commands-->
+	<commands>
+		<command text="ps aux" command="ps aux" />
+		<command text="ifconfig" command="ifconfig" />
+		<command text="ver" command="ver" />
+		<command text="whoami" command="whoami" />
+		
+		<command text="whoami" command="whoami" is_windows="1" />
+		<command text="ipconfig" command="ipconfig" is_windows="1" />
+		<command text="tasklist" command="tasklist" is_windows="1" />
+		<command text="net user" command="net user" is_windows="1" />
+		<command text="net accounts" command="net accounts" is_windows="1" />
+	</commands>
+	
+	<!--Plugins-->
+	<plugins>
+		<plugin name="mass_example" mass_execute="1" show_result="1" />
+		<plugin name="single_example" mass_execute="0" show_result="1" />
+	</plugins>
+</settings>
