@@ -1629,7 +1629,7 @@ namespace bantam
             }
 
             string shellUrl = SelectedShellUrl;
-            string fileName = fileBrowserGetFileName();
+            string fileName = fileBrowserGetFileNameAndPath();
             bool encryptResponse = Shells[shellUrl].ResponseEncryption;
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
