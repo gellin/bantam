@@ -1634,7 +1634,9 @@ namespace bantam
             int ResponseEncryptionMode = Shells[shellUrl].ResponseEncryptionMode;
 
             SaveFileDialog downloadFileDialog = new SaveFileDialog {
-                RestoreDirectory = true
+                RestoreDirectory = true,
+                Title = "Downloading " + fileName,
+                FileName = fileBrowserGetFileName()
             };
 
             if (downloadFileDialog.ShowDialog() == DialogResult.OK) {
